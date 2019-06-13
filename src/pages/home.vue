@@ -2,7 +2,7 @@
     <div class="home">
     <!-- <el-container> -->
         <el-header>
-            LASF MGR
+            语音服务管理系统
 
             <el-dropdown class="fr" @command="handleDropdown" trigger="click">
                 <span class="el-dropdown-link">

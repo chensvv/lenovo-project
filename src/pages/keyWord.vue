@@ -7,11 +7,11 @@
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="关键字" prop="inc">
-        <el-input v-model="searchItem.inc"></el-input>
+      <el-form-item label="关键字" prop="gjc">
+        <el-input v-model="searchItem.gjc" clearable></el-input>
       </el-form-item>
       <el-form-item label="标准名" prop="inc">
-        <el-input v-model="searchItem.inc"></el-input>
+        <el-input v-model="searchItem.inc" clearable></el-input>
       </el-form-item>
       <el-form-item label="起始时间" prop="refreshTime">
           <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.refreshTime" style="width: 100%;"></el-date-picker>
@@ -49,6 +49,7 @@ export default {
     return {
       list: [],
       searchItem:{//搜索数据组
+        gjc:"",
         inc:"",
         refreshTime:"",
         putTime:""

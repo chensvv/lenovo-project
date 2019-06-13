@@ -7,7 +7,7 @@
     </el-breadcrumb>
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="问题" prop="ruleDes">
-        <el-input v-model="searchItem.ruleDes"></el-input>
+        <el-input v-model="searchItem.ruleDes" clearable></el-input>
       </el-form-item>
       <el-form-item label="起始时间" prop="refreshTime">
           <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.refreshTime" style="width: 100%;"></el-date-picker>

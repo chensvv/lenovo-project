@@ -8,10 +8,10 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="网站名" prop="classnames">
-                <el-input v-model="searchItem.classnames"></el-input>
+                <el-input v-model="searchItem.classnames" clearable></el-input>
             </el-form-item>
             <el-form-item label="来源" prop="was_from">
-                <el-input v-model="searchItem.was_from"></el-input>
+                <el-input v-model="searchItem.was_from" clearable></el-input>
             </el-form-item>
             <el-form-item label="开始时间" prop="refreshTime">
                 <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.refreshTime" style="width: 100%;"></el-date-picker>

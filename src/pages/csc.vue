@@ -8,13 +8,13 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="名称" prop="classnames">
-        <el-input v-model="searchItem.classnames"></el-input>
+        <el-input v-model="searchItem.classnames" clearable></el-input>
       </el-form-item>
       <el-form-item label="电话" prop="mobile_num">
-        <el-input v-model="searchItem.mobile_num"></el-input>
+        <el-input v-model="searchItem.mobile_num" clearable></el-input>
       </el-form-item>
       <el-form-item label="扩展" prop="kuoz">
-        <el-input v-model="searchItem.kuoz"></el-input>
+        <el-input v-model="searchItem.kuoz" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>

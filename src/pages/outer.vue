@@ -8,16 +8,16 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="用户ID" prop="mobile_num" class="res_wid">
-                <el-input v-model="searchItem.mobile_num"></el-input>
+                <el-input v-model="searchItem.mobile_num" clearable></el-input>
             </el-form-item>
             <el-form-item label="用户指令" prop="zhil" class="res_wid">
-                <el-input v-model="searchItem.zhil"></el-input>
+                <el-input v-model="searchItem.zhil" clearable></el-input>
             </el-form-item>
             <el-form-item label="解析领域" prop="lingy" class="res_wid">
-                <el-input v-model="searchItem.lingy"></el-input>
+                <el-input v-model="searchItem.lingy" clearable></el-input>
             </el-form-item>
             <el-form-item label="响应状态" prop="state" class="res_wid">
-                <el-input v-model="searchItem.state"></el-input>
+                <el-input v-model="searchItem.state" clearable></el-input>
             </el-form-item>
             <el-form-item label="开始时间" prop="refreshTime" class="res_wid1">
                 <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.refreshTime" style="width: 100%;"></el-date-picker>

@@ -8,10 +8,10 @@
     <!-- <el-button class="success" size="mini" @click="handleAdd()">添加</el-button> -->
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="应用名" prop="applicationName">
-        <el-input v-model="searchItem.applicationName"></el-input>
+        <el-input v-model="searchItem.applicationName" clearable></el-input>
       </el-form-item>
       <el-form-item label="来自于" prop="from">
-        <el-select v-model="searchItem.from" placeholder="--">
+        <el-select v-model="searchItem.from" placeholder="--" clearable>
           <el-option label="联想" value="联想"></el-option>
           <el-option label="百度" value="百度"></el-option>
         </el-select>

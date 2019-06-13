@@ -38,5 +38,8 @@ export default {
     display: block;
     margin: 10px auto 0;
 }
+.el-main{
+    background: #e3e3e3 !important;
+}
 </style>
 

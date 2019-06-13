@@ -8,10 +8,10 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="热词" prop="platform">
-                <el-input v-model="searchItem.platform"></el-input>
+                <el-input v-model="searchItem.platform" clearable></el-input>
             </el-form-item>
         <el-form-item label="VDM" prop="vdm">
-            <el-select v-model="searchItem.vdm" placeholder="--">
+            <el-select v-model="searchItem.vdm" placeholder="--" clearable>
             <el-option label="ALL" value="ALL"></el-option>
             <el-option label="LES" value="LES"></el-option>
             <el-option label="APP" value="APP"></el-option>
@@ -261,7 +261,7 @@ export default {
         },
         getList() {
             this.$http.get("/api/data").then(res => {
-                this.list = res.data;
+                this.list = res.data
                 console.log(this.pageSize)
                 res.data.forEach(item => {
                     item.index = item.id % this.pageSize;

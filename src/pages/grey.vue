@@ -8,10 +8,10 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="机型名称" prop="ruleDes">
-        <el-input v-model="searchItem.ruleDes"></el-input>
+        <el-input v-model="searchItem.ruleDes" clearable></el-input>
       </el-form-item>
       <el-form-item label="机型" prop="inc">
-        <el-input v-model="searchItem.inc"></el-input>
+        <el-input v-model="searchItem.inc" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>

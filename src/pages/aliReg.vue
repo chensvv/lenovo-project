@@ -7,7 +7,7 @@
     </el-breadcrumb>
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="规则" prop="outputType">
-        <el-input v-model="searchItem.outputType"></el-input>
+        <el-input v-model="searchItem.outputType" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>

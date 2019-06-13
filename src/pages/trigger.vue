@@ -6,44 +6,41 @@
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- <el-button class="success" size="mini" @click="handleAdd()">添加</el-button> -->
-    <div class="t_s">
       <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline" size="mini" label-width="70px">
-      <el-form-item label="客户端平台" prop="applicationName" class="res_wid">
-        <el-input v-model="searchItem.applicationName"></el-input>
+      <el-form-item label="客户端平台" prop="applicationName" class="res_wid1">
+        <el-input v-model="searchItem.applicationName" clearable></el-input>
       </el-form-item>
-      <el-form-item label="用户ID" prop="mobile_num" class="res_wid">
-        <el-input v-model="searchItem.mobile_num"></el-input>
+      <el-form-item label="用户ID" prop="mobile_num" class="res_wid1">
+        <el-input v-model="searchItem.mobile_num" clearable></el-input>
       </el-form-item>
-      <el-form-item label="客户端版本" prop="platform" class="res_wid">
-        <el-input v-model="searchItem.platform"></el-input>
+      <el-form-item label="客户端版本" prop="platform" class="res_wid1">
+        <el-input v-model="searchItem.platform" clearable></el-input>
       </el-form-item>
       <el-form-item label="引擎版本" prop="cost" class="res_wid1">
-        <el-input v-model="searchItem.cost"></el-input>
+        <el-input v-model="searchItem.cost" clearable></el-input>
       </el-form-item>
       <el-form-item label="开发者" prop="mobile_url" class="res_wid1">
-        <el-input v-model="searchItem.mobile_url"></el-input>
+        <el-input v-model="searchItem.mobile_url" clearable></el-input>
       </el-form-item>
-      <br>
-      <el-form-item label="唤醒词类型" prop="vdm" class="res_wid ma15">
-        <el-input v-model="searchItem.vdm"></el-input>
+      <el-form-item label="唤醒词类型" prop="vdm" class="res_wid1">
+        <el-input v-model="searchItem.vdm" clearable></el-input>
       </el-form-item>
-      <el-form-item label="唤醒词" prop="was_from" class="res_wid ma15">
-        <el-input v-model="searchItem.was_from"></el-input>
+      <el-form-item label="唤醒词" prop="was_from" class="res_wid1">
+        <el-input v-model="searchItem.was_from" clearable></el-input>
       </el-form-item>
-      <el-form-item label="数据来源" prop="from" class="res_wid ma15">
-        <el-input v-model="searchItem.from"></el-input>
+      <el-form-item label="数据来源" prop="from" class="res_wid1">
+        <el-input v-model="searchItem.from" clearable></el-input>
       </el-form-item>
-      <el-form-item label="开始时间" prop="refreshTime" class="res_wid1 ma15">
+      <el-form-item label="开始时间" prop="refreshTime" class="res_wid1">
           <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.refreshTime" style="width: 100%;"></el-date-picker>
       </el-form-item>
-      <el-form-item label="结束时间" prop="putTime" class="res_wid1 ma15">
+      <el-form-item label="结束时间" prop="putTime" class="res_wid1">
           <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.putTime" style="width: 100%;"></el-date-picker>
       </el-form-item>
     </el-form>
-    <div>
+    <div style="text-align: right; padding-bottom: 15px;">
       <el-button size="mini" type="primary" @click="onSubmit">查询</el-button>
       <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-    </div>
     </div>
     
       

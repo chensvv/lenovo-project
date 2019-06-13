@@ -17,7 +17,7 @@ const router = new Router({
         {
           path: '/home/index',
           component: () => import('@/pages/index'),
-          meta: {title: '首页'}
+          meta: {title: '语音服务管理系统'}
         },
         {
           path: '/home/appList',

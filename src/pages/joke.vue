@@ -7,10 +7,10 @@
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="内容" prop="joke_con">
-                <el-input v-model="searchItem.joke_con"></el-input>
+                <el-input v-model="searchItem.joke_con" clearable></el-input>
             </el-form-item>
-            <el-form-item label="来自于" prop="state">
-                <el-select v-model="searchItem.state" placeholder="--">
+            <el-form-item label="审核状态" prop="state">
+                <el-select v-model="searchItem.state" placeholder="--" clearable>
                     <el-option label="已审核" value="已审核"></el-option>
                     <el-option label="未审核" value="未审核"></el-option>
                 </el-select>
@@ -178,12 +178,7 @@ export default {
       this.$refs[formName].resetFields();
     },
     onSubmit(){
-        let s_state = ""
-        if(this.searchItem.state == '已审核')
-            s_state = 0
-        if(this.searchItem.state == '未审核')
-            s_state = 1
-      console.log(this.searchItem.joke_con,s_state)
+      console.log(this.searchItem)
     },
     closeFun(currentItem){
       this.$nextTick(() => {
