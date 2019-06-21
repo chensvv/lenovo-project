@@ -152,6 +152,20 @@ export default {
               return h('span',
               formatDate(new Date(timer), 'yyyy-MM-dd hh:mm'))
           }
+        },
+        {
+            prop:"",
+            label: "操作",
+            align: "center",
+            render: (h, params)=>{
+              return h('a',{
+                attrs: {
+                  download: 'jpg',
+                  class:"downloadFile",
+                  href: '../../static/images/favicon.ico'
+                },
+              })
+          }
         }
       ],
       options: {
@@ -164,16 +178,7 @@ export default {
       operates: {
         show: false,
         list: [
-          {
-            id: "1",
-            label: "下载文件",
-            show: true,
-            plain: true,
-            disabled: false,
-            method: (index, row) => {
-                this.download(index, row);
-            }
-          }
+          
         ]
       }, // 列操作按钮
       // 分页
@@ -229,10 +234,5 @@ export default {
 </script>
 
 <style scoped>
-.t_s{
-  display: flex;
-  justify-content: space-evenly;
-  padding: 10px 0 15px 0;
-  align-items: center;
-}
+
 </style>

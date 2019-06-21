@@ -146,3 +146,34 @@
 .el-input__inner,.el-textarea__inner{
   padding: 0 10px;
 }
+.downloadFile{
+  text-decoration: none;
+    padding: 3px 10px;
+    display: inline-block;
+    border: 1px solid #DCDFE6;
+    color: #606266;
+    border-radius: 3px;
+    touch-action: none;
+}
+.downloadFile:hover{
+  color: #409EFF;
+  border-color: #c6e2ff;
+  background-color: #ecf5ff;
+}
+.downloadFile:active{
+  color: #3a8ee6;
+  border-color: #3a8ee6;
+  outline: 0;
+}
+.downloadFile::after{
+  content:'下载文件';
+}
+.login-box .el-form-item.is-required:not(.is-no-asterisk)>.el-form-item__label:before{
+  content:'' !important;
+}
+.el-form-item.is-success .el-input__inner{
+  border: 1px solid #DCDFE6;
+}
+.el-form-item.is-success .el-input__inner:focus{
+  border-color: #409EFF;
+}

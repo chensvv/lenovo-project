@@ -18,8 +18,8 @@ Vue.use(ElementUI)
 import axios from 'axios'
 Vue.prototype.$http = axios
 
-import Itf from './utils/interface'
-Vue.prototype.$util = Itf.INTERCHILD
+import Itf from './config/api'
+Vue.prototype.$URL = Itf.INTERCHILD
 
 import '../mock/mock.js'
 import '../static/css/base.css'
