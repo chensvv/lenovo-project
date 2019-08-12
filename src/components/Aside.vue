@@ -101,13 +101,21 @@
                 <i class="el-icon-document"></i>
                 <span>技能配置信息</span>
             </el-menu-item>
+            <el-menu-item index="/home/video">
+                <i class="el-icon-document"></i>
+                <span>技能视频管理</span>
+            </el-menu-item>
+            <el-menu-item index="/home/singer">
+                <i class="el-icon-document"></i>
+                <span>音乐歌手管理</span>
+            </el-menu-item>
         </el-submenu>
 
         <el-menu-item index="/home/setting">
             <i class="el-icon-setting"></i>
 			<span>设置</span>
         </el-menu-item>
-    </el-menu>    
+    </el-menu>
 </template>
 
 <script>

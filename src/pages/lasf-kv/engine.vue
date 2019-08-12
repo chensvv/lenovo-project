@@ -7,14 +7,14 @@
         </el-breadcrumb>
         <el-form :inline="true" class="demo-form-inline search_box" size="mini" label-width="90px">
             <el-form-item label="更新时间：">
-                <span>{{time}}</span>
+                <span>{{list[1]}}</span>
             </el-form-item>
             <el-form-item>
                 <el-button class="success" size="mini" @click="handleEdit()">修改</el-button>
             </el-form-item>
         </el-form>
         <div class="table-box">
-            <el-input type="textarea" v-model="asr" auto-complete="off" readonly class="textarea"></el-input>
+            <el-input type="textarea" v-model="list[0]" auto-complete="off" readonly class="textarea"></el-input>
         </div>
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @open="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
@@ -35,15 +35,14 @@
 
 <script>
 import iTable from "@/components/table";
-import {formatDate} from '@/utils/format.js'
+import {checkTime} from '@/utils/timer.js'
+import {engineView, engineUpd} from '@/config/api'
 export default {
   name: "applicationlist",
   components: { iTable },
   data() {
     return {
       list: [],
-      time:"2019-06-06 11:20",
-      asr:"dist=[sdfsdfsdfsdfsdfsfsdfs]",
       currentItem: {//修改数据组
         asrpsd:"",
         asr: "",
@@ -67,22 +66,39 @@ export default {
   methods: {
     handleEdit() {
       this.editVisible = true;
-    // console.log(this.$ref.name.value)
-      this.currentItem.asr = this.asr
+      this.currentItem.asr = this.list[0]
     },
     editHandleClose() {
       this.editVisible = false;
       
     },
     editHandleConfirm(currentItem) {
+      let updParams = {
+        pwd:this.currentItem.asrpsd,
+        val:this.currentItem.asr
+      }
+      console.log(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
-          console.log(this.currentItem)
           this.editBtnLoading = true
-          setTimeout(()=>{
-            this.editBtnLoading = false
-            this.editVisible = false;
-          },2000)
+          engineUpd(updParams).then(res=>{
+            if(res.data.code == 200){
+                this.$message({
+                    message:'修改成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.getList()
+                this.editBtnLoading = false
+                this.editVisible = false
+            }else{
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            }
+          })
         } else {
           return false;
         }
@@ -96,15 +112,8 @@ export default {
       })
     },
     getList() {
-      this.$http.get("/api/data").then(res => {
+      engineView().then(res => {
         this.list = res.data;
-        res.data.forEach(item => {
-          item.index = item.id % this.pageSize;
-          if(item.index == 0){
-            item.index = this.pageSize
-          }
-        });
-        this.totalCount = this.list.length
       });
     }
   }

@@ -9,7 +9,7 @@
                 <el-input type="password" v-model="loginForm.password" prefix-icon="el-icon-lock" auto-complete="off" clearable></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="onSubmit('loginForm')" :loading="loginLoading">登录</el-button>
+                <el-button type="primary" @click.enter="onSubmit('loginForm')" :loading="loginLoading">登录</el-button>
             </el-form-item>
         </el-form>
         </div>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-
+import {loginInfo} from '../config/api'
 import qs from 'qs'
 
 export default {
@@ -36,8 +36,6 @@ export default {
     },
     methods: {
         onSubmit(loginForm){
-            
-            var url = "http://api.baxiaobu.com/index.php/home/v1/login";
 
             var params = {
                 username:this.loginForm.username,
@@ -47,22 +45,25 @@ export default {
             this.$refs[loginForm].validate((valid) => {
                 if (valid) {
                     this.loginLoading=true
-                    this.$http.post(url, params).then((res)=>{
-                        if(res.data.status == 200){
-                            this.$message({
-                                message:res.data.message,
-                                type:"success",
-                                duration:1000
-                            });
-                            this.loginLoading = false
-                            localStorage.setItem('user_id', res.data.data.user_id);
-                            localStorage.setItem('username',res.data.data.user_name)
-                            this.$router.push('/home')
-                        }else if(res.data.status == 400){
-                            this.loginLoading = false
-                            this.$message.error(res.data.message);
-                        }
-                    })
+                    // loginInfo(params).then((res)=>{
+                        // if(res.data.status == 200){
+                            // this.$message({
+                            //     message:res.data.message,
+                            //     type:"success",
+                            //     duration:1000
+                            // });
+                            setTimeout(()=>{
+                                this.loginLoading = false
+                                localStorage.setItem('user_id', this.loginForm.password);
+                                localStorage.setItem('username',this.loginForm.username)
+                                this.$router.push('/home')
+                            },1500)
+                            
+                        // }else if(res.data.status == 400){
+                        //     this.loginLoading = false
+                        //     this.$message.error(res.data.message);
+                        // }
+                    // })
                 } else {
                     return false;
                 }

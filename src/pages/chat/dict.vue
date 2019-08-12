@@ -7,22 +7,32 @@
         </el-breadcrumb>
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-            <el-form-item label="热词" prop="platform">
-                <el-input v-model="searchItem.platform" clearable></el-input>
+            <el-form-item label="热词" prop="hotName">
+                <el-input v-model="searchItem.hotName" clearable></el-input>
             </el-form-item>
         <el-form-item label="VDM" prop="vdm">
             <el-select v-model="searchItem.vdm" placeholder="--" clearable>
-            <el-option label="ALL" value="ALL"></el-option>
-            <el-option label="LES" value="LES"></el-option>
-            <el-option label="APP" value="APP"></el-option>
-            <el-option label="VOD" value="VOD"></el-option>
+            <el-option label="all" value="all"></el-option>
+            <el-option label="les" value="les"></el-option>
+            <el-option label="app" value="app"></el-option>
+            <el-option label="vod" value="vod"></el-option>
             </el-select>
         </el-form-item>
         <el-form-item label="开始时间" prop="refreshTime">
-            <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.refreshTime" style="width: 100%;"></el-date-picker>
+            <el-date-picker 
+                type="date" 
+                placeholder="选择日期" 
+                v-model="searchItem.refreshTime" 
+                style="width: 100%;"
+                value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
         <el-form-item label="结束时间" prop="putTime">
-            <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.putTime" style="width: 100%;"></el-date-picker>
+            <el-date-picker 
+                type="date" 
+                placeholder="选择日期" 
+                v-model="searchItem.putTime" 
+                style="width: 100%;"
+                value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -31,7 +41,7 @@
         <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
         </el-form>
         <div class="table-box">
-        <i-table :list="list.slice((currentPage-1)*pageSize,currentPage*pageSize)" :options="options" :columns="columns" :operates="operates"></i-table>
+        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -45,20 +55,20 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'left'" label-width="100px" :rules="editRules" :model="currentItem" ref="currentItem">
-            <el-form-item label="热词" prop="platform">
-                <el-input type="text" v-model="currentItem.platform" auto-complete="off"></el-input>
+            <el-form-item label="热词" prop="hotName">
+                <el-input type="text" v-model="currentItem.hotName" auto-complete="off"></el-input>
                 <el-button size="mini">获取推荐读音</el-button>
             </el-form-item>
-            <el-form-item label="词语发音" prop="fay">
-                <el-input type="text" v-model="currentItem.fay" auto-complete="off"></el-input>
+            <el-form-item label="词语发音" prop="pronounceName">
+                <el-input type="text" v-model="currentItem.pronounceName" auto-complete="off"></el-input>
                 <span style="font-size:12px">(如热词为‘A180’，此处可填写‘诶裔巴绫’)</span>
             </el-form-item>
             <el-form-item label="VDM" prop="vdm">
                 <el-select v-model="currentItem.vdm" placeholder="--">
-                <el-option :label="ALL" value="ALL"></el-option>
-                <el-option :label="LES" value="LES"></el-option>
-                <el-option :label="APP" value="APP"></el-option>
-                <el-option :label="VOD" value="VOD"></el-option>
+                <el-option label="all" value="all"></el-option>
+                <el-option label="les" value="les"></el-option>
+                <el-option label="app" value="app"></el-option>
+                <el-option label="vod" value="vod"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -69,20 +79,19 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
         <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-            <el-form-item label="热词" prop="platform">
-            <el-input type="text" v-model="addList.platform" auto-complete="off"></el-input>
+            <el-form-item label="热词" prop="hotName">
+                <el-input type="text" v-model="addList.hotName" auto-complete="off"></el-input>
             </el-form-item>
-            <el-form-item label="词语发音" prop="fay">
-            <el-input type="text" v-model="addList.fay" auto-complete="off"></el-input>
-            <span style="font-size:12px">(如热词为‘A180’，此处可填写‘诶裔巴绫’)</span>
+            <el-form-item label="词语发音" prop="pronounceName">
+                <el-input type="text" v-model="addList.pronounceName" placeholder="(如热词为‘A180’，此处可填写‘诶裔巴绫’)" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="VDM" prop="vdm">
-            <el-select v-model="addList.vdm" placeholder="--">
-            <el-option label="ALL" value="ALL"></el-option>
-            <el-option label="LES" value="LES"></el-option>
-            <el-option label="APP" value="APP"></el-option>
-            <el-option label="VOD" value="VOD"></el-option>
-            </el-select>
+                <el-select v-model="addList.vdm" placeholder="--">
+                    <el-option label="all" value="all"></el-option>
+                    <el-option label="les" value="les"></el-option>
+                    <el-option label="app" value="app"></el-option>
+                    <el-option label="vod" value="vod"></el-option>
+                </el-select>
         </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -95,7 +104,8 @@
 
 <script>
 import iTable from "@/components/table";
-import {formatDate} from '@/utils/format.js'
+import {checkTime} from '@/utils/timer.js'
+import {dictList, dictDel, dictAddUpd} from '@/config/api'
 export default {
     name: "applicationlist",
     components: { iTable },
@@ -103,28 +113,22 @@ export default {
         return {
             list: [],
             currentItem: {//修改数据组
-                platform: "",
-                fay: "",
+                hotName: "",
+                pronounceName: "",
                 vdm: "",
             },
             addList: {//添加数据组
-                platform: "",
-                fay: "",
+                hotName: "",
+                pronounceName: "",
                 vdm: "",
             },
             searchItem:{//搜索数据组
-                platform:"",
+                hotName:"",
                 vdm:"",
                 refreshTime:"",
                 putTime:""
             },
             columns: [
-                {
-                    prop:"index",
-                    label: "序号",
-                    align: "center",
-                    hasSort:true
-                },
                 {
                     prop: "vdm",
                     label: "VDM",
@@ -132,32 +136,38 @@ export default {
                     hasSort:true
                 },
                 {
-                    prop: "platform",
+                    prop: "name",
                     label: "热词",
                     align: "left",
                     hasSort:true
                 },
                 {
-                    prop: "applicationName",
+                    prop: "pronounceName",
                     label: "发音",
                     align: "center",
                     hasSort:true
                 },
                 {
-                    prop: "putTime",
+                    prop: "upTime",
                     label: "更新时间",
                     align: "center",
                     hasSort:true,
                     render: (h, params)=>{
-                        var timer = parseInt(params.row.putTime)
+                        var timer = params.row.upTime
+                        var date = new Date(timer)
                         return h('span',
-                        formatDate(new Date(timer), 'yyyy-MM-dd hh:mm'))
+                            date.getFullYear()+'-'+
+                            checkTime(date.getMonth()+1)+'-'+
+                            checkTime(date.getDate())+' '+
+                            checkTime(date.getMonth())+':'+
+                            checkTime(date.getMinutes())+':'+
+                            checkTime(date.getSeconds()))
                     }
                 }
             ],
             options: {
                 stripe: false, // 是否为斑马纹 table
-                loading: true, // 是否添加表格loading加载动画
+                loading: false, // 是否添加表格loading加载动画
                 highlightCurrentRow: false, // 是否支持当前行高亮显示
                 mutiSelect: false, // 是否支持列表项选中功能
                 border:false     //是否显示纵向边框
@@ -190,20 +200,20 @@ export default {
                 ]
             }, // 列操作按钮
             addRules:{
-                platform:[{ required: true, message: '请输入网站名称add', trigger: 'change' }],
-                fay:[{ required: true, message: '请输入说法', trigger: 'change' }],
+                hotName:[{ required: true, message: '请输入网站名称add', trigger: 'change' }],
+                pronounceName:[{ required: true, message: '请输入说法', trigger: 'change' }],
                 vdm:[{ required: true, message: '请输入手机网址', trigger: 'change' }],
             },
             editRules:{
-                platform:[{ required: true, message: '请输入网站名称add', trigger: 'blur' }],
-                fay:[{ required: true, message: '请输入说法', trigger: 'blur' }],
+                hotName:[{ required: true, message: '请输入网站名称add', trigger: 'blur' }],
+                pronounceName:[{ required: true, message: '请输入说法', trigger: 'blur' }],
                 vdm:[{ required: true, message: '请输入手机网址', trigger: 'blur' }],
             },
             editVisible: false,
             addVisible: false,
             // 分页
             currentPage: 1, //默认显示第几页
-            pageSize: 10,   //默认每页条数
+            pageSize: 30,   //默认每页条数
             pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             seaBtnLoading:false,
@@ -217,13 +227,12 @@ export default {
     methods: {
         resetForm(formName) {
             this.$refs[formName].resetFields();
+            this.getList();
         },
         onSubmit(){
             this.seaBtnLoading = true
-            setTimeout(()=>{
-                this.seaBtnLoading = false
-            },2000)
-            console.log(this.searchItem)
+            this.getList();
+            this.seaBtnLoading = false
         },
         handleSizeChange(val) {
             this.pageSize = val;
@@ -233,26 +242,43 @@ export default {
         handleCurrentChange(val) {
             this.currentPage = val
             console.log(`当前页: ${val}`);
-            // this.getList();
+            this.getList();
         },
         handleEdit(index, row) {
             console.log(index, row);
             this.editVisible = true;
             this.currentItem = {
-                platform: row.platform,
-                fay: row.applicationName,
+                id:row.id,
+                hotName: row.name,
+                pronounceName: row.pronounceName,
                 vdm: row.vdm
             };
         },
         handleDel(index, row) {
-            console.log(row.id);
-            console.log(index)
+            let delParams = {
+                id:row.id
+            }
             this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
-                this.list.splice(index,1)
+                dictDel(delParams).then(res=>{
+                    if(res.data.code == 200){
+                        this.$message({
+                            message:'删除成功',
+                            type:"success",
+                            duration:1000
+                        });
+                        this.getList();
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1000
+                        });
+                    }
+                })
             }).catch(() => {
                 console.log("no");
             });
@@ -279,14 +305,34 @@ export default {
             this.addVisible = false
         },
         editHandleConfirm(currentItem) {
+            let updParams = {
+                id:this.currentItem.id,
+                vdm:this.currentItem.vdm,
+                name:this.currentItem.hotName,
+                pronounceName:this.currentItem.pronounceName
+            }
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
-                    console.log(this.currentItem)
                     this.editBtnLoading = true
-                    setTimeout(()=>{
-                        this.editBtnLoading = false
-                        this.editVisible = false;
-                    },2000)
+                    dictAddUpd(updParams).then(res=>{
+                        if(res.data.code == 200){
+                            this.$message({
+                                message:'修改成功',
+                                type:"success",
+                                duration:1000
+                            });
+                            this.getList()
+                            this.editBtnLoading = false
+                            this.editVisible = false
+                        }else{
+                            this.editBtnLoading = false
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
+                        }
+                    })
                 } else {
                     return false;
                 }
@@ -296,31 +342,51 @@ export default {
             this.addVisible = true
         },
         addHandleConfirm(addList) {
+            let addParams = {
+                name:this.addList.hotName,
+                vdm:this.addList.vdm,
+                pronounceName:this.addList.pronounceName
+            }
             this.$refs[addList].validate((valid) => {
                 if (valid) {
-                    console.log(this.addList)
                     this.addBtnLoading = true
-                    setTimeout(()=>{
-                        this.addBtnLoading = false
-                        this.addVisible = false;
-                    },2000)
+                    dictAddUpd(addParams).then(res=>{
+                        if(res.data.code == 200){
+                            this.$message({
+                                message:'添加成功',
+                                type:"success",
+                                duration:1000
+                            });
+                            this.getList()
+                            this.addBtnLoading = false
+                            this.addVisible = false
+                        }else{
+                            this.addBtnLoading = false
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
+                        }
+                    })
                 } else {
                     return false;
                 }
             });
         },
         getList() {
-            this.$http.get("/api/data").then(res => {
-                this.list = res.data
-                console.log(this.pageSize)
-                res.data.forEach(item => {
-                    item.index = item.id % this.pageSize;
-                    if(item.index == 0){
-                        item.index = this.pageSize
-                    }
-                });
-                this.totalCount = this.list.length
-                this.options.loading = false;
+            let params = {
+                pgstr:this.currentPage,
+                pcstr:this.pageSize,
+                startStr:this.searchItem.refreshTime,
+                endStr:this.searchItem.putTime,
+                name: this.searchItem.hotName,
+                vdm:this.searchItem.vdm,
+            }
+            dictList(params).then(res => {
+                console.log(res)
+                this.list = res.data.data.data
+                this.totalCount = res.data.data.total
             });
         }
     }

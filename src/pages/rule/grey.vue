@@ -7,8 +7,8 @@
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="机型名称" prop="ruleDes">
-        <el-input v-model="searchItem.ruleDes" clearable></el-input>
+      <el-form-item label="机型名称" prop="name">
+        <el-input v-model="searchItem.name" clearable></el-input>
       </el-form-item>
       <el-form-item label="机型" prop="inc">
         <el-input v-model="searchItem.inc" clearable></el-input>
@@ -24,7 +24,7 @@
       
     </el-form>
     <div class="table-box">
-      <i-table :list="list.slice((currentPage-1)*pageSize,currentPage*pageSize)" :options="options" :columns="columns" :operates="operates"></i-table>
+      <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -38,11 +38,11 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="功能名称" prop="ruleDes">
-          <el-input type="textarea" v-model="currentItem.ruleDes" auto-complete="off"></el-input>
+        <el-form-item label="功能名称" prop="name">
+          <el-input type="textarea" v-model="currentItem.name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="功能代码" prop="from">
-          <el-input type="textarea" v-model="currentItem.from" auto-complete="off"></el-input>
+        <el-form-item label="功能代码" prop="code">
+          <el-input type="textarea" v-model="currentItem.code" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -52,11 +52,11 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="功能名称" prop="ruleDes">
-          <el-input type="textarea" v-model="addList.ruleDes" auto-complete="off"></el-input>
+        <el-form-item label="功能名称" prop="name">
+          <el-input type="textarea" v-model="addList.name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="功能代码" prop="from">
-          <el-input type="textarea" v-model="addList.from" auto-complete="off"></el-input>
+        <el-form-item label="功能代码" prop="code">
+          <el-input type="textarea" v-model="addList.code" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -64,19 +64,29 @@
         <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="配置" :visible.sync="conVisible" width="300" :before-close="conHandleClose">
+    <el-dialog title="配置" :visible.sync="optVisible" width="300" :before-close="optHandleClose" @open="optShow()">
       <el-form :label-position="'left'" label-width="100px">
         <el-form-item label="功能名称">
-          <el-input type="text" v-model="conList.ruleDes" auto-complete="off" readonly></el-input>
+          <el-input type="text" v-model="optList.name" auto-complete="off" readonly></el-input>
         </el-form-item>
         <el-form-item label="功能代码">
-          <el-input type="text" v-model="conList.from" auto-complete="off" readonly></el-input>
+          <el-input type="text" v-model="optList.code" auto-complete="off" readonly></el-input>
+          <el-table :show-header="false" :data="optList.pageDate" border ref="table" style="width: 100%" @selection-change="handleSelectionChange">
+            <el-table-column type="selection" width="55">
+            </el-table-column>
+            <el-table-column
+              prop="name">
+            </el-table-column>
+            <el-table-column
+              prop="code">
+            </el-table-column>
+          </el-table>
         </el-form-item>
 
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="conVisible = false">取 消</el-button>
-        <el-button type="primary" @click="conHandleConfirm" :loading="conBtnLoading">确 定</el-button>
+        <el-button @click="optVisible = false">取 消</el-button>
+        <el-button type="primary" @click="optHandleConfirm" :loading="optBtnLoading">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -84,7 +94,8 @@
 
 <script>
 import iTable from "@/components/table";
-import {formatDate} from '@/utils/format.js'
+import {checkTime} from '@/utils/timer.js'
+import {greyList, greyAddUpd, greyDel, greyOpt, greyOptSave} from '@/config/api'
 export default {
   name: "applicationlist",
   components: { iTable },
@@ -92,56 +103,59 @@ export default {
     return {
       list: [],
       currentItem: {//修改数据组
-        from: "",
-        ruleDes: "",
+        id:"",
+        code: "",
+        name: "",
       },
       addList: {//添加数据组
-        from: "",
-        ruleDes: "",
+        code: "",
+        name: "",
       },
       searchItem:{//搜索数据组
         inc:"",
-        ruleDes:"",
+        name:"",
       },
-      conList:{
-          from:"",
-          ruleDes:""
+      optList:{
+          code:"",
+          name:"",
+          pageDate:[]
       },
+      multipleSelection:[],
+      selectId:"",
       columns: [
         {
-          prop:"index",
-          label: "序号",
-          align: "center",
-          width: 100,
-          hasSort:true
-        },
-        {
-          prop: "ruleDes",
+          prop: "name",
           label: "功能名称",
           align: "center",
           hasSort:true
         },
         {
-          prop: "from",
+          prop: "code",
           label: "功能代码",
           align: "center",
           hasSort:true
         },
         {
-          prop: "refreshTime",
+          prop: "it",
           label: "更新/入库时间",
           align: "center",
           hasSort:true,
           render: (h, params)=>{
-            var timer = parseInt(params.row.refreshTime)
+              var timer = params.row.it
+              var date = new Date(timer)
               return h('span',
-              formatDate(new Date(timer), 'yyyy-MM-dd hh:mm'))
+              date.getFullYear()+'-'+
+              checkTime(date.getMonth()+1)+'-'+
+              checkTime(date.getDate())+' '+
+              checkTime(date.getMonth())+':'+
+              checkTime(date.getMinutes())+':'+
+              checkTime(date.getSeconds()))
           }
         }
       ],
       options: {
         stripe: false, // 是否为斑马纹 table
-        loading: true, // 是否添加表格loading加载动画
+        loading: false, // 是否添加表格loading加载动画
         highlightCurrentRow: false, // 是否支持当前行高亮显示
         mutiSelect: false, // 是否支持列表项选中功能
         border:false     //是否显示纵向边框
@@ -178,31 +192,32 @@ export default {
             plain: false,
             disabled: false,
             method: (index, row) => {
-              this.handleCon(index, row);
+              this.handleOpt(index, row);
             }
           }
         ]
       }, // 列操作按钮
       addRules:{
-        ruleDes:[{ required: true, message: '请输入功能名称', trigger: 'change' }],
-        from:[{ required: true, message: '请输入功能代码', trigger: 'change' }]  
+        name:[{ required: true, message: '请输入功能名称', trigger: 'change' }],
+        code:[{ required: true, message: '请输入功能代码', trigger: 'change' }]  
       },
       editRules:{
-        ruleDes:[{ required: true, message: '请输入功能名称', trigger: 'blur' }],
-        from:[{ required: true, message: '请输入功能代码', trigger: 'blur' }]  
+        name:[{ required: true, message: '请输入功能名称', trigger: 'blur' }],
+        code:[{ required: true, message: '请输入功能代码', trigger: 'blur' }]  
       },
       editVisible: false,
       addVisible: false,
-      conVisible: false,
+      optVisible: false,
       // 分页
       currentPage: 1, //默认显示第几页
-      pageSize: 10,   //默认每页条数
+      pageSize: 30,   //默认每页条数
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
       addBtnLoading:false,
       editBtnLoading:false,
-      conBtnLoading:false
+      optBtnLoading:false,
+      
     };
   },
   created() {
@@ -211,13 +226,12 @@ export default {
   methods: {
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.getList()
     },
     onSubmit(){
       this.seaBtnLoading = true
-      setTimeout(()=>{
-          this.seaBtnLoading = false
-      },2000)
-      console.log(this.searchItem)
+      this.getList()
+      this.seaBtnLoading = false
     },
     handleSizeChange(val) {
       this.pageSize = val;
@@ -227,25 +241,42 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       console.log(`当前页: ${val}`);
-      // this.getList();
+      this.getList();
     },
     handleEdit(index, row) {
       console.log(index, row);
       this.editVisible = true;
       this.currentItem = {
-        from: row.from,
-        ruleDes: row.ruleDes,
+        id:row.id,
+        code: row.code,
+        name: row.name,
       };
     },
     handleDel(index, row) {
-      console.log(row.id);
-      console.log(index)
+      let delParams = {
+        id:row.id
+      }
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-          this.list.splice(index,1)
+          greyDel(delParams).then(res=>{
+            if(res.data.code == 200){
+                this.$message({
+                    message:'删除成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.getList();
+            }else{
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            }
+          })
         }).catch(() => {
           console.log("no");
         });
@@ -272,14 +303,33 @@ export default {
       this.addVisible = false
     },
     editHandleConfirm(currentItem) {
+      let updParams = {
+        id:this.currentItem.id,
+        n:this.currentItem.name,
+        c:this.currentItem.code
+      }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
-          console.log(this.currentItem)
           this.editBtnLoading = true
-          setTimeout(()=>{
-              this.editBtnLoading = false
-              this.editVisible = false;
-          },2000)
+          greyAddUpd(updParams).then(res=>{
+            if(res.data.code == 200){
+                this.$message({
+                    message:'修改成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.getList()
+                this.editBtnLoading = false
+                this.editVisible = false
+            }else{
+                this.editBtnLoading = false
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            }
+          })
         } else {
           return false;
         }
@@ -289,47 +339,102 @@ export default {
       this.addVisible = true
     },
     addHandleConfirm(addList) {
+      let addParams = {
+        n:this.addList.name,
+        c:this.addList.code
+      }
       this.$refs[addList].validate((valid) => {
         if (valid) {
-          console.log(this.addList)
           this.addBtnLoading = true
-          setTimeout(()=>{
-            this.addBtnLoading = false
-            this.addVisible = false;
-          },2000)
+          greyAddUpd(addParams).then(res=>{
+            if(res.data.code == 200){
+                this.$message({
+                    message:'添加成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.getList()
+                this.addBtnLoading = false
+                this.addVisible = false
+            }else{
+                this.addBtnLoading = false
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            }
+          })
         } else {
           return false;
         }
       });
     },
-    handleCon(index,row){
-        this.conList = {
-            from: row.from,
-            ruleDes: row.ruleDes,
-        };
-        this.conVisible = true
+    optShow(){
+      this.$nextTick(() => {
+        this.optList.pageDate.forEach(item => {
+          if (item.check === 'checked') {
+            this.$refs.table.toggleRowSelection(item, true)
+          }
+        })
+      })
     },
-    conHandleClose(){
-      this.conVisible = false
+    handleOpt(index,row){
+    this.selectId = row.id
+    let optId = {
+      id:row.id
+    }
+    greyOpt(optId).then(res=>{
+      this.optList.name = res.data.devName
+      this.optList.code = res.data.devCode
+      this.optList.pageDate = res.data.page.data
+      this.optShow()
+    })
+    this.optVisible = true
     },
-    conHandleConfirm(){
-      this.conBtnLoading = true
-      setTimeout(()=>{
-        this.conBtnLoading = false
-        this.conVisible = false
-      },2000)
+    handleSelectionChange(val) {
+      val = val.map(item=>item.code)
+      this.multipleSelection = val
+    },
+    optHandleClose(){
+      this.optVisible = false
+    },
+    optHandleConfirm(){
+      this.optBtnLoading = true
+      let optParams = {
+        id:this.selectId,
+        chk:this.multipleSelection
+      }
+      greyOptSave(optParams).then(res=>{
+        if(res.data.code == 200){
+            this.$message({
+                message:'配置成功',
+                type:"success",
+                duration:1000
+            });
+            this.getList()
+            this.optBtnLoading = false
+            this.optVisible = false
+        }else{
+            this.optBtnLoading = false
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1000
+            });
+        }
+      })
     },
     getList() {
-      this.$http.get("/api/data").then(res => {
-        this.list = res.data;
-        res.data.forEach(item => {
-          item.index = item.id % this.pageSize;
-          if(item.index == 0){
-            item.index = this.pageSize
-          }
-        });
-        this.totalCount = this.list.length
-        this.options.loading = false;
+      let params = {
+        pgstr:this.currentPage,
+        pcstr:this.pageSize,
+        n:this.searchItem.name,
+        c:this.searchItem.code
+      }
+      greyList(params).then(res => {
+        this.list = res.data.data;
+        this.totalCount = res.data.count
       });
     }
   }

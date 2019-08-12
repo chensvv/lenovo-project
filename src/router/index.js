@@ -130,9 +130,39 @@ const router = new Router({
           meta: {title: '技能答案列表'}
         },
         {
+          path: '/home/video',
+          component: () => import('@/pages/lasf-kv/video'),
+          meta: {title: '技能视频管理'}
+        },
+        {
+          path: '/home/singer',
+          component: () => import('@/pages/lasf-kv/singer'),
+          meta: {title: '音乐歌手管理'}
+        },
+        {
+          path: '/home/album',
+          component: () => import('@/pages/lasf-kv/album'),
+          meta: {title: '音乐歌手管理'}
+        },
+        {
+          path: '/home/song',
+          component: () => import('@/pages/lasf-kv/song'),
+          meta: {title: '音乐歌手管理'}
+        },
+        {
+          path: '/home/userinfo',
+          component: () => import('@/pages/user/userInfo'),
+          meta: {title: '详细信息'}
+        },
+        {
           path: '/home/setting',
           component: () => import('@/pages/setting'),
           meta: {title: '设置'}
+        },
+        {
+          path: '/404',
+          component: () => import('@/pages/404'),
+          meta: {title: '404'}
         },
         {
           path: '/home',
@@ -152,6 +182,10 @@ const router = new Router({
     {
       path: '/',
       redirect: '/home'
+    },
+    {
+      path: '*',
+      redirect: '/404'
     }
   ]
 })

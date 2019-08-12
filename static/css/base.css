@@ -33,7 +33,11 @@
 .el-button--mini {
   padding: 7px 10px;
 }
-
+.reg .cell{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* 修改input宽度 */
 .search_box,.cache,.outer {
   text-align: right;
@@ -140,7 +144,7 @@
   padding-left: 5px;
   letter-spacing: 1px;
 }
-.alert_main .num{
+.alert_main span{
   font-size: 16px;
 }
 .el-input__inner,.el-textarea__inner{

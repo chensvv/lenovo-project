@@ -7,8 +7,8 @@
         </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-        <el-form-item label="规则名称" prop="ruleDes">
-            <el-input v-model="searchItem.ruleDes" clearable></el-input>
+        <el-form-item label="规则名称" prop="ruleName">
+            <el-input v-model="searchItem.ruleName" clearable></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -18,7 +18,7 @@
         <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
     </el-form>
     <div class="table-box">
-        <i-table :list="list.slice((currentPage-1)*pageSize,currentPage*pageSize)" :options="options" :columns="columns" :operates="operates"></i-table>
+        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -32,11 +32,11 @@
 
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
-            <el-form-item label="规则名称" prop="ruleDes">
-                <el-input type="text" v-model="currentItem.ruleDes" auto-complete="off"></el-input>
+            <el-form-item label="规则名称" prop="ruleName">
+                <el-input type="text" v-model="currentItem.ruleName" auto-complete="off"></el-input>
             </el-form-item>
-            <el-form-item label="sougou" prop="sougou">
-                <el-input type="text" v-model="currentItem.sougou" auto-complete="off"></el-input>
+            <el-form-item label="sogou" prop="sogou">
+                <el-input type="text" v-model="currentItem.sogou" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="duer" prop="duer">
                 <el-input type="text" v-model="currentItem.duer" auto-complete="off"></el-input>
@@ -60,11 +60,11 @@
         </el-dialog>
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="80px" :rules="addRules" :model="addList" ref="addList">
-                <el-form-item label="规则名称" prop="ruleDes">
-                    <el-input type="text" v-model="addList.ruleDes" auto-complete="off"></el-input>
+                <el-form-item label="规则名称" prop="ruleName">
+                    <el-input type="text" v-model="addList.ruleName" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="sougou" prop="sougou">
-                    <el-input type="text" v-model="addList.sougou" auto-complete="off"></el-input>
+                <el-form-item label="sogou" prop="sogou">
+                    <el-input type="text" v-model="addList.sogou" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="duer" prop="duer">
                     <el-input type="text" v-model="addList.duer" auto-complete="off"></el-input>
@@ -92,7 +92,8 @@
 
 <script>
 import iTable from "@/components/table";
-import {formatDate} from '@/utils/format.js'
+import {checkTime} from '@/utils/timer.js'
+import {ruleList, ruleAdd, ruleUpd, ruleDel, rulePub} from '@/config/api'
 export default {
   name: "applicationlist",
   components: { iTable },
@@ -100,38 +101,32 @@ export default {
     return {
       list: [],
       currentItem: {//修改数据组
-        ruleDes: "",
-        sougou: "",
+        id:"",
+        ruleName: "",
+        sogou: "",
         duer:"",
         wenwen:"",
         naturali:""
       },
       addList: {//添加数据组
-        ruleDes: "",
-        sougou: "",
+        ruleName: "",
+        sogou: "",
         duer:"",
         wenwen:"",
         naturali:""
       },
       searchItem:{//搜索数据组
-        ruleDes:""
+        ruleName:""
       },
       columns: [
         {
-          prop:"index",
-          label: "序号",
-          align: "center",
-          width: 100,
-          hasSort:true
-        },
-        {
-          prop: "ruleDes",
+          prop: "ruleName",
           label: "规则名称",
           align: "center",
           hasSort:true
         },
         {
-          prop: "classnames",
+          prop: "ruleResult",
           label: "规则配置",
           align: "center",
           hasSort:true
@@ -139,7 +134,7 @@ export default {
       ],
       options: {
         stripe: false, // 是否为斑马纹 table
-        loading: true, // 是否添加表格loading加载动画
+        loading: false, // 是否添加表格loading加载动画
         highlightCurrentRow: false, // 是否支持当前行高亮显示
         mutiSelect: false, // 是否支持列表项选中功能
         border:false     //是否显示纵向边框
@@ -172,15 +167,15 @@ export default {
         ]
       }, // 列操作按钮
       addRules:{
-        ruleDes:[{ required: true, message: '请输入规则名称', trigger: 'change' }],
-        sougou:[{ required: true, message: '请输入sougou引擎优先级', trigger: 'change' }],
+        ruleName:[{ required: true, message: '请输入规则名称', trigger: 'change' }],
+        sogou:[{ required: true, message: '请输入sogou引擎优先级', trigger: 'change' }],
         duer:[{ required: true, message: '请输入duer引擎优先级', trigger: 'change' }],
         wenwen:[{ required: true, message: '请输入wenwen引擎优先级', trigger: 'change' }],
         naturali:[{ required: true, message: '请输入naturali引擎优先级', trigger: 'change' }]  
       },
       editRules:{
-        ruleDes:[{ required: true, message: '请输入规则名称', trigger: 'blur' }],
-        sougou:[{ required: true, message: '请输入sougou引擎优先级', trigger: 'blur' }],
+        ruleName:[{ required: true, message: '请输入规则名称', trigger: 'blur' }],
+        sogou:[{ required: true, message: '请输入sogou引擎优先级', trigger: 'blur' }],
         duer:[{ required: true, message: '请输入duer引擎优先级', trigger: 'blur' }],
         wenwen:[{ required: true, message: '请输入wenwen引擎优先级', trigger: 'blur' }],
         naturali:[{ required: true, message: '请输入naturali引擎优先级', trigger: 'blur' }]  
@@ -189,7 +184,7 @@ export default {
       addVisible: false,
       // 分页
       currentPage: 1, //默认显示第几页
-      pageSize: 10,   //默认每页条数
+      pageSize: 30,   //默认每页条数
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
@@ -204,13 +199,12 @@ export default {
   methods: {
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.getList()
     },
     onSubmit(){
       this.seaBtnLoading = true
-      setTimeout(()=>{
-          this.seaBtnLoading = false
-      },2000)
-      console.log(this.searchItem)
+      this.getList()
+      this.seaBtnLoading = false
     },
     handleSizeChange(val) {
       this.pageSize = val;
@@ -220,28 +214,45 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       console.log(`当前页: ${val}`);
-      // this.getList();
+      this.getList();
     },
     handleEdit(index, row) {
-      console.log(index, row);
-      this.editVisible = true;
+      let updData = JSON.parse(row.ruleResult);
       this.currentItem = {
-        ruleDes: row.ruleDes,
-        sougou: row.sougou,
-        duer: row.duer,
-        wenwen: row.sougou,
-        naturali: row.naturali
+        id:row.id,
+        ruleName: row.ruleName,
+        sogou: updData.sogou,
+        duer: updData.duer,
+        wenwen: updData.wenwen,
+        naturali: updData.naturali
       };
+      this.editVisible = true
     },
     handleDel(index, row) {
-      console.log(row.id);
-      console.log(index)
+      let delParams = {
+        id:row.id
+      }
       this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-          this.list.splice(index,1)
+          ruleDel(delParams).then(res=>{
+            if(res.data.code == 200){
+              this.$message({
+                message:'删除成功',
+                type:"success",
+                duration:1000
+              });
+              this.getList();
+            }else{
+              this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1000
+              });
+            }
+          })
         }).catch(() => {
           console.log("no");
         });
@@ -268,14 +279,35 @@ export default {
       this.addVisible = false
     },
     editHandleConfirm(currentItem) {
+      let updParams = {
+        id:this.currentItem.id,
+        ruleName:this.currentItem.ruleName,
+        sogou:this.currentItem.sogou,
+        wenwen:this.currentItem.wenwen,
+        duer:this.currentItem.duer,
+        naturali:this.currentItem.naturali
+      }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
-          console.log(this.currentItem)
           this.editBtnLoading = true
-          setTimeout(()=>{
-              this.editBtnLoading = false
-              this.editVisible = false;
-          },2000)
+          ruleUpd(updParams).then(res=>{
+            if(res.data.code == 200){
+                this.$message({
+                    message:'修改成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.getList()
+                this.editBtnLoading = false
+                this.editVisible = false
+            }else{
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            } 
+          })
         } else {
           return false;
         }
@@ -285,14 +317,35 @@ export default {
       this.addVisible = true
     },
     addHandleConfirm(addList) {
+      let addParams = {
+        ruleName:this.addList.ruleName,
+        sogou:this.addList.sogou,
+        wenwen:this.addList.wenwen,
+        duer:this.addList.duer,
+        naturali:this.addList.naturali
+      }
       this.$refs[addList].validate((valid) => {
         if (valid) {
-          console.log(this.addList)
           this.addBtnLoading = true
-          setTimeout(()=>{
-              this.addBtnLoading = false
-              this.addVisible = false;
-          },2000)
+          ruleAdd(addParams).then(res=>{
+            if(res.data.code == 200){
+                this.$message({
+                    message:'添加成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.getList()
+                this.addBtnLoading = false
+                this.addVisible = false
+            }else{
+                this.addBtnLoading = false
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            }
+          })
         } else {
           return false;
         }
@@ -305,16 +358,14 @@ export default {
       },2000)
     },
     getList() {
-      this.$http.get("/api/data").then(res => {
-        this.list = res.data;
-        res.data.forEach(item => {
-          item.index = item.id % this.pageSize;
-          if(item.index == 0){
-            item.index = this.pageSize
-          }
-        });
-        this.totalCount = this.list.length
-        this.options.loading = false;
+      let params = {
+        pgstr:this.pageSize,
+        pcstr:this.currentPage,
+        condition:this.searchItem.ruleName
+      }
+      ruleList(params).then(res => {
+        this.list = res.data.data;
+        this.totalCount = res.data.count
       });
     }
   }

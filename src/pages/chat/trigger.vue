@@ -7,38 +7,48 @@
     </el-breadcrumb>
     <!-- <el-button class="success" size="mini" @click="handleAdd()">添加</el-button> -->
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline trigger" size="mini" label-width="70px">
-          <el-form-item label="客户端平台" prop="applicationName">
-            <el-input v-model="searchItem.applicationName" clearable></el-input>
+          <el-form-item label="客户端平台" prop="dtp">
+            <el-input v-model="searchItem.dtp" clearable></el-input>
           </el-form-item>
-          <el-form-item label="用户ID" prop="mobile_num">
-            <el-input v-model="searchItem.mobile_num" clearable></el-input>
+          <el-form-item label="用户ID" prop="uid">
+            <el-input v-model="searchItem.uid" clearable></el-input>
           </el-form-item>
-          <el-form-item label="客户端版本" prop="platform">
-            <el-input v-model="searchItem.platform" clearable></el-input>
+          <el-form-item label="客户端版本" prop="clientVersion">
+            <el-input v-model="searchItem.clientVersion" clearable></el-input>
           </el-form-item>
-          <el-form-item label="引擎版本" prop="cost">
-            <el-input v-model="searchItem.cost" clearable></el-input>
+          <el-form-item label="引擎版本" prop="engineVersion">
+            <el-input v-model="searchItem.engineVersion" clearable></el-input>
           </el-form-item>
-          <el-form-item label="开发者" prop="mobile_url">
-            <el-input v-model="searchItem.mobile_url" clearable></el-input>
+          <el-form-item label="开发者" prop="developer">
+            <el-input v-model="searchItem.developer" clearable></el-input>
           </el-form-item>
-          <el-form-item label="唤醒词类型" prop="vdm">
-            <el-select v-model="searchItem.vdm" placeholder="--" clearable>
+          <el-form-item label="唤醒词类型" prop="keywordType">
+            <el-select v-model="searchItem.keywordType" placeholder="--" clearable>
               <el-option label="联想" value="联想"></el-option>
               <el-option label="百度" value="百度"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="唤醒词" prop="was_from">
-            <el-input v-model="searchItem.was_from" clearable></el-input>
+          <el-form-item label="唤醒词" prop="keywordPhrase">
+            <el-input v-model="searchItem.keywordPhrase" clearable></el-input>
           </el-form-item>
-          <el-form-item label="数据来源" prop="from">
-            <el-input v-model="searchItem.from" clearable></el-input>
+          <el-form-item label="数据来源" prop="origin">
+            <el-input v-model="searchItem.origin" clearable></el-input>
           </el-form-item>
           <el-form-item label="开始时间" prop="refreshTime" class="width140">
-              <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.refreshTime" style="width: 100%;"></el-date-picker>
+              <el-date-picker 
+                type="date" 
+                placeholder="选择日期" 
+                v-model="searchItem.refreshTime" 
+                style="width: 100%;"
+                value-format="yyyy-MM-dd"></el-date-picker>
           </el-form-item>
           <el-form-item label="结束时间" prop="putTime" class="width140">
-              <el-date-picker type="date" placeholder="选择日期" v-model="searchItem.putTime" style="width: 100%;"></el-date-picker>
+              <el-date-picker 
+                type="date" 
+                placeholder="选择日期" 
+                v-model="searchItem.putTime" 
+                style="width: 100%;"
+                value-format="yyyy-MM-dd"></el-date-picker>
           </el-form-item>
           <el-form-item class="width140" style="text-align:right">
             <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -49,7 +59,7 @@
     
       
     <div class="table-box">
-      <i-table :list="list.slice((currentPage-1)*pageSize,currentPage*pageSize)" :options="options" :columns="columns" :operates="operates"></i-table>
+      <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -65,7 +75,8 @@
 
 <script>
 import iTable from "@/components/table";
-import {formatDate} from '@/utils/format.js'
+import {checkTime} from '@/utils/timer.js'
+import {triggerList} from '@/config/api'
 export default {
   name: "applicationlist",
   components: { iTable },
@@ -73,96 +84,82 @@ export default {
     return {
       list: [],
       searchItem:{//搜索数据组
-        applicationName:"",
-        mobile_num:"",
-        platform:"",
-        cost:"",
-        mobile_url:"",
-        vdm:"",
-        was_from:"",
-        from:"",
+        dtp:"",
+        uid:"",
+        clientVersion:"",
+        engineVersion:"",
+        developer:"",
+        keywordType:"",
+        keywordPhrase:"",
+        origin:"",
         refreshTime:"",
         putTime:""
       },
       columns: [
         {
-          prop:"index",
-          label: "序号",
-          align: "center",
-          width: 80,
-          hasSort:true
-        },
-        {
-          prop: "applicationName",
+          prop: "dtp",
           label: "设备类型",
           align: "center",
           hasSort:true
         },
         {
-          prop: "mobile_num",
+          prop: "uid",
           label: "用户ID",
           align: "center",
           hasSort:true
         },
         {
-          prop: "platform",
+          prop: "clientVersion",
           label: "客户端版本",
           align: "center",
-          width: 110,
           hasSort:true
         },
         {
-          prop: "cost",
+          prop: "engineVersion",
           label: "引擎版本",
           align: "center",
           hasSort:true
         },
         {
-          prop: "mobile_url",
+          prop: "developer",
           label: "开发者",
           align: "center",
           hasSort:true
         },
         {
-          prop: "vdm",
+          prop: "keywordType",
           label: "唤醒词类型",
           align: "center",
-          width:110,
           hasSort:true
         },
         {
-          prop: "was_from",
+          prop: "keywordPhrase",
           label: "唤醒词",
           align: "center",
           hasSort:true
         },
         {
-          prop: "from",
+          prop: "origin",
           label: "数据来源",
           align: "center",
           hasSort:true
         },
         {
-          prop: "putTime",
+          prop: "displayDate",
           label: "数据日期",
           align: "center",
           hasSort:true,
-          render: (h, params)=>{
-            var timer = parseInt(params.row.refreshTime)
-              return h('span',
-              formatDate(new Date(timer), 'yyyy-MM-dd hh:mm'))
-          }
         },
         {
-            prop:"",
+            prop:"filePath",
             label: "操作",
             align: "center",
             render: (h, params)=>{
               return h('a',{
                 attrs: {
-                  download: 'jpg',
+                  download: 'pcm',
                   class:"downloadFile",
-                  href: '../../static/images/favicon.ico'
+                  href: params.row.filePath
                 },
               })
           }
@@ -170,7 +167,7 @@ export default {
       ],
       options: {
         stripe: false, // 是否为斑马纹 table
-        loading: true, // 是否添加表格loading加载动画
+        loading: false, // 是否添加表格loading加载动画
         highlightCurrentRow: false, // 是否支持当前行高亮显示
         mutiSelect: false, // 是否支持列表项选中功能
         border:false     //是否显示纵向边框
@@ -183,7 +180,7 @@ export default {
       }, // 列操作按钮
       // 分页
       currentPage: 1, //默认显示第几页
-      pageSize: 10,   //默认每页条数
+      pageSize: 30,   //默认每页条数
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
@@ -195,13 +192,12 @@ export default {
   methods: {
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.getList()
     },
     onSubmit(){
-      console.log(this.searchItem)
       this.seaBtnLoading = true
-      setTimeout(()=>{
-        this.seaBtnLoading = false
-      },2000)
+      this.getList()
+      this.seaBtnLoading = false
     },
     handleSizeChange(val) {
       this.pageSize = val;
@@ -211,22 +207,26 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       console.log(`当前页: ${val}`);
-      // this.getList();
-    },
-    download(index,row){
-      // console.log()
+      this.getList();
     },
     getList() {
-      this.$http.get("/api/data").then(res => {
-        this.list = res.data;
-        res.data.forEach(item => {
-          item.index = item.id % this.pageSize;
-          if(item.index == 0){
-            item.index = this.pageSize
-          }
-        });
-        this.totalCount = this.list.length
-        this.options.loading = false;
+      let params = {
+        pgstr:this.currentPage,
+        pcstr:this.pageSize,
+        startStr:this.searchItem.refreshTime,
+        endStr:this.searchItem.putTime,
+        dtp:this.searchItem.dtp,
+        uid:this.searchItem.uid,
+        clientVersion:this.searchItem.clientVersion,
+        engineVersion:this.searchItem.engineVersion,
+        developer:this.searchItem.developer,
+        keywordType:this.searchItem.keywordType,
+        keywordPhrase:this.searchItem.keywordPhrase,
+        origin:this.searchItem.origin
+      }
+      triggerList(params).then(res => {
+        this.list = res.data.data;
+        this.totalCount = res.data.count
       });
     }
   }
