@@ -3,7 +3,7 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>LASF KV</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/home/skill'}">应用列表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/lasf-kv/skill'}">应用列表</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         
@@ -19,10 +19,67 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="131">添加</el-button>
         </el-form>
         <div class="table-box">
-            <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+            <el-table
+                :data="list"
+                style="width: 100%">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column
+                    label="技能描述"
+                    prop="functionName"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="说法数量"
+                    prop="inc"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="答案数量"
+                    prop="inc"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="调用次数"
+                    prop="inc"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="用户数"
+                    prop="inc"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="失败次数"
+                    prop="inc"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="更新时间"
+                    prop="displayUpdateTime"
+                    align="center">
+                </el-table-column>
+                <el-table-column label="操作" align="center" width="200">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)"
+                        v-has="132">修改</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="133">删除</el-button>
+                        <el-button
+                        size="mini"
+                        @click="handleInfo(scope.$index, scope.row)"
+                        v-has="134">详情</el-button>
+                    </template>
+                </el-table-column>
+            </el-table> 
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -80,94 +137,6 @@ export default {
             searchItem:{//搜索数据组
                 functionName:"",
             },
-            columns: [
-                {
-                    prop: "functionName",
-                    label: "技能描述",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "inc",
-                    label: "说法数量",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "inc",
-                    label: "答案数量",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "inc",
-                    label: "调用次数",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "inc",
-                    label: "用户数",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "inc",
-                    label: "失败数",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "displayUpdateTime",
-                    label: "修改时间",
-                    align: "center",
-                    hasSort:true
-                }
-            ],
-            options: {
-                stripe: false, // 是否为斑马纹 table
-                loading: false, // 是否添加表格loading加载动画
-                highlightCurrentRow: false, // 是否支持当前行高亮显示
-                mutiSelect: false, // 是否支持列表项选中功能
-                border:false     //是否显示纵向边框
-            },
-            operates: {
-                width: 200,
-                show: false,
-                list: [
-                    {
-                        id: "1",
-                        label: "编辑",
-                        show: true,
-                        plain: true,
-                        disabled: false,
-                        method: (index, row) => {
-                            this.handleEdit(index, row);
-                        }
-                    },
-                    {
-                        id: "2",
-                        label: "删除",
-                        type:"danger",
-                        show: true,
-                        plain: false,
-                        disabled: false,
-                        method: (index, row) => {
-                        this.handleDel(index, row);
-                        }
-                    },
-                    {
-                        id: "3",
-                        label: "详情",
-                        show: true,
-                        plain: false,
-                        disabled: false,
-                        method: (index, row) => {
-                        this.handleInfo(index, row);
-                        }
-                    }
-                ]
-            }, // 列操作按钮
             addRules:{
                 skillName:[{ required: true, message: '请输入技能描述', trigger: 'change' }]
             },
@@ -223,7 +192,7 @@ export default {
             let delParams = {
                 functionId:row.id
             }
-            this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
@@ -348,7 +317,7 @@ export default {
         },
         handleInfo(index, row) {
             this.$router.push({
-                path:'/home/skill/detail/speak',
+                path:'/lasf-kv/skill/detail/speak',
                 query:{
                     functionId:row.id,
                     appId:row.appId

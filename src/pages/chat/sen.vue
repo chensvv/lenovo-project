@@ -14,11 +14,40 @@
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
             <el-button @click="resetForm('searchItem')">重置</el-button>
         </el-form-item>
-        <el-button class="success" size="mini" @click="handleAdd('addList')">添加</el-button>
-        <el-button class="success" size="mini" @click="handlePub">发布</el-button>
+        <el-button class="success" size="mini" @click="handleAdd('addList')" v-has="63">添加</el-button>
+        <el-button class="success" size="mini" @click="handlePub" v-has="64">发布</el-button>
     </el-form>
     <div class="table-box">
-        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+         <el-table
+                :data="list"
+                style="width: 100%">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column
+                    label="敏感词"
+                    prop="word"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="更新/入库时间"
+                    prop="it"
+                    align="center"
+                    :formatter="formTime">
+                </el-table-column>
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)"
+                        v-has="119">修改</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="65">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -160,6 +189,16 @@ export default {
     this.getList();
   },
   methods: {
+    formTime(row, column){
+      var timer = row.it
+      var date = new Date(timer)
+        return date.getFullYear()+'-'+
+          checkTime(date.getMonth()+1)+'-'+
+          checkTime(date.getDate())+' '+
+          checkTime(date.getMonth())+':'+
+          checkTime(date.getMinutes())+':'+
+          checkTime(date.getSeconds())
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.getList()
@@ -191,7 +230,7 @@ export default {
       let delParams = {
         id:row.id
       }
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

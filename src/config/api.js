@@ -11,13 +11,6 @@ import fetch from './http'
 //   INTERCHILD,
 //   INTERFACE
 // }
-export function loginInfo (data) {
-  return fetch.service_head({
-    url: '/home/v1/login',
-    method: 'post',
-    data: data
-  })
-}
 export function appList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/list',

@@ -35,9 +35,65 @@
                 <el-button type="primary" @click="onSubmit" size="mini" :loading="btnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')" size="mini">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="5">添加</el-button>
         </el-form>
-        <i-table :list="list.slice((currentPage-1)*pageSize,currentPage*pageSize)" :options="options" :columns="columns" :operates="operates"></i-table>
+          <el-table
+            :data="list"
+            style="width: 100%">
+            <el-table-column type="index" align="center">
+            </el-table-column>
+            <el-table-column
+                label="名称"
+                prop="name"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="拼音"
+                prop="pinyin"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="类型"
+                prop="atype">
+            </el-table-column>
+            <el-table-column
+                label="类别"
+                prop="cname"
+                 align="center">
+            </el-table-column>
+            <el-table-column
+                label="是否别名"
+                prop="isAlias"
+                 align="center"
+                :formatter="formVal">
+            </el-table-column>
+            <el-table-column
+                label="原名"
+                prop="sname"
+                 align="center">
+            </el-table-column>
+            <el-table-column
+                label="是否索引"
+                prop="isIndex"
+                 align="center"
+                :formatter="formVal">
+            </el-table-column>
+            <el-table-column
+                label="更新时间"
+                prop="upTime"
+                 align="center"
+                :formatter="formTime">
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    type="danger"
+                    @click="handleDel(scope.$index, scope.row)"
+                    v-has="6">删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -85,84 +141,6 @@ export default {
                 alias:""
             },
             list:[],
-            columns:[
-                {
-                    prop:"name",
-                    label: "名字",
-                    align: "center",
-                    hasSort:true
-                },{
-                    prop:"pinyin",
-                    label: "拼音",
-                    align: "center",
-                    hasSort:true
-                },{
-                    prop:"atype",
-                    label: "类型",
-                    align: "center",
-                    hasSort:true
-                },{
-                    prop:"cname",
-                    label: "类别",
-                    align: "center",
-                    hasSort:true
-                },{
-                    prop:"isAlias",
-                    label: "是否别名",
-                    align: "center",
-                    hasSort:true,
-                },{
-                    prop:"sname",
-                    label: "原名",
-                    align: "center",
-                    hasSort:true
-                },{
-                    prop:"isIndex",
-                    label: "是否索引",
-                    align: "center",
-                    hasSort:true,
-                },{
-                    prop:"upTime",
-                    label: "更新时间",
-                    align: "center",
-                    hasSort:true,
-                    render: (h, params)=>{
-                    // console.log(params.row.createTime)
-                    var timer = params.row.upTime
-                    var date = new Date(timer)
-                    return h('span',
-                        date.getFullYear()+'-'+
-                        checkTime(date.getMonth()+1)+'-'+
-                        checkTime(date.getDate())+' '+
-                        checkTime(date.getMonth())+':'+
-                        checkTime(date.getMinutes())+':'+
-                        checkTime(date.getSeconds()))
-                }
-                },
-            ],
-            options: {
-                stripe: false, // 是否为斑马纹 table
-                loading: false, // 是否添加表格loading加载动画
-                highlightCurrentRow: false, // 是否支持当前行高亮显示
-                mutiSelect: false, // 是否支持列表项选中功能
-                border:false     //是否显示纵向边框
-            },
-            operates: {
-                show: false,
-                list: [
-                    {
-                        id: "1",
-                        label: "删除",
-                        type:"danger",
-                        show: true,
-                        plain: false,
-                        disabled: false,
-                        method: (index, row) => {
-                        this.handleDel(index, row);
-                        }
-                    }
-                ]
-            }, // 列操作按钮
             addRules:{
                 name:[{ required: true, message: '应用名', trigger: 'change' }],
                 alias:[{ required: true, message: '', trigger: 'change' }],
@@ -196,6 +174,20 @@ export default {
                 this.totalCount = res.data.count
             });
         },
+        formTime(row, column){
+            var timer = row.upTime
+            var date = new Date(timer)
+                return date.getFullYear()+'-'+
+                    checkTime(date.getMonth()+1)+'-'+
+                    checkTime(date.getDate())+' '+
+                    checkTime(date.getMonth())+':'+
+                    checkTime(date.getMinutes())+':'+
+                    checkTime(date.getSeconds())
+        },
+        formVal(row,column){
+            return row.isIndex === true ? 'true' : 'false'
+            return row.isAlias === true ? 'true' : 'false'
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.getList();
@@ -219,7 +211,7 @@ export default {
             let delParams = {
                 name:row.name
             }
-            this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"

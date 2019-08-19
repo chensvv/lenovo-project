@@ -41,8 +41,33 @@ export default {
         }
     },
     created(){
-        
-        this.username = window.localStorage.getItem('username')
+        this.username = localStorage.getItem('username')
+        this.menuData = JSON.parse(localStorage.getItem('menuData'))
+        // console.log(this.$route.path)
+        let menuList=[]
+        for (let item of this.menuData) {
+            // console.log(item)
+            if (item.menutype === 0) {
+                menuList.push({
+                    id:item.id
+                });
+            }
+            for (let towMenus of item.children) {
+                if (towMenus.menutype === 0) {
+                    menuList.push({
+                        id:towMenus.id
+                    });
+                }
+                for (let threeMenus of towMenus.children2) {
+                    if (threeMenus.menutype === 0) {
+                        menuList.push({
+                            id:threeMenus.id
+                        });
+                    }
+                }
+            }
+        }
+        sessionStorage.setItem('btnpermission',JSON.stringify(menuList))
     },
     components: {
         Aside
@@ -59,8 +84,9 @@ export default {
     methods:{
         handleDropdown(v){
             if(v == "logout"){
-                localStorage.removeItem('user_id');
-                
+                localStorage.removeItem('username');
+                localStorage.removeItem('menuData');
+                sessionStorage.removeItem('btnpermission')
                 this.$router.push('/login')
             }else{
                 this.$router.push('/home/userinfo')

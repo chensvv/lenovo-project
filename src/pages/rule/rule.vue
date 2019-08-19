@@ -14,11 +14,39 @@
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
             <el-button @click="resetForm('searchItem')">重置</el-button>
         </el-form-item>
-        <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading">生成AIML</el-button>
-        <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
+        <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="72">生成AIML</el-button>
+        <el-button class="success" size="mini" @click="handleAdd()" v-has="67">添加</el-button>
     </el-form>
     <div class="table-box">
-        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+        <el-table
+            :data="list"
+            style="width: 100%">
+            <el-table-column type="index" align="center">
+            </el-table-column>
+            <el-table-column
+                label="规则名称"
+                prop="ruleName"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="规则配置"
+                prop="ruleResult"
+                align="center">
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    @click="handleEdit(scope.$index, scope.row)"
+                    v-has="68">编辑</el-button>
+                    <el-button
+                    size="mini"
+                    type="danger"
+                    @click="handleDel(scope.$index, scope.row)"
+                    v-has="71">删除</el-button>
+                </template>
+            </el-table-column>
+      </el-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -91,12 +119,10 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {ruleList, ruleAdd, ruleUpd, ruleDel, rulePub} from '@/config/api'
 export default {
   name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],
@@ -118,54 +144,6 @@ export default {
       searchItem:{//搜索数据组
         ruleName:""
       },
-      columns: [
-        {
-          prop: "ruleName",
-          label: "规则名称",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "ruleResult",
-          label: "规则配置",
-          align: "center",
-          hasSort:true
-        }
-      ],
-      options: {
-        stripe: false, // 是否为斑马纹 table
-        loading: false, // 是否添加表格loading加载动画
-        highlightCurrentRow: false, // 是否支持当前行高亮显示
-        mutiSelect: false, // 是否支持列表项选中功能
-        border:false     //是否显示纵向边框
-      },
-      operates: {
-        width: 150,
-        show: false,
-        list: [
-          {
-            id: "1",
-            label: "编辑",
-            show: true,
-            plain: true,
-            disabled: false,
-            method: (index, row) => {
-              this.handleEdit(index, row);
-            }
-          },
-          {
-            id: "2",
-            label: "删除",
-            type:"danger",
-            show: true,
-            plain: false,
-            disabled: false,
-            method: (index, row) => {
-              this.handleDel(index, row);
-            }
-          }
-        ]
-      }, // 列操作按钮
       addRules:{
         ruleName:[{ required: true, message: '请输入规则名称', trigger: 'change' }],
         sogou:[{ required: true, message: '请输入sogou引擎优先级', trigger: 'change' }],
@@ -232,7 +210,7 @@ export default {
       let delParams = {
         id:row.id
       }
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

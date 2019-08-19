@@ -44,7 +44,54 @@
             </el-form-item>
         </el-form>
         <div class="table-box">
-            <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+            <el-table
+                :data="list"
+                style="width: 100%">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column
+                    label="用户ID"
+                    prop="uid"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="用户指令"
+                    prop="asrres"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="解析领域"
+                    prop="domain">
+                </el-table-column>
+                <el-table-column
+                    label="响应状态"
+                    prop="respstatus"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="三方名称"
+                    prop="outerType"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="接口名称"
+                    prop="protname"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="时间"
+                    prop="displayTime"
+                    align="center">
+                </el-table-column>
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="handleInfo(scope.$index, scope.row)"
+                        v-has="125">详情</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -132,73 +179,6 @@ export default {
                 putTime:""
             },
             infoList:[],
-            columns: [
-                {
-                    prop: "uid",
-                    label: "用户ID",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "asrres",
-                    label: "用户指令",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "domain",
-                    label: "解析领域",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "respstatus",
-                    label: "响应状态",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "outerType",
-                    label: "三方名称",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "protname",
-                    label: "接口名称",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "displayTime",
-                    label: "时间",
-                    align: "center",
-                    hasSort:true,
-                }
-            ],
-            options: {
-                stripe: false, // 是否为斑马纹 table
-                loading: false, // 是否添加表格loading加载动画
-                highlightCurrentRow: false, // 是否支持当前行高亮显示
-                mutiSelect: false, // 是否支持列表项选中功能
-                border:false     //是否显示纵向边框
-            },
-            operates: {
-                width: 120,
-                show: false,
-                list: [
-                    {
-                        id: "1",
-                        label: "详情",
-                        show: true,
-                        plain: true,
-                        disabled: false,
-                        method: (index, row) => {
-                            this.handleInfo(index, row);
-                        }
-                    }
-                ]
-            }, // 列操作按钮
             infoVisible: false,
             // 分页
             currentPage: 1, //默认显示第几页

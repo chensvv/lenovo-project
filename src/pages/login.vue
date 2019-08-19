@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import {loginInfo} from '../config/api'
-import qs from 'qs'
-
+import {login} from '@/config/adminApi'
+import qs from 'qs' 
+import axios from 'axios'
 export default {
     data(){
         return {
@@ -32,38 +32,33 @@ export default {
                 username:[{ required: true, message: '请输入用户名', trigger: 'change' }],
                 password:[{ required: true, message: '请输入密码', trigger: 'change' }]  
             },
+            menu:[]
         }
     },
-    methods: {
+    methods:{
         onSubmit(loginForm){
 
             var params = {
-                username:this.loginForm.username,
-                pwd:this.loginForm.password
+                userName:this.loginForm.username,
+                password:this.loginForm.password
             }
-            params = qs.stringify(params);
+            // params = qs.stringify(params);
             this.$refs[loginForm].validate((valid) => {
                 if (valid) {
                     this.loginLoading=true
-                    // loginInfo(params).then((res)=>{
-                        // if(res.data.status == 200){
-                            // this.$message({
-                            //     message:res.data.message,
-                            //     type:"success",
-                            //     duration:1000
-                            // });
-                            setTimeout(()=>{
+                    login(params).then((res)=>{
+
+                        if(res.status == 200){
                                 this.loginLoading = false
-                                localStorage.setItem('user_id', this.loginForm.password);
                                 localStorage.setItem('username',this.loginForm.username)
+                                // this.$store.dispatch('menuData',res.data)
+                                localStorage.setItem('menuData',JSON.stringify(res.data))
+                                
                                 this.$router.push('/home')
-                            },1500)
-                            
-                        // }else if(res.data.status == 400){
-                        //     this.loginLoading = false
-                        //     this.$message.error(res.data.message);
-                        // }
-                    // })
+                        }else{
+                            this.loginLoading = false
+                        }
+                    })
                 } else {
                     return false;
                 }
@@ -72,7 +67,7 @@ export default {
                 
             
         }
-    }  
+    }
 }
 </script>
 

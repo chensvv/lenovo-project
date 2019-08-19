@@ -29,7 +29,7 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading">导出</el-button>
+      <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="117">导出</el-button>
     </el-form>
     <div class="table-box">
       <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
@@ -111,27 +111,6 @@ export default {
         width: 120,
         show: false,
         list: [
-          {
-            id: "1",
-            label: "编辑",
-            show: false,
-            plain: true,
-            disabled: false,
-            method: (index, row) => {
-              this.handleEdit(index, row);
-            }
-          },
-          {
-            id: "2",
-            label: "删除",
-            type:"danger",
-            show: false,
-            plain: false,
-            disabled: false,
-            method: (index, row) => {
-              this.handleDel(index, row);
-            }
-          }
         ]
       }, // 列操作按钮
       editVisible: false,

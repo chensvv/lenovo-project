@@ -33,7 +33,11 @@
 .el-button--mini {
   padding: 7px 10px;
 }
-
+.reg .cell{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 /* 修改input宽度 */
 .search_box,.cache,.outer {
   text-align: right;
@@ -176,4 +180,7 @@
 }
 .el-form-item.is-success .el-input__inner:focus{
   border-color: #409EFF;
+}
+.btn_role{
+  margin-bottom: 20px;
 }

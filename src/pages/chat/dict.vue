@@ -38,10 +38,49 @@
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
             <el-button @click="resetForm('searchItem')">重置</el-button>
         </el-form-item>
-        <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
+        <el-button class="success" size="mini" @click="handleAdd()" v-has="34">添加</el-button>
         </el-form>
         <div class="table-box">
-        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+        <el-table
+            :data="list"
+            style="width: 100%">
+            <el-table-column type="index" align="center">
+            </el-table-column>
+            <el-table-column
+                label="VDM"
+                prop="vdm"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="热词"
+                prop="name"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="发音"
+                prop="pronounceName"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="更新时间"
+                prop="upTime"
+                 align="center"
+                :formatter="formTime">
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)"
+                        v-has="110">修改</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="37">删除</el-button>
+                    </template>
+                </el-table-column>
+      </el-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -128,77 +167,6 @@ export default {
                 refreshTime:"",
                 putTime:""
             },
-            columns: [
-                {
-                    prop: "vdm",
-                    label: "VDM",
-                    align: "left",
-                    hasSort:true
-                },
-                {
-                    prop: "name",
-                    label: "热词",
-                    align: "left",
-                    hasSort:true
-                },
-                {
-                    prop: "pronounceName",
-                    label: "发音",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "upTime",
-                    label: "更新时间",
-                    align: "center",
-                    hasSort:true,
-                    render: (h, params)=>{
-                        var timer = params.row.upTime
-                        var date = new Date(timer)
-                        return h('span',
-                            date.getFullYear()+'-'+
-                            checkTime(date.getMonth()+1)+'-'+
-                            checkTime(date.getDate())+' '+
-                            checkTime(date.getMonth())+':'+
-                            checkTime(date.getMinutes())+':'+
-                            checkTime(date.getSeconds()))
-                    }
-                }
-            ],
-            options: {
-                stripe: false, // 是否为斑马纹 table
-                loading: false, // 是否添加表格loading加载动画
-                highlightCurrentRow: false, // 是否支持当前行高亮显示
-                mutiSelect: false, // 是否支持列表项选中功能
-                border:false     //是否显示纵向边框
-            },
-            operates: {
-                width: 150,
-                show: false,
-                list: [
-                    {
-                        id: "1",
-                        label: "编辑",
-                        show: true,
-                        plain: true,
-                        disabled: false,
-                        method: (index, row) => {
-                            this.handleEdit(index, row);
-                        }
-                    },
-                    {
-                        id: "2",
-                        label: "删除",
-                        type:"danger",
-                        show: true,
-                        plain: false,
-                        disabled: false,
-                        method: (index, row) => {
-                            this.handleDel(index, row);
-                        }
-                    }
-                ]
-            }, // 列操作按钮
             addRules:{
                 hotName:[{ required: true, message: '请输入网站名称add', trigger: 'change' }],
                 pronounceName:[{ required: true, message: '请输入说法', trigger: 'change' }],
@@ -225,6 +193,16 @@ export default {
         this.getList();
     },
     methods: {
+        formTime(row, column){
+            var timer = row.upTime
+            var date = new Date(timer)
+                return date.getFullYear()+'-'+
+                    checkTime(date.getMonth()+1)+'-'+
+                    checkTime(date.getDate())+' '+
+                    checkTime(date.getMonth())+':'+
+                    checkTime(date.getMinutes())+':'+
+                    checkTime(date.getSeconds())
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.getList();
@@ -258,7 +236,7 @@ export default {
             let delParams = {
                 id:row.id
             }
-            this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"

@@ -3,8 +3,8 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>LASF KV</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/home/skill'}">应用列表</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/home/skill/detail',query:{functionId:this.functionId, appId:this.appId}}">应用详情</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/lasf-kv/skill'}">应用列表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/lasf-kv/skill/detail',query:{functionId:this.functionId, appId:this.appId}}">应用详情</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
     
@@ -13,15 +13,59 @@
             <span class="d_title">{{skillDetail.appName}}  >></span><span>{{skillDetail.functionName}}</span>
         </div>
         <el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
-            <router-link :to="{ path: '/home/skill/detail/speak',query:{functionId:this.functionId, appId:this.appId}}">
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="140">添加</el-button>
+            <router-link :to="{ path: '/lasf-kv/skill/detail/speak',query:{functionId:this.functionId, appId:this.appId}}">
                 <el-button class="success" size="mini">说法列表</el-button>
             </router-link>
         </el-form-item>
         
     </el-form>
     <div class="table-box">
-        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+        <el-table
+            :data="list"
+            style="width: 100%">
+            <el-table-column type="index" align="center">
+            </el-table-column>
+            <el-table-column
+                label="说明"
+                prop="versionIllustration"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="启用"
+                prop="state"
+                align="center"
+                :formatter="formVal"
+                >
+            </el-table-column>
+            <el-table-column
+                label="调用次数"
+                prop="inc"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="更新时间"
+                prop="displayUpdateTime"
+                  align="center">
+            </el-table-column>
+            <el-table-column label="操作" align="center" width="200">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    @click="handleEdit(scope.$index, scope.row)"
+                    v-has="141">修改</el-button>
+                    <el-button
+                    size="mini"
+                    type="danger"
+                    @click="handleDel(scope.$index, scope.row)"
+                    v-has="142">删除</el-button>
+                    <el-button
+                    size="mini"
+                    @click="handleStr(scope.$index, scope.row)"
+                    v-has="143">策略</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -113,84 +157,6 @@ export default {
         serCon:"",
         serNot:""
       },
-      columns: [
-        {
-          prop: "versionIllustration",
-          label: "说明",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "state",
-          label: "启用",
-          align: "center",
-          hasSort:true,
-          // render: (h, params) => {
-          //   return h("span",
-          //   //   {
-          //   //     props: {} // 组件的props
-          //   //   },
-          //     params.row.state === 0 ? "是" : "否"
-          //   );
-          // }
-        },
-        {
-          prop: "inc",
-          label: "调用次数",
-          align: "center",
-          hasSort:true
-        },
-        {
-            prop: "displayUpdateTime",
-            label: "修改时间",
-            align: "center",
-            hasSort:true
-        }
-      ],
-      options: {
-        stripe: false, // 是否为斑马纹 table
-        loading: false, // 是否添加表格loading加载动画
-        highlightCurrentRow: false, // 是否支持当前行高亮显示
-        mutiSelect: false, // 是否支持列表项选中功能
-        border:false     //是否显示纵向边框
-      },
-      operates: {
-        width: 200,
-        show: false,
-        list: [
-          {
-            id: "1",
-            label: "编辑",
-            show: true,
-            plain: true,
-            disabled: false,
-            method: (index, row) => {
-              this.handleEdit(index, row);
-            }
-          },
-          {
-            id: "2",
-            label: "删除",
-            type:"danger",
-            show: true,
-            plain: false,
-            disabled: false,
-            method: (index, row) => {
-              this.handleDel(index, row);
-            }
-          },
-          {
-            id: "3",
-            label: "策略",
-            show: true,
-            plain: false,
-            disabled: false,
-            method: (index, row) => {
-              this.handleStr(index, row);
-            }
-          }
-        ]
-      }, // 列操作按钮
       addRules:{
         version: [{ required: true, message: '请输入答案说明', trigger: 'change' }],
         answer: [{ required: true, message: '请输入答案', trigger: 'change' }],
@@ -219,6 +185,9 @@ export default {
         this.getList();
   },
   methods: {
+    formVal(row,column){
+        return row.state === true ? 'true' : 'false'
+    },
     handleSizeChange(val) {
       this.pageSize = val;
       this.currentPage = 1
@@ -251,7 +220,7 @@ export default {
       let delParams = {
         versionId:row.id
       }
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

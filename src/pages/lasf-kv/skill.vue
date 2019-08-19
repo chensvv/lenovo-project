@@ -14,10 +14,62 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="127">添加</el-button>
         </el-form>
         <div class="table-box">
-            <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+            <el-table
+                :data="list"
+                style="width: 100%">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column
+                    label="技能名称"
+                    prop="appName"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="技能数"
+                    prop="inc"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="调用次数"
+                    prop="inc"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="调用用户数"
+                    prop="inc"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="失败次数"
+                    prop="inc"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="更新时间"
+                    prop="displayUpdateTime"
+                    align="center">
+                </el-table-column>
+                <el-table-column label="操作" align="center" width="200">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)"
+                        v-has="128">修改</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="129">删除</el-button>
+                        <el-button
+                        size="mini"
+                        @click="handleInfo(scope.$index, scope.row)"
+                        v-has="130">详情</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>   
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -220,7 +272,7 @@ export default {
             let delParams = {
                 id:row.id
             }
-            this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
@@ -350,7 +402,7 @@ export default {
         },
         handleInfo(index, row) {
             this.$router.push({
-                path:'/home/skill/detail',
+                path:'/lasf-kv/skill/detail',
                 query:{
                     appId:row.id
                 }

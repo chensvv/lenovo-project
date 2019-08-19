@@ -20,10 +20,39 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
+      <el-button class="success" size="mini" @click="handleAdd()" v-has="11">添加</el-button>
     </el-form>
     <div class="table-box">
-      <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+      <el-table
+            :data="list"
+            style="width: 100%">
+            <el-table-column type="index" align="center">
+            </el-table-column>
+            <el-table-column
+                label="名称"
+                prop="name"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="电话"
+                prop="tels"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="扩展"
+                prop="exts"
+                align="center">
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    type="danger"
+                    @click="handleDel(scope.$index, scope.row)"
+                    v-has="111">删除</el-button>
+                </template>
+            </el-table-column>
+      </el-table>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -55,11 +84,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {cscList, cscAdd, cscDel} from '@/config/api'
 export default {
   name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],
@@ -73,50 +100,6 @@ export default {
         tel:"",
         exts:""
       },
-      columns: [
-        {
-          prop: "name",
-          label: "名称",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "tels",
-          label: "电话号码",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "exts",
-          label: "扩展",
-          align: "center",
-          hasSort:true
-        }
-      ],
-      options: {
-        stripe: false, // 是否为斑马纹 table
-        loading: false, // 是否添加表格loading加载动画
-        highlightCurrentRow: false, // 是否支持当前行高亮显示
-        mutiSelect: false, // 是否支持列表项选中功能
-        border:false     //是否显示纵向边框
-      },
-      operates: {
-        width: 120,
-        show: false,
-        list: [
-          {
-            id: "1",
-            label: "删除",
-            type:"danger",
-            show: true,
-            plain: false,
-            disabled: false,
-            method: (index, row) => {
-              this.handleDel(index, row);
-            }
-          }
-        ]
-      }, // 列操作按钮
       addRules:{
           name:[{ required: true, message: '请输入名称', trigger: 'change' }],
           tel:[{ required: true, message: '请输入电话号码', trigger: 'change' }],
@@ -159,7 +142,7 @@ export default {
       let delParams = {
         id:row.id
       }
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

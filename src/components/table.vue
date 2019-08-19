@@ -13,7 +13,7 @@
   </el-table-column> -->
   <!--endregion-->
   <!--region 数据列-->
-  <el-table-column type="index">
+  <el-table-column type="index" align="center">
       
     </el-table-column>
   <template v-for="(column, index) in columns">
@@ -73,7 +73,8 @@
       type: Array,
       default: []
       }, // 需要展示的列 === prop：列数据对应的属性，label：列名，align：对齐方式，width：列宽
-    operates: {}, // 操作按钮组 === label: 文本，type :类型（primary / success / warning / danger / info / text），show：是否显示，icon：按钮图标，plain：是否朴素按钮，disabled：是否禁用，method：回调方法
+    operates: {
+    }, // 操作按钮组 === label: 文本，type :类型（primary / success / warning / danger / info / text），show：是否显示，icon：按钮图标，plain：是否朴素按钮，disabled：是否禁用，method：回调方法
     options: {
       type: Object,
       default: {

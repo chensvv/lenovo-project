@@ -19,9 +19,49 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="117">添加</el-button>
         </el-form>
-        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+        <el-table
+                :data="list"
+                style="width: 100%">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column
+                    label="内容"
+                    prop="con"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="状态"
+                    prop="sta"
+                    align="center"
+                    :formatter="formState">
+                </el-table-column>
+                <el-table-column
+                    label="更新/入库时间"
+                    prop="it"
+                    align="center"
+                    :formatter="formTime">
+                </el-table-column>
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                      <el-button
+                        size="mini"
+                        type="danger"
+                        @click="checkState(scope.$index, scope.row)"
+                        v-has="118">审核</el-button>
+                        <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)"
+                        v-has="60">修改</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="61">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -58,11 +98,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {jokeList, jokeAddUpd, jokeDel, jokeVeri} from '@/config/api'
 export default {
-    components:{iTable},
   data(){
     return{
       searchItem:{
@@ -78,88 +116,6 @@ export default {
         con:""
       },
       list:[],
-      columns:[{
-          prop:"con",
-          label: "内容",
-          align: "left",
-          hasSort:true
-        },{
-          prop:"sta",
-          label: "状态",
-          width:100,
-          align: "center",
-          hasSort:true,
-          render: (h, params) => {
-            return h("span",
-            
-              params.row.sta == 1 ? "已审核" : "未审核"
-            );
-          }
-        },
-        {
-          prop:"it",
-          label: "更新/入库时间",
-          align: "center",
-          width:150,
-          hasSort:true,
-          render: (h, params)=>{
-              var timer = params.row.it
-              var date = new Date(timer)
-              return h('span',
-                date.getFullYear()+'-'+
-                checkTime(date.getMonth()+1)+'-'+
-                checkTime(date.getDate())+' '+
-                checkTime(date.getMonth())+':'+
-                checkTime(date.getMinutes())+':'+
-                checkTime(date.getSeconds()))
-          }
-        },
-      ],
-      options: {
-        stripe: false, // 是否为斑马纹 table
-        loading: false, // 是否添加表格loading加载动画
-        highlightCurrentRow: false, // 是否支持当前行高亮显示
-        mutiSelect: false, // 是否支持列表项选中功能
-        border:false     //是否显示纵向边框
-      },
-      operates: {
-        width: 200,
-        show: false,
-        list: [
-            {
-            id: "3",
-            label: "审核",
-            type:"danger",
-            show: true,
-            plain: false,
-            disabled: false,
-            method: (index, row) => {
-              this.checkState(index, row);
-            }
-          },
-          {
-            id: "1",
-            label: "编辑",
-            show: true,
-            plain: true,
-            disabled: false,
-            method: (index, row) => {
-              this.handleEdit(index, row);
-            }
-          },
-          {
-            id: "2",
-            label: "删除",
-            show: true,
-            plain: false,
-            disabled: false,
-            method: (index, row) => {
-              this.handleDel(index, row);
-            }
-          }
-          
-        ]
-      }, // 列操作按钮
       editRules:{
         con:[{ required: true, message: '请输入内容', trigger: 'blur' }]
       },
@@ -182,6 +138,19 @@ export default {
     this.getList();
   },
   methods:{
+    formTime(row, column){
+      var timer = row.it
+      var date = new Date(timer)
+        return date.getFullYear()+'-'+
+          checkTime(date.getMonth()+1)+'-'+
+          checkTime(date.getDate())+' '+
+          checkTime(date.getMonth())+':'+
+          checkTime(date.getMinutes())+':'+
+          checkTime(date.getSeconds())
+    },
+    formState(row, column){
+      return row.sta == 1 ? "已审核" : "未审核"
+    },
     getList() {
       let params = {
         pgstr:this.currentPage,
@@ -295,7 +264,7 @@ export default {
       let delParams = {
         id:row.id
       }
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"

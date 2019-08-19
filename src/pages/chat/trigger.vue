@@ -59,7 +59,70 @@
     
       
     <div class="table-box">
-      <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+      <el-table
+            :data="list"
+            style="width: 100%">
+            <el-table-column type="index" align="center">
+            </el-table-column>
+            <el-table-column
+                label="设备类型"
+                prop="dtp"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="用户ID"
+                prop="uid"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="客户端版本"
+                prop="clientVersion">
+            </el-table-column>
+            <el-table-column
+                label="引擎版本"
+                prop="engineVersion"
+                 align="center">
+            </el-table-column>
+            <el-table-column
+                label="开发者"
+                prop="developer"
+                 align="center">
+            </el-table-column>
+            <el-table-column
+                label="唤醒词类型"
+                prop="keywordType"
+                 align="center">
+            </el-table-column>
+            <el-table-column
+                label="唤醒词"
+                prop="keywordPhrase"
+                 align="center">
+            </el-table-column>
+            <el-table-column
+                label="数据来源"
+                prop="origin"
+                 align="center">
+            </el-table-column>
+            <el-table-column
+                label="数据日期"
+                prop="displayDate"
+                 align="center">
+            </el-table-column>
+            <!-- <el-table-column 
+                label="操作"
+                prop="filePath"
+                 align="center"
+                :formatter="formTime">
+            </el-table-column> -->
+            <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    @click="handleDown(scope.$index, scope.row)"
+                    v-has="121">下载文件</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -74,12 +137,10 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {triggerList} from '@/config/api'
 export default {
   name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],
@@ -95,89 +156,6 @@ export default {
         refreshTime:"",
         putTime:""
       },
-      columns: [
-        {
-          prop: "dtp",
-          label: "设备类型",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "uid",
-          label: "用户ID",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "clientVersion",
-          label: "客户端版本",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "engineVersion",
-          label: "引擎版本",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "developer",
-          label: "开发者",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "keywordType",
-          label: "唤醒词类型",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "keywordPhrase",
-          label: "唤醒词",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "origin",
-          label: "数据来源",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "displayDate",
-          label: "数据日期",
-          align: "center",
-          hasSort:true,
-        },
-        {
-            prop:"filePath",
-            label: "操作",
-            align: "center",
-            render: (h, params)=>{
-              return h('a',{
-                attrs: {
-                  download: 'pcm',
-                  class:"downloadFile",
-                  href: params.row.filePath
-                },
-              })
-          }
-        }
-      ],
-      options: {
-        stripe: false, // 是否为斑马纹 table
-        loading: false, // 是否添加表格loading加载动画
-        highlightCurrentRow: false, // 是否支持当前行高亮显示
-        mutiSelect: false, // 是否支持列表项选中功能
-        border:false     //是否显示纵向边框
-      },
-      operates: {
-        show: false,
-        list: [
-          
-        ]
-      }, // 列操作按钮
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 30,   //默认每页条数
@@ -190,6 +168,14 @@ export default {
     this.getList();
   },
   methods: {
+    handleDown(index,row){
+      console.log(row)
+       let a = document.createElement('a');
+        a.href = row.filePath;
+        a.download = 'pcm',
+        a.click();
+
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.getList()

@@ -10,6 +10,7 @@ const service_head = axios.create({
   timeout: 15000, // 请求超时时间
   withCredentials: true
 })
+service_head.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 let loading
 function startLoading () { // 使用Element loading-start 方法
   // eslint-disable-next-line no-undef
@@ -24,7 +25,7 @@ function endLoading () { // 使用Element loading-close 方法
 // http request 拦截器
 service_head.interceptors.request.use(
   config => {
-    // console.log(config)
+    console.log(config)
     startLoading()
     // if (localStorage.token) { // 判断token是否存在
     //   config.headers.Authorization = localStorage.token // 将token设置成请求头
@@ -39,8 +40,8 @@ service_head.interceptors.request.use(
 
 // http response 拦截器
 service_head.interceptors.response.use(response => {
-  // console.log(response)
   endLoading()
+  console.log(response)
   if (response.status === 999) {
     router.replace('/login')
     console.log('token过期')

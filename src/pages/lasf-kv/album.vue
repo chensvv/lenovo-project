@@ -14,11 +14,58 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
-            <el-button class="success" size="mini" @click="handleSong()">歌曲列表</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="154">添加</el-button>
+            <el-button class="success" size="mini" @click="handleSong()" v-has="157">歌曲列表</el-button>
         </el-form>
         <div class="table-box">
-            <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+            <el-table
+                :data="list"
+                style="width: 100%">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column
+                    label="名称"
+                    prop="albumName"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="专辑ID"
+                    prop="id"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="QQ音乐ID"
+                    prop="albumQqId">
+                </el-table-column>
+                <el-table-column
+                    label="QQ音乐MID"
+                    prop="albumQqMid"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="专辑对应歌手ID"
+                    prop="albumQqSingerId"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="更新时间"
+                    prop="displayUpdateTime"
+                    align="center">
+                </el-table-column>
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)"
+                        v-has="155">修改</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="156">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -80,12 +127,10 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {albumList, albumDel, albumUpd, albumAdd} from '@/config/api'
 export default {
     name: "applicationlist",
-    components: { iTable },
     data() {
         return {
             list: [],
@@ -107,78 +152,6 @@ export default {
             searchItem:{//搜索数据组
                 name:"",
             },
-            columns: [
-                {
-                    prop: "albumName",
-                    label: "名称",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "id",
-                    label: "专辑ID",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "albumQqId",
-                    label: "QQ音乐ID",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "albumQqMid",
-                    label: "QQ音乐MID",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "albumQqSingerId",
-                    label: "专辑对应歌手ID",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "displayUpdateTime",
-                    label: "更新时间",
-                    align:'center',
-                    hasSort:true
-                }
-            ],
-            options: {
-                stripe: false, // 是否为斑马纹 table
-                loading: false, // 是否添加表格loading加载动画
-                highlightCurrentRow: false, // 是否支持当前行高亮显示
-                mutiSelect: false, // 是否支持列表项选中功能
-                border:false     //是否显示纵向边框
-            },
-            operates: {
-                width: 120,
-                show: false,
-                list: [
-                    {
-                        id: "1",
-                        label: "编辑",
-                        show: true,
-                        plain: true,
-                        disabled: false,
-                        method: (index, row) => {
-                            this.handleEdit(index, row);
-                        }
-                    },
-                    {
-                        id: "2",
-                        label: "删除",
-                        type:"danger",
-                        show: true,
-                        plain: false,
-                        disabled: false,
-                        method: (index, row) => {
-                        this.handleDel(index, row);
-                        }
-                    }
-                ]
-            }, // 列操作按钮
             addRules:{
                 albumName: [{ required: true, message: '请输入专辑名称', trigger: 'change' }],
                 albumQqId: [{ required: true, message: '请输入专辑QQ音乐ID', trigger: 'change' }],
@@ -244,7 +217,7 @@ export default {
             let delParams = {
                 albumQqId:row.id
             }
-            this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
@@ -400,7 +373,7 @@ export default {
         },
         handleSong(){
             this.$router.push({
-                path:'/home/song'
+                path:'/lasf-kv/song'
             })
         }
     },
