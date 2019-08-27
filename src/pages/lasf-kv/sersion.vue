@@ -53,7 +53,7 @@
                     <el-button
                     size="mini"
                     @click="handleEdit(scope.$index, scope.row)"
-                    v-has="141">修改</el-button>
+                    v-has="141">编辑</el-button>
                     <el-button
                     size="mini"
                     type="danger"
@@ -79,10 +79,10 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
             <el-form-item label="说明" prop="version">
-                <el-input type="text" v-model="currentItem.version" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.version" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="答案" prop="answer" class="ser_t">
-                <el-input type="textarea" v-model="currentItem.answer" auto-complete="off"></el-input>
+                <el-input type="textarea" v-model.trim="currentItem.answer" auto-complete="off"></el-input>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -93,10 +93,10 @@
         <el-dialog title="添加答案" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="0px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item prop="version">
-                    <el-input type="text" v-model="addList.version" placeholder="在此处添加说明" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.version" placeholder="在此处添加说明" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item prop="answer"  class="ser_text">
-                    <el-input type="textarea" v-model="addList.answer" placeholder="在此处添加答案" auto-complete="off"></el-input>
+                    <el-input type="textarea" v-model.trim="addList.answer" placeholder="在此处添加答案" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             
@@ -108,13 +108,13 @@
         <el-dialog title="发布策略" :visible.sync="strVisible" width="300" :before-close="strHandleClose">
             <el-form :label-position="'left'" label-width="80px" ref="strList">
                 <el-form-item label="软件版本" class="ver_text1">
-                    <el-input type="text" v-model="strList.minVer" placeholder="最小版本" auto-complete="off"></el-input> - 
-                    <el-input type="text" v-model="strList.maxVer" placeholder="最大版本" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="strList.minVer" placeholder="最小版本" auto-complete="off"></el-input> - 
+                    <el-input type="text" v-model.trim="strList.maxVer" placeholder="最大版本" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="型号"  class="ver_text2">
-                    <el-input type="text" v-model="strList.serIn" placeholder="in" auto-complete="off"></el-input>
-                    <el-input type="text" v-model="strList.serCon" placeholder="contains" auto-complete="off"></el-input>
-                    <el-input type="text" v-model="strList.serNot" placeholder="not" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="strList.serIn" placeholder="in" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="strList.serCon" placeholder="contains" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="strList.serNot" placeholder="not" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             
@@ -141,7 +141,7 @@ export default {
         appName:"",
         functionName:""
       },
-      currentItem: {//修改数据组
+      currentItem: {//编辑数据组
         id:"",
         version: "",
         state:""
@@ -278,7 +278,7 @@ export default {
           versionUpd(updParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
-                    message:'修改成功',
+                    message:'编辑成功',
                     type:"success",
                     duration:1000
                 });

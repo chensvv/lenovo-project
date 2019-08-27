@@ -66,7 +66,7 @@ export function userRoleSave (data) {
 
 export function roleList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/role/rolelistpage',
+    url: '/lasf-mgr/role/list',
     method: 'post',
     data: data
   })

@@ -164,6 +164,22 @@ export function qaDel (data) {
   })
 }
 
+export function qaUpFile (data) {
+  return fetch.UPFile({
+    url: '/lasf-mgr/qa/excel',
+    method: 'post',
+    data: data
+  })
+}
+
+export function qaPub (data) {
+  return fetch.UPFile({
+    url: '/lasf-mgr/qa/pub',
+    method: 'post',
+    data: data
+  })
+}
+
 // 规则
 export function ruleList (data) {
   return fetch.service_head({
@@ -724,6 +740,62 @@ export function songUpd (data) {
 export function songDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/deletesong',
+    method: 'post',
+    data: data
+  })
+}
+
+export function commandList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function commandDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/delete',
+    method: 'post',
+    data: data
+  })
+}
+
+export function commandEcho (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/main/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function commandAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/add',
+    method: 'post',
+    data: data
+  })
+}
+
+export function norunList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/norun/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function norunAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/norun/add',
+    method: 'post',
+    data: data
+  })
+}
+
+export function norunDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/norun/delete',
     method: 'post',
     data: data
   })

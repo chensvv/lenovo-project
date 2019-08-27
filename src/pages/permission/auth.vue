@@ -7,16 +7,50 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="用户名" prop="userName">
-                <el-input v-model="searchItem.userName" clearable></el-input>
+                <el-input v-model.trim="searchItem.userName" clearable></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="178">添加</el-button>
         </el-form>
         <div class="table-box">
-            <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+            <el-table
+                :data="list"
+                style="width: 100%">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column
+                    label="用户名"
+                    prop="userName"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="密码"
+                    prop="password"
+                    align="center"
+                    :formatter="formState">
+                </el-table-column>
+                <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                      <el-button
+                        size="mini"
+                        type="primary"
+                        @click="handleRole(scope.$index, scope.row)"
+                        v-has="182">角色</el-button>
+                        <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)"
+                        v-has="179">编辑</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="180">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -31,10 +65,10 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="用户名" prop="userName">
-                    <el-input type="text" v-model="currentItem.userName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.userName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input type="text" v-model="currentItem.password" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.password" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -45,10 +79,10 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="120px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="用户名" prop="userName">
-                    <el-input type="text" v-model="addList.userName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.userName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input type="text" v-model="addList.password" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.password" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -80,16 +114,13 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
-import {checkTime} from '@/utils/timer.js'
 import {userList, userDel, userUpd, userAdd, userEcho, userRole, userRoleEcho, userRoleSave} from '@/config/adminApi'
 export default {
     name: "applicationlist",
-    components: { iTable },
     data() {
         return {
             list: [],
-            currentItem: {//修改数据组
+            currentItem: {//编辑数据组
                 id:"",
                 userName: "",
                 password: "",
@@ -104,65 +135,6 @@ export default {
             roleIds:{},
             roleData:[],
             multipleSelection:[],
-            columns: [
-                {
-                    prop: "userName",
-                    label: "用户名",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "password",
-                    label: "密码",
-                    align: "center",
-                    hasSort:true
-                }
-            ],
-            options: {
-                stripe: false, // 是否为斑马纹 table
-                loading: false, // 是否添加表格loading加载动画
-                highlightCurrentRow: false, // 是否支持当前行高亮显示
-                mutiSelect: false, // 是否支持列表项选中功能
-                border:false     //是否显示纵向边框
-            },
-            operates: {
-                width: 180,
-                show: false,
-                list: [
-                    {
-                        id: "1",
-                        label: "角色",
-                        type:"success",
-                        show: true,
-                        plain: false,
-                        disabled: false,
-                        method: (index, row) => {
-                        this.handleRole(index, row);
-                        }
-                    },
-                    {
-                        id: "2",
-                        label: "编辑",
-                        show: true,
-                        plain: true,
-                        disabled: false,
-                        method: (index, row) => {
-                            this.handleEdit(index, row);
-                        }
-                    },
-                    {
-                        id: "3",
-                        label: "删除",
-                        type:"danger",
-                        show: true,
-                        plain: false,
-                        disabled: false,
-                        method: (index, row) => {
-                        this.handleDel(index, row);
-                        }
-                    }
-                ]
-            }, // 列操作按钮
             addRules:{
                 userName:[{ required: true, message: '请输入用户名', trigger: 'change' }],
                 password:[{ required: true, message: '请输入密码', trigger: 'change' }]
@@ -282,7 +254,7 @@ export default {
                     userUpd(updParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
-                                message:'修改成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });
@@ -373,7 +345,7 @@ export default {
             userRoleSave(Saveparams).then(res=>{
                 if(res.data.code == 200){
                     this.$message({
-                        message:'修改成功',
+                        message:'编辑成功',
                         type:"success",
                         duration:1000
                     });

@@ -8,13 +8,13 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline outer" size="mini">
             <el-form-item label="用户ID" prop="userId">
-                <el-input v-model="searchItem.userId" clearable></el-input>
+                <el-input v-model.trim="searchItem.userId" clearable></el-input>
             </el-form-item>
             <el-form-item label="用户指令" prop="domain">
-                <el-input v-model="searchItem.domain" clearable></el-input>
+                <el-input v-model.trim="searchItem.domain" clearable></el-input>
             </el-form-item>
             <el-form-item label="解析领域" prop="domain">
-                <el-input v-model="searchItem.domain" clearable></el-input>
+                <el-input v-model.trim="searchItem.domain" clearable></el-input>
             </el-form-item>
             <el-form-item label="响应状态" prop="respstatus">
                 <el-select v-model="searchItem.respstatus" placeholder="--" clearable>
@@ -83,12 +83,12 @@
                     prop="displayTime"
                     align="center">
                 </el-table-column>
-                <el-table-column label="操作" align="center">
+                <el-table-column label="操作" align="center" v-has="125">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
                         @click="handleInfo(scope.$index, scope.row)"
-                        v-has="125">详情</el-button>
+                        >详情</el-button>
                     </template>
                 </el-table-column>
             </el-table>

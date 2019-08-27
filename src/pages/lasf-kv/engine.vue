@@ -19,7 +19,7 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @open="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="修改密码" prop="asrpsd">
-                    <el-input type="text" v-model="currentItem.asrpsd" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.asrpsd" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="" class="edit_text" prop="asr">
                     <el-input type="textarea" v-model="currentItem.asr" auto-complete="off"></el-input>

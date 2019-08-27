@@ -50,7 +50,7 @@
                 <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="169">修改</el-button>
+                  v-has="169">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
@@ -138,7 +138,7 @@ export default {
   data() {
     return {
       list: [],
-      currentItem: {//修改数据组
+      currentItem: {//编辑数据组
         id:"",
         code: "",
         name: "",
@@ -285,7 +285,7 @@ export default {
           greyAddUpd(updParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
-                    message:'修改成功',
+                    message:'编辑成功',
                     type:"success",
                     duration:1000
                 });

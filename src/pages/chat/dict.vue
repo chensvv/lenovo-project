@@ -8,7 +8,7 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="热词" prop="hotName">
-                <el-input v-model="searchItem.hotName" clearable></el-input>
+                <el-input v-model.trim="searchItem.hotName" clearable></el-input>
             </el-form-item>
         <el-form-item label="VDM" prop="vdm">
             <el-select v-model="searchItem.vdm" placeholder="--" clearable>
@@ -72,7 +72,7 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="110">修改</el-button>
+                        v-has="110">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
@@ -95,11 +95,11 @@
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'left'" label-width="100px" :rules="editRules" :model="currentItem" ref="currentItem">
             <el-form-item label="热词" prop="hotName">
-                <el-input type="text" v-model="currentItem.hotName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.hotName" auto-complete="off"></el-input>
                 <el-button size="mini">获取推荐读音</el-button>
             </el-form-item>
             <el-form-item label="词语发音" prop="pronounceName">
-                <el-input type="text" v-model="currentItem.pronounceName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.pronounceName" auto-complete="off"></el-input>
                 <span style="font-size:12px">(如热词为‘A180’，此处可填写‘诶裔巴绫’)</span>
             </el-form-item>
             <el-form-item label="VDM" prop="vdm">
@@ -119,10 +119,10 @@
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
         <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
             <el-form-item label="热词" prop="hotName">
-                <el-input type="text" v-model="addList.hotName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="addList.hotName" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="词语发音" prop="pronounceName">
-                <el-input type="text" v-model="addList.pronounceName" placeholder="(如热词为‘A180’，此处可填写‘诶裔巴绫’)" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="addList.pronounceName" placeholder="(如热词为‘A180’，此处可填写‘诶裔巴绫’)" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="VDM" prop="vdm">
                 <el-select v-model="addList.vdm" placeholder="--">
@@ -151,7 +151,7 @@ export default {
     data() {
         return {
             list: [],
-            currentItem: {//修改数据组
+            currentItem: {//编辑数据组
                 hotName: "",
                 pronounceName: "",
                 vdm: "",
@@ -295,7 +295,7 @@ export default {
                     dictAddUpd(updParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
-                                message:'修改成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });

@@ -165,9 +165,24 @@ const router = new Router({
           meta: {title: '详细信息'}
         },
         {
+          path: '/command/list',
+          component: () => import('@/pages/lasf-kv/command'),
+          meta: {title: '相似度命令管理'}
+        },
+        {
+          path: '/command/norun/list',
+          component: () => import('@/pages/lasf-kv/norun'),
+          meta: {title: '相似度命令管理'}
+        },
+        {
           path: '/home/setting',
           component: () => import('@/pages/setting'),
           meta: {title: '设置'}
+        },
+        {
+          path: '/401',
+          component: () => import('@/pages/401'),
+          meta: {title: '401'}
         },
         {
           path: '/404',
@@ -207,7 +222,7 @@ router.beforeEach((to, from, next) => {
   if (username) {
     next()
   } else {
-    if (to.path == '/login' || to.path == '/register') {
+    if (to.path == '/login') {
       next()
     } else {
       next('/login')

@@ -130,35 +130,35 @@
 			<span>首页</span>
         </el-menu-item>
            <div v-for='(item, index) in menuData' :key='index'>
-                <el-submenu v-if='item.children' :index='item.ruleCode' :route = 'item.url' class='edit_wrapper'>
+                <el-submenu v-if='item.children' :index='item.id' :route = 'item.url' class='edit_wrapper'>
                 <template slot='title'>
                     <i :class='item.icon'></i>
                     <span slot='title'>{{item.ruleName}}</span>
                     <i class='iconfont icon-shenpi edit'></i>
                 </template>
-                <el-submenu v-if='item1.children' v-for= '(item1, index) in item.children' :key='item1.ruleCode' :index='item1.ruleCode' :route='item1.url'>
+                <el-submenu v-if='item1.children' v-for= '(item1, index) in item.children' :key='item1.ruleCode' :index='item1.id' :route='item1.url'>
                     <template slot='title'>
                         <span slot='title'>{{item1.ruleName}}</span>
                     </template>
-                    <el-submenu v-for= '(item2, index) in item1.children' :key='item2.ruleCode' v-if='item2.children' :index='item2.ruleCode' :route = 'item2.url'>
+                    <el-submenu v-for= '(item2, index) in item1.children' :key='item2.ruleCode' v-if='item2.children' :index='item2.id' :route = 'item2.url'>
                         <template slot='title'>
                             <span slot='title'>{{item2.ruleName}}</span>
                         </template>
-                        <el-submenu v-for= '(item3, index) in item2.children' :key='item3.ruleCode' v-if='item3.children' ::index='item3.ruleCode' :route = 'item3.url'>
+                        <el-submenu v-for= '(item3, index) in item2.children' :key='item3.ruleCode' v-if='item3.children' :index='item3.id' :route = 'item3.url'>
                             <template slot='title'>
                                 <span slot='title'>{{item3.ruleName}}</span>
                             </template>
-                            <el-menu-item v-for= '(item4, index) in item3.children' :key='item3.ruleCode' v-if='item4.children == null' :index='item4.ruleCode' :route = 'item4.url'>
+                            <el-menu-item v-for= '(item4, index) in item3.children' :key='item3.ruleCode' v-if='item4.children == null' :index='item4.id' :route = 'item4.url'>
                                 <i :class='item4.icon'></i>
                                 <span>{{item4.ruleName}}</span>
                             </el-menu-item>
                         </el-submenu>
-                        <el-menu-item v-for= '(item3, index) in item2.children' :key='item3.ruleCode' v-if='item3.children == null' :index='item3.ruleCode' :route = 'item3.url'>
+                        <el-menu-item v-for= '(item3, index) in item2.children' :key='item3.ruleCode' v-if='item3.children == null' :index='item3.id' :route = 'item3.url'>
                             <i :class='item3.icon'></i>
                             <span>{{item3.ruleName}}</span>
                         </el-menu-item>
                     </el-submenu>
-                    <el-menu-item v-for= '(item2, index) in item1.children' :key='item2.ruleCode' v-if='item2.children == null' :index='item2.ruleCode' :route = 'item2.url'>
+                    <el-menu-item v-for= '(item2, index) in item1.children' :key='item2.ruleCode' v-if='item2.children == null' :index='item2.id' :route = 'item2.url'>
                         <i :class='item2.icon'></i>
                         <span>{{item2.ruleName}}</span>
                     </el-menu-item>
@@ -168,7 +168,7 @@
                     <span>{{item1.ruleName}}</span>
                 </el-menu-item>
             </el-submenu>
-            <el-menu-item v-if='item.children == null' :index='item.ruleCode' :route = 'item.url'>
+            <el-menu-item v-if='item.children == null' :index='item.id' :route = 'item.url'>
                 <i :class='item.icon'></i>
                 <span slot='title'>{{item.ruleName}}</span>
             </el-menu-item>
@@ -187,9 +187,7 @@
         </el-menu> -->
   </template>
 <script>
-import NavMenu from './silder'
 export default {
-    components:{NavMenu},
     data(){
             return {
               menuData:[],

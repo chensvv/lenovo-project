@@ -3,10 +3,10 @@
         <div class="login-box">
         <el-form :label-position="'left'" :model="loginForm" :rules="loginRules" ref="loginForm" label-width="80px">
             <el-form-item label="用户名" prop="username">
-                <el-input v-model="loginForm.username" prefix-icon="el-icon-user" auto-complete="off" clearable></el-input>
+                <el-input v-model.trim="loginForm.username" prefix-icon="el-icon-user" auto-complete="off" clearable></el-input>
             </el-form-item>
             <el-form-item label="密  码" prop="password">
-                <el-input type="password" v-model="loginForm.password" prefix-icon="el-icon-lock" auto-complete="off" clearable></el-input>
+                <el-input type="password" v-model.trim="loginForm.password" prefix-icon="el-icon-lock" auto-complete="off" clearable></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click.enter="onSubmit('loginForm')" :loading="loginLoading">登录</el-button>
@@ -47,17 +47,24 @@ export default {
                 if (valid) {
                     this.loginLoading=true
                     login(params).then((res)=>{
-
-                        if(res.status == 200){
-                                this.loginLoading = false
-                                localStorage.setItem('username',this.loginForm.username)
-                                // this.$store.dispatch('menuData',res.data)
-                                localStorage.setItem('menuData',JSON.stringify(res.data))
-                                
-                                this.$router.push('/home')
+                        if(res.data.code == 200){
+                            localStorage.setItem('username',this.loginForm.username)
+                            // this.$store.dispatch('menuData',res.data)
+                            localStorage.setItem('menuData',JSON.stringify(res.data.data))
+                            
+                            this.$router.push('/home')
+                            this.loginLoading = false
                         }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
                             this.loginLoading = false
                         }
+                    }).catch(err=>{
+                        
+                        this.loginLoading = false
                     })
                 } else {
                     return false;
@@ -75,7 +82,8 @@ export default {
 
 .login-box {
     width: 300px;
-    margin: 200px auto;
+    margin: 0 auto;
+    padding-top: 200px;
 }
 
 .login-box .el-button {

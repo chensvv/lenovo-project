@@ -8,10 +8,10 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="问题" prop="question">
-        <el-input v-model="searchItem.question" clearable></el-input>
+        <el-input v-model.trim="searchItem.question" clearable></el-input>
       </el-form-item>
       <el-form-item label="所属excel文件" prop="excel">
-        <el-input v-model="searchItem.excel" clearable></el-input>
+        <el-input v-model.trim="searchItem.excel" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -53,7 +53,7 @@
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="113">修改</el-button>
+                  v-has="113">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
@@ -76,10 +76,10 @@
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="问题" prop="question">
-          <el-input type="textarea" v-model="currentItem.question" auto-complete="off"></el-input>
+          <el-input type="textarea" v-model.trim="currentItem.question" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="答案" prop="answer">
-          <el-input type="text" v-model="currentItem.answer" auto-complete="off"></el-input>
+          <el-input type="text" v-model.trim="currentItem.answer" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -90,10 +90,10 @@
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="问题" prop="question">
-          <el-input type="text" v-model="addList.question" auto-complete="off"></el-input>
+          <el-input type="text" v-model.trim="addList.question" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="答案" prop="answer">
-          <el-input type="textarea" v-model="addList.answer" auto-complete="off"></el-input>
+          <el-input type="textarea" v-model.trim="addList.answer" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -102,7 +102,7 @@
       </span>
     </el-dialog>
     <el-dialog title="上传文件" :visible.sync="uploadVisible" width="200" class="eldialog" :before-close="closeFile">
-      <el-form ref="addForm" class="eldialogForm" id="addForm">
+      <el-form class="eldialogForm">
             <el-form-item label >
               <el-upload
                 class="upload-demo"
@@ -132,20 +132,31 @@
             <el-button type="primary" @click="postFile()" :loading="fileBtnLoading">确 定</el-button>
           </div>
         </el-dialog>
+         <el-dialog title="AIML" :visible.sync="AIMLVisible" width="300" class="eldialog">
+          <el-form :label-position="'left'" label-width="50px">
+            <el-form-item label="AIML:" class="aiml_text">
+              <el-input type="textarea" v-model="aimlInfo" auto-complete="off" readonly></el-input>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="AINLBtn()">确 定</el-button>
+          </div>
+        </el-dialog>
   </div>
 </template>
 
 <script>
 import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
-import {qaList, qaSave, qaDel} from '@/config/api'
+import {qaList, qaSave, qaDel, qaUpFile, qaPub} from '@/config/api'
 export default {
   name: "applicationlist",
   components: { iTable },
   data() {
     return {
+      aimlInfo:"",
       list: [],
-      currentItem: {//修改数据组
+      currentItem: {//编辑数据组
         id:"",
         answer: "",
         question: "",
@@ -180,7 +191,8 @@ export default {
       addBtnLoading:false,
       editBtnLoading:false,
       fileBtnLoading:false,
-      AIMLBtnLoading:false
+      AIMLBtnLoading:false,
+      AIMLVisible:false
     };
   },
   created() {
@@ -287,7 +299,7 @@ export default {
           qaSave(updParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
-                    message:'修改成功',
+                    message:'编辑成功',
                     type:"success",
                     duration:1000
                 });
@@ -350,8 +362,7 @@ export default {
     beforeUpload(file) {
       const isText = file.type === "application/vnd.ms-excel";
       const isTextComputer =
-        file.type ===
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
       if (!isText && !isTextComputer) {
         this.$message.error("上传文件必须是Excel格式!");
       }
@@ -367,41 +378,59 @@ export default {
     postFile() {
       const fileObj = this.file;
       var fileData = new FormData();
-      fileData.append("file", fileObj);
-      let headers = {
-        "Content-Type": "multipart/form-data"
-      };
+      fileData.append("ex", fileObj);
       this.fileBtnLoading = true;
-      this.$http.post('/url',headers,fileData)
-        // method: "post",
-        // url: url + "/upload",    //填写上传的接口
-        // headers: headers,
-        // data: fileData
-      .then(res => {
-        if (res.data.code === 200) {
-          this.$message.success(res.data.msg);
-          this.$refs.upload.clearFiles()
-          setTimeout(()=>{
-            this.fileBtnLoading = false;
-            this.uploadVisible = false
-          },2000)
-        } else {
-          this.$message.error(res.data.msg);
-        }
+      qaUpFile(fileData).then(res => {
+            if(res.data.code == 200){
+                this.$message({
+                    message:'上传成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.$refs.upload.clearFiles()
+                this.fileBtnLoading = false
+                this.uploadVisible = false
+                this.getList()
+            }else{
+                this.fileBtnLoading = false
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            }
+
       });
-      setTimeout(function() {
-        this.uploadVisible = false;
-      }, 1500);
     },
     closeFile() {
         this.$refs.upload.clearFiles()
         this.uploadVisible = false;
     },
     buildAIML(){
-      this.AIMLBtnLoading = true
-      setTimeout(()=>{
-          this.AIMLBtnLoading = false
-      },2000)
+      qaPub().then(res=>{
+        this.aimlInfo = res.data.data.aiml
+        if(res.data.code == 200){
+            this.$message({
+                message:res.data.msg,
+                type:"success",
+                duration:1000
+            });
+            this.AIMLBtnLoading = false
+            setTimeout(()=>{
+              this.AIMLVisible = true
+            },1000)
+        }else{
+            this.AIMLBtnLoading = false
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1000
+            });
+        }
+      })
+    },
+    AINLBtn(){
+      this.AIMLVisible = false
     },
     getList() {
       let params = {

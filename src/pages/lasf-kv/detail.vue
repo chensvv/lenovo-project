@@ -3,7 +3,7 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>LASF KV</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/lasf-kv/skill'}">应用列表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/skill/applist'}">应用列表</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         
@@ -13,7 +13,7 @@
                     </span><span>({{skillDetail.appType}})</span>
             </div>
             <el-form-item label="应用名称" prop="functionName">
-                <el-input v-model="searchItem.functionName" clearable></el-input>
+                <el-input v-model.trim="searchItem.functionName" clearable></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -94,7 +94,7 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="技能描述" prop="functionName">
-                <el-input type="text" v-model="currentItem.functionName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.functionName" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -105,7 +105,7 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="技能描述" prop="skillName">
-                <el-input type="text" v-model="addList.skillName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="addList.skillName" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">

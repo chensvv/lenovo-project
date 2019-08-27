@@ -184,3 +184,6 @@
 .btn_role{
   margin-bottom: 20px;
 }
+.aiml_text .el-textarea__inner{
+  min-height: 500px !important;
+}

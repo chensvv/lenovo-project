@@ -7,7 +7,7 @@
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="内容" prop="con">
-                <el-input v-model="searchItem.con" clearable></el-input>
+                <el-input v-model.trim="searchItem.con" clearable></el-input>
             </el-form-item>
             <el-form-item label="审核状态" prop="state">
                 <el-select v-model="searchItem.state" placeholder="--" clearable>
@@ -53,7 +53,7 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="60">修改</el-button>
+                        v-has="60">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
@@ -75,7 +75,7 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="handleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="60px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="内容" prop="con">
-                    <el-input type="textarea" v-model="currentItem.con" auto-complete="off" rows="5"></el-input>
+                    <el-input type="textarea" v-model.trim="currentItem.con" auto-complete="off" rows="5"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -86,7 +86,7 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="60px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="内容" prop="con">
-                    <el-input type="textarea" v-model="addList.con" auto-complete="off" rows="5"></el-input>
+                    <el-input type="textarea" v-model.trim="addList.con" auto-complete="off" rows="5"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -240,7 +240,7 @@ export default {
           jokeAddUpd(updParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
-                    message:'修改成功',
+                    message:'编辑成功',
                     type:"success",
                     duration:1000
                 });

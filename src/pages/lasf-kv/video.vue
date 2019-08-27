@@ -8,7 +8,7 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="名称" prop="name">
-                <el-input v-model="searchItem.name" clearable></el-input>
+                <el-input v-model.trim="searchItem.name" clearable></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -57,7 +57,7 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="146">修改</el-button>
+                        v-has="146">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
@@ -80,49 +80,49 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="名称" prop="programName">
-                    <el-input type="text" v-model="currentItem.programName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="别名" prop="programAliasName">
-                    <el-input type="text" v-model="currentItem.programAliasName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programAliasName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="节目类型" prop="programDisplayType">
-                    <el-input type="text" v-model="currentItem.programDisplayType" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programDisplayType" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="上映类型" prop="programRelaseType">
-                    <el-input type="text" v-model="currentItem.programRelaseType" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programRelaseType" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="内容类型" prop="programContentType">
-                    <el-input type="text" v-model="currentItem.programContentType" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programContentType" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="上映年代" prop="programReleaseAge">
-                    <el-input type="text" v-model="currentItem.programReleaseAge" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programReleaseAge" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="语音" prop="programContentLanguage">
-                    <el-input type="text" v-model="currentItem.programContentLanguage" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programContentLanguage" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="导演" prop="programDirector">
-                    <el-input type="text" v-model="currentItem.programDirector" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programDirector" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="主演" prop="programMainStar">
-                    <el-input type="text" v-model="currentItem.programMainStar" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programMainStar" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="演员" prop="programActors">
-                    <el-input type="text" v-model="currentItem.programActors" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programActors" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="简介" prop="programIntroduce">
-                    <el-input type="textarea" v-model="currentItem.programIntroduce" auto-complete="off"></el-input>
+                    <el-input type="textarea" v-model.trim="currentItem.programIntroduce" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="网站评分" prop="programScore">
-                    <el-input type="text" v-model="currentItem.programScore" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programScore" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="集数" prop="programChildNumber">
-                    <el-input type="text" v-model="currentItem.programChildNumber" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programChildNumber" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="链接" prop="programUrl">
-                    <el-input type="text" v-model="currentItem.programUrl" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programUrl" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="级别" prop="programLevel">
-                    <el-input type="text" v-model="currentItem.programLevel" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programLevel" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="来源网站" prop="programSource">
                     <el-select v-model="currentItem.programSource" placeholder="--" clearable>
@@ -130,7 +130,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="海报链接" prop="programPoster">
-                    <el-input type="text" v-model="currentItem.programPoster" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.programPoster" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -141,49 +141,49 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="120px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="名称" prop="programName">
-                    <el-input type="text" v-model="addList.programName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="别名" prop="programAliasName">
-                    <el-input type="text" v-model="addList.programAliasName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programAliasName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="节目类型" prop="programDisplayType">
-                    <el-input type="text" v-model="addList.programDisplayType" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programDisplayType" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="上映类型" prop="programRelaseType">
-                    <el-input type="text" v-model="addList.programRelaseType" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programRelaseType" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="内容类型" prop="programContentType">
-                    <el-input type="text" v-model="addList.programContentType" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programContentType" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="上映年代" prop="programReleaseAge">
-                    <el-input type="text" v-model="addList.programReleaseAge" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programReleaseAge" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="语言" prop="programContentLanguage">
-                    <el-input type="text" v-model="addList.programContentLanguage" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programContentLanguage" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="导演" prop="programDirector">
-                    <el-input type="text" v-model="addList.programDirector" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programDirector" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="主演" prop="programMainStar">
-                    <el-input type="text" v-model="addList.programMainStar" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programMainStar" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="演员" prop="programActors">
-                    <el-input type="text" v-model="addList.programActors" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programActors" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="简介" prop="programIntroduce">
-                    <el-input type="textarea" v-model="addList.programIntroduce" auto-complete="off"></el-input>
+                    <el-input type="textarea" v-model.trim="addList.programIntroduce" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="网站评分" prop="programScore">
-                    <el-input type="text" v-model="addList.programScore" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programScore" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="集数" prop="programChildNumber">
-                    <el-input type="text" v-model="addList.programChildNumber" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programChildNumber" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="链接" prop="programUrl">
-                    <el-input type="text" v-model="addList.programUrl" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programUrl" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="级别" prop="programLevel">
-                    <el-input type="text" v-model="addList.programLevel" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programLevel" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="来源网站" prop="programSource">
                     <el-select v-model="addList.programSource" placeholder="--" clearable>
@@ -191,7 +191,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="海报链接" prop="programPoster">
-                    <el-input type="text" v-model="addList.programPoster" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.programPoster" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -212,7 +212,7 @@ export default {
     data() {
         return {
             list: [],
-            currentItem: {//修改数据组
+            currentItem: {//编辑数据组
                 id:"",
                 programName: "",
                 programAliasName: "",
@@ -432,7 +432,7 @@ export default {
                     videoUpd(updParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
-                                message:'修改成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });

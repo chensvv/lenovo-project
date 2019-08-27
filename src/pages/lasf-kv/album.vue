@@ -8,7 +8,7 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="专辑名称" prop="name">
-                <el-input v-model="searchItem.name" clearable></el-input>
+                <el-input v-model.trim="searchItem.name" clearable></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -80,19 +80,19 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="130px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="专辑名称" prop="albumName">
-                    <el-input type="text" v-model="currentItem.albumName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.albumName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑QQ音乐ID" prop="albumQqId">
-                    <el-input type="text" v-model="currentItem.albumQqId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.albumQqId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑QQ音乐MID" prop="albumQqMid">
-                    <el-input type="text" v-model="currentItem.albumQqMid" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.albumQqMid" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑对应歌手ID" prop="albumQqSingerId">
-                    <el-input type="text" v-model="currentItem.albumQqSingerId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.albumQqSingerId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑QQ音乐图片" prop="albumQqPhoto">
-                    <el-input type="text" v-model="currentItem.albumQqPhoto" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.albumQqPhoto" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -103,19 +103,19 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="130px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="专辑名称" prop="albumName">
-                    <el-input type="text" v-model="addList.albumName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.albumName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑QQ音乐ID" prop="albumQqId">
-                    <el-input type="text" v-model="addList.albumQqId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.albumQqId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑QQ音乐MID" prop="albumQqMid">
-                    <el-input type="text" v-model="addList.albumQqMid" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.albumQqMid" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑对应歌手ID" prop="albumQqSingerId">
-                    <el-input type="text" v-model="addList.albumQqSingerId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.albumQqSingerId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="专辑QQ音乐图片" prop="albumQqPhoto">
-                    <el-input type="text" v-model="addList.albumQqPhoto" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.albumQqPhoto" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">

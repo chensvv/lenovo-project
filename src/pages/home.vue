@@ -10,7 +10,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <!-- <el-dropdown-item command="change">切换账号</el-dropdown-item> -->
-                    <el-dropdown-item @click="userInfo()">详细信息</el-dropdown-item>
+                    <!-- <el-dropdown-item @click="userInfo()">详细信息</el-dropdown-item> -->
                     <el-dropdown-item divided command="logout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -74,7 +74,7 @@ export default {
     },
     watch:{
         $route(to, from) {
-        if(this.$route.path == '/404'){
+        if(this.$route.path == '/404' || this.$route.path == '/401'){
             this.is404 = true
         }else{
             this.is404 = false

@@ -8,10 +8,10 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="网站名" prop="name">
-                <el-input v-model="searchItem.name" clearable></el-input>
+                <el-input v-model.trim="searchItem.name" clearable></el-input>
             </el-form-item>
             <el-form-item label="来源" prop="source">
-                <el-input v-model="searchItem.source" clearable></el-input>
+                <el-input v-model.trim="searchItem.source" clearable></el-input>
             </el-form-item>
             <el-form-item label="开始时间" prop="refreshTime">
                 <el-date-picker 
@@ -76,7 +76,7 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="108">修改</el-button>
+                        v-has="108">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
@@ -99,14 +99,14 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="网站名称modify" prop="name">
-                    <el-input type="text" v-model="currentItem.name" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="说法" prop="alias">
-                    <el-input type="text" v-model="currentItem.alias" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.alias" auto-complete="off"></el-input>
                     <span style="font-size:12px">(多个说法用' / '分隔。例：网址导航/联想导航)</span>
                 </el-form-item>
                 <el-form-item label="手机网址" prop="wapUrl">
-                    <el-input type="text" v-model="currentItem.wapUrl" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.wapUrl" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -117,13 +117,13 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="120px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="网站名称add" prop="name">
-                    <el-input type="text" v-model="addList.name" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="说法" prop="alias">
-                    <el-input type="text" v-model="addList.alias" placeholder="(多个说法用' / '分隔。例：网址导航/联想导航)" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.alias" placeholder="(多个说法用' / '分隔。例：网址导航/联想导航)" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="手机网址" prop="wapUrl">
-                    <el-input type="text" v-model="addList.wapUrl" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.wapUrl" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -142,7 +142,7 @@ export default {
     data() {
         return {
             list: [],
-            currentItem: {//修改数据组
+            currentItem: {//编辑数据组
                 id:"",
                 name: "",
                 alias: "",
@@ -287,7 +287,7 @@ export default {
                     wasUpd(updParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
-                                message:'修改成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });

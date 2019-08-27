@@ -8,7 +8,7 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="歌手名称" prop="name">
-                <el-input v-model="searchItem.name" clearable></el-input>
+                <el-input v-model.trim="searchItem.name" clearable></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -54,7 +54,7 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="150">修改</el-button>
+                        v-has="150">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
@@ -77,22 +77,22 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="歌手名称" prop="singerName">
-                    <el-input type="text" v-model="currentItem.singerName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.singerName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="QQ音乐ID" prop="singerQqId">
-                    <el-input type="text" v-model="currentItem.singerQqId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.singerQqId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="QQ音乐MID" prop="singerQqMid">
-                    <el-input type="text" v-model="currentItem.singerQqMid" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.singerQqMid" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="歌手海报URL" prop="singerQqPosterUrl">
-                    <el-input type="text" v-model="currentItem.singerQqPosterUrl" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.singerQqPosterUrl" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="歌手简介" prop="singerQqIntroduce">
-                    <el-input type="text" v-model="currentItem.singerQqIntroduce" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.singerQqIntroduce" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="歌手图片" prop="singerQqPhoto">
-                    <el-input type="text" v-model="currentItem.singerQqPhoto" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.singerQqPhoto" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -103,22 +103,22 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="120px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="歌手名称" prop="singerName">
-                    <el-input type="text" v-model="addList.singerName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.singerName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="QQ音乐ID" prop="singerQqId">
-                    <el-input type="text" v-model="addList.singerQqId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.singerQqId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="QQ音乐MID" prop="singerQqMid">
-                    <el-input type="text" v-model="addList.singerQqMid" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.singerQqMid" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="歌手海报URL" prop="singerQqPosterUrl">
-                    <el-input type="text" v-model="addList.singerQqPosterUrl" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.singerQqPosterUrl" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="歌手简介" prop="singerQqIntroduce">
-                    <el-input type="text" v-model="addList.singerQqIntroduce" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.singerQqIntroduce" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="歌手图片" prop="singerQqPhoto">
-                    <el-input type="text" v-model="addList.singerQqPhoto" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.singerQqPhoto" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -137,7 +137,7 @@ export default {
     data() {
         return {
             list: [],
-            currentItem: {//修改数据组
+            currentItem: {//编辑数据组
                 id:"",
                 singerName: "",
                 singerQqId: "",
@@ -285,7 +285,7 @@ export default {
                     singerUpd(updParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
-                                message:'修改成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });

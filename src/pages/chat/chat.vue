@@ -7,7 +7,7 @@
     </el-breadcrumb>
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="问题" prop="question">
-        <el-input v-model="searchItem.question" clearable></el-input>
+        <el-input v-model.trim="searchItem.question" clearable></el-input>
       </el-form-item>
       <el-form-item label="起始时间" prop="refreshTime">
           <el-date-picker 
@@ -29,7 +29,7 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="117">导出</el-button>
+      <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="117">导出数据</el-button>
     </el-form>
     <div class="table-box">
       <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
@@ -149,10 +149,21 @@ export default {
       this.getList();
     },
     exportFile(){
-      this.fileBtnLoading = true
-      setTimeout(()=>{
-        this.fileBtnLoading = false
-      },2000)
+      let exprotParams = {
+        starttime:this.searchItem.refreshTime,
+        endtime:this.searchItem.putTime,
+        question:this.searchItem.question
+      }
+      chatExport(exprotParams).then(res=>{
+        let blobUrl = new Blob([res.data])
+        let a = document.createElement('a');
+        let url = window.URL.createObjectURL(blobUrl);
+        let filename = 'chat.xlsx';
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
     },
     getList() {
       let params = {

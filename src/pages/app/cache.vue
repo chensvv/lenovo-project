@@ -7,13 +7,13 @@
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline cache" size="mini">
             <el-form-item label="名字" prop="name">
-                <el-input v-model="searchItem.name" clearable></el-input>
+                <el-input v-model.trim="searchItem.name" clearable></el-input>
             </el-form-item>
             <el-form-item label="类型" prop="type">
-                <el-input v-model="searchItem.type" clearable></el-input>
+                <el-input v-model.trim="searchItem.type" clearable></el-input>
             </el-form-item>
             <el-form-item label="类别" prop="cn">
-                <el-input v-model="searchItem.cn" clearable></el-input>
+                <el-input v-model.trim="searchItem.cn" clearable></el-input>
             </el-form-item>
             <el-form-item label="开始时间" prop="refreshTime" class="width140">
                 <el-date-picker 
@@ -84,13 +84,13 @@
                  align="center"
                 :formatter="formTime">
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" v-has="6">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
                     type="danger"
                     @click="handleDel(scope.$index, scope.row)"
-                    v-has="6">删除</el-button>
+                    >删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -106,10 +106,10 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="应用名" prop="name">
-                <el-input type="text" v-model="addList.name" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="addList.name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="别名" prop="alias">
-                <el-input type="text" v-model="addList.alias" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="addList.alias" auto-complete="off"></el-input>
                 <span style="font-size:12px;">别名对应的原始名—只对别名有效</span>
                 </el-form-item>
             </el-form>

@@ -8,7 +8,7 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
         <el-form-item label="敏感词" prop="word">
-            <el-input v-model="searchItem.word" clearable></el-input>
+            <el-input v-model.trim="searchItem.word" clearable></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -39,7 +39,7 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="119">修改</el-button>
+                        v-has="119">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
@@ -62,8 +62,8 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
             <el-form-item label="敏感词" prop="word">
-                <el-input type="textarea" v-model="currentItem.word" auto-complete="off"></el-input>
-                <span style="font-size:12px;">修改时不能带有换行</span>
+                <el-input type="textarea" v-model.trim="currentItem.word" auto-complete="off"></el-input>
+                <span style="font-size:12px;">编辑时不能带有换行</span>
             </el-form-item>
         </el-form>
         
@@ -75,7 +75,7 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="80px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="敏感词" prop="word">
-                    <el-input type="textarea" v-model="addList.word" placeholder="可以一次增加多个，用换行分隔。" auto-complete="off"></el-input>
+                    <el-input type="textarea" v-model.trim="addList.word" placeholder="可以一次增加多个，用换行分隔。" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             
@@ -97,7 +97,7 @@ export default {
   data() {
     return {
       list: [],
-      currentItem: {//修改数据组
+      currentItem: {//编辑数据组
         id:"",
         word: "",
       },
@@ -287,7 +287,7 @@ export default {
           senAddUpd(updParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
-                    message:'修改成功',
+                    message:'编辑成功',
                     type:"success",
                     duration:1000
                 });

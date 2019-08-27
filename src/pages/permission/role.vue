@@ -6,15 +6,44 @@
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
           <el-form-item label="Role Name" prop="roleName">
-            <el-input v-model="searchItem.roleName" clearable></el-input>
+            <el-input v-model.trim="searchItem.roleName" clearable></el-input>
           </el-form-item>
           <el-button type="primary" size="mini" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
           <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-          <el-button type="primary" class="success btn_role" size="mini" @click="handleAdd()">添加角色</el-button>
+          <el-button type="primary" class="success btn_role" size="mini" @click="handleAdd()" v-has="175">添加角色</el-button>
         </el-form>
         
     <div class="table-box">
-        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+        <el-table
+            :data="list"
+            style="width: 100%">
+            <el-table-column type="index" align="center">
+            </el-table-column>
+            <el-table-column
+                label="Role Code"
+                prop="roleCode"
+                align="center">
+            </el-table-column>
+            <el-table-column
+                label="Role Name"
+                prop="roleName"
+                align="center"
+                :formatter="formState">
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    @click="handleEdit(scope.$index, scope.row)"
+                    v-has="176">编辑</el-button>
+                    <el-button
+                    size="mini"
+                    type="danger"
+                    @click="handleDel(scope.$index, scope.row)"
+                    v-has="177">删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -29,10 +58,10 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
             <el-form-item label="角色Code" prop="roleCode">
-                <el-input type="text" v-model="currentItem.roleCode" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.roleCode" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="角色名称" prop="roleName">
-                <el-input type="text" v-model="currentItem.roleName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.roleName" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-tree
@@ -54,10 +83,10 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="120px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="角色Code" prop="roleCode">
-                    <el-input type="text" v-model="addList.roleCode" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.roleCode" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="角色名称" prop="roleName">
-                    <el-input type="text" v-model="addList.roleName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.roleName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-tree
@@ -82,16 +111,13 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
-import {checkTime} from '@/utils/timer.js'
 import {roleList, authList, roleAdd, roleEcho, roleUpd, roleDel} from '@/config/adminApi'
 export default {
   name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],
-      currentItem: {//修改数据组
+      currentItem: {//编辑数据组
         id:"",
         roleCode:"",
         roleName:""
@@ -109,52 +135,6 @@ export default {
           children: 'children',
           label: 'ruleName'
       },
-      columns: [
-        {
-          prop: "roleCode",
-          label: "Role Code",
-          align: "center",
-        },
-        {
-          prop: "roleName",
-          label: "Role Name",
-          align: "center",
-        }
-      ],
-      options: {
-        stripe: false, // 是否为斑马纹 table
-        loading: false, // 是否添加表格loading加载动画
-        highlightCurrentRow: false, // 是否支持当前行高亮显示
-        mutiSelect: false, // 是否支持列表项选中功能
-        border:true     //是否显示纵向边框
-      },
-      operates: {
-        width: 150,
-        show: false,
-        list: [
-          {
-            id: "1",
-            label: "编辑",
-            show: true,
-            plain: true,
-            disabled: false,
-            method: (index, row) => {
-              this.handleEdit(index, row);
-            }
-          },
-          {
-            id: "2",
-            label: "删除",
-            type:"danger",
-            show: true,
-            plain: false,
-            disabled: false,
-            method: (index, row) => {
-              this.handleDel(index, row);
-            }
-          }
-        ]
-      }, // 列操作按钮
       addRules:{
         roleCode:[{ required: true, message: '请输入角色Code', trigger: 'change' }],
         roleName:[{ required: true, message: '请输入角色名称', trigger: 'change' }],
@@ -281,7 +261,7 @@ export default {
           roleUpd(updParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
-                    message:'修改成功',
+                    message:'编辑成功',
                     type:"success",
                     duration:1000
                 });
@@ -349,8 +329,8 @@ export default {
         roleName:this.searchItem.roleName
       }
       roleList(params).then(res => {
-        this.list = res.data;
-        this.totalCount = res.data.length
+        this.list = res.data.data;
+        this.totalCount = res.data.count
       });
     },
     getTree(){

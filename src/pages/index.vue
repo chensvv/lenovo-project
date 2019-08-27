@@ -19,7 +19,7 @@ export default {
     data(){
         return{
             startVal:0,
-            endVal:1024
+            endVal:0
         }
     }
 }

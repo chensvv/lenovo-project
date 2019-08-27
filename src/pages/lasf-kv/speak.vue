@@ -54,7 +54,7 @@
                     <el-button
                     size="mini"
                     @click="handleEdit(scope.$index, scope.row)"
-                    v-has="136">修改</el-button>
+                    v-has="136">编辑</el-button>
                     <el-button
                     size="mini"
                     type="danger"
@@ -76,7 +76,7 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
             <el-form-item label="说法" prop="speak">
-                <el-input type="text" v-model="currentItem.speak" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.speak" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="强制匹配" prop="state">
                 <el-radio-group v-model="currentItem.state" size="medium">
@@ -93,7 +93,7 @@
         <el-dialog title="添加说法" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="80px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="说法" prop="speak">
-                    <el-input type="text" v-model="addList.speak" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.speak" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="强制匹配" prop="state">
                     <el-radio-group v-model="addList.state" size="medium">
@@ -127,7 +127,7 @@ export default {
         appName:"",
         functionName:""
       },
-      currentItem: {//修改数据组
+      currentItem: {//编辑数据组
         id:"",
         speak: "",
         state:""
@@ -244,7 +244,7 @@ export default {
           speakUpd(updParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
-                    message:'修改成功',
+                    message:'编辑成功',
                     type:"success",
                     duration:1000
                 });

@@ -8,7 +8,7 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="歌手名称" prop="name">
-                <el-input v-model="searchItem.name" clearable></el-input>
+                <el-input v-model.trim="searchItem.name" clearable></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -52,7 +52,7 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="159">修改</el-button>
+                        v-has="159">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
@@ -75,19 +75,19 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="歌曲名称" prop="songName">
-                    <el-input type="text" v-model="currentItem.songName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.songName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="QQ音乐MID" prop="songMid">
-                    <el-input type="text" v-model="currentItem.songMid" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.songMid" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="QQ音乐ID" prop="songId">
-                    <el-input type="text" v-model="currentItem.songId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.songId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="对应专辑ID" prop="songAlbumId">
-                    <el-input type="text" v-model="currentItem.songAlbumId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.songAlbumId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="对应歌手简介" prop="songSingerId">
-                    <el-input type="text" v-model="currentItem.songSingerId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.songSingerId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="歌曲来源" prop="songSource">
                     <el-select v-model="currentItem.songSource" placeholder="--" clearable>
@@ -103,19 +103,19 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="120px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="歌曲名称" prop="songName">
-                    <el-input type="text" v-model="addList.songName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.songName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="QQ音乐MID" prop="songMid">
-                    <el-input type="text" v-model="addList.songMid" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.songMid" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="QQ音乐ID" prop="songId">
-                    <el-input type="text" v-model="addList.songId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.songId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="对应专辑ID" prop="songAlbumId">
-                    <el-input type="text" v-model="addList.songAlbumId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.songAlbumId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="对应歌手ID" prop="songSingerId">
-                    <el-input type="text" v-model="addList.songSingerId" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.songSingerId" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="歌曲来源" prop="songSource">
                     <el-select v-model="addList.songSource" placeholder="--" clearable>
@@ -139,7 +139,7 @@ export default {
     data() {
         return {
             list: [],
-            currentItem: {//修改数据组
+            currentItem: {//编辑数据组
                 id:"",
                 songName: "",
                 songMid: "",
@@ -292,7 +292,7 @@ export default {
                     songUpd(updParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
-                                message:'修改成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });

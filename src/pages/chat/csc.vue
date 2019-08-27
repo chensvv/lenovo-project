@@ -8,13 +8,13 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="名称" prop="name">
-        <el-input v-model="searchItem.name" clearable></el-input>
+        <el-input v-model.trim="searchItem.name" clearable></el-input>
       </el-form-item>
       <el-form-item label="电话" prop="tel">
-        <el-input v-model="searchItem.tel" clearable></el-input>
+        <el-input v-model.trim="searchItem.tel" clearable></el-input>
       </el-form-item>
       <el-form-item label="扩展" prop="exts">
-        <el-input v-model="searchItem.exts" clearable></el-input>
+        <el-input v-model.trim="searchItem.exts" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -43,13 +43,13 @@
                 prop="exts"
                 align="center">
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" v-has="111">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
                     type="danger"
                     @click="handleDel(scope.$index, scope.row)"
-                    v-has="111">删除</el-button>
+                    >删除</el-button>
                 </template>
             </el-table-column>
       </el-table>
@@ -66,13 +66,13 @@
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="名称" prop="name">
-          <el-input type="text" v-model="addList.name" auto-complete="off"></el-input>
+          <el-input type="text" v-model.trim="addList.name" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="tel">
-          <el-input type="text" v-model="addList.tel" auto-complete="off"></el-input>
+          <el-input type="text" v-model.trim="addList.tel" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="扩展" prop="exts">
-          <el-input type="text" v-model="addList.exts" auto-complete="off"></el-input>
+          <el-input type="text" v-model.trim="addList.exts" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

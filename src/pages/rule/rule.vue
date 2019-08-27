@@ -8,7 +8,7 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
         <el-form-item label="规则名称" prop="ruleName">
-            <el-input v-model="searchItem.ruleName" clearable></el-input>
+            <el-input v-model.trim="searchItem.ruleName" clearable></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -61,19 +61,19 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
             <el-form-item label="规则名称" prop="ruleName">
-                <el-input type="text" v-model="currentItem.ruleName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.ruleName" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="sogou" prop="sogou">
-                <el-input type="text" v-model="currentItem.sogou" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.sogou" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="duer" prop="duer">
-                <el-input type="text" v-model="currentItem.duer" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.duer" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="wenwen" prop="wenwen">
-                <el-input type="text" v-model="currentItem.wenwen" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.wenwen" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="naturali" prop="naturali">
-                <el-input type="text" v-model="currentItem.naturali" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.naturali" auto-complete="off"></el-input>
             </el-form-item>
             <div style="font-size:12px; padding-left:80px">
                 0:代表不使用此引擎. <br>
@@ -89,19 +89,19 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="80px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="规则名称" prop="ruleName">
-                    <el-input type="text" v-model="addList.ruleName" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.ruleName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="sogou" prop="sogou">
-                    <el-input type="text" v-model="addList.sogou" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.sogou" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="duer" prop="duer">
-                    <el-input type="text" v-model="addList.duer" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.duer" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="wenwen" prop="wenwen">
-                    <el-input type="text" v-model="addList.wenwen" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.wenwen" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="naturali" prop="naturali">
-                    <el-input type="text" v-model="addList.naturali" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.naturali" auto-complete="off"></el-input>
                 </el-form-item>
                 <div style="font-size:12px; padding-left:80px">
                     0:代表不使用此引擎. <br>
@@ -126,7 +126,7 @@ export default {
   data() {
     return {
       list: [],
-      currentItem: {//修改数据组
+      currentItem: {//编辑数据组
         id:"",
         ruleName: "",
         sogou: "",
@@ -271,7 +271,7 @@ export default {
           ruleUpd(updParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
-                    message:'修改成功',
+                    message:'编辑成功',
                     type:"success",
                     duration:1000
                 });
@@ -331,9 +331,23 @@ export default {
     },
     buildAIML(){
       this.AIMLBtnLoading = true
-      setTimeout(()=>{
-          this.AIMLBtnLoading = false
-      },2000)
+      rulePub().then(res=>{
+        if(res.data.code == 200){
+            this.$message({
+                message:res.data.msg,
+                type:"success",
+                duration:1000
+            });
+            this.AIMLBtnLoading = false
+        }else{
+            this.AIMLBtnLoading = false
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1000
+            });
+        }
+      })
     },
     getList() {
       let params = {

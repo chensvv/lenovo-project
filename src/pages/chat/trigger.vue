@@ -8,19 +8,19 @@
     <!-- <el-button class="success" size="mini" @click="handleAdd()">添加</el-button> -->
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline trigger" size="mini" label-width="70px">
           <el-form-item label="客户端平台" prop="dtp">
-            <el-input v-model="searchItem.dtp" clearable></el-input>
+            <el-input v-model.trim="searchItem.dtp" clearable></el-input>
           </el-form-item>
           <el-form-item label="用户ID" prop="uid">
-            <el-input v-model="searchItem.uid" clearable></el-input>
+            <el-input v-model.trim="searchItem.uid" clearable></el-input>
           </el-form-item>
           <el-form-item label="客户端版本" prop="clientVersion">
-            <el-input v-model="searchItem.clientVersion" clearable></el-input>
+            <el-input v-model.trim="searchItem.clientVersion" clearable></el-input>
           </el-form-item>
           <el-form-item label="引擎版本" prop="engineVersion">
-            <el-input v-model="searchItem.engineVersion" clearable></el-input>
+            <el-input v-model.trim="searchItem.engineVersion" clearable></el-input>
           </el-form-item>
           <el-form-item label="开发者" prop="developer">
-            <el-input v-model="searchItem.developer" clearable></el-input>
+            <el-input v-model.trim="searchItem.developer" clearable></el-input>
           </el-form-item>
           <el-form-item label="唤醒词类型" prop="keywordType">
             <el-select v-model="searchItem.keywordType" placeholder="--" clearable>
@@ -29,10 +29,10 @@
             </el-select>
           </el-form-item>
           <el-form-item label="唤醒词" prop="keywordPhrase">
-            <el-input v-model="searchItem.keywordPhrase" clearable></el-input>
+            <el-input v-model.trim="searchItem.keywordPhrase" clearable></el-input>
           </el-form-item>
           <el-form-item label="数据来源" prop="origin">
-            <el-input v-model="searchItem.origin" clearable></el-input>
+            <el-input v-model.trim="searchItem.origin" clearable></el-input>
           </el-form-item>
           <el-form-item label="开始时间" prop="refreshTime" class="width140">
               <el-date-picker 
@@ -114,12 +114,12 @@
                  align="center"
                 :formatter="formTime">
             </el-table-column> -->
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" v-has="121">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
                     @click="handleDown(scope.$index, scope.row)"
-                    v-has="121">下载文件</el-button>
+                    >下载文件</el-button>
                 </template>
             </el-table-column>
         </el-table>

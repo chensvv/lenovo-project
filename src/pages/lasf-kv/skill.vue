@@ -8,7 +8,7 @@
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
             <el-form-item label="应用名称" prop="appName">
-                <el-input v-model="searchItem.appName"></el-input>
+                <el-input v-model.trim="searchItem.appName"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -57,7 +57,7 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="128">修改</el-button>
+                        v-has="128">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
@@ -84,7 +84,7 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="应用名称" prop="appName">
-                <el-input type="text" v-model="currentItem.appName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="currentItem.appName" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -95,13 +95,13 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="应用名称" prop="appName">
-                <el-input type="text" v-model="addList.appName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="addList.appName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="应用包名" prop="appPackageName">
-                <el-input type="text" v-model="addList.appPackageName" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="addList.appPackageName" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="应用类型" prop="appType">
-                <el-input type="text" v-model="addList.appType" auto-complete="off"></el-input>
+                <el-input type="text" v-model.trim="addList.appType" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -122,7 +122,7 @@ export default {
     data() {
         return {
             list: [],
-            currentItem: {//修改数据组
+            currentItem: {//编辑数据组
                 id:"",
                 appName:""
             },
@@ -332,7 +332,7 @@ export default {
                     skillUpd(updParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
-                                message:'修改成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });
