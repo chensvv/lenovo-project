@@ -6,7 +6,7 @@ var service = {}
 // axios 配置
 // eslint-disable-next-line camelcase
 const service_head = axios.create({
-  baseURL: 'http://10.110.148.59:8085', // process.env.API_ROOT, //  // api的base_url
+  baseURL: 'https://voice.lenovomm.com', // process.env.API_ROOT, //  // api的base_url
   // timeout: 15000, // 请求超时时间
   withCredentials: true
 })
