@@ -187,3 +187,7 @@
 .aiml_text .el-textarea__inner{
   min-height: 500px !important;
 }
+.el-loading-mask{
+  top: 60px;
+  left: 200px;
+}
