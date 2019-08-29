@@ -324,8 +324,8 @@ export default {
     },
     getList() {
       let params = {
-        pgstr:this.pageSize,
-        pcstr:this.currentPage,
+        pgstr:this.currentPage,
+        pcstr:this.pageSize,
         roleName:this.searchItem.roleName
       }
       roleList(params).then(res => {
