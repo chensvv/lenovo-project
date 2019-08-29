@@ -6,7 +6,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'default-passive-events'
-import axios from 'axios'
 Vue.config.productionTip = false
 
 // 使用element-ui
@@ -17,10 +16,6 @@ Vue.use(ElementUI)
 // 使用axios
 import http from './config/http'
 Vue.prototype.$http = http
-
-import Itf from './utils/interface'
-Vue.prototype.$http = axios
-Vue.prototype.$util = Itf.INTERCHILD
 
 // import '../mock/mock.js'
 import '../static/css/base.css'

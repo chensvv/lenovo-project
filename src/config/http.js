@@ -67,7 +67,7 @@ service_head.interceptors.response.use(response => {
   return Promise.reject(error)
 })
 const UPFile = axios.create({
-  baseURL: 'http://10.110.148.59:8085', // process.env.API_ROOT, //  // api的base_url
+  baseURL: 'https://voice.lenovomm.com', // process.env.API_ROOT, //  // api的base_url
   timeout: 15000, // 请求超时时间
   headers: {
     'Content-Type': 'multipart/form-data'
