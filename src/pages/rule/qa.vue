@@ -20,6 +20,7 @@
       <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="46">生成AIML</el-button>
       <el-button class="success" size="mini" @click="handleAdd()" v-has="44">添加</el-button>
       <el-button icon="el-icon-upload" class="success" size="mini" @click="importExcel()" v-has="47">导入Excel文件</el-button>
+      <el-button icon="el-icon-upload" class="success" size="mini" @click="customExcel()" v-has="47">导入自定义Excel文件</el-button>
     </el-form>
     <div class="table-box">
       <el-table
@@ -103,52 +104,84 @@
     </el-dialog>
     <el-dialog title="上传文件" :visible.sync="uploadVisible" width="200" class="eldialog" :before-close="closeFile">
       <el-form class="eldialogForm">
-            <el-form-item label >
-              <el-upload
-                class="upload-demo"
-                drag
-                :before-upload="beforeUpload"
-                :on-exceed="handleExceed"
-                :limit="1"
-                :http-request="uploadFile"
-                multiple
-                ref="upload"
-                action
-              >
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">
-                  将文件拖到此处，或
-                  <em>点击上传</em>
-                </div>
-                <div class="el-upload__tip" slot="tip">1、只能上传Excel文件，且不超过500kb</div>
-                <div class="el-upload__tip" slot="tip">2、由于需要生成AIML，所以excle文件请使用全英文</div>
-                <div class="el-upload__tip" slot="tip">3、请编辑excel文件时，‘设置单元格格式’->‘文本’</div>
-                <div class="el-upload__tip" slot="tip">4、第一列为‘问题’，第二列为'答案'</div>
-              </el-upload>
-            </el-form-item>
-          </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="closeFile()">取 消</el-button>
-            <el-button type="primary" @click="postFile()" :loading="fileBtnLoading">确 定</el-button>
-          </div>
-        </el-dialog>
-         <el-dialog title="AIML" :visible.sync="AIMLVisible" width="300" class="eldialog">
-          <el-form :label-position="'left'" label-width="50px">
-            <el-form-item label="AIML:" class="aiml_text">
-              <el-input type="textarea" v-model="aimlInfo" auto-complete="off" readonly></el-input>
-            </el-form-item>
-          </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="AINLBtn()">确 定</el-button>
-          </div>
-        </el-dialog>
+        <el-form-item label >
+          <el-upload
+            class="upload-demo"
+            drag
+            :before-upload="beforeUpload"
+            :on-exceed="handleExceed"
+            :limit="1"
+            :http-request="uploadFile"
+            multiple
+            ref="upload"
+            action
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将文件拖到此处，或
+              <em>点击上传</em>
+            </div>
+            <div class="el-upload__tip" slot="tip">1、只能上传Excel文件，且不超过500kb</div>
+            <div class="el-upload__tip" slot="tip">2、由于需要生成AIML，所以excle文件请使用全英文</div>
+            <div class="el-upload__tip" slot="tip">3、请编辑excel文件时，‘设置单元格格式’->‘文本’</div>
+            <div class="el-upload__tip" slot="tip">4、第一列为‘问题’，第二列为'答案'</div>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="closeFile()">取 消</el-button>
+        <el-button type="primary" @click="postFile()" :loading="fileBtnLoading">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="上传文件" :visible.sync="uploadVisible2" width="200" class="eldialog" :before-close="closeFile2">
+      <el-form class="eldialogForm">
+        <el-form-item label >
+          <el-upload
+            class="upload-demo"
+            drag
+            :before-upload="beforeUpload2"
+            :on-exceed="handleExceed2"
+            :limit="1"
+            :http-request="uploadFile2"
+            multiple
+            ref="upload2"
+            action
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将文件拖到此处，或
+              <em>点击上传</em>
+            </div>
+            <div class="el-upload__tip" slot="tip">1、只能上传Excel文件，且不超过500kb</div>
+            <div class="el-upload__tip" slot="tip">2、由于需要生成AIML，所以excle文件请使用全英文</div>
+            <div class="el-upload__tip" slot="tip">3、请编辑excel文件时，‘设置单元格格式’->‘文本’</div>
+            <div class="el-upload__tip" slot="tip">4、第一列为‘问题’，第二列为'答案'</div>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="closeFile2()">取 消</el-button>
+        <el-button type="primary" @click="postFile2()" :loading="fileBtnLoading2">确 定</el-button>
+      </div>
+    </el-dialog>
+    
+      <el-dialog title="AIML" :visible.sync="AIMLVisible" width="300" class="eldialog">
+      <el-form :label-position="'left'" label-width="50px">
+        <el-form-item label="AIML:" class="aiml_text">
+          <el-input type="textarea" v-model="aimlInfo" auto-complete="off" readonly></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="AINLBtn()">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
-import {qaList, qaSave, qaDel, qaUpFile, qaPub} from '@/config/api'
+import {qaList, qaSave, qaDel, qaUpFile, qaPub, qaFile} from '@/config/api'
 export default {
   name: "applicationlist",
   components: { iTable },
@@ -181,7 +214,10 @@ export default {
       addVisible: false,
       uploadVisible: false,
       fileBtnLoading: false,
+      uploadVisible2: false,
+      fileBtnLoading2: false,
       file: [],//文件上传
+      file2: [],
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 30,   //默认每页条数
@@ -358,8 +394,20 @@ export default {
     importExcel(){
         this.uploadVisible = true
     },
+    customExcel(){
+        this.uploadVisible2 = true
+    },
     //上传excel表格
     beforeUpload(file) {
+      const isText = file.type === "application/vnd.ms-excel";
+      const isTextComputer =
+        file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      if (!isText && !isTextComputer) {
+        this.$message.error("上传文件必须是Excel格式!");
+      }
+      return isText || isTextComputer;
+    },
+    beforeUpload2(file) {
       const isText = file.type === "application/vnd.ms-excel";
       const isTextComputer =
         file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -372,8 +420,14 @@ export default {
     handleExceed(files, fileList) {
       this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`);
     },
+    handleExceed2(files, fileList) {
+      this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`);
+    },
     uploadFile(item) {
       this.file = item.file;
+    },
+    uploadFile2(item) {
+      this.file2 = item.file;
     },
     postFile() {
       const fileObj = this.file;
@@ -402,9 +456,40 @@ export default {
 
       });
     },
+    postFile2() {
+      const fileObj = this.file2;
+      var fileData = new FormData();
+      fileData.append("ex", fileObj);
+      this.fileBtnLoading2 = true;
+      qaFile(fileData).then(res => {
+            if(res.data.code == 200){
+                this.$message({
+                    message:'上传成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.$refs.upload2.clearFiles()
+                this.fileBtnLoading2 = false
+                this.uploadVisible2 = false
+                this.getList()
+            }else{
+                this.fileBtnLoading2 = false
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            }
+
+      });
+    },
     closeFile() {
         this.$refs.upload.clearFiles()
         this.uploadVisible = false;
+    },
+    closeFile2() {
+        this.$refs.upload2.clearFiles()
+        this.uploadVisible2 = false;
     },
     buildAIML(){
       qaPub().then(res=>{
