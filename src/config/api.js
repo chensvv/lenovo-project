@@ -172,6 +172,14 @@ export function qaUpFile (data) {
   })
 }
 
+export function qaFile (data) {
+  return fetch.UPFile({
+    url: '/lasf-mgr/qa/hand',
+    method: 'post',
+    data: data
+  })
+}
+
 export function qaPub (data) {
   return fetch.UPFile({
     url: '/lasf-mgr/qa/pub',
