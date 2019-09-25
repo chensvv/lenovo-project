@@ -172,6 +172,8 @@ export default {
     },
     getList() {
       let params = {
+        pgstr:this.currentPage,
+        pcstr:this.pageSize,
         name:this.searchItem.name,
         stname:this.searchItem.stname,
         startStr:this.searchItem.refreshTime,
