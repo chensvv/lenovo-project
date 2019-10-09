@@ -27,6 +27,22 @@ export function wordList (data) {
   })
 }
 
+export function keyAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/keywordadd',
+    method: 'post',
+    data: data
+  })
+}
+
+export function keyUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/keywordupdate',
+    method: 'post',
+    data: data
+  })
+}
+
 export function regList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/alireg',

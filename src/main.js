@@ -38,7 +38,6 @@ Vue.prototype.$_has = function (value) {
     return false
   }
   for (let i = 0; i < buttonpermsStr.length; i++) {
-    // console.log(buttonpermsStr[i].id)
     if (value === buttonpermsStr[i].id) {
       isExit = true
       break

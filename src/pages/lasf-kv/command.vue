@@ -43,11 +43,12 @@
                     align="center"
                     :formatter="formTime">
                 </el-table-column>
-                <el-table-column label="操作" align="center" v-has="184">
+                <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
                         type="danger"
+                        v-has="184"
                         @click="handleDel(scope.$index, scope.row)"
                         >删除</el-button>
                     </template>

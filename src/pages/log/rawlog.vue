@@ -58,7 +58,7 @@
         <el-table-column label="插入时间" prop="it" align="center" sortable :formatter="formTime"></el-table-column>
         <el-table-column label="原始日志" align="center">
           <template slot-scope="scope">
-            <span slot @click="handleInfo(scope.$index, scope.row)" class="cur-info">
+            <span slot @click="handleInfo(scope.$index, scope.row)" class="cur-info" v-has="193">
               <i class="el-icon-search icon"></i>
             </span>
           </template>

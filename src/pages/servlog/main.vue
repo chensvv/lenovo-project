@@ -56,10 +56,9 @@
                 <el-button @click="resetForm('searchItem')" size="mini">重置</el-button>
             </el-form-item>
         </el-form>
-          <!-- <el-table
+          <el-table
             :data="list"
-            style="width: 100%"
-            @row-click="rowClick">
+            style="width: 100%">
             <el-table-column label="ID" prop="id" align="center">
             </el-table-column>
             <el-table-column label="IT" prop="it" align="center" :formatter="formTime">
@@ -69,6 +68,14 @@
             <el-table-column label="DID" prop="did" align="center">
             </el-table-column>
             <el-table-column label="CODEC" prop="codec" align="center">
+                <template slot-scope="scope">
+                    <span>{{scope.row.codec == '7' ? 'Speex 16k' : 
+                            scope.row.codec == '3' ? 'Speex 8k' : 
+                            scope.row.codec == '5' ? 'Pcm 16k' : 
+                            scope.row.codec == '1' ? 'Pcm 8k' : 
+                            scope.row.codec == '4' ? 'Bv32 16k' : 
+                            scope.row.codec == '0' ? 'Bv32 8k' : '未知'}}</span>
+                </template>
             </el-table-column>
             <el-table-column label="UID" prop="uid" align="center">
             </el-table-column>
@@ -87,21 +94,31 @@
                 <template slot-scope="scope">
                     <el-tag
                     :type="scope.row.stat === 'success' ? 'success' :'danger'"
-                    disable-transitions>{{scope.row.stat}}</el-tag>
+                    disable-transitions>{{scope.row.stat == 'success'? 'S': 'F'}}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column label="L1C" prop="l1c" align="center">
-            </el-table-column>
-            <el-table-column label="下载" align="center">
+            <el-table-column label="L1C" prop="l1c" align="center" className="reg">
                 <template slot-scope="scope">
-                    <span 
-                    slot 
-                    @click="handleDown(scope.$index, scope.row)" 
-                    class="cur-info"><i class="el-icon-download icon"></i></span>
-                </template>
+                      <el-tooltip effect="dark" :content="scope.row.l1c" placement="top">
+                      <span slot>{{scope.row.l1c}}</span>
+                      </el-tooltip>
+                  </template>
             </el-table-column>
-        </el-table> -->
-        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+            <el-table-column label="操作" align="center" width="130">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="rowClick(scope.$index, scope.row)"
+                        v-has="198">详情</el-button>
+                        <el-button
+                        size="mini"
+                        icon="el-icon-download"
+                        @click="handleDown(scope.$index, scope.row)"
+                        v-has="199"></el-button>
+                    </template>
+                </el-table-column>
+        </el-table>
+        <!-- <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table> -->
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -215,124 +232,124 @@ export default {
                 refreshTime:"",
                 putTime:""
             },
-            columns: [
-                {
-                    prop: "id",
-                    label: "ID",
-                    align: "center"
-                },
-                {
-                    prop: "it",
-                    label: "IT",
-                    align: "center",
-                    render: (h, params)=>{
-                        var timer = params.row.it
-                        var date = new Date(timer)
-                        return h('span',
-                        date.getFullYear()+'-'+
-                        checkTime(date.getMonth()+1)+'-'+
-                        checkTime(date.getDate())+' '+
-                        checkTime(date.getMonth())+':'+
-                        checkTime(date.getMinutes())+':'+
-                        checkTime(date.getSeconds()))
-                    }
-                },
-                {
-                    prop: "ixid",
-                    label: "IXID",
-                    align: "center"
-                },
-                {
-                    prop: "did",
-                    label: "DID",
-                    align: "center"
-                },
-                {
-                    prop: "codec",
-                    label: "CODEC",
-                    align: "center",
-                    render: (h, params) => {
-                        return h('span', { // 组件的props
-                        }, params.row.codec == '7' ? 'Speex 16k' : 
-                            params.row.codec == '3' ? 'Speex 8k' : 
-                            params.row.codec == '5' ? 'Pcm 16k' : 
-                            params.row.codec == '1' ? 'Pcm 8k' : 
-                            params.row.codec == '4' ? 'Bv32 16k' : 
-                            params.row.codec == '0' ? 'Bv32 8k' : '未知')
-                    }
-                },
-                {
-                    prop: "uid",
-                    label: "UID",
-                    align: "center"
-                },
-                {
-                    prop: "dtp",
-                    label: "DTP",
-                    align: "center",
-                },
-                {
-                    prop: "ver",
-                    label: "VER",
-                    align: "center",
-                },
-                {
-                    prop: "vdm",
-                    label: "VDM",
-                    align: "center",
-                },
-                {
-                    prop: "app",
-                    label: "APP",
-                    align: "center",
-                },
-                {
-                    prop: "stat",
-                    label: "STAT",
-                    align: "center",
-                    render: (h, params) => {
-                        return h('el-tag', {
-                            props: {type: params.row.stat === 'success' ? 'success' : 'danger'} // 组件的props
-                        }, params.row.stat === 'success' ? 'S' : 'F')
-                    }
-                },
-                {
-                    prop: "l1c",
-                    label: "L1C",
-                    align: "center",
-                },
-            ],
-            options: {
-                stripe: false, // 是否为斑马纹 table
-                loading: false, // 是否添加表格loading加载动画
-                highlightCurrentRow: false, // 是否支持当前行高亮显示
-                mutiSelect: false, // 是否支持列表项选中功能
-                border:false     //是否显示纵向边框
-            },
-            operates: {
-                // show: false,
-                width:120,
-                list: [
-                    {
-                        label:'详情',
-                        type: 'primary',
-                        show: true,
-                        disabled: false,
-                        method: (index, row) => {
-                            this.rowClick(index, row)
-                        }
-                    },
-                    {
-                        type: 'info',
-                        show: true,
-                        icon: 'el-icon-download',
-                        disabled: false,
-                        method: (index, row) => {
-                            this.handleDown(index, row)
-                        }
-                    }
-                ]
-            }, // 列操作按钮
+            // columns: [
+            //     {
+            //         prop: "id",
+            //         label: "ID",
+            //         align: "center"
+            //     },
+            //     {
+            //         prop: "it",
+            //         label: "IT",
+            //         align: "center",
+            //         render: (h, params)=>{
+            //             var timer = params.row.it
+            //             var date = new Date(timer)
+            //             return h('span',
+            //             date.getFullYear()+'-'+
+            //             checkTime(date.getMonth()+1)+'-'+
+            //             checkTime(date.getDate())+' '+
+            //             checkTime(date.getMonth())+':'+
+            //             checkTime(date.getMinutes())+':'+
+            //             checkTime(date.getSeconds()))
+            //         }
+            //     },
+            //     {
+            //         prop: "ixid",
+            //         label: "IXID",
+            //         align: "center"
+            //     },
+            //     {
+            //         prop: "did",
+            //         label: "DID",
+            //         align: "center"
+            //     },
+            //     {
+            //         prop: "codec",
+            //         label: "CODEC",
+            //         align: "center",
+            //         render: (h, params) => {
+            //             return h('span', { // 组件的props
+            //             }, params.row.codec == '7' ? 'Speex 16k' : 
+            //                 params.row.codec == '3' ? 'Speex 8k' : 
+            //                 params.row.codec == '5' ? 'Pcm 16k' : 
+            //                 params.row.codec == '1' ? 'Pcm 8k' : 
+            //                 params.row.codec == '4' ? 'Bv32 16k' : 
+            //                 params.row.codec == '0' ? 'Bv32 8k' : '未知')
+            //         }
+            //     },
+            //     {
+            //         prop: "uid",
+            //         label: "UID",
+            //         align: "center"
+            //     },
+            //     {
+            //         prop: "dtp",
+            //         label: "DTP",
+            //         align: "center",
+            //     },
+            //     {
+            //         prop: "ver",
+            //         label: "VER",
+            //         align: "center",
+            //     },
+            //     {
+            //         prop: "vdm",
+            //         label: "VDM",
+            //         align: "center",
+            //     },
+            //     {
+            //         prop: "app",
+            //         label: "APP",
+            //         align: "center",
+            //     },
+            //     {
+            //         prop: "stat",
+            //         label: "STAT",
+            //         align: "center",
+            //         render: (h, params) => {
+            //             return h('el-tag', {
+            //                 props: {type: params.row.stat === 'success' ? 'success' : 'danger'} // 组件的props
+            //             }, params.row.stat === 'success' ? 'S' : 'F')
+            //         }
+            //     },
+            //     {
+            //         prop: "l1c",
+            //         label: "L1C",
+            //         align: "center",
+            //     },
+            // ],
+            // options: {
+            //     stripe: false, // 是否为斑马纹 table
+            //     loading: false, // 是否添加表格loading加载动画
+            //     highlightCurrentRow: false, // 是否支持当前行高亮显示
+            //     mutiSelect: false, // 是否支持列表项选中功能
+            //     border:false     //是否显示纵向边框
+            // },
+            // operates: {
+            //     // show: false,
+            //     width:120,
+            //     list: [
+            //         {
+            //             label:'详情',
+            //             type: 'primary',
+            //             show: true,
+            //             disabled: false,
+            //             method: (index, row) => {
+            //                 this.rowClick(index, row)
+            //             }
+            //         },
+            //         {
+            //             type: 'info',
+            //             show: true,
+            //             icon: 'el-icon-download',
+            //             disabled: false,
+            //             method: (index, row) => {
+            //                 this.handleDown(index, row)
+            //             }
+            //         }
+            //     ]
+            // }, // 列操作按钮
             list:[],
             infoList:[],
             // 分页
@@ -343,7 +360,9 @@ export default {
             btnLoading:false,
             infoVisible:false,
             startVal:0,
-            endVal:0
+            endVal:0,
+            infoBtn:1983,
+            downBtn:1992
         }
     },
     created(){
@@ -351,6 +370,16 @@ export default {
         
     },
     methods:{
+        formTime(row, column){
+            var timer = row.createTime
+            var date = new Date(timer)
+                return date.getFullYear()+'-'+
+                    checkTime(date.getMonth()+1)+'-'+
+                    checkTime(date.getDate())+' '+
+                    checkTime(date.getMonth())+':'+
+                    checkTime(date.getMinutes())+':'+
+                    checkTime(date.getSeconds())
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },

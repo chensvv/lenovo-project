@@ -114,10 +114,11 @@
                  align="center"
                 :formatter="formTime">
             </el-table-column> -->
-            <el-table-column label="操作" align="center" v-has="121">
+            <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
+                     v-has="121"
                     @click="handleDown(scope.$index, scope.row)"
                     >下载文件</el-button>
                 </template>
