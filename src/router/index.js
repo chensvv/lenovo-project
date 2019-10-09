@@ -175,9 +175,39 @@ const router = new Router({
           meta: {title: '相似度命令管理'}
         },
         {
-          path: '/home/setting',
-          component: () => import('@/pages/setting'),
-          meta: {title: '设置'}
+          path: '/asr/log/client',
+          component: () => import('@/pages/log/client'),
+          meta: {title: '客户端上报日志'}
+        },
+        {
+          path: '/asr/log/rawlog',
+          component: () => import('@/pages/log/rawlog'),
+          meta: {title: '客户端原始日志'}
+        },
+        {
+          path: '/asr/log/oprlog',
+          component: () => import('@/pages/log/oprlog'),
+          meta: {title: '客户端操作日志'}
+        },
+        {
+          path: '/asr/log/rvdlog',
+          component: () => import('@/pages/log/rvdlog'),
+          meta: {title: '客户端原始音频'}
+        },
+        {
+          path: '/servlog/loglist',
+          component: () => import('@/pages/servlog/main'),
+          meta: {title: '明细日志'}
+        },
+        {
+          path: '/asr/log/asrf',
+          component: () => import('@/pages/servlog/asrf'),
+          meta: {title: '服务端错误日志'}
+        },
+        {
+          path: '/vse/log/serv',
+          component: () => import('@/pages/vse/serv'),
+          meta: {title: 'VOD错误日志'}
         },
         {
           path: '/401',
@@ -217,7 +247,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   window.document.title = to.meta.title
-  var username = localStorage.getItem('username')
+  var username = sessionStorage.getItem('username')
   NProgress.start()
   if (username) {
     next()

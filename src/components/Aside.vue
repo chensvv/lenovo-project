@@ -200,8 +200,7 @@ export default {
             }
         },
     created() {
-        this.menuData = JSON.parse(localStorage.getItem('menuData'))
-        // console.log(this.$route.path)
+        this.menuData = JSON.parse(sessionStorage.getItem('menuData'))
     }
 }
 </script>

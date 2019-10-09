@@ -41,8 +41,8 @@ export default {
         }
     },
     created(){
-        this.username = localStorage.getItem('username')
-        this.menuData = JSON.parse(localStorage.getItem('menuData'))
+        this.username = sessionStorage.getItem('username')
+        this.menuData = JSON.parse(sessionStorage.getItem('menuData'))
         // console.log(this.$route.path)
         let menuList=[]
         for (let item of this.menuData) {
@@ -84,8 +84,8 @@ export default {
     methods:{
         handleDropdown(v){
             if(v == "logout"){
-                localStorage.removeItem('username');
-                localStorage.removeItem('menuData');
+                sessionStorage.removeItem('username');
+                sessionStorage.removeItem('menuData');
                 sessionStorage.removeItem('btnpermission')
                 this.$router.push('/login')
             }else{

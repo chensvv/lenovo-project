@@ -29,21 +29,23 @@
                 <el-table-column
                     label="内容"
                     prop="con"
-                    align="center">
+                    align="left">
                 </el-table-column>
                 <el-table-column
                     label="状态"
                     prop="sta"
                     align="center"
+                    width="100"
                     :formatter="formState">
                 </el-table-column>
                 <el-table-column
                     label="更新/入库时间"
                     prop="it"
                     align="center"
+                    width="200"
                     :formatter="formTime">
                 </el-table-column>
-                <el-table-column label="操作" align="center">
+                <el-table-column label="操作" align="center" width="250">
                     <template slot-scope="scope">
                       <el-button
                         size="mini"

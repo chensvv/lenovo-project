@@ -808,3 +808,99 @@ export function norunDel (data) {
     data: data
   })
 }
+
+export function clientList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/log/client',
+    method: 'post',
+    data: data
+  })
+}
+
+export function rawList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/log/rawlog',
+    method: 'post',
+    data: data
+  })
+}
+
+export function rawView (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/dialog/rawview',
+    method: 'post',
+    data: data
+  })
+}
+
+export function oprList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/log/oprlog',
+    method: 'post',
+    data: data
+  })
+}
+
+export function rvdList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/log/rvdlog',
+    method: 'post',
+    data: data
+  })
+}
+
+export function logList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/servlog/loglist',
+    method: 'post',
+    data: data
+  })
+}
+
+export function logDown (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/servlog/downLoad',
+    method: 'post',
+    data: data
+  })
+}
+
+export function logInfo (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/servlog/detail',
+    method: 'post',
+    data: data
+  })
+}
+
+export function asrfList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/log/asrf',
+    method: 'post',
+    data: data
+  })
+}
+
+export function asrChat (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/log/asrcharts',
+    method: 'post',
+    data: data
+  })
+}
+
+export function servList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/vse/log/serv',
+    method: 'post',
+    data: data
+  })
+}
+
+export function durChat (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/stat/duration',
+    method: 'post',
+    data: data
+  })
+}

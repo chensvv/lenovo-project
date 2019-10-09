@@ -48,9 +48,9 @@ export default {
                     this.loginLoading=true
                     login(params).then((res)=>{
                         if(res.data.code == 200){
-                            localStorage.setItem('username',this.loginForm.username)
+                            sessionStorage.setItem('username',this.loginForm.username)
                             // this.$store.dispatch('menuData',res.data)
-                            localStorage.setItem('menuData',JSON.stringify(res.data.data))
+                            sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                             
                             this.$router.push('/home')
                             this.loginLoading = false

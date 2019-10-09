@@ -79,7 +79,7 @@ export default {
           hasSort:true
         },
         {
-          prop: "snum",
+          prop: "alias",
           label: "别名",
           align: "center",
           hasSort:true
