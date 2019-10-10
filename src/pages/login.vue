@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <div class="login-box">
-        <el-form :label-position="'left'" :model="loginForm" :rules="loginRules" ref="loginForm" label-width="80px">
+        <el-form :label-position="'left'" :model="loginForm" :rules="loginRules" ref="loginForm" @submit.native.prevent label-width="80px">
             <el-form-item label="用户名" prop="username">
                 <el-input v-model.trim="loginForm.username" prefix-icon="el-icon-user" auto-complete="off" clearable></el-input>
             </el-form-item>
@@ -9,7 +9,7 @@
                 <el-input type="password" v-model.trim="loginForm.password" prefix-icon="el-icon-lock" auto-complete="off" clearable></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click.enter="onSubmit('loginForm')" :loading="loginLoading">登录</el-button>
+                <el-button type="primary" native-type="submit" @click="onSubmit('loginForm')" :loading="loginLoading">登录</el-button>
             </el-form-item>
         </el-form>
         </div>
