@@ -371,7 +371,7 @@ export default {
     },
     methods:{
         formTime(row, column){
-            var timer = row.createTime
+            var timer = row.it
             var date = new Date(timer)
                 return date.getFullYear()+'-'+
                     checkTime(date.getMonth()+1)+'-'+
