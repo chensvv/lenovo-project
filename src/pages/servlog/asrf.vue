@@ -136,10 +136,12 @@ export default {
   methods: {
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.currentPage = 1
       this.getList()
     },
     onSubmit(){
       this.seaBtnLoading = true
+      this.currentPage = 1
       this.getList()
       this.seaBtnLoading = false
     },

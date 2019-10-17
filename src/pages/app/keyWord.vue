@@ -62,11 +62,6 @@
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    label="来源"
-                    prop="source"
-                    align="center">
-                </el-table-column>
-                <el-table-column
                     label="查询时间"
                     prop="searchDate"
                     align="center"
@@ -208,10 +203,12 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.currentPage = 1
       this.getList();
     },
     onSubmit(){
       this.btnLoading = true
+      this.currentPage = 1
       this.getList();
       this.btnLoading = false
     },
@@ -278,6 +275,7 @@ export default {
                         this.editBtnLoading = false
                         this.editVisible = false
                     }else{
+                        this.editBtnLoading = false
                         this.$message({
                             message:res.data.errorMessage,
                             type:"error",

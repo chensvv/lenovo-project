@@ -167,10 +167,12 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.currentPage = 1
       this.getList()
     },
     onSubmit(){
       this.seaBtnLoading = true
+      this.currentPage = 1
       this.getList();
       this.seaBtnLoading = false
     },
@@ -210,8 +212,6 @@ export default {
                 duration:1000
             });
             this.getList()
-            this.editBtnLoading = false
-            this.editVisible = false
         }else{
             this.$message({
                 message:res.data.errorMessage,

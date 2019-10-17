@@ -252,6 +252,7 @@ export default {
                 this.editBtnLoading = false
                 this.editVisible = false
             }else{
+              this.editBtnLoading = false
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",

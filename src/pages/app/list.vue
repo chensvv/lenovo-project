@@ -12,7 +12,7 @@
             </el-form-item>
             <el-form-item label="来自于" prop="source">
                 <el-select v-model.trim="searchItem.source" placeholder="--" clearable>
-                <el-option label="lianxiang" value="liangxiang"></el-option>
+                <el-option label="lianxiang" value="lianxiang"></el-option>
                 <el-option label="baidu" value="baidu"></el-option>
                 </el-select>
             </el-form-item>
@@ -166,9 +166,11 @@ export default {
     methods: {
         resetForm(formName) {
             this.$refs[formName].resetFields();
+            this.currentPage = 1
             this.getList();
         },
         onSubmit(){
+            this.currentPage = 1
             this.btnLoading = true
             this.getList();
             this.btnLoading = false

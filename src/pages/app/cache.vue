@@ -191,10 +191,12 @@ export default {
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
+            this.currentPage = 1
             this.getList();
         },
         onSubmit(){
             this.btnLoading = true
+            this.currentPage = 1
             this.getList()
             this.btnLoading = false
         },

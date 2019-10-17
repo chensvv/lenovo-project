@@ -23,10 +23,7 @@
             <el-input v-model.trim="searchItem.developer" clearable></el-input>
           </el-form-item>
           <el-form-item label="唤醒词类型" prop="keywordType">
-            <el-select v-model="searchItem.keywordType" placeholder="--" clearable>
-              <el-option label="联想" value="联想"></el-option>
-              <el-option label="百度" value="百度"></el-option>
-            </el-select>
+              <el-input v-model.trim="searchItem.keywordType" clearable></el-input>
           </el-form-item>
           <el-form-item label="唤醒词" prop="keywordPhrase">
             <el-input v-model.trim="searchItem.keywordPhrase" clearable></el-input>
@@ -179,10 +176,12 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.currentPage = 1
       this.getList()
     },
     onSubmit(){
       this.seaBtnLoading = true
+      this.currentPage = 1
       this.getList()
       this.seaBtnLoading = false
     },
