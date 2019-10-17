@@ -75,6 +75,46 @@ export function cacheAdd (data) {
   })
 }
 
+export function appNameList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/applist',
+    method: 'post',
+    data: data
+  })
+}
+
+export function appNameAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/appadd',
+    method: 'post',
+    data: data
+  })
+}
+
+export function appNameUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/appupdate',
+    method: 'post',
+    data: data
+  })
+}
+
+export function appNameDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/appdel',
+    method: 'post',
+    data: data
+  })
+}
+
+export function appNameUpFile (data) {
+  return fetch.UPFile({
+    url: '/lasf-mgr/app/excel',
+    method: 'post',
+    data: data
+  })
+}
+
 export function wasList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/was/weblist',

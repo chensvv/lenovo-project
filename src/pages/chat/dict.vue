@@ -199,7 +199,7 @@ export default {
                 return date.getFullYear()+'-'+
                     checkTime(date.getMonth()+1)+'-'+
                     checkTime(date.getDate())+' '+
-                    checkTime(date.getMonth())+':'+
+                    checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())+':'+
                     checkTime(date.getSeconds())
         },

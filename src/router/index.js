@@ -40,6 +40,11 @@ const router = new Router({
           meta: {title: '应用缓存'}
         },
         {
+          path: '/app/applist',
+          component: () => import('@/pages/app/appName'),
+          meta: {title: '应用名称管理'}
+        },
+        {
           path: '/was/weblist',
           component: () => import('@/pages/chat/was'),
           meta: {title: '网站导航'}

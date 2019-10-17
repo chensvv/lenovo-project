@@ -30,7 +30,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="状态" prop="stat">
-                <el-select v-model.trim="searchItem.source" placeholder="--" clearable>
+                <el-select v-model.trim="searchItem.stat" placeholder="--" clearable>
                 <el-option label="成功" value="success"></el-option>
                 <el-option label="失败" value="failed"></el-option>
                 </el-select>
@@ -229,6 +229,7 @@ export default {
                 vdm:'',
                 app:'',
                 desc:'',
+                stat:"",
                 refreshTime:"",
                 putTime:""
             },
@@ -376,12 +377,13 @@ export default {
                 return date.getFullYear()+'-'+
                     checkTime(date.getMonth()+1)+'-'+
                     checkTime(date.getDate())+' '+
-                    checkTime(date.getMonth())+':'+
+                    checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())+':'+
                     checkTime(date.getSeconds())
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
+            this.getList()
         },
         getList() {
             let params = {

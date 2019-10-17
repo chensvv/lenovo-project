@@ -211,6 +211,7 @@ export default {
   methods: {
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.getList()
     },
     formTime(row, column) {
       var timer = row.it;
@@ -222,7 +223,7 @@ export default {
         "-" +
         checkTime(date.getDate()) +
         " " +
-        checkTime(date.getMonth()) +
+        checkTime(date.getHours()) +
         ":" +
         checkTime(date.getMinutes()) +
         ":" +

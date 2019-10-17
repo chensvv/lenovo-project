@@ -100,7 +100,7 @@ export default {
                         date.getFullYear()+'-'+
                         checkTime(date.getMonth()+1)+'-'+
                         checkTime(date.getDate())+' '+
-                        checkTime(date.getMonth())+':'+
+                        checkTime(date.getHours())+':'+
                         checkTime(date.getMinutes())+':'+
                         checkTime(date.getSeconds()))
                     }
@@ -136,6 +136,7 @@ export default {
   methods: {
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.getList()
     },
     onSubmit(){
       this.seaBtnLoading = true
