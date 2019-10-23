@@ -68,7 +68,7 @@
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="应用名称" prop="appName">
-          <el-input type="textarea" v-model.trim="currentItem.appName" auto-complete="off"></el-input>
+          <el-input type="text" v-model.trim="currentItem.appName" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

@@ -49,7 +49,8 @@
                 </el-table-column>
                 <el-table-column
                     label="标准名"
-                    prop="stname">
+                    prop="stname"
+                    align="center">
                 </el-table-column>
                 <el-table-column
                     label="别名"

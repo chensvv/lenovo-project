@@ -54,7 +54,8 @@
             </el-table-column>
             <el-table-column
                 label="类型"
-                prop="atype">
+                prop="atype"
+                align="center">
             </el-table-column>
             <el-table-column
                 label="类别"
@@ -148,7 +149,7 @@ export default {
             },
             // 分页
             currentPage: 1, //默认显示第几页
-            pageSize: 10,   //默认每页条数
+            pageSize: 30,   //默认每页条数
             pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             btnLoading:false,

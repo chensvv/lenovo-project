@@ -12,8 +12,8 @@
             </el-form-item>
             <el-form-item label="来自于" prop="source">
                 <el-select v-model.trim="searchItem.source" placeholder="--" clearable>
-                <el-option label="lianxiang" value="lianxiang"></el-option>
-                <el-option label="baidu" value="baidu"></el-option>
+                <el-option label="联想" value="lenovo"></el-option>
+                <el-option label="百度" value="baidu"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="开始时间" prop="refreshTime">
