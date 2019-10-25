@@ -1,7 +1,7 @@
 <template>
-    <div class="home" :class="{is404:is404}">
+    <div class="home">
     <!-- <el-container> -->
-        <el-header>
+        <el-header :class="{is404:is404}">
             语音服务管理系统
 
             <el-dropdown class="fr" @command="handleDropdown" trigger="click">
@@ -17,7 +17,7 @@
         </el-header>
     
         <el-container>
-            <el-aside width="200px">
+            <el-aside width="200px" :class="{is404:is404}">
                 <Aside></Aside>
             </el-aside>
             <el-main>

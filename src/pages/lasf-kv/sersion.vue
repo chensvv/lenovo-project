@@ -306,7 +306,8 @@ export default {
     addHandleConfirm(addList) {
       let addParams = {
         versionAnswer:this.addList.answer,
-        versionIllustration:this.addList.version
+        versionIllustration:this.addList.version,
+        functionId:this.functionId
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
