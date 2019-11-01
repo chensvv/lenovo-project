@@ -29,7 +29,8 @@
                 <el-table-column
                     label="内容"
                     prop="con"
-                    align="left">
+                    align="left"
+                    header-align="center">
                 </el-table-column>
                 <el-table-column
                     label="状态"

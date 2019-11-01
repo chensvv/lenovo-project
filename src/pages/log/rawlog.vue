@@ -127,7 +127,8 @@ export default {
       fileBtnLoading:false,
       editVisible:false,
       startVal:0,
-      endVal:0
+      endVal:0,
+      bigId:1
     };
   },
   created() {
@@ -176,6 +177,7 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       console.log(`当前页: ${val}`);
+      this.bigId = this.comId.id
       this.getList();
     },
     handleInfo(index,row){
@@ -192,13 +194,15 @@ export default {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
         startStr:this.searchItem.refreshTime,
-        endStr:this.searchItem.putTime,
+        endStr:this.searchItem.putTime, 
         uid:this.searchItem.uid,
         dtp:this.searchItem.dtp,
-        uip:this.searchItem.uip
+        uip:this.searchItem.uip,
+        id:this.bigId
       }
       rawList(params).then(res=>{
         this.list = res.data.data.data
+        this.comId = this.list.pop()
         this.totalCount = res.data.data.total
         this.endVal = res.data.count
       })

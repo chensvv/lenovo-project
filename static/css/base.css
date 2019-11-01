@@ -212,3 +212,6 @@
 .is404{
   display: none !important;
 }
+.el__select .el-select{
+  width: 60%;
+}

@@ -70,6 +70,11 @@ const router = new Router({
           meta: {title: '笑话列表'}
         },
         {
+          path: '/joke/speakList',
+          component: () => import('@/pages/chat/qa'),
+          meta: {title: '笑话领域说法'}
+        },
+        {
           path: '/sen/list',
           component: () => import('@/pages/chat/sen'),
           meta: {title: '敏感词'}
@@ -83,6 +88,11 @@ const router = new Router({
           path: '/qa/list',
           component: () => import('@/pages/rule/qa'),
           meta: {title: '定制问答查看'}
+        },
+        {
+          path: '/qa/channelList',
+          component: () => import('@/pages/rule/channel'),
+          meta: {title: '个性化词语管理'}
         },
         {
           path: '/rule/list',
@@ -177,7 +187,7 @@ const router = new Router({
         {
           path: '/command/norun/list',
           component: () => import('@/pages/lasf-kv/norun'),
-          meta: {title: '相似度命令管理'}
+          meta: {title: '指令忽略管理'}
         },
         {
           path: '/asr/log/client',

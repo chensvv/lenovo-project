@@ -195,6 +195,39 @@ export function cscDel (data) {
   })
 }
 
+// 个性化
+export function channelList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/qa/channelList',
+    method: 'post',
+    data: data
+  })
+}
+
+export function channelAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/qa/channelAdd',
+    method: 'post',
+    data: data
+  })
+}
+
+export function channelUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/qa/channelUpdate',
+    method: 'post',
+    data: data
+  })
+}
+
+export function channelDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/qa/channelDel',
+    method: 'post',
+    data: data
+  })
+}
+
 // 定制问答
 export function qaList (data) {
   return fetch.service_head({
@@ -420,6 +453,47 @@ export function jokeDel (data) {
 export function jokeVeri (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/veri',
+    method: 'post',
+    data: data
+  })
+}
+
+// 笑话领域说法
+export function jokePList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/joke/speakList',
+    method: 'post',
+    data: data
+  })
+}
+
+export function jokePAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/joke/speakAdd',
+    method: 'post',
+    data: data
+  })
+}
+
+export function jokePUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/joke/speakUpdate',
+    method: 'post',
+    data: data
+  })
+}
+
+export function jokePDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/joke/speakDel',
+    method: 'post',
+    data: data
+  })
+}
+
+export function jokePAIML (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/joke/speakAiml',
     method: 'post',
     data: data
   })

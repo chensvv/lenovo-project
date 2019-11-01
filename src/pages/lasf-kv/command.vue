@@ -30,12 +30,12 @@
                 </el-table-column>
                 <el-table-column
                     label="预设指令"
-                    prop="id"
+                    prop="commandSeged"
                     align="center">
                 </el-table-column>
                 <el-table-column
                     label="功能描述"
-                    prop="albumQqId">
+                    prop="commandSegedDelStop">
                 </el-table-column>
                 <el-table-column
                     label="修改时间"
@@ -69,8 +69,8 @@
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="addList.command" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="预设指令" prop="interFaceId">
-                    <el-select v-model="addList.interFaceId" placeholder="--" clearable>
+                <el-form-item label="预设指令" prop="interFaceId" class="el__select">
+                    <el-select v-model="addList.interFaceId" placeholder="--" clearable filterable>
                         <el-option v-for="(item,index) in sourceList" :key="index" :label="item.command" :value="item.id">
                             <span style="float: left">{{ item.command }}</span>
                             <span style="float: right; color: #8492a6; font-size: 13px">{{ item.commandInterface }}</span>

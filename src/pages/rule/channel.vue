@@ -2,20 +2,19 @@
   <div class="table">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>应用搜索</el-breadcrumb-item>
+      <el-breadcrumb-item>规则定义</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="应用名称" prop="appName">
-        <el-input v-model.trim="searchItem.appName" clearable></el-input>
+      <el-form-item label="中文名称" prop="q">
+        <el-input v-model.trim="searchItem.q" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button class="success" size="mini" @click="handleAdd()" v-has="208">添加</el-button>
-      <el-button icon="el-icon-upload" class="success" size="mini" @click="importExcel()" v-has="211">导入Excel文件</el-button>
+      <el-button class="success" size="mini" @click="handleAdd()" v-has="213">添加</el-button>
     </el-form>
     <div class="table-box">
       <el-table
@@ -24,9 +23,14 @@
           <el-table-column type="index" align="center">
           </el-table-column>
           <el-table-column
-              label="应用名称"
-              prop="appName"
+              label="数据名称"
+              prop="dataValue"
               align="center">
+          </el-table-column>
+          <el-table-column
+              label="数据拼音"
+              prop="dataPinyin"
+              align="left">
           </el-table-column>
           <el-table-column
               label="创建时间"
@@ -45,12 +49,12 @@
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="209">编辑</el-button>
+                  v-has="214">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="210">删除</el-button>
+                  v-has="215">删除</el-button>
               </template>
           </el-table-column>
       </el-table>
@@ -67,8 +71,8 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="应用名称" prop="appName">
-          <el-input type="text" v-model.trim="currentItem.appName" auto-complete="off"></el-input>
+        <el-form-item label="应用名称" prop="q">
+          <el-input type="text" v-model.trim="currentItem.q" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -78,8 +82,8 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="应用名称" prop="appName">
-          <el-input type="text" v-model.trim="addList.appName" auto-complete="off"></el-input>
+        <el-form-item label="应用名称" prop="q">
+          <el-input type="text" v-model.trim="addList.q" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -87,41 +91,13 @@
         <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="上传文件" :visible.sync="uploadVisible" width="200" class="eldialog" :before-close="closeFile">
-      <el-form class="eldialogForm">
-        <el-form-item label >
-          <el-upload
-            class="upload-demo"
-            drag
-            :before-upload="beforeUpload"
-            :http-request="uploadFile"
-            :on-exceed="handleExceed2"
-            :limit="1"
-            multiple
-            ref="upload"
-            action
-          >
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">
-              将文件拖到此处，或
-              <em>点击上传</em>
-            </div>
-            <div class="el-upload__tip" slot="tip">只能上传Excel文件，且每次只能上传一个文件</div>
-          </el-upload>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFile()">取 消</el-button>
-        <el-button type="primary" @click="postFile()" :loading="fileBtnLoading">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
-import {appNameList, appNameAdd, appNameUpd, appNameDel, appNameUpFile, qaFile} from '@/config/api'
+import {channelList, channelAdd, channelUpd, channelDel} from '@/config/api'
 export default {
   name: "applicationlist",
   components: { iTable },
@@ -130,26 +106,23 @@ export default {
       list: [],
       currentItem: {//编辑数据组
         id:"",
-        appName:""
+        q:""
       },
       addList: {//添加数据组
-        appName:""
+        q:""
       },
       searchItem:{//搜索数据组
-        appName:""
+        q:""
       },
       addRules:{
-        appName:[{ required: true, message: '请输入应用名称', trigger: 'change' }],
+        q:[{ required: true, message: '请输入数据名称', trigger: 'change' }],
         
       },
       editRules:{
-        appName:[{ required: true, message: '请输入应用名称', trigger: 'blur' }], 
+        q:[{ required: true, message: '请输入数据名称', trigger: 'blur' }],  
       },
       editVisible: false,
       addVisible: false,
-      uploadVisible: false,
-      fileBtnLoading: false,
-      file: [],//文件上传
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 30,   //默认每页条数
@@ -210,7 +183,7 @@ export default {
       this.editVisible = true;
       this.currentItem = {
         id:row.id,
-        appName: row.appName,
+        q: row.dataValue,
       };
     },
     handleDel(index, row) {
@@ -222,7 +195,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-          appNameDel(delParams).then(res=>{
+          channelDel(delParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
                     message:'删除成功',
@@ -266,12 +239,12 @@ export default {
     editHandleConfirm(currentItem) {
       let updParams = {
         id:this.currentItem.id,
-        appName:this.currentItem.appName
+        q:this.currentItem.q
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
-          appNameUpd(updParams).then(res=>{
+          channelUpd(updParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
                     message:'编辑成功',
@@ -300,12 +273,12 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        appName:this.addList.appName
+        q:this.addList.q
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
-          appNameAdd(addParams).then(res=>{
+          channelAdd(addParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
                     message:'添加成功',
@@ -329,66 +302,15 @@ export default {
         }
       });
     },
-    importExcel(){
-        this.uploadVisible = true
-    },
-    //上传excel表格
-    beforeUpload(file) {
-      const isText = file.type === "application/vnd.ms-excel";
-      const isTextComputer =
-        file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      if (!isText && !isTextComputer) {
-        this.$message.error("上传文件必须是Excel格式!");
-      }
-      return isText || isTextComputer;
-    },
-    // 上传文件个数超过定义的数量
-    handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`);
-    },
-    uploadFile(item) {
-      this.file = item.file;
-    },
-    postFile() {
-      const fileObj = this.file;
-      var fileData = new FormData();
-      fileData.append("ex", fileObj);
-      this.fileBtnLoading = true;
-      appNameUpFile(fileData).then(res => {
-            if(res.data.code == 200){
-                this.$message({
-                    message:'上传成功',
-                    type:"success",
-                    duration:1000
-                });
-                this.$refs.upload.clearFiles()
-                this.fileBtnLoading = false
-                this.uploadVisible = false
-                this.getList()
-            }else{
-                this.fileBtnLoading = false
-                this.$message({
-                    message:res.data.errorMessage,
-                    type:"error",
-                    duration:1000
-                });
-            }
-
-      });
-    },
-    closeFile() {
-        this.$refs.upload.clearFiles()
-        this.uploadVisible = false;
-    },
     getList() {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        appname:this.searchItem.appName,
+        q:this.searchItem.q,
       }
-      appNameList(params).then(res => {
-        this.list = res.data.data;
-        this.totalCount = res.data.count
+      channelList(params).then(res => {
+        this.list = res.data.data.data;
+        this.totalCount = res.data.data.total
       });
     }
   }
