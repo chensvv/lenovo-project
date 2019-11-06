@@ -35,7 +35,7 @@
                 <el-button type="primary" @click="onSubmit" size="mini" :loading="btnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')" size="mini">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="5">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'app:cacheadd'">添加</el-button>
         </el-form>
           <el-table
             :data="list"
@@ -90,7 +90,7 @@
                     <el-button
                     size="mini"
                     type="danger"
-                     v-has="6"
+                     v-has="'app:cachedel'"
                     @click="handleDel(scope.$index, scope.row)"
                     >删除</el-button>
                 </template>

@@ -14,8 +14,8 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="220">生成AIML</el-button>
-      <el-button class="success" size="mini" @click="handleAdd()" v-has="217">添加</el-button>
+      <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'joke:speakAiml'">生成AIML</el-button>
+      <el-button class="success" size="mini" @click="handleAdd()" v-has="'joke:speakAdd'">添加</el-button>
     </el-form>
     <div class="table-box">
       <el-table
@@ -45,12 +45,12 @@
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="218">编辑</el-button>
+                  v-has="'joke:speakUpdate'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="219">删除</el-button>
+                  v-has="'joke:speakDel'">删除</el-button>
               </template>
           </el-table-column>
       </el-table>
@@ -94,7 +94,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="AINLBtn()">确 定</el-button>
+        <el-button type="primary" @click="AIMLBtn()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -122,7 +122,7 @@ export default {
         q:"",
       },
       addRules:{
-        joke:[{ required: true, message: '请输入书法', trigger: 'change' }]
+        joke:[{ required: true, message: '请输入说法', trigger: 'change' }]
       },
       editRules:{
         joke:[{ required: true, message: '请输入说法', trigger: 'blur' }]
@@ -332,7 +332,7 @@ export default {
         }
       })
     },
-    AINLBtn(){
+    AIMLBtn(){
       this.AIMLVisible = false
     },
     getList() {

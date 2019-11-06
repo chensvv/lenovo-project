@@ -14,8 +14,8 @@
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
             <el-button @click="resetForm('searchItem')">重置</el-button>
         </el-form-item>
-        <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="72">生成AIML</el-button>
-        <el-button class="success" size="mini" @click="handleAdd()" v-has="67">添加</el-button>
+        <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'rule:pub'">生成AIML</el-button>
+        <el-button class="success" size="mini" @click="handleAdd()" v-has="'rule:save'">添加</el-button>
     </el-form>
     <div class="table-box">
         <el-table
@@ -38,12 +38,12 @@
                     <el-button
                     size="mini"
                     @click="handleEdit(scope.$index, scope.row)"
-                    v-has="68">编辑</el-button>
+                    v-has="'rule:update'">编辑</el-button>
                     <el-button
                     size="mini"
                     type="danger"
                     @click="handleDel(scope.$index, scope.row)"
-                    v-has="71">删除</el-button>
+                    v-has="'rule:delete'">删除</el-button>
                 </template>
             </el-table-column>
       </el-table>

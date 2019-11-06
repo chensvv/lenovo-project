@@ -13,7 +13,7 @@
             <span class="d_title">{{skillDetail.appName}}  >></span><span>{{skillDetail.functionName}}</span>
         </div>
         <el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="140">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:versionadd'">添加</el-button>
             <router-link :to="{ path: '/lasf-kv/skill/detail/speak',query:{functionId:this.functionId, appId:this.appId}}">
                 <el-button class="success" size="mini">说法列表</el-button>
             </router-link>
@@ -53,16 +53,16 @@
                     <el-button
                     size="mini"
                     @click="handleEdit(scope.$index, scope.row)"
-                    v-has="141">编辑</el-button>
+                    v-has="'skill:versionupdate'">编辑</el-button>
                     <el-button
                     size="mini"
                     type="danger"
                     @click="handleDel(scope.$index, scope.row)"
-                    v-has="142">删除</el-button>
+                    v-has="'skill:versiondelete'">删除</el-button>
                     <el-button
                     size="mini"
                     @click="handleStr(scope.$index, scope.row)"
-                    v-has="143">策略</el-button>
+                    v-has="'skill:versiondetail'">策略</el-button>
                 </template>
             </el-table-column>
         </el-table>

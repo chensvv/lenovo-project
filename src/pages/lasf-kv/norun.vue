@@ -14,7 +14,7 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="186">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'command:norun:add'">添加</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -38,7 +38,7 @@
                         <el-button
                         size="mini"
                         type="danger"
-                         v-has="187"
+                         v-has="'command:norun:delete'"
                         @click="handleDel(scope.$index, scope.row)"
                         >删除</el-button>
                     </template>

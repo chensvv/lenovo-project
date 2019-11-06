@@ -43,25 +43,24 @@ export default {
     created(){
         this.username = sessionStorage.getItem('username')
         this.menuData = JSON.parse(sessionStorage.getItem('menuData'))
-        // console.log(this.$route.path)
         let menuList=[]
         for (let item of this.menuData) {
             // console.log(item)
             if (item.menutype === 0) {
                 menuList.push({
-                    id:item.id
+                    ruleCode:item.ruleCode
                 });
             }
             for (let towMenus of item.children) {
                 if (towMenus.menutype === 0) {
                     menuList.push({
-                        id:towMenus.id
+                        ruleCode:towMenus.ruleCode
                     });
                 }
                 for (let threeMenus of towMenus.children2) {
                     if (threeMenus.menutype === 0) {
                         menuList.push({
-                            id:threeMenus.id
+                            ruleCode:threeMenus.ruleCode
                         });
                     }
                 }

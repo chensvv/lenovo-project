@@ -17,7 +17,7 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button class="success" size="mini" @click="handleAdd()" v-has="52">添加</el-button>
+      <el-button class="success" size="mini" @click="handleAdd()" v-has="'grey:devadd'">添加</el-button>
       <router-link :to="{ path: '/grey/funlist'}">
           <el-button class="success" size="mini">功能列表</el-button>
       </router-link>
@@ -49,16 +49,16 @@
                 <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="167">编辑</el-button>
+                  v-has="'grey:devupdate'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="53">删除</el-button>
+                  v-has="'grey:devdel'">删除</el-button>
                 <el-button
                   size="mini"
                   @click="handleOpt(scope.$index, scope.row)"
-                  v-has="168">配置</el-button>
+                  v-has="'grey:dev'">配置</el-button>
               </template>
           </el-table-column>
       </el-table>

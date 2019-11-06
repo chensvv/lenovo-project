@@ -6,8 +6,8 @@ var service = {}
 // axios 配置
 // eslint-disable-next-line camelcase
 const service_head = axios.create({
-  baseURL: 'http://m.voice.lenovomm.com', // 线上地址
-  // baseURL: 'http://10.110.148.59:8085', // 开发地址,
+  baseURL: 'http://m.voice.lenovomm.com',
+  // baseURL: 'http://10.110.148.59:8085',
   // timeout: 15000, // 请求超时时间
   withCredentials: true
 })
@@ -68,8 +68,8 @@ service_head.interceptors.response.use(response => {
   return Promise.reject(error)
 })
 const UPFile = axios.create({
-  baseURL: 'http://m.voice.lenovomm.com', //  线上地址
-  // baseURL: 'http://10.110.148.59:8085', // 开发地址
+  baseURL: 'http://m.voice.lenovomm.com',
+  // baseURL: 'http://10.110.148.59:8085',
   timeout: 15000, // 请求超时时间
   headers: {
     'Content-Type': 'multipart/form-data'

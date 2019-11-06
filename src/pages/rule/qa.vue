@@ -17,10 +17,10 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="46">生成AIML</el-button>
-      <el-button class="success" size="mini" @click="handleAdd()" v-has="44">添加</el-button>
-      <el-button icon="el-icon-upload" class="success" size="mini" @click="importExcel()" v-has="47">导入Excel文件</el-button>
-      <el-button icon="el-icon-upload" class="success" size="mini" @click="customExcel()" v-has="47">导入自定义Excel文件</el-button>
+      <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'qa:pub'">生成AIML</el-button>
+      <el-button class="success" size="mini" @click="handleAdd()" v-has="'qa:save'">添加</el-button>
+      <el-button icon="el-icon-upload" class="success" size="mini" @click="importExcel()" v-has="'qa:excel'">导入Excel文件</el-button>
+      <el-button icon="el-icon-upload" class="success" size="mini" @click="customExcel()" v-has="'qa:excel'">导入自定义Excel文件</el-button>
     </el-form>
     <div class="table-box">
       <el-table
@@ -54,12 +54,12 @@
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="113">编辑</el-button>
+                  v-has="'qa:update'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="45">删除</el-button>
+                  v-has="'qa:del'">删除</el-button>
               </template>
           </el-table-column>
       </el-table>
@@ -172,7 +172,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="AINLBtn()">确 定</el-button>
+        <el-button type="primary" @click="AIMLBtn()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -516,7 +516,7 @@ export default {
         }
       })
     },
-    AINLBtn(){
+    AIMLBtn(){
       this.AIMLVisible = false
     },
     getList() {

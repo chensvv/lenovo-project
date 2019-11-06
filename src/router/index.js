@@ -85,6 +85,16 @@ const router = new Router({
           meta: {title: '语音唤醒'}
         },
         {
+          path: '/movie/list',
+          component: () => import('@/pages/chat/movie'),
+          meta: {title: '电影管理'}
+        },
+        {
+          path: '/ask/list',
+          component: () => import('@/pages/chat/ask'),
+          meta: {title: '要求管理'}
+        },
+        {
           path: '/qa/list',
           component: () => import('@/pages/rule/qa'),
           meta: {title: '定制问答查看'}

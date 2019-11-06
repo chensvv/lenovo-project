@@ -52,7 +52,7 @@
                     slot 
                     @click="handleInfo(scope.$index, scope.row)" 
                     class="cur-info"
-                    v-has="196"><i class="el-icon-folder-opened icon"></i></span>
+                    v-has="'asr:log:download'"><i class="el-icon-folder-opened icon"></i></span>
                 </template>
             </el-table-column>
           </el-table>

@@ -17,9 +17,9 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button class="success" size="mini"  @click="handleAdd()" v-has="49">添加</el-button>
+      <el-button class="success" size="mini"  @click="handleAdd()" v-has="'grey:funadd'">添加</el-button>
       <router-link :to="{ path: '/rule/devlist'}">
-          <el-button class="success" size="mini" v-has="51">机型列表</el-button>
+          <el-button class="success" size="mini" v-has="'grey:devlist'">机型列表</el-button>
       </router-link>
       
     </el-form>
@@ -50,16 +50,16 @@
                 <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="169">编辑</el-button>
+                  v-has="'grey:funupdaate'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="50">删除</el-button>
+                  v-has="'grey:fundel'">删除</el-button>
                 <el-button
                   size="mini"
                   @click="handleOpt(scope.$index, scope.row)"
-                  v-has="170">配置</el-button>
+                  v-has="'grey:fun'">配置</el-button>
               </template>
           </el-table-column>
       </el-table>

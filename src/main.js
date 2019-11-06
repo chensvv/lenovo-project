@@ -5,6 +5,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// eslint-disable-next-line import/no-duplicates
 import 'default-passive-events'
 Vue.config.productionTip = false
 
@@ -38,7 +39,7 @@ Vue.prototype.$_has = function (value) {
     return false
   }
   for (let i = 0; i < buttonpermsStr.length; i++) {
-    if (value === buttonpermsStr[i].id) {
+    if (value === buttonpermsStr[i].ruleCode) {
       isExit = true
       break
     }
@@ -51,9 +52,9 @@ export {has}
 new Vue({
   el: '#app',
   router,
+  store,
   components: {
-    App,
-    store
+    App
   },
   template: '<App/>'
 })

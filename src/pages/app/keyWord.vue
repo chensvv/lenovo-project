@@ -33,7 +33,7 @@
                 <el-button type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="202">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'app:keywordadd'">添加</el-button>
         </el-form>
         <div class="table-box">
         <!-- <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table> -->
@@ -79,7 +79,7 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="203">编辑</el-button>
+                        v-has="'app:keywordupdate'">编辑</el-button>
                     </template>
                 </el-table-column>
             </el-table>

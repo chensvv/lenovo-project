@@ -272,7 +272,6 @@ export default {
       };
       clientList(Cparams).then(res => {
         this.clientList = res.data.data.data;
-
         this.CtotalCount = res.data.data.total;
       });
       clientList(Sparams).then(res => {

@@ -19,7 +19,7 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="117">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'joke:save'">添加</el-button>
         </el-form>
         <el-table
                 :data="list"
@@ -52,16 +52,16 @@
                         size="mini"
                         type="danger"
                         @click="checkState(scope.$index, scope.row)"
-                        v-has="118">审核</el-button>
+                        v-has="'joke:veri'">审核</el-button>
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="60">编辑</el-button>
+                        v-has="'joke:update'">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
                         @click="handleDel(scope.$index, scope.row)"
-                        v-has="61">删除</el-button>
+                        v-has="'joke:del'">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

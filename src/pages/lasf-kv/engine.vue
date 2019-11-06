@@ -10,7 +10,7 @@
                 <span>{{list[1]}}</span>
             </el-form-item>
             <el-form-item>
-                <el-button class="success" size="mini" @click="handleEdit()">修改</el-button>
+                <el-button class="success" size="mini" @click="handleEdit()" v-has="'kv:engine:edit'">修改</el-button>
             </el-form-item>
         </el-form>
         <div class="table-box">

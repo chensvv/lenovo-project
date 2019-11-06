@@ -109,12 +109,12 @@
                         <el-button
                         size="mini"
                         @click="rowClick(scope.$index, scope.row)"
-                        v-has="198">详情</el-button>
+                        v-has="'servlog:detail'">详情</el-button>
                         <el-button
                         size="mini"
                         icon="el-icon-download"
                         @click="handleDown(scope.$index, scope.row)"
-                        v-has="199"></el-button>
+                        v-has="'servlog:downLoad'"></el-button>
                     </template>
                 </el-table-column>
         </el-table>

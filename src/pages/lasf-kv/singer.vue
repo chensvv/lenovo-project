@@ -14,10 +14,10 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="149">添加</el-button>
-            <el-button class="success" size="mini" @click="handlePub()" v-has="152">发布</el-button>
-            <el-button class="success" size="mini" @click="handleAblum()" v-has="153">专辑列表</el-button>
-            <el-button class="success" size="mini" @click="handleSong()" v-has="157">歌曲列表</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:music:addsinger'">添加</el-button>
+            <el-button class="success" size="mini" @click="handlePub()" v-has="'skill:music:singerpublish'">发布</el-button>
+            <el-button class="success" size="mini" @click="handleAblum()" v-has="'skill:music:albumlist'">专辑列表</el-button>
+            <el-button class="success" size="mini" @click="handleSong()" v-has="'skill:music:songlist'">歌曲列表</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -54,12 +54,12 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="150">编辑</el-button>
+                        v-has="'skill:music:updatesinger'">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
                         @click="handleDel(scope.$index, scope.row)"
-                        v-has="151">删除</el-button>
+                        v-has="'skill:music:deletesinger'">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

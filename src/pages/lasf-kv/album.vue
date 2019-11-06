@@ -14,8 +14,8 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="154">添加</el-button>
-            <el-button class="success" size="mini" @click="handleSong()" v-has="157">歌曲列表</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:music:addalbum'">添加</el-button>
+            <el-button class="success" size="mini" @click="handleSong()" v-has="'skill:music:songlist'">歌曲列表</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -57,12 +57,12 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="155">修改</el-button>
+                        v-has="'skill:music:updatealbuml'">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
                         @click="handleDel(scope.$index, scope.row)"
-                        v-has="156">删除</el-button>
+                        v-has="'skill:music:deletealbum'">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -134,7 +134,7 @@ export default {
     data() {
         return {
             list: [],
-            currentItem: {//修改数据组
+            currentItem: {//编辑数据组
                 id:"",
                 albumName: "",
                 albumQqId: "",
@@ -281,7 +281,7 @@ export default {
                     albumUpd(updParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
-                                message:'修改成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });

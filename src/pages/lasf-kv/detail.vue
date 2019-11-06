@@ -19,7 +19,7 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="131">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:functionadd'">添加</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -67,16 +67,16 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="132">修改</el-button>
+                        v-has="'skill:functionupdate'">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
                         @click="handleDel(scope.$index, scope.row)"
-                        v-has="133">删除</el-button>
+                        v-has="'skill:functiondelete'">删除</el-button>
                         <el-button
                         size="mini"
                         @click="handleInfo(scope.$index, scope.row)"
-                        v-has="134">详情</el-button>
+                        v-has="'skill:speaklist'">详情</el-button>
                     </template>
                 </el-table-column>
             </el-table> 
@@ -127,7 +127,7 @@ export default {
             appId:"",
             list: [],
             skillDetail:[],
-            currentItem: {//修改数据组
+            currentItem: {//编辑数据组
                 functionId:"",
                 functionName:""
             },
@@ -252,7 +252,7 @@ export default {
                     skillDetailUpd(updParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
-                                message:'修改成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });

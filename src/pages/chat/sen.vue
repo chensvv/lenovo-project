@@ -14,8 +14,8 @@
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
             <el-button @click="resetForm('searchItem')">重置</el-button>
         </el-form-item>
-        <el-button class="success" size="mini" @click="handleAdd('addList')" v-has="63">添加</el-button>
-        <el-button class="success" size="mini" @click="handlePub" v-has="64">发布</el-button>
+        <el-button class="success" size="mini" @click="handleAdd('addList')" v-has="'sen:add'">添加</el-button>
+        <el-button class="success" size="mini" @click="handlePub" v-has="'sen:pub'">发布</el-button>
     </el-form>
     <div class="table-box">
          <el-table
@@ -39,12 +39,12 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="119">编辑</el-button>
+                        v-has="'sen:update'">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
                         @click="handleDel(scope.$index, scope.row)"
-                        v-has="65">删除</el-button>
+                        v-has="'sen:del'">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

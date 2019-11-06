@@ -115,6 +115,86 @@ export function appNameUpFile (data) {
   })
 }
 
+export function movieList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/movie/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function movieAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/movie/save',
+    method: 'post',
+    data: data
+  })
+}
+
+export function movieUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/movie/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function movieDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/movie/del',
+    method: 'post',
+    data: data
+  })
+}
+
+export function moviePub (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/movie/pub',
+    method: 'post',
+    data: data
+  })
+}
+
+export function askList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ask/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function askAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ask/save',
+    method: 'post',
+    data: data
+  })
+}
+
+export function askUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ask/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function askDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ask/del',
+    method: 'post',
+    data: data
+  })
+}
+
+export function askPub (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ask/pub',
+    method: 'post',
+    data: data
+  })
+}
+
 export function wasList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/was/weblist',

@@ -13,7 +13,7 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="178">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'user:add'">添加</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -38,16 +38,16 @@
                         size="mini"
                         type="primary"
                         @click="handleRole(scope.$index, scope.row)"
-                        v-has="182">角色</el-button>
+                        v-has="'user:editRole'">角色</el-button>
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="179">编辑</el-button>
+                        v-has="'user:update'">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
                         @click="handleDel(scope.$index, scope.row)"
-                        v-has="180">删除</el-button>
+                        v-has="'user:del'">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

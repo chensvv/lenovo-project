@@ -87,7 +87,7 @@
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
-                        v-has="125"
+                        v-has="'outer:detail'"
                         @click="handleInfo(scope.$index, scope.row)"
                         >详情</el-button>
                     </template>

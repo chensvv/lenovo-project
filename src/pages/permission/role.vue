@@ -10,7 +10,7 @@
           </el-form-item>
           <el-button type="primary" size="mini" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
           <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-          <el-button type="primary" class="success btn_role" size="mini" @click="handleAdd()" v-has="175">添加角色</el-button>
+          <el-button type="primary" class="success btn_role" size="mini" @click="handleAdd()" v-has="'role:add'">添加角色</el-button>
         </el-form>
         
     <div class="table-box">
@@ -35,12 +35,12 @@
                     <el-button
                     size="mini"
                     @click="handleEdit(scope.$index, scope.row)"
-                    v-has="176">编辑</el-button>
+                    v-has="'role:update'">编辑</el-button>
                     <el-button
                     size="mini"
                     type="danger"
                     @click="handleDel(scope.$index, scope.row)"
-                    v-has="177">删除</el-button>
+                    v-has="'role:del'">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>

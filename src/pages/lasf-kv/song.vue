@@ -14,8 +14,8 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="158">添加</el-button>
-            <el-button class="success" size="mini" @click="handleAlbum()" v-has="153">专辑列表</el-button>
+            <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:music:addsong'">添加</el-button>
+            <el-button class="success" size="mini" @click="handleAlbum()" v-has="'skill:music:albumlist'">专辑列表</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -52,12 +52,12 @@
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
-                        v-has="159">编辑</el-button>
+                        v-has="'skill:music:updatesong'">编辑</el-button>
                         <el-button
                         size="mini"
                         type="danger"
                         @click="handleDel(scope.$index, scope.row)"
-                        v-has="160">删除</el-button>
+                        v-has="'skill:music:deletesong'">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>

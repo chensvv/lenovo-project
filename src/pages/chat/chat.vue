@@ -29,7 +29,7 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="117">导出数据</el-button>
+      <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="'chat:export'">导出数据</el-button>
     </el-form>
     <div class="table-box">
       <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>

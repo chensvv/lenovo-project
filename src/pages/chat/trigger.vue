@@ -115,7 +115,7 @@
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
-                     v-has="121"
+                     v-has="'trigger:download'"
                     @click="handleDown(scope.$index, scope.row)"
                     >下载文件</el-button>
                 </template>
