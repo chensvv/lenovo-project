@@ -66,7 +66,7 @@
                         <el-button
                         size="mini"
                         @click="handleInfo(scope.$index, scope.row)"
-                        v-has="130">详情</el-button>
+                        v-has="'skill:appdetail'">详情</el-button>
                     </template>
                 </el-table-column>
             </el-table>   

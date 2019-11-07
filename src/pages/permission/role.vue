@@ -70,8 +70,10 @@
                     node-key="id"
                     :props="defaultProps"
                     ref="tree"
+                    :check-strictly='true'
                     @check-change="getChecked"
-                    :default-checked-keys="selectedKeys">
+                    :default-checked-keys="selectedKeys"
+                    :default-expand-all='true'>
                 </el-tree>
             </el-form-item>
         </el-form>
@@ -94,9 +96,11 @@
                         show-checkbox
                         node-key="id"
                         :props="defaultProps"
-                        ref="tree"
-                        @check-change="getChecked"
-                        :default-checked-keys="selectedKeys">
+                        :check-strictly='true'
+                        ref="treeAdd"
+                        @check-change="getCheckedAdd"
+                        :default-checked-keys="selectedKeysAdd"
+                        :default-expand-all='true'>
                     </el-tree>
                 </el-form-item>
                 
@@ -131,6 +135,7 @@ export default {
       },
       treeData:[],
       selectedKeys:[],
+      selectedKeysAdd:[],
       defaultProps: {
           children: 'children',
           label: 'ruleName'
@@ -182,7 +187,6 @@ export default {
       this.getList();
     },
     handleEdit(index, row) {
-      // console.log(row)
       let echoParams = {
         id:row.id,
       }
@@ -193,7 +197,6 @@ export default {
         };
       this.getTree()
       roleEcho(echoParams).then(res=>{
-        console.log(res)
         this.selectedKeys = res.data.ids
       })
 
@@ -323,6 +326,9 @@ export default {
     },
     getChecked(){
       this.selectedKeys = this.$refs.tree.getCheckedKeys()
+    },
+    getCheckedAdd(){
+      this.selectedKeysAdd = this.$refs.treeAdd.getCheckedKeys()
     },
     getList() {
       let params = {
