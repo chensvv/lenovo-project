@@ -116,7 +116,6 @@
 <script>
 import {userList, userDel, userUpd, userAdd, userEcho, userRole, userRoleEcho, userRoleSave} from '@/config/adminApi'
 export default {
-    name: "applicationlist",
     data() {
         return {
             list: [],

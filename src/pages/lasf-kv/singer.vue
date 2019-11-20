@@ -133,7 +133,6 @@
 import {checkTime} from '@/utils/timer.js'
 import {singerList, singerDel, singerUpd, singerAdd, singerPub} from '@/config/api'
 export default {
-    name: "applicationlist",
     data() {
         return {
             list: [],

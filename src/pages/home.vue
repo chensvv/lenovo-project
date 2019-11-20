@@ -52,7 +52,7 @@ export default {
                 });
             }
             for (let towMenus of item.children) {
-                if (towMenus.menutype === 0) {
+                if (towMenus.menutype === 2) {
                     menuList.push({
                         ruleCode:towMenus.ruleCode
                     });

@@ -36,7 +36,6 @@
             <el-button class="success" size="mini" @click="handleAdd()" v-has="'app:keywordadd'">添加</el-button>
         </el-form>
         <div class="table-box">
-        <!-- <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table> -->
         <el-table
                 :data="list"
                 style="width: 100%">
@@ -80,6 +79,11 @@
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
                         v-has="'app:keywordupdate'">编辑</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="'app:keyworddel'">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -131,12 +135,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
-import {wordList,keyAdd,keyUpd} from '@/config/api'
+import {wordList,keyAdd,keyUpd,keyDel} from '@/config/api'
 export default {
-  name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],
@@ -322,6 +323,36 @@ export default {
             } else {
                 return false;
             }
+        });
+    },
+    handleDel(index, row) {
+        let delParams = {
+            id:row.id
+        }
+        this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+        }).then(() => {
+            keyDel(delParams).then(res=>{
+                if(res.data.code == 200){
+                    this.$message({
+                        message:'删除成功',
+                        type:"success",
+                        duration:1000
+                    });
+                    this.getList();
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:"error",
+                        duration:1000
+                    });
+                }
+                
+            })
+        }).catch(() => {
+            console.log("no");
         });
     },
     getList() {

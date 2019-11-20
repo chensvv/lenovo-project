@@ -7,7 +7,7 @@
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="电影名称" prop="ask">
+      <el-form-item label="ask" prop="ask">
         <el-input v-model.trim="searchItem.ask" clearable></el-input>
       </el-form-item>
       <el-form-item>
@@ -67,7 +67,7 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="电影名称" prop="ask">
+        <el-form-item label="ask" prop="ask">
           <el-input type="text" v-model.trim="currentItem.ask" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -78,7 +78,7 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="电影名称" prop="ask">
+        <el-form-item label="ask" prop="ask">
           <el-input type="text" v-model.trim="addList.ask" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -91,12 +91,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {askList, askDel, askUpd, askAdd, askPub} from '@/config/api'
 export default {
-  name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],

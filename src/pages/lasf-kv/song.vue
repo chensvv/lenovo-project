@@ -16,6 +16,7 @@
             </el-form-item>
             <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:music:addsong'">添加</el-button>
             <el-button class="success" size="mini" @click="handleAlbum()" v-has="'skill:music:albumlist'">专辑列表</el-button>
+            <el-button class="success" size="mini" @click="handleSong()" v-has="'skill:music:singerlist'">歌手管理</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -135,7 +136,6 @@
 import {checkTime} from '@/utils/timer.js'
 import {songList, songDel, songUpd, songAdd, songSelect} from '@/config/api'
 export default {
-    name: "applicationlist",
     data() {
         return {
             list: [],

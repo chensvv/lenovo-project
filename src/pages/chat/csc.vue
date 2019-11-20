@@ -87,7 +87,6 @@
 <script>
 import {cscList, cscAdd, cscDel} from '@/config/api'
 export default {
-  name: "applicationlist",
   data() {
     return {
       list: [],

@@ -57,7 +57,6 @@ import {checkTime} from '@/utils/timer.js';
 import {oprList} from '@/config/api';
 import countTo from 'vue-count-to';
 export default {
-  name: "applicationlist",
   components: { iTable, countTo },
   data() {
     return {

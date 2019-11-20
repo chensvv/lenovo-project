@@ -113,12 +113,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {formatDate} from '@/utils/format.js'
 import {skillList, skillAdd, skillUpd,skillDel} from '@/config/api'
 export default {
-    name: "applicationlist",
-    components: { iTable },
     data() {
         return {
             list: [],

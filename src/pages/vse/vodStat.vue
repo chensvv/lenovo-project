@@ -27,7 +27,6 @@
 
 <script>
 export default {
-  name: "applicationlist",
   data() {
     return {
       list: [],

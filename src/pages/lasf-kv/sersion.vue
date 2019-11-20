@@ -127,11 +127,8 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {skillInfo, versionList, versionAdd, versionUpd, versionDel, versionStr} from '@/config/api'
 export default {
-  name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],

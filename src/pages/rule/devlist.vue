@@ -19,7 +19,7 @@
       </el-form-item>
       <el-button class="success" size="mini" @click="handleAdd()" v-has="'grey:devadd'">添加</el-button>
       <router-link :to="{ path: '/grey/funlist'}">
-          <el-button class="success" size="mini">功能列表</el-button>
+          <el-button class="success" size="mini" v-has="'grey:funlist'">功能列表</el-button>
       </router-link>
     </el-form>
     <div class="table-box">
@@ -129,12 +129,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {devList, devAddUpd, devDel, devOpt, devOptSave} from '@/config/api'
 export default {
-  name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],

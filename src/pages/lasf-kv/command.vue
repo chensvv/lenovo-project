@@ -16,6 +16,7 @@
             </el-form-item>
             <el-button class="success" size="mini" @click="handleAdd()" v-has="'command:add'">添加</el-button>
             <el-button class="success" size="mini" @click="handleSong()" v-has="'command:norun:list'">指令忽略管理</el-button>
+            <el-button class="success" size="mini" @click="handleOriginal()" v-has="'command:mainlist'">原始指令管理</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -35,7 +36,8 @@
                 </el-table-column>
                 <el-table-column
                     label="功能描述"
-                    prop="commandSegedDelStop">
+                    prop="commandSegedDelStop"
+                    align="center">
                 </el-table-column>
                 <el-table-column
                     label="修改时间"
@@ -90,7 +92,6 @@
 import {checkTime} from '@/utils/timer.js'
 import {commandList, commandDel, commandEcho, commandAdd} from '@/config/api'
 export default {
-    name: "applicationlist",
     data() {
         return {
             list: [],
@@ -103,11 +104,8 @@ export default {
                 command:"",
             },
             addRules:{
-                albumName: [{ required: true, message: '请输入专辑名称', trigger: 'change' }],
-                albumQqId: [{ required: true, message: '请输入专辑QQ音乐ID', trigger: 'change' }],
-                albumQqMid: [{ required: true, message: '请输入专辑QQ音乐MID', trigger: 'change' }],
-                albumQqSingerId:[{ required: true, message: '请输入专辑对应歌手ID', trigger: 'change' }],
-                albumQqPhoto:[{ required: true, message: '请输入专辑QQ音乐图片', trigger: 'change' }]
+                command: [{ required: true, message: '请输入用户query', trigger: 'change' }],
+                interFaceId: [{ required: true, message: '请选择预设指令', trigger: 'change' }],
             },
             addVisible: false,
             // 分页
@@ -250,6 +248,11 @@ export default {
         handleSong(){
             this.$router.push({
                 path:'/command/norun/list'
+            })
+        },
+        handleOriginal(){
+            this.$router.push({
+                path:'/command/mainlist'
             })
         }
     },

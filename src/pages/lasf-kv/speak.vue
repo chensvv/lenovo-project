@@ -112,12 +112,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {skillInfo, speakList, speakAdd, speakUpd, speakDel} from '@/config/api'
 export default {
-  name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],

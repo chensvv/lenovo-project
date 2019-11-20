@@ -72,8 +72,7 @@
                     ref="tree"
                     :check-strictly='true'
                     @check-change="getChecked"
-                    :default-checked-keys="selectedKeys"
-                    :default-expand-all='true'>
+                    :default-checked-keys="selectedKeys">
                 </el-tree>
             </el-form-item>
         </el-form>
@@ -99,8 +98,7 @@
                         :check-strictly='true'
                         ref="treeAdd"
                         @check-change="getCheckedAdd"
-                        :default-checked-keys="selectedKeysAdd"
-                        :default-expand-all='true'>
+                        :default-checked-keys="selectedKeysAdd">
                     </el-tree>
                 </el-form-item>
                 
@@ -117,7 +115,6 @@
 <script>
 import {roleList, authList, roleAdd, roleEcho, roleUpd, roleDel} from '@/config/adminApi'
 export default {
-  name: "applicationlist",
   data() {
     return {
       list: [],

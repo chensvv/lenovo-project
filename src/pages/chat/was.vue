@@ -138,7 +138,6 @@
 import {checkTime} from '@/utils/timer.js'
 import {wasList, wasDel, wasUpd, wasAdd} from '@/config/api'
 export default {
-    name: "applicationlist",
     data() {
         return {
             list: [],

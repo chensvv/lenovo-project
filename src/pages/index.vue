@@ -7,9 +7,9 @@
             <i class="el-icon-info"></i>
             <span class="alert_main">应用记录今天更新了<countTo :startVal='startVal' :endVal='endVal' :duration='3000'></countTo> 条</span>
         </div>
-        <div>
+        <!-- <div>
             <img src="https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3" class="img">
-        </div>
+        </div> -->
     </div>
 </template>
 <script>

@@ -71,7 +71,7 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="应用名称" prop="q">
+        <el-form-item label="数据名称" prop="q">
           <el-input type="text" v-model.trim="currentItem.q" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -82,7 +82,7 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="应用名称" prop="q">
+        <el-form-item label="数据名称" prop="q">
           <el-input type="text" v-model.trim="addList.q" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -95,12 +95,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {channelList, channelAdd, channelUpd, channelDel} from '@/config/api'
 export default {
-  name: "applicationlist",
-  components: { iTable },
   data() {
     return {
       list: [],

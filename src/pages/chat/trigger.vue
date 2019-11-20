@@ -138,7 +138,6 @@
 import {checkTime} from '@/utils/timer.js'
 import {triggerList} from '@/config/api'
 export default {
-  name: "applicationlist",
   data() {
     return {
       list: [],

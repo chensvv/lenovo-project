@@ -15,6 +15,8 @@
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
             <el-button class="success" size="mini" @click="handleAdd()" v-has="'command:norun:add'">添加</el-button>
+            <el-button class="success" size="mini" @click="handleCommand()" v-has="'command:list'">相似度命令关联</el-button>
+            <el-button class="success" size="mini" @click="handleOriginal()" v-has="'command:mainlist'">原始指令管理</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -72,7 +74,6 @@
 import {checkTime} from '@/utils/timer.js'
 import {norunList, norunDel, norunAdd} from '@/config/api'
 export default {
-    name: "applicationlist",
     data() {
         return {
             list: [],
@@ -85,11 +86,7 @@ export default {
                 command:"",
             },
             addRules:{
-                albumName: [{ required: true, message: '请输入专辑名称', trigger: 'change' }],
-                albumQqId: [{ required: true, message: '请输入专辑QQ音乐ID', trigger: 'change' }],
-                albumQqMid: [{ required: true, message: '请输入专辑QQ音乐MID', trigger: 'change' }],
-                albumQqSingerId:[{ required: true, message: '请输入专辑对应歌手ID', trigger: 'change' }],
-                albumQqPhoto:[{ required: true, message: '请输入专辑QQ音乐图片', trigger: 'change' }]
+                command: [{ required: true, message: '请输入用户query', trigger: 'change' }],
             },
             addVisible: false,
             // 分页
@@ -222,6 +219,16 @@ export default {
                 this.totalCount = res.data.count
             });
         },
+        handleCommand(){
+            this.$router.push({
+                path:'/command/list'
+            })
+        },
+        handleOriginal(){
+            this.$router.push({
+                path:'/command/mainlist'
+            })
+        }
     },
 };
 </script>

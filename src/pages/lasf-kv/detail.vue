@@ -117,11 +117,8 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {skillInfo, skillDetailAdd, skillDetailDel, skillDetailUpd} from '@/config/api'
 export default {
-    name: "applicationlist",
-    components: { iTable },
     data() {
         return {
             appId:"",

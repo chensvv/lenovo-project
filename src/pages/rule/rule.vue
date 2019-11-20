@@ -122,7 +122,6 @@
 import {checkTime} from '@/utils/timer.js'
 import {ruleList, ruleAdd, ruleUpd, ruleDel, rulePub} from '@/config/api'
 export default {
-  name: "applicationlist",
   data() {
     return {
       list: [],

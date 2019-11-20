@@ -200,6 +200,11 @@ const router = new Router({
           meta: {title: '指令忽略管理'}
         },
         {
+          path: '/command/mainlist',
+          component: () => import('@/pages/lasf-kv/original'),
+          meta: {title: '指令忽略管理'}
+        },
+        {
           path: '/asr/log/client',
           component: () => import('@/pages/log/client'),
           meta: {title: '客户端上报日志'}

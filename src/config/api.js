@@ -43,6 +43,14 @@ export function keyUpd (data) {
   })
 }
 
+export function keyDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/keyworddel',
+    method: 'post',
+    data: data
+  })
+}
+
 export function regList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/alireg',
@@ -1014,6 +1022,38 @@ export function norunAdd (data) {
 export function norunDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/norun/delete',
+    method: 'post',
+    data: data
+  })
+}
+
+export function originalList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/mainlist',
+    method: 'post',
+    data: data
+  })
+}
+
+export function originalAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/mainadd',
+    method: 'post',
+    data: data
+  })
+}
+
+export function originalUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/mainupdate',
+    method: 'post',
+    data: data
+  })
+}
+
+export function originalDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/command/maindelete',
     method: 'post',
     data: data
   })

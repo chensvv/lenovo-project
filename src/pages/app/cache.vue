@@ -124,11 +124,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {cacheList, cacheDel, cacheAdd} from '@/config/api'
 export default {
-    components:{iTable},
     data(){
         return{
             searchItem:{

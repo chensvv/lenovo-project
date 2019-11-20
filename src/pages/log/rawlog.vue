@@ -85,13 +85,11 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {rawList,rawView} from '@/config/api'
 import countTo from 'vue-count-to';
 export default {
-  name: "applicationlist",
-  components: { iTable, countTo },
+  components: {countTo },
   data() {
     return {
       list: [],

@@ -111,7 +111,6 @@ import { checkTime } from "@/utils/timer.js";
 import { clientList } from "@/config/api.js";
 import countTo from 'vue-count-to';
 export default {
-  name: "applicationlist",
   components: { iTable,countTo },
   data() {
     return {

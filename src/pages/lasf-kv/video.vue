@@ -203,12 +203,9 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {videoList, videoDel, videoUpd, videoAdd, videoSelect} from '@/config/api'
 export default {
-    name: "applicationlist",
-    components: { iTable },
     data() {
         return {
             list: [],
