@@ -124,13 +124,13 @@
         </el-menu-item>
     </el-menu> -->
    <div>
-       <el-menu class='el-menu-vertical-demo' :router="true" @select="handleSelect">
+       <el-menu class='el-menu-vertical-demo' router @select="handleSelect">
            <el-menu-item index="/home/index">
             <i class="el-icon-location"></i>
 			<span>首页</span>
         </el-menu-item>
            <div v-for='(item, index) in menuData' :key='index'>
-                <el-submenu v-if='item.children' :index='item.id' :route = 'item.url' class='edit_wrapper'>
+                <el-submenu v-if='item.children' :index='item.id' :route ='item.url' class='edit_wrapper'>
                 <template slot='title'>
                     <i :class='item.icon'></i>
                     <span slot='title'>{{item.ruleName}}</span>
@@ -140,35 +140,35 @@
                     <template slot='title'>
                         <span slot='title'>{{item1.ruleName}}</span>
                     </template>
-                    <el-submenu v-for= '(item2, index) in item1.children' :key='item2.ruleCode' v-if='item2.children' :index='item2.id' :route = 'item2.url'>
+                    <el-submenu v-for= '(item2, index) in item1.children' :key='item2.ruleCode' v-if='item2.children' :index='item2.id' :route ='item2.url'>
                         <template slot='title'>
                             <span slot='title'>{{item2.ruleName}}</span>
                         </template>
-                        <el-submenu v-for= '(item3, index) in item2.children' :key='item3.ruleCode' v-if='item3.children' :index='item3.id' :route = 'item3.url'>
+                        <el-submenu v-for= '(item3, index) in item2.children' :key='item3.ruleCode' v-if='item3.children' :index='item3.id' :route ='item3.url'>
                             <template slot='title'>
                                 <span slot='title'>{{item3.ruleName}}</span>
                             </template>
-                            <el-menu-item v-for= '(item4, index) in item3.children' :key='item3.ruleCode' v-if='item4.children == null' :index='item4.id' :route = 'item4.url'>
+                            <el-menu-item v-for= '(item4, index) in item3.children' :key='item3.ruleCode' v-if='item4.children == null' :index='item4.id' :route ='item4.url'>
                                 <i :class='item4.icon'></i>
                                 <span>{{item4.ruleName}}</span>
                             </el-menu-item>
                         </el-submenu>
-                        <el-menu-item v-for= '(item3, index) in item2.children' :key='item3.ruleCode' v-if='item3.children == null' :index='item3.id' :route = 'item3.url'>
+                        <el-menu-item v-for= '(item3, index) in item2.children' :key='item3.ruleCode' v-if='item3.children == null' :index='item3.id' :route ='item3.url'>
                             <i :class='item3.icon'></i>
                             <span>{{item3.ruleName}}</span>
                         </el-menu-item>
                     </el-submenu>
-                    <el-menu-item v-for= '(item2, index) in item1.children' :key='item2.ruleCode' v-if='item2.children == null' :index='item2.id' :route = 'item2.url'>
+                    <el-menu-item v-for= '(item2, index) in item1.children' :key='item2.ruleCode' v-if='item2.children == null' :index='item2.id' :route ='item2.url'>
                         <i :class='item2.icon'></i>
                         <span>{{item2.ruleName}}</span>
                     </el-menu-item>
                 </el-submenu>
-                <el-menu-item v-for= '(item1, index) in item.children' :key='item1.ruleCode' v-if='item1.children == null' :index='item1.ruleCode' :route = 'item1.url'>
+                <el-menu-item v-for= '(item1, index) in item.children' :key='item1.ruleCode' v-if='item1.children == null' :index='item1.ruleCode' :route ='item1.url'>
                     <i :class='item1.icon'></i>
                     <span>{{item1.ruleName}}</span>
                 </el-menu-item>
             </el-submenu>
-            <el-menu-item v-if='item.children == null' :index='item.id' :route = 'item.url'>
+            <el-menu-item v-if='item.children == null' :index='item.id' :route ='item.url'>
                 <i :class='item.icon'></i>
                 <span slot='title'>{{item.ruleName}}</span>
             </el-menu-item>
@@ -176,30 +176,16 @@
            
           </el-menu>
    </div>
-        <!-- <el-menu
-            default-active="0"
-            class="el-menu-vertical-demo"
-            @select="handleSelect"
-            background-color="#F0F6F6"
-            text-color="#3C3F41"
-            active-text-color="black">
-            <NavMenu :navMenus="menuData"></NavMenu>
-        </el-menu> -->
   </template>
 <script>
 export default {
     data(){
             return {
               menuData:[],
-              routeKey:''
-            }
-        },
-        methods: {
-            handleSelect (key, keyPath) {
-                this.routeKey = this.$route.path
             }
         },
     created() {
+        
         this.menuData = JSON.parse(sessionStorage.getItem('menuData'))
     }
 }

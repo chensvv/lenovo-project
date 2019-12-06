@@ -29,7 +29,9 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
-      <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="'chat:export'">导出数据</el-button>
+      <el-tooltip class="item" effect="dark" content="导出数据默认导出全部数据，如需自定义请在左侧选择起始时间和结束时间或者输入问题导出" placement="top-end">
+        <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="'chat:export'">导出数据</el-button>
+      </el-tooltip>
     </el-form>
     <div class="table-box">
       <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
@@ -94,8 +96,7 @@ export default {
                 checkTime(date.getMonth()+1)+'-'+
                 checkTime(date.getDate())+' '+
                 checkTime(date.getHours())+':'+
-                checkTime(date.getMinutes())+':'+
-                checkTime(date.getSeconds()))
+                checkTime(date.getMinutes()))
           }
         }
       ],
@@ -116,7 +117,7 @@ export default {
       addVisible: false,
       // 分页
       currentPage: 1, //默认显示第几页
-      pageSize: 30,   //默认每页条数
+      pageSize: 10,   //默认每页条数
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
@@ -149,6 +150,8 @@ export default {
       this.getList();
     },
     exportFile(){
+      // let timestamp = new Date();
+      // let toData = timestamp.getFullYear()+'-'+checkTime(timestamp.getMonth()+1)+'-'+checkTime(timestamp.getDate())
       let exprotParams = {
         starttime:this.searchItem.refreshTime,
         endtime:this.searchItem.putTime,

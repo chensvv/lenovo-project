@@ -190,12 +190,12 @@ export default {
       }, // 列操作按钮
       // 分页
       CcurrentPage: 1, //默认显示第几页
-      CpageSize: 30, //默认每页条数
+      CpageSize: 10, //默认每页条数
       CpageSizes: [10, 20, 30],
       CtotalCount: 1, // 总条数
 
       ScurrentPage: 1, //默认显示第几页
-      SpageSize: 30, //默认每页条数
+      SpageSize: 10, //默认每页条数
       SpageSizes: [10, 20, 30],
       StotalCount: 1, // 总条数
       seaBtnLoading: false,
@@ -225,9 +225,7 @@ export default {
         " " +
         checkTime(date.getHours()) +
         ":" +
-        checkTime(date.getMinutes()) +
-        ":" +
-        checkTime(date.getSeconds())
+        checkTime(date.getMinutes())
       );
     },
     onSubmit() {

@@ -75,6 +75,11 @@ const router = new Router({
           meta: {title: '笑话领域说法'}
         },
         {
+          path: '/unit/list',
+          component: () => import('@/pages/chat/unit'),
+          meta: {title: '单位换算领域说法'}
+        },
+        {
           path: '/sen/list',
           component: () => import('@/pages/chat/sen'),
           meta: {title: '敏感词'}
@@ -240,6 +245,11 @@ const router = new Router({
           meta: {title: 'VOD错误日志'}
         },
         {
+          path: '/census/list',
+          component: () => import('@/pages/graph/census'),
+          meta: {title: '访问量统计'}
+        },
+        {
           path: '/401',
           component: () => import('@/pages/401'),
           meta: {title: '401'}
@@ -282,7 +292,7 @@ router.beforeEach((to, from, next) => {
   if (username) {
     next()
   } else {
-    if (to.path == '/login') {
+    if (to.path == '/login' || to.path == '/home/userinfo') {
       next()
     } else {
       next('/login')

@@ -13,12 +13,15 @@
     font-weight: initial;
 }
 .el-pagination {
-  padding: 50px 0;
+  padding: 30px 0;
   text-align: center;
 }
 
 .el-aside::-webkit-scrollbar {
   display: none;
+}
+.el-aside{
+  -ms-overflow-style: none;
 }
 /* 修改按钮样式 */
 .operate-group .item {
@@ -39,7 +42,7 @@
   text-overflow: ellipsis;
 }
 /* 修改input宽度 */
-.search_box,.cache,.outer {
+.search_box,.cache,.outer, .no_width {
   text-align: right;
 }
 .search_box .el-form-item .el-form-item__label,.outer .el-form-item .el-form-item__label,.trigger .el-form-item .el-form-item__label{
@@ -214,4 +217,26 @@
 }
 .el__select .el-select{
   width: 60%;
+}
+.el-submenu__title{
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  background: #fff;
+  z-index: 9;
+}
+.pass-title{
+  width: 400px;
+  color: #515a6e;
+}
+.pass-title .user{
+  padding: 20px;
+  text-indent: 11px;
+}
+.pass-title .el-form .el-input__inner{
+  height: 35px;
+  line-height: 35px;
+}
+.pass-title .el-form .reg_box{
+  text-align: center;
 }

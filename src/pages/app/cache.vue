@@ -147,7 +147,7 @@ export default {
             },
             // 分页
             currentPage: 1, //默认显示第几页
-            pageSize: 30,   //默认每页条数
+            pageSize: 10,   //默认每页条数
             pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             btnLoading:false,
@@ -181,8 +181,7 @@ export default {
                     checkTime(date.getMonth()+1)+'-'+
                     checkTime(date.getDate())+' '+
                     checkTime(date.getHours())+':'+
-                    checkTime(date.getMinutes())+':'+
-                    checkTime(date.getSeconds())
+                    checkTime(date.getMinutes())
         },
         formVal(row,column){
             return row.isIndex === true ? 'true' : 'false'

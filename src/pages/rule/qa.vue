@@ -217,7 +217,7 @@ export default {
       file2: [],
       // 分页
       currentPage: 1, //默认显示第几页
-      pageSize: 30,   //默认每页条数
+      pageSize: 10,   //默认每页条数
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
@@ -239,8 +239,7 @@ export default {
         checkTime(date.getMonth()+1)+'-'+
         checkTime(date.getDate())+' '+
         checkTime(date.getHours())+':'+
-        checkTime(date.getMinutes())+':'+
-        checkTime(date.getSeconds())
+        checkTime(date.getMinutes())
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -436,9 +435,8 @@ export default {
       qaUpFile(fileData).then(res => {
             if(res.data.code == 200){
                 this.$message({
-                    message:'上传成功',
+                    message:res.data.msg,
                     type:"success",
-                    duration:1000
                 });
                 this.$refs.upload.clearFiles()
                 this.fileBtnLoading = false
@@ -463,9 +461,8 @@ export default {
       qaFile(fileData).then(res => {
             if(res.data.code == 200){
                 this.$message({
-                    message:'上传成功',
-                    type:"success",
-                    duration:1000
+                    message:res.data.msg,
+                    type:"success"
                 });
                 this.$refs.upload2.clearFiles()
                 this.fileBtnLoading2 = false

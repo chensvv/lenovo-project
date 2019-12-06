@@ -311,7 +311,7 @@ export default {
             }
             skillInfo(params).then(res => {
                 this.skillDetail = res.data
-                this.list = res.data.functions;
+                this.list = res.data.data.functions;
                 this.totalCount = res.data.count
             });
         },

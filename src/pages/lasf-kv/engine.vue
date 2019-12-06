@@ -49,11 +49,6 @@ export default {
         asr:[{ required: true, message: '请输入引擎规则', trigger: 'blur' }]
       },
       editVisible: false,
-      // 分页
-      currentPage: 1, //默认显示第几页
-      pageSize: 10,   //默认每页条数
-      pageSizes:[10, 20, 30],
-      totalCount:1,     // 总条数
       editBtnLoading:false
     };
   },

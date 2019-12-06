@@ -294,7 +294,7 @@ export default {
             addVisible: false,
             // 分页
             currentPage: 1, //默认显示第几页
-            pageSize: 30,   //默认每页条数
+            pageSize: 10,   //默认每页条数
             pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             seaBtnLoading:false,

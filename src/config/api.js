@@ -587,6 +587,46 @@ export function jokePAIML (data) {
   })
 }
 
+export function unitList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/unit/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function unitAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/unit/add',
+    method: 'post',
+    data: data
+  })
+}
+
+export function unitUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/unit/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function unitDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/unit/del',
+    method: 'post',
+    data: data
+  })
+}
+
+export function unitPub (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/unit/pub',
+    method: 'post',
+    data: data
+  })
+}
+
 // 敏感词
 export function senList (data) {
   return fetch.service_head({
@@ -769,6 +809,14 @@ export function speakUpd (data) {
 export function speakDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/speakdelete',
+    method: 'post',
+    data: data
+  })
+}
+
+export function speakPub (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/skill/speakpublish',
     method: 'post',
     data: data
   })
@@ -1150,6 +1198,23 @@ export function servList (data) {
 export function durChat (data) {
   return fetch.service_head({
     url: '/lasf-mgr/stat/duration',
+    method: 'post',
+    data: data
+  })
+}
+
+// 访问量统计
+export function censusList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/census/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function censusUserList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/census/userList',
     method: 'post',
     data: data
   })

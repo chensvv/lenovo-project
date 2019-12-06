@@ -113,7 +113,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {skillInfo, speakList, speakAdd, speakUpd, speakDel} from '@/config/api'
+import {skillInfo, speakList, speakAdd, speakUpd, speakDel, speakPub} from '@/config/api'
 export default {
   data() {
     return {
@@ -145,7 +145,7 @@ export default {
       addVisible: false,
       // 分页
       currentPage: 1, //默认显示第几页
-      pageSize: 30,   //默认每页条数
+      pageSize: 10,   //默认每页条数
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       addBtnLoading:false,
@@ -299,9 +299,25 @@ export default {
     },
     release(){
       this.relBtnLoading = true
-      setTimeout(()=>{
-        this.relBtnLoading = false
-      },2000)
+      speakPub().then(res=>{
+        if(res.data.code == 200){
+              this.$message({
+                message:'发布成功',
+                type:"success",
+                duration:1000
+              });
+              this.relBtnLoading = false
+              this.getList();
+              
+          }else{
+              this.$message({
+                  message:res.data.errorMessage,
+                  type:"error",
+                  duration:1000
+              });
+              this.relBtnLoading = false
+          } 
+      })
     },
     getList() {
       let params = {

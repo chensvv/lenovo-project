@@ -188,8 +188,7 @@ export default {
         checkTime(date.getMonth()+1)+'-'+
         checkTime(date.getDate())+' '+
         checkTime(date.getHours())+':'+
-        checkTime(date.getMinutes())+':'+
-        checkTime(date.getSeconds())
+        checkTime(date.getMinutes())
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

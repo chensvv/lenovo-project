@@ -10,7 +10,7 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                     <!-- <el-dropdown-item command="change">切换账号</el-dropdown-item> -->
-                    <!-- <el-dropdown-item @click="userInfo()">详细信息</el-dropdown-item> -->
+                    <!-- <el-dropdown-item @click="userInfo()">修改密码</el-dropdown-item> -->
                     <el-dropdown-item divided command="logout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>

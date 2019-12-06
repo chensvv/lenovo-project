@@ -53,13 +53,5 @@ export default {
 
 <style>
 
-.login-box {
-    width: 300px;
-    margin: 200px auto;
-}
-
-.login-box .el-button {
-    width: 100%;
-}
 
 </style>

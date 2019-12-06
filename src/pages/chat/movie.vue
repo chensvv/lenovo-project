@@ -24,7 +24,7 @@
           <el-table-column type="index" align="center">
           </el-table-column>
           <el-table-column
-              label="说法"
+              label="moive"
               prop="movie"
               align="center">
           </el-table-column>
@@ -117,7 +117,7 @@ export default {
       addVisible: false,
       // 分页
       currentPage: 1, //默认显示第几页
-      pageSize: 30,   //默认每页条数
+      pageSize: 10,   //默认每页条数
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
@@ -136,8 +136,7 @@ export default {
         checkTime(date.getMonth()+1)+'-'+
         checkTime(date.getDate())+' '+
         checkTime(date.getHours())+':'+
-        checkTime(date.getMinutes())+':'+
-        checkTime(date.getSeconds())
+        checkTime(date.getMinutes())
     },
     formTime2(row, column){
       var timer = row.createTime
@@ -146,8 +145,7 @@ export default {
         checkTime(date.getMonth()+1)+'-'+
         checkTime(date.getDate())+' '+
         checkTime(date.getHours())+':'+
-        checkTime(date.getMinutes())+':'+
-        checkTime(date.getSeconds())
+        checkTime(date.getMinutes())
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

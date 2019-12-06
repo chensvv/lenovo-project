@@ -5,6 +5,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import 'babel-polyfill'
 // eslint-disable-next-line import/no-duplicates
 import 'default-passive-events'
 Vue.config.productionTip = false
@@ -13,15 +14,22 @@ Vue.config.productionTip = false
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
+import '../static/css/animate.min.css'
 
 // 使用axios
-import http from './config/http'
-Vue.prototype.$http = http
+// import http from './config/http'
+// Vue.prototype.$http = http
 
 // import '../mock/mock.js'
 import '../static/css/base.css'
 
 import store from './store/index'
+
+// 引入柱状图组件
+require('echarts/lib/chart/bar')
+// 引入提示框和title组件
+require('echarts/lib/component/tooltip')
+require('echarts/lib/component/title')
 
 const has = Vue.directive('has', {
   inserted: function (el, binding) {
