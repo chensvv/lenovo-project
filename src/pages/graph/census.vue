@@ -69,9 +69,7 @@ export default {
         let myChart = echarts.init(this.$refs.myChart)
         censusList(userParams).then(res=>{
             const visit = res.data.data.visits
-            
             const timeArr = res.data.data.data
-            
             myChart.setOption({
               title: { 
                   text: '用户访问量统计',
