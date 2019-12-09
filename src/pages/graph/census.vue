@@ -69,23 +69,9 @@ export default {
         let myChart = echarts.init(this.$refs.myChart)
         censusList(userParams).then(res=>{
             const visit = res.data.data.visits
-            let visitsNum = []
-            for(var i=0;i<visit.length;i++){
-                visitsNum.unshift(visit[i])
-            }
+            
             const timeArr = res.data.data.data
-            let timer=[];
-            const timeData = []
-            for(var i=0;i<timeArr.length;i++){
-                timer.unshift(timeArr[i])
-            }
-            timer.map(timers=>{
-                let parseIntTimer = parseInt(timers)
-                let data = new Date(parseIntTimer).getFullYear()+'-'+
-                            checkTime(new Date(parseIntTimer).getMonth()+1)+'-'+
-                            checkTime(new Date(parseIntTimer).getDate())
-                timeData.push(data)
-            })
+            
             myChart.setOption({
               title: { 
                   text: '用户访问量统计',
@@ -93,16 +79,18 @@ export default {
               },
               tooltip: {},
               xAxis: {
-                  data: timeData,
+                  data: timeArr.reverse(),
                   axisLabel:{
                       rotate:40
                   }
               },
-              yAxis: {},
+              yAxis: {
+                minInterval : 1
+              },
               series: [{
                   name: '访问量',
                   type: 'bar',
-                  data: visitsNum,
+                  data: visit.reverse(),
                   color:"#409eff",
                   barWidth : 60,
                   itemStyle: {
