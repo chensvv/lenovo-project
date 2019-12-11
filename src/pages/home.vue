@@ -2,8 +2,14 @@
     <div class="home">
     <!-- <el-container> -->
         <el-header :class="{is404:is404}">
-            语音服务管理系统
-
+            <div class="head">
+                <div class="head_logo">
+                    <img src="../../static/images/logo_img.png" alt="" class="logo_img">
+                </div>
+            <span class="logo_txt">联想语音管理系统</span>
+            </div>
+            
+            
             <el-dropdown class="fr" @command="handleDropdown" trigger="click">
                 <span class="el-dropdown-link">
                     {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
@@ -120,6 +126,10 @@ export default {
     top: 0;
     left: 0;
     right: 0;
+    padding: 0 15px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .home .el-menu {
@@ -144,5 +154,21 @@ export default {
 }
 .home .el-dropdown-link{
     cursor: pointer;
+}
+.head{
+    display: flex;
+    align-items: center;
+}
+.head_logo {
+    width: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.head_logo .logo_img{
+    width: 100%;
+}
+.head .logo_txt{
+    padding-left: 10px;
 }
 </style>

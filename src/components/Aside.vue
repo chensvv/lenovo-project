@@ -124,7 +124,7 @@
         </el-menu-item>
     </el-menu> -->
    <div>
-       <el-menu class='el-menu-vertical-demo' router @select="handleSelect">
+       <!-- <el-menu class='el-menu-vertical-demo' router @select="handleSelect">
            <el-menu-item index="/home/index">
             <i class="el-icon-location"></i>
 			<span>首页</span>
@@ -174,18 +174,34 @@
             </el-menu-item>
            </div>
            
-          </el-menu>
+          </el-menu> -->
+        <el-menu
+            class="el-menu-vertical-demo"
+            background-color="#fff"
+            text-color="#333"
+            active-text-color="#409eff"
+            router
+            >
+            <el-menu-item index="/home/index">
+                <i class="el-icon-location"></i>
+                <span>首页</span>
+            </el-menu-item>
+            <NavMenu :navMenus="menuData"></NavMenu>
+        </el-menu>
    </div>
   </template>
 <script>
+import NavMenu from './silder'
 export default {
+    components:{
+        NavMenu
+    },
     data(){
             return {
               menuData:[],
             }
         },
     created() {
-        
         this.menuData = JSON.parse(sessionStorage.getItem('menuData'))
     }
 }

@@ -6,6 +6,10 @@
   border: 1px solid #eeeeee;
   overflow-y: auto;
 }
+.el-menu-item:focus, .el-menu-item:hover ,.el-submenu__title:hover{
+  outline: 0;
+  background-color: #ecf5ff !important;
+}
 .el-submenu__title,.el-menu-item,.el-breadcrumb__inner{
     color: #515a6e;
 }
