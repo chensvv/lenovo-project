@@ -379,7 +379,7 @@ export default {
           id:this.appId
       }
       skillInfo(lastParams).then(res => {
-          this.skillDetail.appName = res.data.appName
+          this.skillDetail.appName = res.data.data.appName
       });
     }
   }

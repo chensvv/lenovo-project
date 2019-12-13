@@ -108,11 +108,10 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="应用名" prop="name">
-                <el-input type="text" v-model.trim="addList.name" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.name" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="别名" prop="alias">
-                <el-input type="text" v-model.trim="addList.alias" auto-complete="off"></el-input>
-                <span style="font-size:12px;">别名对应的原始名—只对别名有效</span>
+                    <el-input type="text" v-model.trim="addList.alias" auto-complete="off" placeholder="别名对应的原始名—只对别名有效"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -142,8 +141,8 @@ export default {
             },
             list:[],
             addRules:{
-                name:[{ required: true, message: '应用名', trigger: 'change' }],
-                alias:[{ required: true, message: '', trigger: 'change' }],
+                name:[{ required: true, message: '请输入应用名', trigger: 'change' }],
+                alias:[{ required: true, message: '请输入别名', trigger: 'change' }],
             },
             // 分页
             currentPage: 1, //默认显示第几页

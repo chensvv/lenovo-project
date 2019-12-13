@@ -310,7 +310,7 @@ export default {
                 id:this.appId
             }
             skillInfo(params).then(res => {
-                this.skillDetail = res.data
+                this.skillDetail = res.data.data
                 this.list = res.data.data.functions;
                 this.totalCount = res.data.count
             });

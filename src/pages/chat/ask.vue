@@ -29,6 +29,16 @@
               align="center">
           </el-table-column>
           <el-table-column
+              label="code"
+              prop="code"
+              align="center">
+          </el-table-column>
+          <el-table-column
+              label="title"
+              prop="title"
+              align="center">
+          </el-table-column>
+          <el-table-column
               label="创建时间"
               prop="createTime"
               align="center"
@@ -70,6 +80,10 @@
         <el-form-item label="ask" prop="ask">
           <el-input type="text" v-model.trim="currentItem.ask" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item label="code" prop="code">
+          <el-input type="text" v-model.trim="currentItem.code" auto-complete="off"></el-input>
+          <span>code示例：ALL/SCH/1/</span>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editHandleClose">取 消</el-button>
@@ -80,6 +94,9 @@
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="ask" prop="ask">
           <el-input type="text" v-model.trim="addList.ask" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="code" prop="code">
+          <el-input type="text" v-model.trim="addList.code" auto-complete="off" placeholder="code示例：ALL/SCH/1/"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -100,18 +117,29 @@ export default {
       currentItem: {//编辑数据组
         id:"",
         ask: "",
+        code:""
       },
       addList: {//添加数据组
-        ask: ""
+        ask: "",
+        code:""
       },
       searchItem:{//搜索数据组
         ask:"",
       },
       addRules:{
-        ask:[{ required: true, message: '请输入要求名称', trigger: 'change' }]
+        ask:[{ required: true, message: '请输入要求名称', trigger: 'change' }],
+        code:[
+          { required: true, message: '请输入要求code', trigger: 'change' },
+          { pattern: /^[A-Z0-9/]+$/, message:'请输入正确格式的code', trigger: 'blur'}
+        ],
+        
       },
       editRules:{
-        ask:[{ required: true, message: '请输入要求名称', trigger: 'blur' }]
+        ask:[{ required: true, message: '请输入要求名称', trigger: 'blur' }],
+        code:[
+          { required: true, message: '请输入要求code', trigger: 'blur' },
+          { pattern: /^[A-Z0-9/]+$/, message:'请输入正确格式的code', trigger: 'blur'}
+        ]
       },
       editVisible: false,
       addVisible: false,
@@ -173,6 +201,8 @@ export default {
       this.currentItem = {
         id:row.id,
         ask: row.ask,
+        code:row.code,
+        title:row.title
       };
     },
     handleDel(index, row) {
@@ -229,6 +259,8 @@ export default {
       let updParams = {
         id:this.currentItem.id,
         ask:this.currentItem.ask,
+        code:this.currentItem.code,
+        title:this.currentItem.title
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
@@ -262,7 +294,9 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        ask:this.addList.ask
+        ask:this.addList.ask,
+        code:this.addList.code,
+        title:this.addList.title
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
