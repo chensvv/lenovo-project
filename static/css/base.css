@@ -49,7 +49,7 @@
   text-overflow: ellipsis;
 }
 /* 修改input宽度 */
-.search_box,.cache,.outer, .no_width {
+.search_box,.cache,.outer, .no_width, .trigger {
   text-align: right;
 }
 .search_box .el-form-item .el-form-item__label,.outer .el-form-item .el-form-item__label,.trigger .el-form-item .el-form-item__label{
@@ -197,10 +197,6 @@
 .aiml_text .el-textarea__inner{
   min-height: 500px !important;
 }
-.el-loading-mask{
-  top: 60px;
-  left: 200px;
-}
 .a_alert{
   background-color: #ecf5ff;
   color: #082B33;
@@ -246,4 +242,10 @@
 }
 .pass-title .el-form .reg_box{
   text-align: center;
+}
+.el-link{
+  margin-bottom: 10px;
+}
+.zip_box{
+  padding-left: 20px;
 }

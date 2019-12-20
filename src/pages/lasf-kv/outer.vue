@@ -46,7 +46,8 @@
         <div class="table-box">
             <el-table
                 :data="list"
-                style="width: 100%">
+                style="width: 100%"
+                v-loading="listLoading">
                 <el-table-column type="index" align="center">
                 </el-table-column>
                 <el-table-column
@@ -184,6 +185,7 @@ export default {
             pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             seaBtnLoading:false,
+            listLoading:true
         };
     },
     created() {
@@ -240,6 +242,7 @@ export default {
                 endStr:this.searchItem.putTime
             }
             outerList(params).then(res => {
+                this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
             });

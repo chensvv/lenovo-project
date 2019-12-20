@@ -58,7 +58,8 @@
         </el-form>
           <el-table
             :data="list"
-            style="width: 100%">
+            style="width: 100%"
+            v-loading="listLoading">
             <el-table-column label="ID" prop="id" align="center">
             </el-table-column>
             <el-table-column label="IT" prop="it" align="center" :formatter="formTime">
@@ -360,6 +361,7 @@ export default {
             totalCount:1,     // 总条数
             btnLoading:false,
             infoVisible:false,
+            listLoading:true,
             startVal:0,
             endVal:0,
         }
@@ -397,6 +399,7 @@ export default {
                 desc:this.searchItem.stat
             }
             logList(params).then(res=>{
+                this.listLoading = false
                 this.list = res.data.data.data
                 this.totalCount = res.data.data.total
                 this.endVal = res.data.count

@@ -96,7 +96,7 @@ export default {
             ],
             options: {
                 stripe: false, // 是否为斑马纹 table
-                loading: false, // 是否添加表格loading加载动画
+                loading: true, // 是否添加表格loading加载动画
                 highlightCurrentRow: false, // 是否支持当前行高亮显示
                 mutiSelect: false, // 是否支持列表项选中功能
                 border:false     //是否显示纵向边框
@@ -150,6 +150,7 @@ export default {
         handleCurrentChange(val) {
             this.currentPage = val
             console.log(`当前页: ${val}`);
+            this.getList();
         },
         addHandleClose(){
             this.addVisible = false
@@ -189,7 +190,6 @@ export default {
                 pwd:this.currentItem.lasfpsd,
                 val:this.currentItem.lasfval
             }
-            console.log(updParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
@@ -228,6 +228,7 @@ export default {
                 if (valid) {
                     this.addBtnLoading = true
                     kvAddUpd(addParams).then(res=>{
+                        this.addBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
                                 message:'添加成功',
@@ -236,14 +237,12 @@ export default {
                             });
                             this.getList();
                             this.addVisible = false
-                            this.addBtnLoading = false
                         }else{
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
                                 duration:1000
                             });
-                            this.addBtnLoading = false
                         } 
                     })
                 } else {
@@ -257,6 +256,7 @@ export default {
                 pcstr:this.pageSize
             }
             kvList(params).then(res => {
+                this.options.loading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
             });

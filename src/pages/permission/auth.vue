@@ -18,7 +18,8 @@
         <div class="table-box">
             <el-table
                 :data="list"
-                style="width: 100%">
+                style="width: 100%"
+                v-loading="listLading">
                 <el-table-column type="index" align="center">
                 </el-table-column>
                 <el-table-column
@@ -154,6 +155,7 @@ export default {
             addBtnLoading:false,
             editBtnLoading:false,
             roleBtnLoading:false,
+            listLoading:true
         };
     },
     created() {
@@ -253,6 +255,7 @@ export default {
                 if (valid) {
                     this.editBtnLoading = true
                     userUpd(updParams).then(res=>{
+                        this.editBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
                                 message:'编辑成功',
@@ -260,10 +263,9 @@ export default {
                                 duration:1000
                             });
                             this.getList()
-                            this.editBtnLoading = false
+                            
                             this.editVisible = false
                         }else{
-                            this.editBtnLoading = false
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
@@ -289,6 +291,7 @@ export default {
                 if (valid) {
                     this.addBtnLoading = true
                     userAdd(addParams).then(res=>{
+                        this.addBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
                                 message:'添加成功',
@@ -297,14 +300,13 @@ export default {
                             });
                             this.getList();
                             this.addVisible = false
-                            this.addBtnLoading = false
+                            
                         }else{
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
                                 duration:1000
                             });
-                            this.addBtnLoading = false
                         }
                         
                     })
@@ -344,7 +346,9 @@ export default {
                 id:this.seleId,
                 ids:this.multipleSelection
             }
+            this.roleBtnLoading = true
             userRoleSave(Saveparams).then(res=>{
+                this.roleBtnLoading = false
                 if(res.data.code == 200){
                     this.$message({
                         message:'编辑成功',
@@ -352,10 +356,8 @@ export default {
                         duration:1000
                     });
                     this.getList()
-                    this.roleBtnLoading = false
                     this.roleVisible = false
                 }else{
-                    this.roleBtnLoading = false
                     this.$message({
                         message:res.data.errorMessage,
                         type:"error",
@@ -367,7 +369,6 @@ export default {
         handleSelectionChange(val) {
             val = val.map(item=>item.id)
             this.multipleSelection = val;
-            console.log(this.multipleSelection)
         },
         getList() {
             let params = {
@@ -376,6 +377,7 @@ export default {
                 userName:this.searchItem.userName
             }
             userList(params).then(res => {
+                this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
             });

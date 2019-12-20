@@ -124,7 +124,7 @@ export default {
       ],
       options: {
         stripe: false, // 是否为斑马纹 table
-        loading: false, // 是否添加表格loading加载动画
+        loading: true, // 是否添加表格loading加载动画
         highlightCurrentRow: false, // 是否支持当前行高亮显示
         mutiSelect: false, // 是否支持列表项选中功能
         border:false     //是否显示纵向边框
@@ -141,7 +141,6 @@ export default {
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
-      fileBtnLoading:false,
       startVal:0,
       endVal:0
     };
@@ -181,6 +180,7 @@ export default {
         desc:this.searchItem.desc
       }
       oprList(params).then(res=>{
+        this.options.loading = false
         this.list = res.data.data.data
         this.totalCount = res.data.data.total
         this.endVal = res.data.count

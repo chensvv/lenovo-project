@@ -23,7 +23,8 @@
         </el-form>
         <el-table
                 :data="list"
-                style="width: 100%">
+                style="width: 100%"
+                v-loading="listLoading">
                 <el-table-column type="index" align="center">
                 </el-table-column>
                 <el-table-column
@@ -134,7 +135,8 @@ export default {
       totalCount:1,     // 总条数
       seaBtnLoading:false,
       editBtnLoading:false,
-      addBtnLoading:false
+      addBtnLoading:false,
+      listLoading:true
     }
   },
   created(){
@@ -161,6 +163,7 @@ export default {
         ex:this.searchItem.state
       }
       jokeList(params).then(res => {
+        this.listLoading = false
         this.list = res.data.data;
         this.totalCount = res.data.count
       });
@@ -239,7 +242,9 @@ export default {
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
+          this.editBtnLoading = true
           jokeAddUpd(updParams).then(res=>{
+                this.editBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:'编辑成功',
@@ -247,7 +252,6 @@ export default {
                     duration:1000
                 });
                 this.getList()
-                this.editBtnLoading = false
                 this.editVisible = false
             }else{
                 this.$message({
@@ -306,6 +310,7 @@ export default {
           if (valid) {
             this.addBtnLoading = true
             jokeAddUpd(addParams).then(res=>{
+                  this.addBtnLoading = false
               if(res.data.code == 200){
                   this.$message({
                     message:'添加成功',
@@ -314,14 +319,13 @@ export default {
                   });
                   this.getList();
                   this.addVisible = false
-                  this.addBtnLoading = false
               }else{
                   this.$message({
                       message:res.data.errorMessage,
                       type:"error",
                       duration:1000
                   });
-                  this.addBtnLoading = false
+                  
               } 
             })
           } else {

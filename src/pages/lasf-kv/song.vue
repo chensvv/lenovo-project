@@ -21,7 +21,8 @@
         <div class="table-box">
             <el-table
                 :data="list"
-                style="width: 100%">
+                style="width: 100%"
+                v-loading="listLoading">
                 <el-table-column type="index" align="center">
                 </el-table-column>
                 <el-table-column
@@ -185,7 +186,8 @@ export default {
             totalCount:1,     // 总条数
             seaBtnLoading:false,
             addBtnLoading:false,
-            editBtnLoading:false
+            editBtnLoading:false,
+            listLoading:true
         };
     },
     created() {
@@ -292,6 +294,7 @@ export default {
                 if (valid) {
                     this.editBtnLoading = true
                     songUpd(updParams).then(res=>{
+                        this.editBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
                                 message:'编辑成功',
@@ -299,10 +302,8 @@ export default {
                                 duration:1000
                             });
                             this.getList()
-                            this.editBtnLoading = false
                             this.editVisible = false
                         }else{
-                            this.editBtnLoading = false
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
@@ -336,6 +337,7 @@ export default {
                 if (valid) {
                     this.addBtnLoading = true
                     songAdd(addParams).then(res=>{
+                        this.addBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
                                 message:'添加成功',
@@ -344,14 +346,12 @@ export default {
                             });
                             this.getList();
                             this.addVisible = false
-                            this.addBtnLoading = false
                         }else{
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
                                 duration:1000
                             });
-                            this.addBtnLoading = false
                         }
                         
                     })
@@ -388,6 +388,7 @@ export default {
                 pcstr:this.pageSize
             }
             songList(params).then(res => {
+                this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
             });

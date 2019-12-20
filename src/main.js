@@ -17,8 +17,8 @@ Vue.use(ElementUI)
 import '../static/css/animate.min.css'
 
 // 使用axios
-// import http from './config/http'
-// Vue.prototype.$http = http
+import http from 'axios'
+Vue.prototype.$http = http
 
 // import '../mock/mock.js'
 import '../static/css/base.css'

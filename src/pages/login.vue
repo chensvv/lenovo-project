@@ -10,7 +10,7 @@
                 mode="out-in"
                 key="login">
                     <div class="loginn" v-if="loginShow">
-                        <span class="form-title">语音服务管理系统</span>
+                        <span class="form-title">联想语音管理系统</span>
                         <el-form :label-position="'left'" :model="loginForm" :rules="loginRules" ref="loginForm" @submit.native.prevent>
                             <el-form-item prop="username">
                                 <el-input type="text" v-model.trim="loginForm.username" placeholder="用户名" prefix-icon="el-icon-user" auto-complete="off" clearable></el-input>
@@ -25,7 +25,7 @@
                         </el-form>
                     </div>
                     <div class="register" v-else key="register">
-                        <span class="form-title">语音服务管理系统</span>
+                        <span class="form-title">联想语音管理系统</span>
                         <el-form :label-position="'left'" :model="regForm" :rules="regRules" ref="regForm" @submit.native.prevent>
                             <el-form-item prop="username">
                                 <el-input style="position:fixed; bottom:-9999px"></el-input>

@@ -20,7 +20,8 @@
     <div class="table-box">
       <el-table
           :data="list"
-          style="width: 100%">
+          style="width: 100%"
+          v-loading="listLoading">
           <el-table-column type="index" align="center">
           </el-table-column>
           <el-table-column
@@ -281,6 +282,7 @@ export default {
         if (valid) {
           this.addBtnLoading = true
           jokePAdd(addParams).then(res=>{
+                this.addBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:'添加成功',
@@ -288,10 +290,8 @@ export default {
                     duration:1000
                 });
                 this.getList()
-                this.addBtnLoading = false
                 this.addVisible = false
             }else{
-                this.addBtnLoading = false
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
@@ -305,20 +305,20 @@ export default {
       });
     },
     buildAIML(){
+      this.AIMLBtnLoading = true
       jokePAIML().then(res=>{
         this.aimlInfo = res.data.data
+        this.AIMLBtnLoading = false
         if(res.data.code == 200){
             this.$message({
                 message:res.data.msg,
                 type:"success",
                 duration:1000
             });
-            this.AIMLBtnLoading = false
             setTimeout(()=>{
               this.AIMLVisible = true
             },1000)
         }else{
-            this.AIMLBtnLoading = false
             this.$message({
                 message:res.data.errorMessage,
                 type:"error",

@@ -36,7 +36,8 @@
     <div class="table-box">
       <el-table
               :data="list"
-              style="width: 100%">
+              style="width: 100%"
+              v-loading="listLoading">
               <el-table-column type="index" align="center">
               </el-table-column>
               <el-table-column label="ID" prop="id" align="center">
@@ -100,7 +101,7 @@ export default {
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
-      fileBtnLoading:false,
+      listLoading:false,
       startVal:0,
       endVal:0
     };
@@ -154,6 +155,7 @@ export default {
         uid:this.searchItem.uip
       }
       servList(params).then(res=>{
+        this.listLoading = false
         this.list = res.data.data.data
         this.totalCount = res.data.data.total
         this.endVal = res.data.count

@@ -21,7 +21,8 @@
         <div class="table-box">
             <el-table
                 :data="list"
-                style="width: 100%">
+                style="width: 100%"
+                v-loading="listLoading">
                 <el-table-column type="index" align="center">
                 </el-table-column>
                 <el-table-column
@@ -115,6 +116,7 @@ export default {
             totalCount:1,     // 总条数
             seaBtnLoading:false,
             addBtnLoading:false,
+            listLoading:true
         };
     },
     created() {
@@ -209,6 +211,7 @@ export default {
                 if (valid) {
                     this.addBtnLoading = true
                     commandAdd(addParams).then(res=>{
+                        this.addBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
                                 message:'添加成功',
@@ -217,14 +220,12 @@ export default {
                             });
                             this.getList();
                             this.addVisible = false
-                            this.addBtnLoading = false
                         }else{
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
                                 duration:1000
                             });
-                            this.addBtnLoading = false
                         }
                         
                     })
@@ -240,6 +241,7 @@ export default {
                 pcstr:this.pageSize
             }
             commandList(params).then(res => {
+                this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
             });

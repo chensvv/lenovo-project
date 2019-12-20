@@ -1,32 +1,33 @@
 import axios from 'axios'
 import router from '../router'
-import {Loading, Message} from 'element-ui'
+import {
+  // Loading,
+  Message} from 'element-ui'
 // eslint-disable-next-line no-unused-vars
-var service = {}
+let service = {}
+// let proURL = 'http://10.110.148.59:8085'
+let proURL = 'http://m.voice.lenovomm.com'
 // axios 配置
 // eslint-disable-next-line camelcase
 const service_head = axios.create({
-  baseURL: 'http://m.voice.lenovomm.com',
-  // baseURL: 'http://10.110.148.59:8085',
+  baseURL: proURL,
   // timeout: 15000, // 请求超时时间
   withCredentials: true
 })
-let loading
-function startLoading () { // 使用Element loading-start 方法
-  // eslint-disable-next-line no-undef
-  loading = Loading.service({
-    lock: true,
-    background: 'rgba(255,255,255,0.7)'
-  })
-}
-function endLoading () { // 使用Element loading-close 方法
-  loading.close()
-}
+// let loading
+// function startLoading () { // 使用Element loading-start 方法
+//   // eslint-disable-next-line no-undef
+//   loading = Loading.service({
+//     lock: true,
+//     background: 'rgba(255,255,255,0.7)'
+//   })
+// }
+// function endLoading () { // 使用Element loading-close 方法
+//   loading.close()
+// }
 // http request 拦截器
 service_head.interceptors.request.use(
   config => {
-    // console.log(config.data)
-    startLoading()
     // if (localStorage.token) { // 判断token是否存在
     //   config.headers.Authorization = localStorage.token // 将token设置成请求头
     // }
@@ -38,7 +39,7 @@ service_head.interceptors.request.use(
 
 // http response 拦截器
 service_head.interceptors.response.use(response => {
-  endLoading()
+  // endLoading()
   switch (response.data) {
     case 123:
       Message({
@@ -61,21 +62,31 @@ service_head.interceptors.response.use(response => {
   }
   return response
 }, error => {
-  endLoading()
+  // endLoading()
   Message.error({
     message: '服务器错误'
   })
   return Promise.reject(error)
 })
+
 const UPFile = axios.create({
-  baseURL: 'http://m.voice.lenovomm.com',
-  // baseURL: 'http://10.110.148.59:8085',
+  baseURL: proURL,
   timeout: 15000, // 请求超时时间
   headers: {
     'Content-Type': 'multipart/form-data'
   }
 })
+
+const FileDownload = axios.create({
+  baseURL: proURL,
+  timeout: 15000, // 请求超时时间
+  headers: {
+    'Content-Type': 'application/json; application/octet-stream'
+  },
+  responseType: 'blob'
+})
 export default service = {
   service_head,
-  UPFile
+  UPFile,
+  FileDownload
 }

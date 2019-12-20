@@ -48,7 +48,7 @@
       </el-form-item>
     </el-form>
     <div class="table-box">
-      <el-table :data="list" style="width: 100%">
+      <el-table :data="list" style="width: 100%" v-loading="listLoading">
         <el-table-column type="index" align="center"></el-table-column>
         <el-table-column label="UID" prop="uid" align="center" sortable></el-table-column>
         <el-table-column label="客户端设备类型" prop="dtp" align="center" sortable></el-table-column>
@@ -122,8 +122,8 @@ export default {
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
-      fileBtnLoading:false,
       editVisible:false,
+      listLoading:true,
       startVal:0,
       endVal:0,
       bigId:1
@@ -197,6 +197,7 @@ export default {
         id:this.bigId
       }
       rawList(params).then(res=>{
+        this.listLoading = false
         this.list = res.data.data.data
         this.comId = this.list.pop()
         this.totalCount = res.data.data.total

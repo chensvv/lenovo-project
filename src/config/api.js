@@ -669,6 +669,30 @@ export function triggerList (data) {
   })
 }
 
+export function triggerZip (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/trigger/zip',
+    method: 'post',
+    data: data
+  })
+}
+
+export function zipList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/trigger/zip/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function zipDownload (data) {
+  return fetch.FileDownload({
+    url: '/lasf-mgr/trigger/download',
+    method: 'post',
+    data: data
+  })
+}
+
 export function kvList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/list',
@@ -1142,6 +1166,14 @@ export function oprList (data) {
 export function rvdList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/asr/log/rvdlog',
+    method: 'post',
+    data: data
+  })
+}
+
+export function rvdDownload (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/log/download',
     method: 'post',
     data: data
   })

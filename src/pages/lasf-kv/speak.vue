@@ -24,7 +24,8 @@
     <div class="table-box">
         <el-table
             :data="list"
-            style="width: 100%">
+            style="width: 100%"
+            v-loading="listLoading">
             <el-table-column type="index" align="center">
             </el-table-column>
             <el-table-column
@@ -150,7 +151,8 @@ export default {
       totalCount:1,     // 总条数
       addBtnLoading:false,
       editBtnLoading:false,
-      relBtnLoading:false
+      relBtnLoading:false,
+      listLoading:true
     };
   },
   created() {
@@ -300,22 +302,19 @@ export default {
     release(){
       this.relBtnLoading = true
       speakPub().then(res=>{
+        this.relBtnLoading = false
         if(res.data.code == 200){
               this.$message({
                 message:'发布成功',
                 type:"success",
                 duration:1000
               });
-              this.relBtnLoading = false
-              this.getList();
-              
           }else{
               this.$message({
                   message:res.data.errorMessage,
                   type:"error",
                   duration:1000
               });
-              this.relBtnLoading = false
           } 
       })
     },
@@ -327,6 +326,7 @@ export default {
         pcstr:this.pageSize
       }
       speakList(params).then(res => {
+        this.listLoading = false
         this.skillDetail.functionName = res.data.lasfControlFunction.functionName
         this.list = res.data.lasfControlSpeakPage.data;
         this.totalCount = res.data.lasfControlSpeakPage.total

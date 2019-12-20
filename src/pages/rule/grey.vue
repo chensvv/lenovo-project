@@ -26,7 +26,8 @@
     <div class="table-box">
       <el-table
           :data="list"
-          style="width: 100%">
+          style="width: 100%"
+          v-loading="listLoading">
           <el-table-column type="index" align="center">
           </el-table-column>
           <el-table-column
@@ -177,6 +178,7 @@ export default {
       addBtnLoading:false,
       editBtnLoading:false,
       optBtnLoading:false,
+      listLoading:true
       
     };
   },
@@ -283,6 +285,7 @@ export default {
         if (valid) {
           this.editBtnLoading = true
           greyAddUpd(updParams).then(res=>{
+                this.editBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:'编辑成功',
@@ -290,10 +293,8 @@ export default {
                     duration:1000
                 });
                 this.getList()
-                this.editBtnLoading = false
                 this.editVisible = false
             }else{
-                this.editBtnLoading = false
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
@@ -318,6 +319,7 @@ export default {
         if (valid) {
           this.addBtnLoading = true
           greyAddUpd(addParams).then(res=>{
+                this.addBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:'添加成功',
@@ -325,10 +327,8 @@ export default {
                     duration:1000
                 });
                 this.getList()
-                this.addBtnLoading = false
                 this.addVisible = false
             }else{
-                this.addBtnLoading = false
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
@@ -371,12 +371,13 @@ export default {
       this.optVisible = false
     },
     optHandleConfirm(){
-      this.optBtnLoading = true
       let optParams = {
         id:this.selectId,
         chk:this.multipleSelection
       }
+      this.optBtnLoading = true
       greyOptSave(optParams).then(res=>{
+            this.optBtnLoading = false
         if(res.data.code == 200){
             this.$message({
                 message:'配置成功',
@@ -384,10 +385,8 @@ export default {
                 duration:1000
             });
             this.getList()
-            this.optBtnLoading = false
             this.optVisible = false
         }else{
-            this.optBtnLoading = false
             this.$message({
                 message:res.data.errorMessage,
                 type:"error",
@@ -404,6 +403,7 @@ export default {
         c:this.searchItem.code
       }
       greyList(params).then(res => {
+        this.listLoading = false
         this.list = res.data.data;
         this.totalCount = res.data.count
       });

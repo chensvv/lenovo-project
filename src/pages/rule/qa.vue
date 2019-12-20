@@ -25,7 +25,8 @@
     <div class="table-box">
       <el-table
           :data="list"
-          style="width: 100%">
+          style="width: 100%"
+          v-loading="listLoading">
           <el-table-column type="index" align="center">
           </el-table-column>
           <el-table-column
@@ -225,7 +226,8 @@ export default {
       editBtnLoading:false,
       fileBtnLoading:false,
       AIMLBtnLoading:false,
-      AIMLVisible:false
+      AIMLVisible:false,
+      listLoading:true
     };
   },
   created() {
@@ -331,6 +333,7 @@ export default {
         if (valid) {
           this.editBtnLoading = true
           qaSave(updParams).then(res=>{
+                this.editBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:'编辑成功',
@@ -338,10 +341,8 @@ export default {
                     duration:1000
                 });
                 this.getList()
-                this.editBtnLoading = false
                 this.editVisible = false
             }else{
-                this.editBtnLoading = false
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
@@ -366,6 +367,7 @@ export default {
         if (valid) {
           this.addBtnLoading = true
           qaSave(addParams).then(res=>{
+                this.addBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:'添加成功',
@@ -373,10 +375,8 @@ export default {
                     duration:1000
                 });
                 this.getList()
-                this.addBtnLoading = false
                 this.addVisible = false
             }else{
-                this.addBtnLoading = false
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
@@ -433,17 +433,17 @@ export default {
       fileData.append("ex", fileObj);
       this.fileBtnLoading = true;
       qaUpFile(fileData).then(res => {
+        this.fileBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:res.data.msg,
                     type:"success",
                 });
                 this.$refs.upload.clearFiles()
-                this.fileBtnLoading = false
+                
                 this.uploadVisible = false
                 this.getList()
             }else{
-                this.fileBtnLoading = false
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
@@ -459,17 +459,17 @@ export default {
       fileData.append("ex", fileObj);
       this.fileBtnLoading2 = true;
       qaFile(fileData).then(res => {
+        this.fileBtnLoading2 = false
             if(res.data.code == 200){
                 this.$message({
                     message:res.data.msg,
                     type:"success"
                 });
                 this.$refs.upload2.clearFiles()
-                this.fileBtnLoading2 = false
+                
                 this.uploadVisible2 = false
                 this.getList()
             }else{
-                this.fileBtnLoading2 = false
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
@@ -488,20 +488,22 @@ export default {
         this.uploadVisible2 = false;
     },
     buildAIML(){
+      this.AIMLBtnLoading = true
       qaPub().then(res=>{
+        this.AIMLBtnLoading = false
         this.aimlInfo = res.data.data.aiml
         if(res.data.code == 200){
+          
             this.$message({
                 message:res.data.msg,
                 type:"success",
                 duration:1000
             });
-            this.AIMLBtnLoading = false
+            
             setTimeout(()=>{
               this.AIMLVisible = true
             },1000)
         }else{
-            this.AIMLBtnLoading = false
             this.$message({
                 message:res.data.errorMessage,
                 type:"error",
@@ -521,6 +523,7 @@ export default {
         ex:this.searchItem.excel
       }
       qaList(params).then(res => {
+        this.listLoading = false
         this.list = res.data.data;
         this.totalCount = res.data.count
       });

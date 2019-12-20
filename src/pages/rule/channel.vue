@@ -19,7 +19,8 @@
     <div class="table-box">
       <el-table
           :data="list"
-          style="width: 100%">
+          style="width: 100%"
+          v-loading="listLoading">
           <el-table-column type="index" align="center">
           </el-table-column>
           <el-table-column
@@ -128,6 +129,7 @@ export default {
       seaBtnLoading:false,
       addBtnLoading:false,
       editBtnLoading:false,
+      listLoading:true
     };
   },
   created() {
@@ -240,6 +242,7 @@ export default {
         if (valid) {
           this.editBtnLoading = true
           channelUpd(updParams).then(res=>{
+            this.editBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:'编辑成功',
@@ -247,10 +250,9 @@ export default {
                     duration:1000
                 });
                 this.getList()
-                this.editBtnLoading = false
+                
                 this.editVisible = false
             }else{
-                this.editBtnLoading = false
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
@@ -274,6 +276,7 @@ export default {
         if (valid) {
           this.addBtnLoading = true
           channelAdd(addParams).then(res=>{
+            this.addBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:'添加成功',
@@ -281,10 +284,9 @@ export default {
                     duration:1000
                 });
                 this.getList()
-                this.addBtnLoading = false
                 this.addVisible = false
             }else{
-                this.addBtnLoading = false
+                
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
@@ -304,6 +306,7 @@ export default {
         q:this.searchItem.q,
       }
       channelList(params).then(res => {
+        this.listLoading = false
         this.list = res.data.data.data;
         this.totalCount = res.data.data.total
       });

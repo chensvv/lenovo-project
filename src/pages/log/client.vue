@@ -47,7 +47,7 @@
     <div class="table-box">
       <el-tabs type="card" v-model="activeName">
         <el-tab-pane label="客户端信息" name="client">
-          <el-table :data="clientList" style="width: 100%">
+          <el-table :data="clientList" style="width: 100%" v-loading="listLoading">
             <el-table-column type="index" align="center"></el-table-column>
             <el-table-column label="UID" prop="uid" align="center"></el-table-column>
             <el-table-column label="客户端类型" prop="dtp" align="center"></el-table-column>
@@ -199,7 +199,7 @@ export default {
       SpageSizes: [10, 20, 30],
       StotalCount: 1, // 总条数
       seaBtnLoading: false,
-      fileBtnLoading: false,
+      listLoading:true,
       startVal:0,
       endVal:0
     };
@@ -268,6 +268,7 @@ export default {
         pcstr: this.SpageSize
       };
       clientList(Cparams).then(res => {
+        this.listLoading = false
         this.clientList = res.data.data.data;
         this.CtotalCount = res.data.data.total;
       });

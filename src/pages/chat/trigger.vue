@@ -51,6 +51,8 @@
             <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
             <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
           </el-form-item>
+          <el-button size="mini" @click="dataPack" :loading="zipBtnLoading">数据打包</el-button>
+          <el-button size="mini" @click="packResult" :loading="listBtnLoading">打包结果</el-button>
     </el-form>
 
     
@@ -58,7 +60,8 @@
     <div class="table-box">
       <el-table
             :data="list"
-            style="width: 100%">
+            style="width: 100%"
+            v-loading="listLoading">
             <el-table-column type="index" align="center">
             </el-table-column>
             <el-table-column
@@ -131,16 +134,25 @@
         :total="totalCount"
       ></el-pagination>
     </div>
+    <el-dialog title="数据压缩包下载" :visible.sync="zipVisible" width="300" :before-close="zipHandleClose">
+        <div class="zip_box">
+          <el-link type="primary" icon="el-icon-download" v-for="(item,index) in zipLists" :key="index" @click="zipFileDownload(item.filename)">{{item.filename}}({{item.lasttime}})</el-link>
+        </div>
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="zipHandleClose">确 定</el-button>
+        </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {triggerList} from '@/config/api'
+import {triggerList, triggerZip, zipList, zipDownload} from '@/config/api'
 export default {
   data() {
     return {
       list: [],
+      zipLists:[],
       searchItem:{//搜索数据组
         dtp:"",
         uid:"",
@@ -159,6 +171,10 @@ export default {
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
+      zipBtnLoading:false,
+      listBtnLoading:false,
+      zipVisible:false,
+      listLoading:true
     };
   },
   created() {
@@ -166,12 +182,25 @@ export default {
   },
   methods: {
     handleDown(index,row){
-      console.log(row)
-       let a = document.createElement('a');
-        a.href = row.filePath;
-        a.download = 'pcm',
+      let downParams={
+        fileName:row.filePath
+      }
+      zipDownload(downParams).then(res=>{
+        let a = document.createElement('a');
+        let url = window.URL.createObjectURL(new Blob([res.data]));
+        let urlIndex = row.filePath.lastIndexOf("\/");
+        let str = row.filePath.substring(urlIndex + 1,row.filePath.length);
+        a.href = url;
+        a.download = str;
         a.click();
-
+        window.URL.revokeObjectURL(url);
+      }).catch(error=>{
+        this.$message({
+            message:res.data.error,
+            type:"error",
+            duration:1000
+        });
+      })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -194,6 +223,73 @@ export default {
       console.log(`当前页: ${val}`);
       this.getList();
     },
+    dataPack(){
+      let zipParams = {
+        startStr:this.searchItem.refreshTime,
+        endStr:this.searchItem.putTime,
+        dtp:this.searchItem.dtp,
+        uid:this.searchItem.uid,
+        clientVersion:this.searchItem.clientVersion,
+        engineVersion:this.searchItem.engineVersion,
+        developer:this.searchItem.developer,
+        keywordType:this.searchItem.keywordType,
+        keywordPhrase:this.searchItem.keywordPhrase,
+        origin:this.searchItem.origin
+      }
+      this.zipBtnLoading = true
+      triggerZip(zipParams).then(res=>{
+            this.zipBtnLoading = false
+        if(res.data.code == 200){
+            this.$message({
+                message:'打包成功',
+                type:"success",
+                duration:1000
+            });
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1000
+            });
+        }
+      }).catch(error=>{
+        this.$message({
+            message:res.data.message,
+            type:"error",
+            duration:1000
+        });
+      })
+    },
+    packResult(){
+      zipList().then(res=>{
+        this.zipLists = res.data.array
+        this.zipVisible = true
+      })
+    },
+    zipHandleClose(){
+      this.zipVisible = false
+    },
+    zipFileDownload(d){
+      let downParams = {
+        fileName:d,
+        fileType:'zip'
+      }
+      zipDownload(downParams).then(res=>{
+        let blobUrl = new Blob([res.data])
+        let a = document.createElement('a');
+        let url = window.URL.createObjectURL(blobUrl);
+        a.href = url;
+        a.download = d;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }).catch(error=>{
+        this.$message({
+            message:res.data.message,
+            type:"error",
+            duration:1000
+        });
+      })
+    },
     getList() {
       let params = {
         pgstr:this.currentPage,
@@ -210,8 +306,16 @@ export default {
         origin:this.searchItem.origin
       }
       triggerList(params).then(res => {
+        this.listLoading = false
         this.list = res.data.data;
         this.totalCount = res.data.count
+      }).catch(error=>{
+        this,listLoading = false
+        this.$message({
+            message:res.data.error,
+            type:"error",
+            duration:1000
+        });
       });
     }
   }

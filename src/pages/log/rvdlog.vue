@@ -29,7 +29,8 @@
     <div class="table-box">
       <el-table
               :data="list"
-              style="width: 100%">
+              style="width: 100%"
+              v-loading="listLoading">
               <el-table-column type="index" align="center">
               </el-table-column>
               <el-table-column label="客户端设备类型" prop="dtp" align="center" sortable>
@@ -71,7 +72,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {rvdList} from '@/config/api'
+import {rvdList, rvdDownload} from '@/config/api'
 import countTo from 'vue-count-to';
 export default {
   components: {countTo },
@@ -105,7 +106,7 @@ export default {
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
-      fileBtnLoading:false,
+      listLoading:false,
       startVal:0,
       endVal:0
     };
@@ -137,10 +138,24 @@ export default {
     },
     handleInfo(index,row){
       var name = row.ixid+'.raw'
-      let a = document.createElement('a');
-      a.href = row.rfp;
-      a.download = name,
-      a.click();
+      let downParams = {
+        id:row.id
+      }
+      rvdDownload(downParams).then(res=>{
+        if(res.data.code == 200){
+          let a = document.createElement('a');
+          a.href = row.rfp;
+          a.download = name,
+          a.click();
+        }else{
+          this.$message({
+              message:res.data.errorMessage,
+              type:"error",
+              duration:1000
+          });
+        }
+      })
+      
     },
     getList() {
       let params = {
@@ -152,6 +167,7 @@ export default {
         desc:this.searchItem.desc
       }
       rvdList(params).then(res=>{
+        this.listLoading = false
         this.list = res.data.data.data
         this.totalCount = res.data.data.total
         this.endVal = res.data.count

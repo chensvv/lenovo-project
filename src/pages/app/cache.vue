@@ -39,7 +39,8 @@
         </el-form>
           <el-table
             :data="list"
-            style="width: 100%">
+            style="width: 100%"
+            v-loading="listLoading">
             <el-table-column type="index" align="center">
             </el-table-column>
             <el-table-column
@@ -151,7 +152,8 @@ export default {
             totalCount:1,     // 总条数
             btnLoading:false,
             addVisible:false,
-            addBtnLoading:false
+            addBtnLoading:false,
+            listLoading:true
         }
     },
     created(){
@@ -169,6 +171,7 @@ export default {
                 cn:this.searchItem.cn
             }
             cacheList(params).then(res => {
+                this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
             });
@@ -254,6 +257,7 @@ export default {
             if (valid) {
                 this.addBtnLoading = true
                 cacheAdd(addParams).then(res => {
+                        this.addBtnLoading = false
                     if(res.data.code == 200){
                         this.$message({
                             message:'添加成功',
@@ -261,10 +265,8 @@ export default {
                             duration:1000
                         });
                         this.getList()
-                        this.addBtnLoading = false
                         this.addVisible = false
                     }else{
-                        this.addBtnLoading = false
                         this.$message({
                             message:res.data.errorMessage,
                             type:"error",
