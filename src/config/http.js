@@ -71,7 +71,7 @@ service_head.interceptors.response.use(response => {
 
 const UPFile = axios.create({
   baseURL: proURL,
-  timeout: 15000, // 请求超时时间
+  // timeout: 15000, // 请求超时时间
   headers: {
     'Content-Type': 'multipart/form-data'
   }
@@ -79,7 +79,7 @@ const UPFile = axios.create({
 
 const FileDownload = axios.create({
   baseURL: proURL,
-  timeout: 15000, // 请求超时时间
+  // timeout: 15000, // 请求超时时间
   headers: {
     'Content-Type': 'application/json; application/octet-stream'
   },

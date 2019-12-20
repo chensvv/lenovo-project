@@ -83,6 +83,7 @@
 
 .el-table{
     font-size: 12px;
+    min-height: 400px;
 }
 .el-table thead{
     color: #515a6e;
