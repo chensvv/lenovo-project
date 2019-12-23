@@ -91,6 +91,8 @@ export default {
                     duration:1000
                 });
             }
+          }).catch(err => {
+            this.editBtnLoading = false
           })
         } else {
           return false;

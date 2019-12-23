@@ -231,8 +231,8 @@ export default {
                         this.$message.error('错误')
                     }
                 })
-        }).catch(() => {
-            console.log("no");
+        }).catch(err => {
+            console.log(err);
         });
     },
     openFun(addList){
@@ -274,6 +274,8 @@ export default {
                         });
                     }
                     
+                }).catch(err => {
+                    this.addBtnLoading = false
                 })
             } else {
                 return false;

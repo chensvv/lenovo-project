@@ -298,8 +298,8 @@ export default {
                 });
             }
           })
-        }).catch(() => {
-          console.log("no");
+        }).catch((err) => {
+          console.log(err);
         });
     },
     openFun(addList){
@@ -349,6 +349,8 @@ export default {
                     duration:1000
                 });
             }
+          }).catch(err => {
+            this.editBtnLoading = false
           })
         } else {
           return false;
@@ -383,6 +385,8 @@ export default {
                     duration:1000
                 });
             }
+          }).catch(err => {
+            this.addBtnLoading = false
           })
         } else {
           return false;
@@ -451,7 +455,9 @@ export default {
                 });
             }
 
-      });
+      }).catch(err => {
+            this.fileBtnLoading = false
+          })
     },
     postFile2() {
       const fileObj = this.file2;
@@ -477,7 +483,9 @@ export default {
                 });
             }
 
-      });
+      }).catch(err => {
+            this.fileBtnLoading2 = false
+          })
     },
     closeFile() {
         this.$refs.upload.clearFiles()
@@ -510,7 +518,9 @@ export default {
                 duration:1000
             });
         }
-      })
+      }).catch(err => {
+            this.AIMLBtnLoading = false
+          })
     },
     AIMLBtn(){
       this.AIMLVisible = false

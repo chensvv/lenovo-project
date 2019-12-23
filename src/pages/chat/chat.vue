@@ -159,7 +159,6 @@ export default {
       }
       this.fileBtnLoading = true
       chatExport(exprotParams).then(res=>{
-        this.fileBtnLoading = false
         let blobUrl = new Blob([res.data])
         let a = document.createElement('a');
         let url = window.URL.createObjectURL(blobUrl);
@@ -168,7 +167,10 @@ export default {
         a.download = filename;
         a.click();
         window.URL.revokeObjectURL(url);
-      })
+        this.fileBtnLoading = false
+      }).catch(err => {
+          this.fileBtnLoading = false
+        })
     },
     getList() {
       let params = {

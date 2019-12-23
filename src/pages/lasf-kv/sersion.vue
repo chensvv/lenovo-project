@@ -292,6 +292,8 @@ export default {
                 });
                 
             }
+          }).catch(err => {
+            this.editBtnLoading = false
           })
         } else {
           return false;
@@ -328,6 +330,8 @@ export default {
                 });
                 
             }
+          }).catch(err => {
+            this.addBtnLoading = false
           })
         } else {
           return false;
@@ -362,7 +366,9 @@ export default {
                     duration:1000
                 });
             }
-        })
+        }).catch(err => {
+            this.strBtnLoading = false
+          })
     },
     getList() {
       let params = {

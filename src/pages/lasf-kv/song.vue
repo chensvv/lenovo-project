@@ -256,8 +256,8 @@ export default {
                     }
                     
                 })
-            }).catch(() => {
-                console.log("no");
+            }).catch((err) => {
+                console.log(err);
             });
         },
         openFun(addList){
@@ -311,6 +311,8 @@ export default {
                             });
                         }
                         
+                    }).catch(err => {
+                        this.editBtnLoading = false
                     })
                 } else {
                     return false;
@@ -354,32 +356,13 @@ export default {
                             });
                         }
                         
-                    })
+                    }).catch(err => {
+                    this.addBtnLoading = false
+                })
                 } else {
                     return false;
                 }
             });
-        },
-        handlePub(){
-            songPub().then(res=>{
-                if(res.data.again == 1){
-                    this.$message({
-                        message:'发布成功',
-                        type:"success",
-                        duration:1000
-                    });
-                    this.getList();
-                    this.addVisible = false
-                    this.addBtnLoading = false
-                }else{
-                    this.$message({
-                        message:res.data.errorMessage,
-                        type:"error",
-                        duration:1000
-                    });
-                    this.addBtnLoading = false
-                }
-            })
         },
         getList() {
             let params = {

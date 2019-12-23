@@ -88,5 +88,6 @@ const FileDownload = axios.create({
 export default service = {
   service_head,
   UPFile,
-  FileDownload
+  FileDownload,
+  proURL
 }

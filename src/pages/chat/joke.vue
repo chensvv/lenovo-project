@@ -53,6 +53,7 @@
                         size="mini"
                         type="danger"
                         @click="checkState(scope.$index, scope.row)"
+                        :loading="checkLoading"
                         v-has="'joke:veri'">审核</el-button>
                         <el-button
                         size="mini"
@@ -136,7 +137,8 @@ export default {
       seaBtnLoading:false,
       editBtnLoading:false,
       addBtnLoading:false,
-      listLoading:true
+      listLoading:true,
+      checkLoading:false
     }
   },
   created(){
@@ -204,10 +206,12 @@ export default {
       this.getList();
     },
     checkState(index,row){
+      this.checkLoading = true
       let veriParams = {
         id:row.id
       }
       jokeVeri(veriParams).then(res=>{
+        this.checkLoading = false
         if(res.data.code == 200){
             this.$message({
                 message:'审核成功',
@@ -222,7 +226,9 @@ export default {
                 duration:1000
             });
         }
-      })
+      }).catch(err => {
+            this.checkLoading = false
+          })
     },
     handleClose() {
       this.editVisible = false;
@@ -260,6 +266,8 @@ export default {
                     duration:1000
                 });
             } 
+          }).catch(err => {
+            this.editBtnLoading = false
           })
         } else {
           return false;
@@ -291,8 +299,8 @@ export default {
               });
             }
           })
-      }).catch(() => {
-          console.log("no");
+      }).catch(err => {
+          console.log(err);
       });
     },
     addHandleClose(){
@@ -327,6 +335,8 @@ export default {
                   });
                   
               } 
+            }).catch(err => {
+              this.addBtnLoading = false
             })
           } else {
               return false;

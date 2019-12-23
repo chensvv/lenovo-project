@@ -208,8 +208,8 @@ export default {
                 });
             }
           })
-        }).catch(() => {
-          console.log("no");
+        }).catch((err) => {
+          console.log(err);
         });
     },
     openFun(addList){
@@ -258,6 +258,8 @@ export default {
                     duration:1000
                 });
             }
+          }).catch(err => {
+            this.editBtnLoading = false
           })
         } else {
           return false;
@@ -293,6 +295,8 @@ export default {
                 });
                 this.addBtnLoading = false
             }
+          }).catch(err => {
+            this.addBtnLoading = false
           })
         } else {
           return false;
@@ -316,7 +320,9 @@ export default {
                   duration:1000
               });
           } 
-      })
+      }).catch(err => {
+            this.relBtnLoading = false
+          })
     },
     getList() {
       let params = {

@@ -194,6 +194,7 @@ export default {
                 if (valid) {
                     this.editBtnLoading = true
                     kvAddUpd(updParams).then(res=>{
+                        this.editBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
                                 message:'修改成功',
@@ -201,10 +202,8 @@ export default {
                                 duration:1000
                             });
                             this.getList()
-                            this.editBtnLoading = false
                             this.editVisible = false
                         }else{
-                            this.editBtnLoading = false
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
@@ -212,6 +211,8 @@ export default {
                             });
                         }
                         
+                    }).catch(err => {
+                        this.editBtnLoading = false
                     })
                 } else {
                     return false;
@@ -244,6 +245,8 @@ export default {
                                 duration:1000
                             });
                         } 
+                    }).catch(err => {
+                        this.addBtnLoading = false
                     })
                 } else {
                     return false;

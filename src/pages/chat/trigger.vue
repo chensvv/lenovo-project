@@ -120,6 +120,7 @@
                     size="mini"
                      v-has="'trigger:download'"
                     @click="handleDown(scope.$index, scope.row)"
+                    :laoding="downLoading"
                     >下载文件</el-button>
                 </template>
             </el-table-column>
@@ -137,6 +138,7 @@
     <el-dialog title="数据压缩包下载" :visible.sync="zipVisible" width="300" :before-close="zipHandleClose">
         <div class="zip_box">
           <el-link type="primary" icon="el-icon-download" v-for="(item,index) in zipLists" :key="index" @click="zipFileDownload(item.filename)">{{item.filename}}({{item.lasttime}})</el-link>
+          <div v-if="isshow" style="text-align:center;">暂无数据</div>
         </div>
         <span slot="footer" class="dialog-footer">
             <el-button type="primary" @click="zipHandleClose">确 定</el-button>
@@ -148,6 +150,8 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {triggerList, triggerZip, zipList, zipDownload} from '@/config/api'
+import {readablizeBytes} from '@/utils/bytes.js' 
+import triggerUrl from '@/config/http'
 export default {
   data() {
     return {
@@ -174,7 +178,9 @@ export default {
       zipBtnLoading:false,
       listBtnLoading:false,
       zipVisible:false,
-      listLoading:true
+      listLoading:true,
+      isshow:false,
+      downLoading:false
     };
   },
   created() {
@@ -182,6 +188,7 @@ export default {
   },
   methods: {
     handleDown(index,row){
+      this.downLoading = true
       let downParams={
         fileName:row.filePath
       }
@@ -194,7 +201,9 @@ export default {
         a.download = str;
         a.click();
         window.URL.revokeObjectURL(url);
+        this.downLoading = false
       }).catch(error=>{
+        this.downLoading = false
         this.$message({
             message:res.data.error,
             type:"error",
@@ -253,6 +262,7 @@ export default {
             });
         }
       }).catch(error=>{
+        this.zipBtnLoading = false
         this.$message({
             message:res.data.message,
             type:"error",
@@ -261,34 +271,61 @@ export default {
       })
     },
     packResult(){
+      this.zipVisible = true
       zipList().then(res=>{
         this.zipLists = res.data.array
-        this.zipVisible = true
+        if(this.zipLists.length == 0){
+          this.isshow = true
+        }
+        
       })
     },
     zipHandleClose(){
       this.zipVisible = false
     },
     zipFileDownload(d){
-      let downParams = {
-        fileName:d,
-        fileType:'zip'
-      }
-      zipDownload(downParams).then(res=>{
-        let blobUrl = new Blob([res.data])
-        let a = document.createElement('a');
-        let url = window.URL.createObjectURL(blobUrl);
-        a.href = url;
+      var openURL = triggerUrl.proURL+'/lasf-mgr/trigger/download?fileName='+d+'&fileType=zip'
+      let a = document.createElement('a');
+        a.href = openURL;
         a.download = d;
         a.click();
         window.URL.revokeObjectURL(url);
-      }).catch(error=>{
-        this.$message({
-            message:res.data.message,
-            type:"error",
-            duration:1000
-        });
-      })
+      // this.loadShow = true
+      // this.total = readablizeBytes(s)
+      // let downParams = {
+      //   fileName:d,
+      //   fileType:'zip'
+      // }
+      // let proConfig = {
+      //     onDownloadProgress: progressEvent => {
+      //         var complete = readablizeBytes(progressEvent.loaded)
+      //         this.loadeds = complete
+      //     }
+      // }
+      // this.$http({
+      //   method:'post',
+      //   url:triggerUrl.proURL+'/lasf-mgr/trigger/download',
+      //   data:downParams,
+      //   headers: {
+      //     'Content-Type': 'application/json; application/octet-stream'
+      //   },
+      //   responseType: 'blob',
+      //   proConfig,
+      // }).then(res=>{
+      //   let blobUrl = new Blob([res.data], {type: 'application/zip'})
+      //   let a = document.createElement('a');
+      //   let url = window.URL.createObjectURL(blobUrl);
+      //   a.href = url;
+      //   a.download = d;
+      //   a.click();
+      //   window.URL.revokeObjectURL(url);
+      // }).catch(error=>{
+      //   this.$message({
+      //       message:res.data.message,
+      //       type:"error",
+      //       duration:1000
+      //   });
+      // })
     },
     getList() {
       let params = {
@@ -309,14 +346,7 @@ export default {
         this.listLoading = false
         this.list = res.data.data;
         this.totalCount = res.data.count
-      }).catch(error=>{
-        this,listLoading = false
-        this.$message({
-            message:res.data.error,
-            type:"error",
-            duration:1000
-        });
-      });
+      })
     }
   }
 };

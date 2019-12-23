@@ -294,8 +294,8 @@ export default {
                         });
                     }
                 })
-            }).catch(() => {
-                console.log("no");
+            }).catch(err => {
+                console.log(err);
             });
         },
         editHandleClose() {
@@ -348,6 +348,8 @@ export default {
                                 duration:1000
                             });
                         }
+                    }).catch(err => {
+                        this.editBtnLoading = false
                     })
                 } else {
                     return false;
@@ -383,6 +385,8 @@ export default {
                                 duration:1000
                             });
                         } 
+                    }).catch(err => {
+                        this.addBtnLoading = false
                     })
                 } else {
                     return false;

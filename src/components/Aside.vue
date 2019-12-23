@@ -198,7 +198,7 @@ export default {
     },
     data(){
             return {
-              menuData:[],
+              menuData:[]
             }
         },
     created() {
