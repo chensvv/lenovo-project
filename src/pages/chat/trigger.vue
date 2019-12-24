@@ -120,7 +120,6 @@
                     size="mini"
                      v-has="'trigger:download'"
                     @click="handleDown(scope.$index, scope.row)"
-                    :laoding="downLoading"
                     >下载文件</el-button>
                 </template>
             </el-table-column>
@@ -179,8 +178,7 @@ export default {
       listBtnLoading:false,
       zipVisible:false,
       listLoading:true,
-      isshow:false,
-      downLoading:false
+      isshow:false
     };
   },
   created() {
@@ -188,28 +186,13 @@ export default {
   },
   methods: {
     handleDown(index,row){
-      this.downLoading = true
-      let downParams={
-        fileName:row.filePath
-      }
-      zipDownload(downParams).then(res=>{
-        let a = document.createElement('a');
-        let url = window.URL.createObjectURL(new Blob([res.data]));
-        let urlIndex = row.filePath.lastIndexOf("\/");
-        let str = row.filePath.substring(urlIndex + 1,row.filePath.length);
-        a.href = url;
-        a.download = str;
-        a.click();
-        window.URL.revokeObjectURL(url);
-        this.downLoading = false
-      }).catch(error=>{
-        this.downLoading = false
-        this.$message({
-            message:res.data.error,
-            type:"error",
-            duration:1000
-        });
-      })
+      let downURL = triggerUrl.proURL+'/lasf-mgr/trigger/download?fileName='+row.filePath
+      window.open(downURL)
+      // let a = document.createElement('a');
+      //   a.href = downURL;
+      //   a.download = d;
+      //   a.click();
+      //   window.URL.revokeObjectURL(url);
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

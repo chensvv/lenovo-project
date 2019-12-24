@@ -418,12 +418,12 @@ export default {
                 programContentLanguage:this.currentItem.programContentLanguage,
                 programDirector:this.currentItem.programDirector,
                 programNameMainStar:this.currentItem.programNameMainStar,
-                programActors:this.programActors,
+                programActors:this.currentItem.programActors,
                 programScore:this.currentItem.programScore,
                 programChildNumber:this.currentItem.programChildNumber,
                 programUrl:this.currentItem.programUrl,
                 programLevel:this.currentItem.programLevel,
-                programSource:this.programSource,
+                programSource:this.currentItem.programSource,
                 programPoster:this.currentItem.programPoster,
                 id:this.currentItem.id
             }
