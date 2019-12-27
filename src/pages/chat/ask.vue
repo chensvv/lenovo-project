@@ -94,7 +94,7 @@
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="ask" prop="ask">
-          <el-input type="text" v-model.trim="addList.ask" auto-complete="off"></el-input>
+          <el-input type="text" v-model.trim="addList.ask" auto-complete="off" placeholder="示例：关闭微信（关闭|退出|杀掉）<appname>"></el-input>
         </el-form-item>
         <el-form-item label="code" prop="code">
           <el-input type="text" v-model.trim="addList.code" auto-complete="off" placeholder="code示例：ALL/SCH/1/"></el-input>
