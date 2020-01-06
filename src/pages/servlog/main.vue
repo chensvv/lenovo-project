@@ -219,6 +219,7 @@ import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {logList, logDown, logInfo} from '@/config/api'
 import countTo from 'vue-count-to';
+import downUrl from '@/config/http'
 export default {
     components: { iTable, countTo },
     data(){
@@ -415,21 +416,20 @@ export default {
             })
         },
         handleDown(index,row){
-            var date = new Date(row.it)
-            let dParams = {
-                ixid:row.ixid,
-                svr:row.svr,
-                it:checkTime(date.getFullYear())+'-'+checkTime((date.getMonth()+1))+'-'+checkTime(date.getDate())
-            }
-            logDown(dParams).then(res=>{
-                if(res.data.code == '400'){
-                    this.$message({
-                            message:res.data.errorMessage,
-                            type:"error",
-                            duration:1000
-                        });
-                }
-            })
+            let date = new Date(row.it)
+            let time = checkTime(date.getFullYear())+'-'+checkTime((date.getMonth()+1))+'-'+checkTime(date.getDate())
+            
+            let openUrl = downUrl.proURL + '/lasf-mgr/servlog/downLoad?ixid='+row.ixid+'&svr='+row.svr+'&it='+time
+            window.open(openUrl)
+            // logDown(dParams).then(res=>{
+            //     if(res.data.code == '400'){
+            //         this.$message({
+            //                 message:res.data.errorMessage,
+            //                 type:"error",
+            //                 duration:1000
+            //             });
+            //     }
+            // })
 
         },
         handleClose(){

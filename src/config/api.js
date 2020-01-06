@@ -1171,25 +1171,9 @@ export function rvdList (data) {
   })
 }
 
-export function rvdDownload (data) {
-  return fetch.service_head({
-    url: '/lasf-mgr/asr/log/download',
-    method: 'post',
-    data: data
-  })
-}
-
 export function logList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/servlog/loglist',
-    method: 'post',
-    data: data
-  })
-}
-
-export function logDown (data) {
-  return fetch.service_head({
-    url: '/lasf-mgr/servlog/downLoad',
     method: 'post',
     data: data
   })

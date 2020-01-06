@@ -7,8 +7,8 @@
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="电影名称" prop="movie">
-        <el-input v-model.trim="searchItem.movie" clearable></el-input>
+      <el-form-item label="电影名称" prop="speak">
+        <el-input v-model.trim="searchItem.speak" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -25,8 +25,8 @@
           <el-table-column type="index" align="center">
           </el-table-column>
           <el-table-column
-              label="moive"
-              prop="movie"
+              label="speak"
+              prop="speak"
               align="center">
           </el-table-column>
           <el-table-column
@@ -68,8 +68,8 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="电影名称" prop="movie">
-          <el-input type="text" v-model.trim="currentItem.movie" auto-complete="off"></el-input>
+        <el-form-item label="电影名称" prop="speak">
+          <el-input type="text" v-model.trim="currentItem.speak" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -79,8 +79,8 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="电影名称" prop="movie">
-          <el-input type="text" v-model.trim="addList.movie" auto-complete="off"></el-input>
+        <el-form-item label="电影名称" prop="speak">
+          <el-input type="text" v-model.trim="addList.speak" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -100,19 +100,19 @@ export default {
       list: [],
       currentItem: {//编辑数据组
         id:"",
-        movie: "",
+        speak: "",
       },
       addList: {//添加数据组
-        movie: ""
+        speak: ""
       },
       searchItem:{//搜索数据组
-        movie:"",
+        speak:"",
       },
       addRules:{
-        movie:[{ required: true, message: '请输入电影名称', trigger: 'change' }]
+        speak:[{ required: true, message: '请输入电影名称', trigger: 'change' }]
       },
       editRules:{
-        movie:[{ required: true, message: '请输入电影名称', trigger: 'blur' }]
+        speak:[{ required: true, message: '请输入电影名称', trigger: 'blur' }]
       },
       editVisible: false,
       addVisible: false,
@@ -175,7 +175,7 @@ export default {
       this.editVisible = true;
       this.currentItem = {
         id:row.id,
-        movie: row.movie,
+        speak: row.speak,
       };
     },
     handleDel(index, row) {
@@ -231,7 +231,7 @@ export default {
     editHandleConfirm(currentItem) {
       let updParams = {
         id:this.currentItem.id,
-        movie:this.currentItem.movie,
+        speak:this.currentItem.speak,
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
@@ -266,7 +266,7 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        movie:this.addList.movie
+        speak:this.addList.speak
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
@@ -321,7 +321,7 @@ export default {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        movie:this.searchItem.movie,
+        ask:this.searchItem.speak,
       }
       movieList(params).then(res => {
         this.listLoading = false

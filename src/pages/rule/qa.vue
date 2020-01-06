@@ -7,8 +7,8 @@
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="问题" prop="question">
-        <el-input v-model.trim="searchItem.question" clearable></el-input>
+      <el-form-item label="问题" prop="speak">
+        <el-input v-model.trim="searchItem.speak" clearable></el-input>
       </el-form-item>
       <el-form-item label="所属excel文件" prop="excel">
         <el-input v-model.trim="searchItem.excel" clearable></el-input>
@@ -31,7 +31,7 @@
           </el-table-column>
           <el-table-column
               label="问题"
-              prop="question"
+              prop="speak"
               align="center">
           </el-table-column>
           <el-table-column
@@ -45,10 +45,16 @@
               align="center">
           </el-table-column>
           <el-table-column
-              label="更新时间"
-              prop="it"
-                align="center"
+              label="添加时间"
+              prop="createTime"
+              align="center"
               :formatter="formTime">
+          </el-table-column>
+          <el-table-column
+              label="更新时间"
+              prop="updateTime"
+              align="center"
+              :formatter="formTime2">
           </el-table-column>
           <el-table-column label="操作" align="center">
               <template slot-scope="scope">
@@ -77,8 +83,8 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="问题" prop="question">
-          <el-input type="textarea" v-model.trim="currentItem.question" auto-complete="off"></el-input>
+        <el-form-item label="问题" prop="speak">
+          <el-input type="textarea" v-model.trim="currentItem.speak" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="答案" prop="answer">
           <el-input type="text" v-model.trim="currentItem.answer" auto-complete="off"></el-input>
@@ -91,8 +97,8 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="问题" prop="question">
-          <el-input type="text" v-model.trim="addList.question" auto-complete="off"></el-input>
+        <el-form-item label="问题" prop="speak">
+          <el-input type="text" v-model.trim="addList.speak" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="答案" prop="answer">
           <el-input type="textarea" v-model.trim="addList.answer" auto-complete="off"></el-input>
@@ -165,17 +171,6 @@
         <el-button type="primary" @click="postFile2()" :loading="fileBtnLoading2">确 定</el-button>
       </div>
     </el-dialog>
-    
-      <el-dialog title="AIML" :visible.sync="AIMLVisible" width="300" class="eldialog">
-      <el-form :label-position="'left'" label-width="50px">
-        <el-form-item label="AIML:" class="aiml_text">
-          <el-input type="textarea" v-model="aimlInfo" auto-complete="off" readonly></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="AIMLBtn()">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -185,27 +180,26 @@ import {qaList, qaSave, qaDel, qaUpFile, qaPub, qaFile} from '@/config/api'
 export default {
   data() {
     return {
-      aimlInfo:"",
       list: [],
       currentItem: {//编辑数据组
         id:"",
         answer: "",
-        question: "",
+        speak: "",
       },
       addList: {//添加数据组
-        question: "",
+        speak: "",
         answer: ""
       },
       searchItem:{//搜索数据组
         excel:"",
-        question:"",
+        speak:"",
       },
       addRules:{
-        question:[{ required: true, message: '请输入问题', trigger: 'change' }],
+        speak:[{ required: true, message: '请输入问题', trigger: 'change' }],
         answer:[{ required: true, message: '请输入答案', trigger: 'change' }]  
       },
       editRules:{
-        question:[{ required: true, message: '请输入问题', trigger: 'blur' }],
+        speak:[{ required: true, message: '请输入问题', trigger: 'blur' }],
         answer:[{ required: true, message: '请输入答案', trigger: 'blur' }]  
       },
       editVisible: false,
@@ -226,7 +220,6 @@ export default {
       editBtnLoading:false,
       fileBtnLoading:false,
       AIMLBtnLoading:false,
-      AIMLVisible:false,
       listLoading:true
     };
   },
@@ -235,7 +228,16 @@ export default {
   },
   methods: {
     formTime(row, column){
-      var timer = row.it
+      var timer = row.createTime
+      var date = new Date(timer)
+      return date.getFullYear()+'-'+
+        checkTime(date.getMonth()+1)+'-'+
+        checkTime(date.getDate())+' '+
+        checkTime(date.getHours())+':'+
+        checkTime(date.getMinutes())
+    },
+    formTime2(row, column){
+      var timer = row.updateTime
       var date = new Date(timer)
       return date.getFullYear()+'-'+
         checkTime(date.getMonth()+1)+'-'+
@@ -270,7 +272,7 @@ export default {
       this.currentItem = {
         id:row.id,
         answer: row.answer,
-        question: row.question,
+        speak: row.speak,
       };
     },
     handleDel(index, row) {
@@ -326,7 +328,7 @@ export default {
     editHandleConfirm(currentItem) {
       let updParams = {
         id:this.currentItem.id,
-        q:this.currentItem.question,
+        q:this.currentItem.speak,
         a:this.currentItem.answer
       }
       this.$refs[currentItem].validate((valid) => {
@@ -362,7 +364,7 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        q:this.addList.question,
+        q:this.addList.speak,
         a:this.addList.answer
       }
       this.$refs[addList].validate((valid) => {
@@ -499,18 +501,12 @@ export default {
       this.AIMLBtnLoading = true
       qaPub().then(res=>{
         this.AIMLBtnLoading = false
-        this.aimlInfo = res.data.data.aiml
         if(res.data.code == 200){
-          
             this.$message({
                 message:res.data.msg,
                 type:"success",
                 duration:1000
             });
-            
-            setTimeout(()=>{
-              this.AIMLVisible = true
-            },1000)
         }else{
             this.$message({
                 message:res.data.errorMessage,
@@ -522,14 +518,11 @@ export default {
             this.AIMLBtnLoading = false
           })
     },
-    AIMLBtn(){
-      this.AIMLVisible = false
-    },
     getList() {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        q:this.searchItem.question,
+        q:this.searchItem.speak,
         ex:this.searchItem.excel
       }
       qaList(params).then(res => {

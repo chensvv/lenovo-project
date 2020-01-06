@@ -7,8 +7,8 @@
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="ask" prop="ask">
-        <el-input v-model.trim="searchItem.ask" clearable></el-input>
+      <el-form-item label="speak" prop="speak">
+        <el-input v-model.trim="searchItem.speak" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -25,18 +25,18 @@
           <el-table-column type="index" align="center">
           </el-table-column>
           <el-table-column
-              label="ask"
-              prop="ask"
+              label="speak"
+              prop="speak"
               align="center">
           </el-table-column>
           <el-table-column
-              label="code"
-              prop="code"
+              label="answer"
+              prop="answer"
               align="center">
           </el-table-column>
           <el-table-column
-              label="title"
-              prop="title"
+              label="excel"
+              prop="excel"
               align="center">
           </el-table-column>
           <el-table-column
@@ -76,14 +76,14 @@
       ></el-pagination>
     </div>
 
-    <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
+    <el-dialog excel="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="ask" prop="ask">
-          <el-input type="text" v-model.trim="currentItem.ask" auto-complete="off"></el-input>
+        <el-form-item label="speak" prop="speak">
+          <el-input type="text" v-model.trim="currentItem.speak" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="code" prop="code">
-          <el-input type="text" v-model.trim="currentItem.code" auto-complete="off"></el-input>
-          <span>code示例：ALL/SCH/1/</span>
+        <el-form-item label="answer" prop="answer">
+          <el-input type="text" v-model.trim="currentItem.answer" auto-complete="off"></el-input>
+          <span>answer示例：ALL/SCH/1/</span>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -91,13 +91,13 @@
         <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
+    <el-dialog excel="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="ask" prop="ask">
-          <el-input type="text" v-model.trim="addList.ask" auto-complete="off" placeholder="示例：关闭微信（关闭|退出|杀掉）<appname>"></el-input>
+        <el-form-item label="speak" prop="speak">
+          <el-input type="text" v-model.trim="addList.speak" auto-complete="off" placeholder="示例：关闭微信（关闭|退出|杀掉）<appname>"></el-input>
         </el-form-item>
-        <el-form-item label="code" prop="code">
-          <el-input type="text" v-model.trim="addList.code" auto-complete="off" placeholder="code示例：ALL/SCH/1/"></el-input>
+        <el-form-item label="answer" prop="answer">
+          <el-input type="text" v-model.trim="addList.answer" auto-complete="off" placeholder="answer示例：ALL/SCH/1/"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -117,29 +117,29 @@ export default {
       list: [],
       currentItem: {//编辑数据组
         id:"",
-        ask: "",
-        code:""
+        speak: "",
+        answer:""
       },
       addList: {//添加数据组
-        ask: "",
-        code:""
+        speak: "",
+        answer:""
       },
       searchItem:{//搜索数据组
-        ask:"",
+        speak:"",
       },
       addRules:{
-        ask:[{ required: true, message: '请输入要求名称', trigger: 'change' }],
-        code:[
-          { required: true, message: '请输入要求code', trigger: 'change' },
-          { pattern: /^[A-Z0-9/]+$/, message:'请输入正确格式的code', trigger: 'blur'}
+        speak:[{ required: true, message: '请输入要求名称', trigger: 'change' }],
+        answer:[
+          { required: true, message: '请输入要求answer', trigger: 'change' },
+          { pattern: /^[A-Z0-9/]+$/, message:'请输入正确格式的answer', trigger: 'blur'}
         ],
         
       },
       editRules:{
-        ask:[{ required: true, message: '请输入要求名称', trigger: 'blur' }],
-        code:[
-          { required: true, message: '请输入要求code', trigger: 'blur' },
-          { pattern: /^[A-Z0-9/]+$/, message:'请输入正确格式的code', trigger: 'blur'}
+        speak:[{ required: true, message: '请输入要求名称', trigger: 'blur' }],
+        answer:[
+          { required: true, message: '请输入要求answer', trigger: 'blur' },
+          { pattern: /^[A-Z0-9/]+$/, message:'请输入正确格式的answer', trigger: 'blur'}
         ]
       },
       editVisible: false,
@@ -203,9 +203,9 @@ export default {
       this.editVisible = true;
       this.currentItem = {
         id:row.id,
-        ask: row.ask,
-        code:row.code,
-        title:row.title
+        speak: row.speak,
+        answer:row.answer,
+        excel:row.excel
       };
     },
     handleDel(index, row) {
@@ -261,9 +261,9 @@ export default {
     editHandleConfirm(currentItem) {
       let updParams = {
         id:this.currentItem.id,
-        ask:this.currentItem.ask,
-        code:this.currentItem.code,
-        title:this.currentItem.title
+        speak:this.currentItem.speak,
+        answer:this.currentItem.answer,
+        excel:this.currentItem.excel
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
@@ -298,9 +298,9 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        ask:this.addList.ask,
-        code:this.addList.code,
-        title:this.addList.title
+        speak:this.addList.speak,
+        answer:this.addList.answer,
+        excel:this.addList.excel
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
@@ -355,7 +355,7 @@ export default {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        ask:this.searchItem.ask,
+        ask:this.searchItem.speak,
       }
       askList(params).then(res => {
         this.listLoading = false

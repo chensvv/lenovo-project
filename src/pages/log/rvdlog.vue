@@ -72,8 +72,9 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {rvdList, rvdDownload} from '@/config/api'
+import {rvdList} from '@/config/api'
 import countTo from 'vue-count-to';
+import downUrl from '@/config/http'
 export default {
   components: {countTo },
   data() {
@@ -137,24 +138,27 @@ export default {
       this.getList();
     },
     handleInfo(index,row){
-      var name = row.ixid+'.raw'
-      let downParams = {
-        id:row.id
-      }
-      rvdDownload(downParams).then(res=>{
-        if(res.data.code == 200){
-          let a = document.createElement('a');
-          a.href = row.rfp;
-          a.download = name,
-          a.click();
-        }else{
-          this.$message({
-              message:res.data.errorMessage,
-              type:"error",
-              duration:1000
-          });
-        }
-      })
+      // var name = row.ixid+'.raw'
+      // let downParams = {
+      //   id:row.id
+      // }
+      let openUrl = downUrl.proURL + '/lasf-mgr/asr/log/download?id='+row.id
+      window.open(openUrl)
+      
+      // rvdDownload(downParams).then(res=>{
+      //   if(res.data.code == 200){
+      //     let a = document.createElement('a');
+      //     a.href = row.rfp;
+      //     a.download = name,
+      //     a.click();
+      //   }else{
+      //     this.$message({
+      //         message:res.data.errorMessage,
+      //         type:"error",
+      //         duration:1000
+      //     });
+      //   }
+      // })
       
     },
     getList() {

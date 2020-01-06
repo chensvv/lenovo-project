@@ -26,7 +26,7 @@
           </el-table-column>
           <el-table-column
               label="说法"
-              prop="joke"
+              prop="speak"
               align="center">
           </el-table-column>
           <el-table-column
@@ -68,8 +68,8 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="问题" prop="joke">
-          <el-input type="text" v-model.trim="currentItem.joke" auto-complete="off"></el-input>
+        <el-form-item label="问题" prop="speak">
+          <el-input type="text" v-model.trim="currentItem.speak" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -79,24 +79,14 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="说法" prop="joke">
-          <el-input type="text" v-model.trim="addList.joke" auto-complete="off"></el-input>
+        <el-form-item label="说法" prop="speak">
+          <el-input type="text" v-model.trim="addList.speak" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="addHandleClose">取 消</el-button>
         <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
       </span>
-    </el-dialog>
-      <el-dialog title="AIML" :visible.sync="AIMLVisible" width="300" class="eldialog">
-      <el-form :label-position="'left'" label-width="50px">
-        <el-form-item label="AIML:" class="aiml_text">
-          <el-input type="textarea" v-model="aimlInfo" auto-complete="off" readonly></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="AIMLBtn()">确 定</el-button>
-      </div>
     </el-dialog>
   </div>
 </template>
@@ -107,23 +97,22 @@ import {jokePList, jokePDel, jokePUpd, jokePAdd, jokePAIML} from '@/config/api'
 export default {
   data() {
     return {
-      aimlInfo:"",
       list: [],
       currentItem: {//编辑数据组
         id:"",
-        joke: "",
+        speak: "",
       },
       addList: {//添加数据组
-        joke: ""
+        speak: ""
       },
       searchItem:{//搜索数据组
         q:"",
       },
       addRules:{
-        joke:[{ required: true, message: '请输入说法', trigger: 'change' }]
+        speak:[{ required: true, message: '请输入说法', trigger: 'change' }]
       },
       editRules:{
-        joke:[{ required: true, message: '请输入说法', trigger: 'blur' }]
+        speak:[{ required: true, message: '请输入说法', trigger: 'blur' }]
       },
       editVisible: false,
       addVisible: false,
@@ -135,8 +124,7 @@ export default {
       seaBtnLoading:false,
       addBtnLoading:false,
       editBtnLoading:false,
-      AIMLBtnLoading:false,
-      AIMLVisible:false
+      AIMLBtnLoading:false
     };
   },
   created() {
@@ -186,7 +174,7 @@ export default {
       this.editVisible = true;
       this.currentItem = {
         id:row.id,
-        joke: row.joke,
+        speak: row.speak,
       };
     },
     handleDel(index, row) {
@@ -242,7 +230,7 @@ export default {
     editHandleConfirm(currentItem) {
       let updParams = {
         id:this.currentItem.id,
-        joke:this.currentItem.joke,
+        speak:this.currentItem.speak,
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
@@ -278,7 +266,7 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        joke:this.addList.joke
+        speak:this.addList.speak
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
@@ -311,7 +299,6 @@ export default {
     buildAIML(){
       this.AIMLBtnLoading = true
       jokePAIML().then(res=>{
-        this.aimlInfo = res.data.data
         this.AIMLBtnLoading = false
         if(res.data.code == 200){
             this.$message({
@@ -319,9 +306,6 @@ export default {
                 type:"success",
                 duration:1000
             });
-            setTimeout(()=>{
-              this.AIMLVisible = true
-            },1000)
         }else{
             this.$message({
                 message:res.data.errorMessage,
@@ -332,9 +316,6 @@ export default {
       }).catch(err => {
             this.AIMLBtnLoading = false
           })
-    },
-    AIMLBtn(){
-      this.AIMLVisible = false
     },
     getList() {
       let params = {

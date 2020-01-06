@@ -150,7 +150,7 @@
 import {checkTime} from '@/utils/timer.js'
 import {triggerList, triggerZip, zipList, zipDownload} from '@/config/api'
 import {readablizeBytes} from '@/utils/bytes.js' 
-import triggerUrl from '@/config/http'
+import downUrl from '@/config/http'
 export default {
   data() {
     return {
@@ -186,7 +186,7 @@ export default {
   },
   methods: {
     handleDown(index,row){
-      let downURL = triggerUrl.proURL+'/lasf-mgr/trigger/download?fileName='+row.filePath
+      let downURL = downUrl.proURL+'/lasf-mgr/trigger/download?fileName='+row.filePath
       window.open(downURL)
       // let a = document.createElement('a');
       //   a.href = downURL;
@@ -267,7 +267,7 @@ export default {
       this.zipVisible = false
     },
     zipFileDownload(d){
-      var openURL = triggerUrl.proURL+'/lasf-mgr/trigger/download?fileName='+d+'&fileType=zip'
+      var openURL = downUrl.proURL+'/lasf-mgr/trigger/download?fileName='+d+'&fileType=zip'
       let a = document.createElement('a');
         a.href = openURL;
         a.download = d;
@@ -287,7 +287,7 @@ export default {
       // }
       // this.$http({
       //   method:'post',
-      //   url:triggerUrl.proURL+'/lasf-mgr/trigger/download',
+      //   url:downUrl.proURL+'/lasf-mgr/trigger/download',
       //   data:downParams,
       //   headers: {
       //     'Content-Type': 'application/json; application/octet-stream'

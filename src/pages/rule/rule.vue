@@ -7,8 +7,8 @@
         </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-        <el-form-item label="规则名称" prop="ruleName">
-            <el-input v-model.trim="searchItem.ruleName" clearable></el-input>
+        <el-form-item label="规则名称" prop="speak">
+            <el-input v-model.trim="searchItem.speak" clearable></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -26,14 +26,26 @@
             </el-table-column>
             <el-table-column
                 label="规则名称"
-                prop="ruleName"
+                prop="speak"
                 align="center">
             </el-table-column>
             <el-table-column
                 label="规则配置"
-                prop="ruleResult"
+                prop="answer"
                 align="center">
             </el-table-column>
+            <el-table-column
+              label="添加时间"
+              prop="createTime"
+              align="center"
+              :formatter="formTime">
+          </el-table-column>
+          <el-table-column
+              label="更新时间"
+              prop="updateTime"
+              align="center"
+              :formatter="formTime2">
+          </el-table-column>
             <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                     <el-button
@@ -61,8 +73,8 @@
 
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
-            <el-form-item label="规则名称" prop="ruleName">
-                <el-input type="text" v-model.trim="currentItem.ruleName" auto-complete="off"></el-input>
+            <el-form-item label="规则名称" prop="speak">
+                <el-input type="text" v-model.trim="currentItem.speak" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="sogou" prop="sogou">
                 <el-input type="text" v-model.trim="currentItem.sogou" auto-complete="off"></el-input>
@@ -89,8 +101,8 @@
         </el-dialog>
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="80px" :rules="addRules" :model="addList" ref="addList">
-                <el-form-item label="规则名称" prop="ruleName">
-                    <el-input type="text" v-model.trim="addList.ruleName" auto-complete="off"></el-input>
+                <el-form-item label="规则名称" prop="speak">
+                    <el-input type="text" v-model.trim="addList.speak" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="sogou" prop="sogou">
                     <el-input type="text" v-model.trim="addList.sogou" auto-complete="off"></el-input>
@@ -128,31 +140,31 @@ export default {
       list: [],
       currentItem: {//编辑数据组
         id:"",
-        ruleName: "",
+        speak: "",
         sogou: "",
         duer:"",
         wenwen:"",
         naturali:""
       },
       addList: {//添加数据组
-        ruleName: "",
+        speak: "",
         sogou: "",
         duer:"",
         wenwen:"",
         naturali:""
       },
       searchItem:{//搜索数据组
-        ruleName:""
+        speak:""
       },
       addRules:{
-        ruleName:[{ required: true, message: '请输入规则名称', trigger: 'change' }],
+        speak:[{ required: true, message: '请输入规则名称', trigger: 'change' }],
         sogou:[{ required: true, message: '请输入sogou引擎优先级', trigger: 'change' }],
         duer:[{ required: true, message: '请输入duer引擎优先级', trigger: 'change' }],
         wenwen:[{ required: true, message: '请输入wenwen引擎优先级', trigger: 'change' }],
         naturali:[{ required: true, message: '请输入naturali引擎优先级', trigger: 'change' }]  
       },
       editRules:{
-        ruleName:[{ required: true, message: '请输入规则名称', trigger: 'blur' }],
+        speak:[{ required: true, message: '请输入规则名称', trigger: 'blur' }],
         sogou:[{ required: true, message: '请输入sogou引擎优先级', trigger: 'blur' }],
         duer:[{ required: true, message: '请输入duer引擎优先级', trigger: 'blur' }],
         wenwen:[{ required: true, message: '请输入wenwen引擎优先级', trigger: 'blur' }],
@@ -176,6 +188,24 @@ export default {
     this.getList();
   },
   methods: {
+    formTime(row, column){
+      var timer = row.createTime
+      var date = new Date(timer)
+      return date.getFullYear()+'-'+
+        checkTime(date.getMonth()+1)+'-'+
+        checkTime(date.getDate())+' '+
+        checkTime(date.getHours())+':'+
+        checkTime(date.getMinutes())
+    },
+    formTime2(row, column){
+      var timer = row.updateTime
+      var date = new Date(timer)
+      return date.getFullYear()+'-'+
+        checkTime(date.getMonth()+1)+'-'+
+        checkTime(date.getDate())+' '+
+        checkTime(date.getHours())+':'+
+        checkTime(date.getMinutes())
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.currentPage = 1
@@ -198,10 +228,10 @@ export default {
       this.getList();
     },
     handleEdit(index, row) {
-      let updData = JSON.parse(row.ruleResult);
+      let updData = JSON.parse(row.answer);
       this.currentItem = {
         id:row.id,
-        ruleName: row.ruleName,
+        speak: row.speak,
         sogou: updData.sogou,
         duer: updData.duer,
         wenwen: updData.wenwen,
@@ -262,7 +292,7 @@ export default {
     editHandleConfirm(currentItem) {
       let updParams = {
         id:this.currentItem.id,
-        ruleName:this.currentItem.ruleName,
+        ruleName:this.currentItem.speak,
         sogou:this.currentItem.sogou,
         wenwen:this.currentItem.wenwen,
         duer:this.currentItem.duer,
@@ -301,7 +331,7 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        ruleName:this.addList.ruleName,
+        ruleName:this.addList.speak,
         sogou:this.addList.sogou,
         wenwen:this.addList.wenwen,
         duer:this.addList.duer,
@@ -360,7 +390,7 @@ export default {
       let params = {
         pgstr:this.pageSize,
         pcstr:this.currentPage,
-        condition:this.searchItem.ruleName
+        condition:this.searchItem.speak
       }
       ruleList(params).then(res => {
         this.listLoading = false
