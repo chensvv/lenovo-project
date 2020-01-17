@@ -419,7 +419,7 @@ export default {
             let date = new Date(row.it)
             let time = checkTime(date.getFullYear())+'-'+checkTime((date.getMonth()+1))+'-'+checkTime(date.getDate())
             
-            let openUrl = downUrl.proURL + '/lasf-mgr/servlog/downLoad?ixid='+row.ixid+'&svr='+row.svr+'&it='+time
+            let openUrl = downUrl.proURL + '/lasf-mgr/servlog/downLoad?ixid='+row.ixid+'&svr='+row.svr+'&uip='+time
             window.open(openUrl)
             // logDown(dParams).then(res=>{
             //     if(res.data.code == '400'){

@@ -19,6 +19,7 @@
 <script>
 
 import qs from 'qs'
+import {userAdd} from '@/config/adminApi';
 
 export default {
     data(){
@@ -29,23 +30,7 @@ export default {
     },
     methods: {
         onSubmit(){
-
-            var url = "http://api.baxiaobu.com/index.php/home/v1/register";
-
-            var params = {
-                username:this.username,
-                pwd:this.password
-            }
-
-            params = qs.stringify(params);
-
-            console.log(params);
-
-            this.$axios.post(url, params).then((res)=>{
-                console.log(res);
-                this.$router.push('/login')
-            })
-
+            
         }
     }  
 }

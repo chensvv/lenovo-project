@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import {login} from '@/config/adminApi'
+import {login,userAdd} from '@/config/adminApi'
 import qs from 'qs' 
 import axios from 'axios'
 export default {
@@ -113,9 +113,29 @@ export default {
             });
         },
         regSubmit(regForm){
+            let regParams={
+                userName:this.regForm.username,
+                password:this.regForm.password,
+            }
             this.$refs[regForm].validate((valid) => {
                 if(valid){
-                    alert('submit!');
+                    userAdd(regParams).then(res=>{
+                        if(res.data.code == 200){
+                            this.$message({
+                                message:'注册成功，请登录',
+                                type:"success",
+                                duration:1000
+                            });
+                            this.loginShow = !this.loginShow
+                        }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
+                        }
+                        
+                    })
                 }else{
                     return false
                 }

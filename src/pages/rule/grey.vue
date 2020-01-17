@@ -51,7 +51,7 @@
                 <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="'grey:funupdaate'">编辑</el-button>
+                  v-has="'grey:funupdate'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
