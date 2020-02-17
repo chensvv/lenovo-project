@@ -56,7 +56,7 @@
         <el-table-column label="客户端ID" prop="did" align="center" sortable></el-table-column>
         <el-table-column label="客户端版本" prop="ver" align="center" sortable></el-table-column>
         <el-table-column label="插入时间" prop="it" align="center" sortable :formatter="formTime"></el-table-column>
-        <el-table-column label="原始日志" align="center">
+        <el-table-column label="原始日志" align="center" v-if="isshow">
           <template slot-scope="scope">
             <span slot @click="handleInfo(scope.$index, scope.row)" class="cur-info" v-has="'asr:rawview'">
               <i class="el-icon-search icon"></i>
@@ -93,6 +93,7 @@ export default {
   data() {
     return {
       list: [],
+      perList:[],
       infoList:[],
       searchItem:{//搜索数据组
         uid:"",
@@ -124,13 +125,23 @@ export default {
       seaBtnLoading:false,
       editVisible:false,
       listLoading:true,
+      isshow:true,
       startVal:0,
       endVal:0,
       bigId:1
     };
   },
   created() {
-    this.getList();
+      let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+      perArr.map(t=>{
+          this.perList.push(Object.values(t).join())
+      })
+      this.getList();
+  },
+  mounted(){
+      if(this.perList.indexOf('asr:rawview') == -1){
+          this.isshow = false
+      }
   },
   methods: {
     resetForm(formName) {

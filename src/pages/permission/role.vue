@@ -31,7 +31,7 @@
                 align="center"
                 :formatter="formState">
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" v-if="isshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
@@ -119,6 +119,7 @@ export default {
   data() {
     return {
       list: [],
+      perList:[],
       currentItem: {//编辑数据组
         id:"",
         roleCode:"",
@@ -157,11 +158,20 @@ export default {
       addBtnLoading:false,
       editBtnLoading:false,
       listLoading:false,
-      
+      isshow:true
     };
   },
   created() {
-    this.getList();
+      let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+      perArr.map(t=>{
+          this.perList.push(Object.values(t).join())
+      })
+      this.getList();
+  },
+  mounted(){
+      if(this.perList.indexOf('role:update') == -1 && this.perList.indexOf('role:del') == -1){
+          this.isshow = false
+      }
   },
   methods: {
     resetForm(formName) {

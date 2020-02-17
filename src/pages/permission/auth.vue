@@ -30,10 +30,22 @@
                 <el-table-column
                     label="密码"
                     prop="password"
-                    align="center"
-                    :formatter="formState">
+                    align="center">
                 </el-table-column>
-                <el-table-column label="操作" align="center">
+                <el-table-column
+                    label="审批人"
+                    prop="manager"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="状态"
+                    prop="status"
+                    align="center">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.status == 0 ? '未审核': '已审核'}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作" align="center" width="230" v-if="isshow">
                     <template slot-scope="scope">
                       <el-button
                         size="mini"
@@ -120,6 +132,7 @@ export default {
     data() {
         return {
             list: [],
+            perList:[],
             currentItem: {//编辑数据组
                 id:"",
                 userName: "",
@@ -135,6 +148,9 @@ export default {
             roleIds:{},
             roleData:[],
             multipleSelection:[],
+            seleId:'',
+            activitid:'',
+            user_Id:'',
             addRules:{
                 userName:[{ required: true, message: '请输入用户名', trigger: 'change' }],
                 password:[{ required: true, message: '请输入密码', trigger: 'change' }]
@@ -155,11 +171,21 @@ export default {
             addBtnLoading:false,
             editBtnLoading:false,
             roleBtnLoading:false,
-            listLoading:true
+            listLoading:true,
+            isshow:true
         };
     },
     created() {
+        let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+        perArr.map(t=>{
+            this.perList.push(Object.values(t).join())
+        })
         this.getList();
+    },
+    mounted(){
+        if(this.perList.indexOf('user:editRole') == -1 && this.perList.indexOf('user:update') == -1 && this.perList.indexOf('user:del') == -1){
+            this.isshow = false
+        }
     },
     methods: {
         resetForm(formName) {
@@ -184,7 +210,6 @@ export default {
             this.getList();
         },
         handleEdit(index, row) {
-            console.log(index, row);
             this.editVisible = true;
             this.currentItem = {
                 id:row.id,
@@ -321,6 +346,8 @@ export default {
         },
         handleRole(index,row){
             this.seleId = row.id
+            this.activitid = row.activitid
+            this.user_Id = row.userId
              let roleParams = {
                 id:this.seleId
             }
@@ -348,7 +375,9 @@ export default {
         roleHandleConfirm(){
             let Saveparams = {
                 id:this.seleId,
-                ids:this.multipleSelection
+                ids:this.multipleSelection,
+                roleId:this.activitid,
+                userId:this.user_Id
             }
             this.roleBtnLoading = true
             userRoleSave(Saveparams).then(res=>{
@@ -380,7 +409,8 @@ export default {
             let params = {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
-                userName:this.searchItem.userName
+                userName:this.searchItem.userName,
+                roleName:window.sessionStorage.getItem('username')
             }
             userList(params).then(res => {
                 this.listLoading = false

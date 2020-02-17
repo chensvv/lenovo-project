@@ -46,7 +46,7 @@
               align="center"
               :formatter="formTime">
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作" align="center" v-if="isshow">
               <template slot-scope="scope">
                 <el-button
                   size="mini"
@@ -138,6 +138,7 @@ export default {
   data() {
     return {
       list: [],
+      perList:[],
       currentItem: {//编辑数据组
         id:"",
         code: "",
@@ -178,12 +179,21 @@ export default {
       addBtnLoading:false,
       editBtnLoading:false,
       optBtnLoading:false,
-      listLoading:true
-      
+      listLoading:true,
+      isshow:true
     };
   },
   created() {
-    this.getList();
+      let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+      perArr.map(t=>{
+          this.perList.push(Object.values(t).join())
+      })
+      this.getList();
+  },
+  mounted(){
+      if(this.perList.indexOf('grey:funupdate') == -1 && this.perList.indexOf('grey:fundel') == -1 && this.perList.indexOf('grey:fun') == -1){
+          this.isshow = false
+      }
   },
   methods: {
     formTime(row, column){
@@ -406,7 +416,7 @@ export default {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
         n:this.searchItem.name,
-        c:this.searchItem.code
+        c:this.searchItem.code,
       }
       greyList(params).then(res => {
         this.listLoading = false

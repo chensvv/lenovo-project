@@ -41,7 +41,7 @@
               align="center"
               :formatter="formTime">
           </el-table-column>
-          <el-table-column label="操作" align="center">
+          <el-table-column label="操作" align="center" v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
@@ -98,6 +98,7 @@ export default {
   data() {
     return {
       list: [],
+      perList:[],
       currentItem: {//编辑数据组
         id:"",
         unit: "",
@@ -125,12 +126,22 @@ export default {
       addBtnLoading:false,
       editBtnLoading:false,
       listLoading:true,
-      AIMLBtnLoading:false
+      AIMLBtnLoading:false,
+      isshow:true
     };
   },
   created() {
-    this.getList();
-  },
+        let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+        perArr.map(t=>{
+            this.perList.push(Object.values(t).join())
+        })
+        this.getList();
+    },
+    mounted(){
+        if(this.perList.indexOf('unit:update') == -1 && this.perList.indexOf('unit:del') == -1){
+            this.isshow = false
+        }
+    },
   methods: {
     formTime(row, column){
       var timer = row.updateTime

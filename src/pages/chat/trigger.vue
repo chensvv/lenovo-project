@@ -114,7 +114,7 @@
                  align="center"
                 :formatter="formTime">
             </el-table-column> -->
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" v-if="btnshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
@@ -155,6 +155,7 @@ export default {
   data() {
     return {
       list: [],
+      perList:[],
       zipLists:[],
       searchItem:{//搜索数据组
         dtp:"",
@@ -178,11 +179,21 @@ export default {
       listBtnLoading:false,
       zipVisible:false,
       listLoading:true,
-      isshow:false
+      isshow:false,
+      btnshow:true
     };
   },
   created() {
+    let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+    perArr.map(t=>{
+      this.perList.push(Object.values(t).join())
+    })
     this.getList();
+  },
+  mounted(){
+    if(this.perList.indexOf('trigger:download') == -1){
+      this.btnshow = false
+    }
   },
   methods: {
     handleDown(index,row){

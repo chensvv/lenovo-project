@@ -105,7 +105,7 @@
                       </el-tooltip>
                   </template>
             </el-table-column>
-            <el-table-column label="操作" align="center" width="130">
+            <el-table-column label="操作" align="center" width="130" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -235,126 +235,34 @@ export default {
                 refreshTime:"",
                 putTime:""
             },
-            // columns: [
-            //     {
-            //         prop: "id",
-            //         label: "ID",
-            //         align: "center"
-            //     },
-            //     {
-            //         prop: "it",
-            //         label: "IT",
-            //         align: "center",
-            //         render: (h, params)=>{
-            //             var timer = params.row.it
-            //             var date = new Date(timer)
-            //             return h('span',
-            //             date.getFullYear()+'-'+
-            //             checkTime(date.getMonth()+1)+'-'+
-            //             checkTime(date.getDate())+' '+
-            //             checkTime(date.getMonth())+':'+
-            //             checkTime(date.getMinutes())+':'+
-            //             checkTime(date.getSeconds()))
-            //         }
-            //     },
-            //     {
-            //         prop: "ixid",
-            //         label: "IXID",
-            //         align: "center"
-            //     },
-            //     {
-            //         prop: "did",
-            //         label: "DID",
-            //         align: "center"
-            //     },
-            //     {
-            //         prop: "codec",
-            //         label: "CODEC",
-            //         align: "center",
-            //         render: (h, params) => {
-            //             return h('span', { // 组件的props
-            //             }, params.row.codec == '7' ? 'Speex 16k' : 
-            //                 params.row.codec == '3' ? 'Speex 8k' : 
-            //                 params.row.codec == '5' ? 'Pcm 16k' : 
-            //                 params.row.codec == '1' ? 'Pcm 8k' : 
-            //                 params.row.codec == '4' ? 'Bv32 16k' : 
-            //                 params.row.codec == '0' ? 'Bv32 8k' : '未知')
-            //         }
-            //     },
-            //     {
-            //         prop: "uid",
-            //         label: "UID",
-            //         align: "center"
-            //     },
-            //     {
-            //         prop: "dtp",
-            //         label: "DTP",
-            //         align: "center",
-            //     },
-            //     {
-            //         prop: "ver",
-            //         label: "VER",
-            //         align: "center",
-            //     },
-            //     {
-            //         prop: "vdm",
-            //         label: "VDM",
-            //         align: "center",
-            //     },
-            //     {
-            //         prop: "app",
-            //         label: "APP",
-            //         align: "center",
-            //     },
-            //     {
-            //         prop: "stat",
-            //         label: "STAT",
-            //         align: "center",
-            //         render: (h, params) => {
-            //             return h('el-tag', {
-            //                 props: {type: params.row.stat === 'success' ? 'success' : 'danger'} // 组件的props
-            //             }, params.row.stat === 'success' ? 'S' : 'F')
-            //         }
-            //     },
-            //     {
-            //         prop: "l1c",
-            //         label: "L1C",
-            //         align: "center",
-            //     },
-            // ],
-            // options: {
-            //     stripe: false, // 是否为斑马纹 table
-            //     loading: false, // 是否添加表格loading加载动画
-            //     highlightCurrentRow: false, // 是否支持当前行高亮显示
-            //     mutiSelect: false, // 是否支持列表项选中功能
-            //     border:false     //是否显示纵向边框
-            // },
-            // operates: {
-            //     // show: false,
-            //     width:120,
-            //     list: [
-            //         {
-            //             label:'详情',
-            //             type: 'primary',
-            //             show: true,
-            //             disabled: false,
-            //             method: (index, row) => {
-            //                 this.rowClick(index, row)
-            //             }
-            //         },
-            //         {
-            //             type: 'info',
-            //             show: true,
-            //             icon: 'el-icon-download',
-            //             disabled: false,
-            //             method: (index, row) => {
-            //                 this.handleDown(index, row)
-            //             }
-            //         }
-            //     ]
-            // }, // 列操作按钮
             list:[],
-            infoList:[],
+            perList:[],
+            infoList:{
+                id:"",
+                did:"",
+                dtp:"",
+                uid:"",
+                uip:"",
+                ver:"",
+                stat:"",
+                vdm:"",
+                pidx:"",
+                ixid:"",
+                asrd:"",
+                over:"",
+                dev:"",
+                alld:"",
+                cprv:"",
+                svr:"",
+                egt:"",
+                cnwp:"",
+                dsc:"",
+                it:"",
+                nlpd:"",
+                sppd:"",
+                l1c:"",
+                l2c:""
+            },
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
@@ -367,9 +275,17 @@ export default {
             endVal:0,
         }
     },
-    created(){
+    created() {
+        let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+        perArr.map(t=>{
+            this.perList.push(Object.values(t).join())
+        })
         this.getList();
-        
+    },
+    mounted(){
+        if(this.perList.indexOf('servlog:detail') == -1 && this.perList.indexOf('servlog:downLoad') == -1){
+            this.isshow = false
+        }
     },
     methods:{
         formTime(row, column){
@@ -412,7 +328,32 @@ export default {
                 id:row.id
             }
             logInfo(iParams).then(res=>{
-                this.infoList = res.data.data
+                this.infoList = {
+                    id:res.data.data.id,
+                    did:res.data.data.did,
+                    dtp:res.data.data.dtp,
+                    uid:res.data.data.uid,
+                    uip:res.data.data.uip,
+                    ver:res.data.data.ver,
+                    stat:res.data.data.stat,
+                    vdm:res.data.data.vdm,
+                    pidx:res.data.data.pidx,
+                    ixid:res.data.data.ixid,
+                    asrd:res.data.data.asrd,
+                    over:res.data.data.over,
+                    dev:res.data.data.dev,
+                    alld:res.data.data.alld,
+                    cprv:res.data.data.cprv,
+                    svr:res.data.data.svr,
+                    egt:res.data.data.egt,
+                    cnwp:res.data.data.cnwp,
+                    dsc:res.data.data.dsc,
+                    it:new Date(res.data.data.it).getFullYear()+'-'+checkTime(new Date(res.data.data.it).getMonth()+1)+'-'+checkTime(new Date(res.data.data.it).getDate())+' '+checkTime(new Date(res.data.data.it).getHours())+':'+checkTime(new Date(res.data.data.it).getMinutes()),
+                    nlpd:res.data.data.nlpd,
+                    sppd:res.data.data.sppd,
+                    l1c:res.data.data.l1c,
+                    l2c:res.data.data.l2c
+                }
             })
         },
         handleDown(index,row){

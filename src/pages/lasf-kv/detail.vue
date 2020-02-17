@@ -63,7 +63,7 @@
                     prop="displayUpdateTime"
                     align="center">
                 </el-table-column>
-                <el-table-column label="操作" align="center" width="200">
+                <el-table-column label="操作" align="center" width="200" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -124,6 +124,7 @@ export default {
         return {
             appId:"",
             list: [],
+            perList:[],
             skillDetail:[],
             currentItem: {//编辑数据组
                 functionId:"",
@@ -151,13 +152,22 @@ export default {
             seaBtnLoading:false,
             addBtnLoading:false,
             editBtnLoading:false,
-            listLoading:true
-            
+            listLoading:true,
+            isshow:true
         };
     },
     created() {
         this.appId = this.$route.query.appId
-        this.getList();
+      let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+      perArr.map(t=>{
+          this.perList.push(Object.values(t).join())
+      })
+      this.getList();
+    },
+    mounted(){
+        if(this.perList.indexOf('skill:functionupdate') == -1 && this.perList.indexOf('skill:functiondelete') == -1 && this.perList.indexOf('skill:speaklist') == -1){
+            this.isshow = false
+        }
     },
     methods: {
         resetForm(formName) {

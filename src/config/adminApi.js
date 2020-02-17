@@ -111,3 +111,43 @@ export function authList (data) {
     data: data
   })
 }
+
+export function akskList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/userinfo/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function akskDetail (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/userinfo/detail',
+    method: 'post',
+    data: data
+  })
+}
+
+export function modinfy (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/userinfo/modify',
+    method: 'post',
+    data: data
+  })
+}
+
+export function activitiList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/activiti/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function activitiPass (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/activiti/pass',
+    method: 'post',
+    data: data
+  })
+}

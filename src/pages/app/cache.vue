@@ -86,7 +86,7 @@
                  align="center"
                 :formatter="formTime">
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" v-if="isshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
@@ -141,6 +141,7 @@ export default {
                 alias:""
             },
             list:[],
+            perList:[],
             addRules:{
                 name:[{ required: true, message: '请输入应用名', trigger: 'change' }],
                 alias:[{ required: true, message: '请输入别名', trigger: 'change' }],
@@ -153,11 +154,21 @@ export default {
             btnLoading:false,
             addVisible:false,
             addBtnLoading:false,
-            listLoading:true
+            listLoading:true,
+            isshow:true
         }
     },
-    created(){
+    created() {
+        let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+        perArr.map(t=>{
+            this.perList.push(Object.values(t).join())
+        })
         this.getList();
+    },
+    mounted(){
+        if(this.perList.indexOf('app:cachedel') == -1){
+            this.isshow = false
+        }
     },
     methods:{
         getList() {

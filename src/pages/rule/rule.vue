@@ -35,6 +35,17 @@
                 align="center">
             </el-table-column>
             <el-table-column
+                label="状态"
+                prop="status"
+                align="center"
+                v-if="isshow">
+                <template slot-scope="scope">
+                    <span  v-has="'user:data'">{{scope.row.status == 0 ? '已审批' : 
+                              scope.row.status == 1 ? '未审批' : 
+                              scope.row.status == 2 ? '申请拒绝' : ''}}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
               label="添加时间"
               prop="createTime"
               align="center"
@@ -46,7 +57,7 @@
               align="center"
               :formatter="formTime2">
           </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" v-if="btnshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
@@ -138,6 +149,7 @@ export default {
   data() {
     return {
       list: [],
+      perList:[],
       currentItem: {//编辑数据组
         id:"",
         speak: "",
@@ -181,11 +193,25 @@ export default {
       addBtnLoading:false,
       editBtnLoading:false,
       AIMLBtnLoading:false,
-      listLoading:true
+      listLoading:true,
+      isshow:true,
+      btnshow
     };
   },
   created() {
+    let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+    perArr.map(t=>{
+      this.perList.push(Object.values(t).join())
+    })
     this.getList();
+  },
+  mounted(){
+    if(this.perList.indexOf('user:data') == -1){
+      this.isshow = false
+    }
+    if(this.perList.indexOf('rule:update') == -1 && this.perList.indexOf('rule:delete') == -1){
+      this.btnshow = false
+    }
   },
   methods: {
     formTime(row, column){

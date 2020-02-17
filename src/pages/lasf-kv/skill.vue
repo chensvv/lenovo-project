@@ -53,7 +53,7 @@
                     prop="displayUpdateTime"
                     align="center">
                 </el-table-column>
-                <el-table-column label="操作" align="center" width="200">
+                <el-table-column label="操作" align="center" width="200" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -120,6 +120,7 @@ export default {
     data() {
         return {
             list: [],
+            perList:[],
             currentItem: {//编辑数据组
                 id:"",
                 appName:""
@@ -132,88 +133,6 @@ export default {
             searchItem:{//搜索数据组
                 appName:"",
             },
-            columns: [
-                {
-                    prop: "appName",
-                    label: "应用名称",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "inc",
-                    label: "技能数",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "inc",
-                    label: "调用次数",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "inc",
-                    label: "调用用户数",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "inc",
-                    label: "失败次数",
-                    align: "center",
-                    hasSort:true
-                },
-                {
-                    prop: "displayUpdateTime",
-                    label: "修改时间",
-                    align: "center",
-                    hasSort:true
-                }
-            ],
-            options: {
-                stripe: false, // 是否为斑马纹 table
-                loading: false, // 是否添加表格loading加载动画
-                highlightCurrentRow: false, // 是否支持当前行高亮显示
-                mutiSelect: false, // 是否支持列表项选中功能
-                border:false     //是否显示纵向边框
-            },
-            operates: {
-                width: 200,
-                show: false,
-                list: [
-                    {
-                        id: "1",
-                        label: "编辑",
-                        show: true,
-                        plain: true,
-                        disabled: false,
-                        method: (index, row) => {
-                            this.handleEdit(index, row);
-                        }
-                    },
-                    {
-                        id: "2",
-                        label: "删除",
-                        type:"danger",
-                        show: true,
-                        plain: false,
-                        disabled: false,
-                        method: (index, row) => {
-                        this.handleDel(index, row);
-                        }
-                    },
-                    {
-                        id: "3",
-                        label: "详情",
-                        show: true,
-                        plain: false,
-                        disabled: false,
-                        method: (index, row) => {
-                        this.handleInfo(index, row);
-                        }
-                    }
-                ]
-            }, // 列操作按钮
             addRules:{
                 appName:[{ required: true, message: '请输入应用名称', trigger: 'change' }],
                 appPackageName:[{ required: true, message: '请输入应用包名', trigger: 'change' }],
@@ -232,11 +151,21 @@ export default {
             seaBtnLoading:false,
             addBtnLoading:false,
             editBtnLoading:false,
-            listLoading:true
+            listLoading:true,
+            isshow:true
         };
     },
     created() {
+        let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+        perArr.map(t=>{
+            this.perList.push(Object.values(t).join())
+        })
         this.getList();
+    },
+    mounted(){
+        if(this.perList.indexOf('skill:appupdate') == -1 && this.perList.indexOf('skill:appdelete') == -1 && this.perList.indexOf('skill:appdetail') == -1){
+            this.isshow = false
+        }
     },
     methods: {
         resetForm(searchItem) {

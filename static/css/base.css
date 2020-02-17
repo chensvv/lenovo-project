@@ -250,3 +250,28 @@
 .zip_box{
   padding-left: 20px;
 }
+.workflow .el-form-item__label{
+  padding: 0 7px 0 0;
+}
+.workflow .el-form-item__content{
+  width: 125px;
+}
+.workflow .el-form--inline .el-form-item{
+  margin-right: 5px;
+}
+.workflow .work .el-form-item__content{
+  width: 105px;
+}
+.workflow .work .el-button+.el-button{
+  margin-left: 5px;
+}
+.workflow .el-table--border td:first-child .cell,
+.workflow .el-table--border th:first-child .cell,
+.workflow .el-table .cell,
+.workflow .el-table th div{
+  padding-left: 0;
+}
+.workflow .el-table .cell,
+.workflow .el-table th div{
+  padding-right: 0;
+}

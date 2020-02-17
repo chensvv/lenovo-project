@@ -49,7 +49,7 @@
                 prop="displayUpdateTime"
                   align="center">
             </el-table-column>
-            <el-table-column label="操作" align="center" width="200">
+            <el-table-column label="操作" align="center" width="200" v-if="isshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
@@ -133,6 +133,7 @@ export default {
   data() {
     return {
       list: [],
+      perList:[],
       appId:"",
       functionId:"",
       skillDetail:{
@@ -175,14 +176,24 @@ export default {
       editBtnLoading:false,
       relBtnLoading:false,
       strBtnLoading:false,
-      listLoading:true
+      listLoading:true,
+      isshow:true
     };
   },
   created() {
-        this.appId = this.$route.query.appId
-        this.functionId = this.$route.query.functionId
-        this.getList();
-  },
+      this.appId = this.$route.query.appId
+      this.functionId = this.$route.query.functionId
+      let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+      perArr.map(t=>{
+          this.perList.push(Object.values(t).join())
+      })
+      this.getList();
+    },
+    mounted(){
+        if(this.perList.indexOf('skill:versionupdate') == -1 && this.perList.indexOf('skill:versiondelete') == -1 && this.perList.indexOf('skill:versiondetail') == -1){
+            this.isshow = false
+        }
+    },
   methods: {
     formVal(row,column){
         return row.state === true ? 'true' : 'false'

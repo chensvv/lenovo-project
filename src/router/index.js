@@ -190,6 +190,11 @@ const router = new Router({
           meta: {title: '用户管理'}
         },
         {
+          path: '/userinfo/list',
+          component: () => import('@/pages/permission/aksk'),
+          meta: {title: '用户管理'}
+        },
+        {
           path: '/home/userinfo',
           component: () => import('@/pages/user/userInfo'),
           meta: {title: '详细信息'}
@@ -292,7 +297,7 @@ router.beforeEach((to, from, next) => {
   if (username) {
     next()
   } else {
-    if (to.path == '/login') {
+    if (to.path == '/login' || to.path == '/home/index') {
       next()
     } else {
       next('/login')

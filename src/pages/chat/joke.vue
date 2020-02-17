@@ -47,7 +47,7 @@
                     width="200"
                     :formatter="formTime">
                 </el-table-column>
-                <el-table-column label="操作" align="center" width="250">
+                <el-table-column label="操作" align="center" width="250" v-if="isshow">
                     <template slot-scope="scope">
                       <el-button
                         size="mini"
@@ -121,6 +121,7 @@ export default {
         con:""
       },
       list:[],
+      perList:[],
       editRules:{
         con:[{ required: true, message: '请输入内容', trigger: 'blur' }]
       },
@@ -138,12 +139,22 @@ export default {
       editBtnLoading:false,
       addBtnLoading:false,
       listLoading:true,
-      checkLoading:false
+      checkLoading:false,
+      isshow:true
     }
   },
-  created(){
-    this.getList();
-  },
+  created() {
+      let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+      perArr.map(t=>{
+          this.perList.push(Object.values(t).join())
+      })
+      this.getList();
+    },
+    mounted(){
+        if(this.perList.indexOf('joke:veri') == -1 && this.perList.indexOf('joke:update') == -1 && this.perList.indexOf('joke:del') == -1){
+            this.isshow = false
+        }
+    },
   methods:{
     formTime(row, column){
       var timer = row.it

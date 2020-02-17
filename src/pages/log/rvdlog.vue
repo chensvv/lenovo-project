@@ -47,7 +47,7 @@
               </el-table-column>
               <el-table-column label="设备文本" prop="tai" align="center" sortable>
               </el-table-column>
-              <el-table-column label="音频文件" align="center">
+              <el-table-column label="音频文件" align="center" v-if="isshow">
                 <template slot-scope="scope">
                     <span 
                     slot 
@@ -80,6 +80,7 @@ export default {
   data() {
     return {
       list: [],
+      perList:[],
       searchItem:{//搜索数据组
         dtp:"",
         uip:"",
@@ -108,12 +109,22 @@ export default {
       totalCount:1,     // 总条数
       seaBtnLoading:false,
       listLoading:false,
+      isshow:true,
       startVal:0,
       endVal:0
     };
   },
   created() {
-    this.getList();
+      let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+      perArr.map(t=>{
+          this.perList.push(Object.values(t).join())
+      })
+      this.getList();
+  },
+  mounted(){
+      if(this.perList.indexOf('asr:log:download') == -1){
+          this.isshow = false
+      }
   },
   methods: {
     resetForm(formName) {
