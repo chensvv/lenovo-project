@@ -368,7 +368,7 @@ export default {
                 this.fileBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
-                    message:'上传成功',
+                    message:res.data.msg,
                     type:"success",
                     duration:1000
                 });

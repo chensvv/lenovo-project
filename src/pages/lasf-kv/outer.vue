@@ -57,16 +57,17 @@
                 </el-table-column>
                 <el-table-column
                     label="用户指令"
-                    prop="asrres"
+                    prop="userText"
                     align="center">
                 </el-table-column>
                 <el-table-column
                     label="解析领域"
-                    prop="domain">
+                    prop="nlpDomain"
+                    align="center">
                 </el-table-column>
                 <el-table-column
                     label="响应状态"
-                    prop="respstatus"
+                    prop="responseStatus"
                     align="center">
                 </el-table-column>
                 <el-table-column
@@ -76,7 +77,7 @@
                 </el-table-column>
                 <el-table-column
                     label="接口名称"
-                    prop="protname"
+                    prop="interfaceUrl"
                     align="center">
                 </el-table-column>
                 <el-table-column

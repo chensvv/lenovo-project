@@ -33,11 +33,6 @@
                     align="center">
                 </el-table-column>
                 <el-table-column
-                    label="审批人"
-                    prop="manager"
-                    align="center">
-                </el-table-column>
-                <el-table-column
                     label="状态"
                     prop="status"
                     align="center">
@@ -149,8 +144,6 @@ export default {
             roleData:[],
             multipleSelection:[],
             seleId:'',
-            activitid:'',
-            user_Id:'',
             addRules:{
                 userName:[{ required: true, message: '请输入用户名', trigger: 'change' }],
                 password:[{ required: true, message: '请输入密码', trigger: 'change' }]
@@ -346,8 +339,6 @@ export default {
         },
         handleRole(index,row){
             this.seleId = row.id
-            this.activitid = row.activitid
-            this.user_Id = row.userId
              let roleParams = {
                 id:this.seleId
             }
@@ -376,8 +367,6 @@ export default {
             let Saveparams = {
                 id:this.seleId,
                 ids:this.multipleSelection,
-                roleId:this.activitid,
-                userId:this.user_Id
             }
             this.roleBtnLoading = true
             userRoleSave(Saveparams).then(res=>{

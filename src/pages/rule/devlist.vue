@@ -416,7 +416,7 @@ export default {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
         q:this.searchItem.name,
-        ex:this.searchItem.code
+        ex:this.searchItem.inc
       }
       devList(params).then(res => {
         this.listLoading = false
