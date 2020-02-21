@@ -79,7 +79,10 @@
                         <el-input type="text" v-model="infoList.answer" auto-complete="off" readonly></el-input>
                     </el-form-item>
                     <el-form-item label="所属excel文件">
-                        <el-input type="text" v-model="infoList.answer" auto-complete="off" readonly></el-input>
+                        <el-input type="text" v-model="infoList.excel" auto-complete="off" readonly></el-input>
+                    </el-form-item>
+                    <el-form-item label="操作类型">
+                        <el-input type="text" v-model="infoList.type" auto-complete="off" readonly></el-input>
                     </el-form-item>
                     <el-form-item label="创建时间">
                         <el-input type="text" v-model="infoList.createTime" auto-complete="off" readonly></el-input>
@@ -118,6 +121,7 @@ export default {
                 username:'',
                 speak:'',
                 answer:'',
+                type:'',
                 createTime:'',
                 updateTime:'',
                 taskid:''
@@ -162,6 +166,7 @@ export default {
                 username:row.username,
                 speak:row.speak,
                 answer:row.answer,
+                type:row.type,
                 createTime:new Date(row.createTime).getFullYear()+'-'+checkTime(new Date(row.createTime).getMonth()+1)+'-'+checkTime(new Date(row.createTime).getDate())+' '+checkTime(new Date(row.createTime).getHours())+':'+checkTime(new Date(row.createTime).getMinutes()),
                 updateTime:new Date(row.updateTime).getFullYear()+'-'+checkTime(new Date(row.updateTime).getMonth()+1)+'-'+checkTime(new Date(row.updateTime).getDate())+' '+checkTime(new Date(row.updateTime).getHours())+':'+checkTime(new Date(row.updateTime).getMinutes()),
                 taskid:row.taskid

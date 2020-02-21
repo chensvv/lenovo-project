@@ -195,7 +195,7 @@ export default {
       AIMLBtnLoading:false,
       listLoading:true,
       isshow:true,
-      btnshow
+      btnshow:true
     };
   },
   created() {
