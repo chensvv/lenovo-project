@@ -271,6 +271,7 @@ export default {
             btnLoading:false,
             infoVisible:false,
             listLoading:true,
+            isshow:true,
             startVal:0,
             endVal:0,
         }
