@@ -10,17 +10,14 @@
             <el-form-item label="用户ID" prop="userId">
                 <el-input v-model.trim="searchItem.userId" clearable></el-input>
             </el-form-item>
-            <el-form-item label="用户指令" prop="domain">
-                <el-input v-model.trim="searchItem.domain" clearable></el-input>
+            <el-form-item label="用户指令" prop="asrres">
+                <el-input v-model.trim="searchItem.asrres" clearable></el-input>
             </el-form-item>
             <el-form-item label="解析领域" prop="domain">
                 <el-input v-model.trim="searchItem.domain" clearable></el-input>
             </el-form-item>
             <el-form-item label="响应状态" prop="respstatus">
-                <el-select v-model="searchItem.respstatus" placeholder="--" clearable>
-                    <el-option label="联想" value="联想"></el-option>
-                    <el-option label="百度" value="百度"></el-option>
-                </el-select>
+                <el-input v-model.trim="searchItem.respstatus" clearable></el-input>
             </el-form-item>
             <el-form-item label="开始时间" prop="refreshTime" class="width140">
                 <el-date-picker 
@@ -111,13 +108,13 @@
                 <el-input type="text" v-model="infoList.uid" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="设备类型">
-                <el-input type="text" v-model="infoList.sblx" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.dtp" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="会话ID">
-                <el-input type="text" v-model="infoList.hhID" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.ixid" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="来源类型">
-                <el-input type="text" v-model="infoList.lylx" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.sourceType" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="请求内容">
                 <el-input type="textarea" v-model="infoList.content" auto-complete="off" readonly></el-input>
@@ -126,22 +123,22 @@
                 <el-input type="textarea" v-model="infoList.responseHeader" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="响应内容">
-                <el-input type="textarea" v-model="infoList.xynr" auto-complete="off" readonly></el-input>
+                <el-input type="textarea" v-model="infoList.responseContent" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="请求消耗时间">
-                <el-input type="text" v-model="infoList.qqxhsj" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.costTime" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="接口名称">
-                <el-input type="text" v-model="infoList.jkmc" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.interfaceName" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="接口路径">
-                <el-input type="text" v-model="infoList.jklj" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.interfaceUrl" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="响应状态">
-                <el-input type="text" v-model="infoList.xyzt" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.responseStatus" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="错误信息">
-                <el-input type="text" v-model="infoList.cwxx" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.errorMsg" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="三方名称">
                 <el-input type="text" v-model="infoList.outerType" auto-complete="off" readonly></el-input>
@@ -150,10 +147,10 @@
                 <el-input type="text" v-model="infoList.displayTime" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="解析领域">
-                <el-input type="text" v-model="infoList.jxly" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.nlpDomain" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="用户指令">
-                <el-input type="text" v-model="infoList.yhzl" auto-complete="off" readonly></el-input>
+                <el-input type="text" v-model="infoList.userText" auto-complete="off" readonly></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -174,7 +171,7 @@ export default {
             searchItem:{
                 userId:"",
                 domain:"",
-                domain:"",
+                asrres:"",
                 respstatus:"",
                 refreshTime:"",
                 putTime:""

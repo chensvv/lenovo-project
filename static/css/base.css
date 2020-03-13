@@ -275,3 +275,6 @@
 .workflow .el-table th div{
   padding-right: 0;
 }
+.workflow .el-pagination{
+  padding: 14px 0 0;
+}

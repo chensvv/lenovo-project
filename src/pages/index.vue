@@ -68,44 +68,140 @@
             ></el-pagination>
         </div>
         <el-dialog title="详情" :visible.sync="infoVisible" width="300" :before-close="handleClose">
-                <el-form :label-position="'left'" label-width="120px">
-                    <el-form-item label="用户名称">
-                        <el-input type="text" v-model="infoList.username" auto-complete="off" readonly></el-input>
-                    </el-form-item>
-                    <el-form-item label="说法">
-                        <el-input type="text" v-model="infoList.speak" auto-complete="off" readonly></el-input>
-                    </el-form-item>
-                    <el-form-item label="答案">
-                        <el-input type="text" v-model="infoList.answer" auto-complete="off" readonly></el-input>
-                    </el-form-item>
-                    <el-form-item label="所属excel文件">
-                        <el-input type="text" v-model="infoList.excel" auto-complete="off" readonly></el-input>
-                    </el-form-item>
-                    <el-form-item label="操作类型">
-                        <el-input type="text" v-model="infoList.type" auto-complete="off" readonly></el-input>
-                    </el-form-item>
-                    <el-form-item label="创建时间">
-                        <el-input type="text" v-model="infoList.createTime" auto-complete="off" readonly></el-input>
-                    </el-form-item>
-                    <el-form-item label="修改时间">
-                        <el-input type="text" v-model="infoList.updateTime" auto-complete="off" readonly></el-input>
-                    </el-form-item>
-                    <el-form-item label="流程id">
-                        <el-input type="text" v-model="infoList.taskid" auto-complete="off" readonly></el-input>
-                    </el-form-item>
-                </el-form>
-                <span slot="footer" class="dialog-footer">
-                    <el-button type="primary" @click="handlePass()">通过</el-button>
-                    <el-button type="primary" @click="handleBack()">退回</el-button>
-                    <el-button type="primary" @click="handleConfirm()">关闭</el-button>
-                </span>
-            </el-dialog>
+            <el-form :label-position="'left'" label-width="120px">
+                <el-form-item label="用户名称">
+                    <el-input type="text" v-model="infoList.username" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="说法">
+                    <el-input type="text" v-model="infoList.speak" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="答案">
+                    <el-input type="text" v-model="infoList.answer" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="所属excel文件">
+                    <el-input type="text" v-model="infoList.excel" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="result">
+                    <el-input type="text" v-model="infoList.result" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="操作类型">
+                    <el-input type="text" v-model="infoList.type" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="创建时间">
+                    <el-input type="text" v-model="infoList.createTime" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="修改时间">
+                    <el-input type="text" v-model="infoList.updateTime" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="流程id">
+                    <el-input type="text" v-model="infoList.taskid" auto-complete="off" readonly></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="handlePass()">通过</el-button>
+                <el-button type="primary" @click="handleBack()">退回</el-button>
+                <el-button type="primary" @click="handleConfirm()">关闭</el-button>
+            </span>
+        </el-dialog>
+        <div class="workflow" v-has="'user:data'">
+            <el-form :inline="true" ref="n_searchItem" :model="n_searchItem" class="demo-form-inline" size="mini">
+                <el-form-item label="内容" prop="con">
+                    <el-input v-model.trim="n_searchItem.con" clearable></el-input>
+                </el-form-item>
+                <el-form-item class="work">
+                    <el-button type="primary" @click="n_onSubmit" size="mini" :loading="n_btnLoading">查询</el-button>
+                    <el-button @click="n_resetForm('searchItem')" size="mini">重置</el-button>
+                </el-form-item>
+            </el-form>
+            <el-table
+                :data="nlist"
+                style="width: 100%"
+                v-loading="n_listLoading">
+                <el-table-column
+                    label="ID"
+                    prop="id"
+                    width='50'
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="类型"
+                    prop="type"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="简要内容"
+                    prop="speak"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="状态"
+                    prop="ver"
+                    align="center">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.ver == 1 ? '审核中' : '审核拒接'}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="创建时间"
+                    prop="createTime"
+                    align="center"
+                    :formatter="formTime">
+                </el-table-column>
+                <el-table-column label="操作" align="center">
+                        <template slot-scope="scope">
+                            <el-button
+                            size="mini"
+                            @click="n_rowClick(scope.$index, scope.row)">详情</el-button>
+                        </template>
+                    </el-table-column>
+            </el-table>
+            <el-pagination
+                @size-change="n_handleSizeChange"
+                @current-change="n_handleCurrentChange"
+                :current-page.sync="n_currentPage"
+                :page-sizes="n_pageSizes"
+                :page-size="n_pageSize"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="n_totalCount"
+            ></el-pagination>
+        </div>
+        <el-dialog title="详情" :visible.sync="n_infoVisible" width="300" :before-close="n_handleClose">
+            <el-form :label-position="'left'" label-width="120px">
+                <el-form-item label="ID">
+                    <el-input type="text" v-model="n_infoList.id" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="说法">
+                    <el-input type="text" v-model="n_infoList.speak" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="答案">
+                    <el-input type="text" v-model="n_infoList.answer" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="result">
+                    <el-input type="text" v-model="n_infoList.result" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="操作类型">
+                    <el-input type="text" v-model="n_infoList.type" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="原因">
+                    <el-input type="text" v-model="n_infoList.comm" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="创建时间">
+                    <el-input type="text" v-model="n_infoList.createTime" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="修改时间">
+                    <el-input type="text" v-model="n_infoList.updateTime" auto-complete="off" readonly></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="n_handleConfirm()">关闭</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 <script>
 import {checkTime} from '@/utils/timer.js'
 import countTo from 'vue-count-to';
-import {activitiList,activitiPass} from '@/config/adminApi'
+import {activitiList,activitiPass,activitinList,activitiStatus} from '@/config/adminApi'
 export default {
     components: { countTo },
     data(){
@@ -113,8 +209,13 @@ export default {
             startVal:0,
             endVal:0,
             list:[],
+            nlist:[],
+            perList:[],
             searchItem:{
                 user:'',
+                con:''
+            },
+            n_searchItem:{
                 con:''
             },
             infoList:{
@@ -124,7 +225,18 @@ export default {
                 type:'',
                 createTime:'',
                 updateTime:'',
-                taskid:''
+                taskid:'',
+                result:''
+            },
+            n_infoList:{
+                id:'',
+                speak:'',
+                answer:'',
+                type:'',
+                comm:'',
+                createTime:'',
+                updateTime:'',
+                result:''
             },
             // 分页
             currentPage: 1, //默认显示第几页
@@ -134,12 +246,33 @@ export default {
             btnLoading:false,
             infoVisible:false,
             listLoading:true,
+            n_currentPage: 1, //默认显示第几页
+            n_pageSize: 10,   //默认每页条数
+            n_pageSizes:[10, 20, 30],
+            n_totalCount:1,     // 总条数
+            n_btnLoading:false,
+            n_infoVisible:false,
+            n_listLoading:true,
         }
     },
-    created(){
-        // this.getList();
+    created() {
+        let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+        perArr.map(t=>{
+            this.perList.push(Object.values(t).join())
+        })
+    },
+    mounted(){
+       this.execution();
     },
     methods:{
+        execution(){
+            if(this.perList.indexOf('user:user') != -1){
+                this.getList();
+            }
+            if(this.perList.indexOf('user:data') != -1){
+                this.getNList();
+            }
+        },
         formTime(row, column){
         var timer = row.createTime
         var date = new Date(timer)
@@ -154,10 +287,21 @@ export default {
             this.currentPage = 1
             this.getList()
         },
+        n_resetForm(formName) {
+            this.$refs[formName].resetFields();
+            this.currentPage = 1
+            this.getNList()
+        },
         onSubmit(){
             this.btnLoading = true
             this.currentPage = 1
             this.getList()
+            this.btnLoading = false
+        },
+        n_onSubmit(){
+            this.btnLoading = true
+            this.currentPage = 1
+            this.getNList()
             this.btnLoading = false
         },
         rowClick(index,row){
@@ -169,8 +313,28 @@ export default {
                 type:row.type,
                 createTime:new Date(row.createTime).getFullYear()+'-'+checkTime(new Date(row.createTime).getMonth()+1)+'-'+checkTime(new Date(row.createTime).getDate())+' '+checkTime(new Date(row.createTime).getHours())+':'+checkTime(new Date(row.createTime).getMinutes()),
                 updateTime:new Date(row.updateTime).getFullYear()+'-'+checkTime(new Date(row.updateTime).getMonth()+1)+'-'+checkTime(new Date(row.updateTime).getDate())+' '+checkTime(new Date(row.updateTime).getHours())+':'+checkTime(new Date(row.updateTime).getMinutes()),
-                taskid:row.taskid
+                taskid:row.taskid,
+                result:row.result
             }
+        },
+        n_rowClick(index,row){
+            this.n_infoVisible = true
+            this.n_infoList = {
+                id:row.id,
+                speak:row.speak,
+                answer:row.answer,
+                type:row.type,
+                comm:row.comm,
+                createTime:new Date(row.createTime).getFullYear()+'-'+checkTime(new Date(row.createTime).getMonth()+1)+'-'+checkTime(new Date(row.createTime).getDate())+' '+checkTime(new Date(row.createTime).getHours())+':'+checkTime(new Date(row.createTime).getMinutes()),
+                updateTime:new Date(row.updateTime).getFullYear()+'-'+checkTime(new Date(row.updateTime).getMonth()+1)+'-'+checkTime(new Date(row.updateTime).getDate())+' '+checkTime(new Date(row.updateTime).getHours())+':'+checkTime(new Date(row.updateTime).getMinutes()),
+                result:row.result
+            }
+            let n_stauts = {
+                id:row.id
+            }
+            activitiStatus(n_stauts).then(res=>{
+                console.log(res)
+            })
         },
         handleSizeChange(val) {
             this.pageSize = val;
@@ -188,6 +352,22 @@ export default {
         handleConfirm(){
             this.infoVisible = false
         },
+        n_handleSizeChange(val) {
+            this.n_pageSize = val;
+            this.n_currentPage = 1
+            this.getNList();
+        },
+        n_handleCurrentChange(val) {
+            this.n_currentPage = val
+            console.log(`当前页: ${val}`);
+            this.getNList();
+        },
+        n_handleClose(){
+            this.n_infoVisible = false
+        },
+        n_handleConfirm(){
+            this.n_infoVisible = false
+        },
         handlePass(){
             let passParams = {
                 id:this.infoList.taskid,
@@ -200,6 +380,7 @@ export default {
                         type:"success",
                         duration:1000
                     });
+                    this.getList()
                 }else{
                     this.$message({
                         message:res.data.errorMessage,
@@ -224,6 +405,7 @@ export default {
                         type:"success",
                         duration:1000
                     });
+                    this.getList()
                 }else{
                     this.$message({
                         message:res.data.errorMessage,
@@ -248,6 +430,18 @@ export default {
                 this.totalCount = res.data.total
             })
         },
+        getNList() {
+            let n_params = {
+                pgstr:this.n_currentPage,
+                pcstr:this.n_pageSize,
+                speak:this.n_searchItem.con
+            }
+            activitinList(n_params).then(res=>{
+                this.n_listLoading = false
+                this.nlist = res.data.data
+                this.n_totalCount = res.data.count
+            })
+        },
     }
 }
 </script>
@@ -261,7 +455,8 @@ export default {
     background: #e3e3e3 !important;
 }
 .workflow{
-    width: 493px;
+    max-width: 510px;
+    min-width: 500px;
     padding: 14px 14px 14px 13px;
     border-radius: 8px;
     box-sizing: border-box;
@@ -270,6 +465,10 @@ export default {
     background-color: #fff;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     right: 16px;
+    overflow: hidden;
+    height: 85%;
+    overflow-y: auto;
+    top: 65px;
 }
 </style>
 

@@ -151,3 +151,19 @@ export function activitiPass (data) {
     data: data
   })
 }
+
+export function activitinList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/activiti/nlist',
+    method: 'post',
+    data: data
+  })
+}
+
+export function activitiStatus (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/activiti/status',
+    method: 'post',
+    data: data
+  })
+}

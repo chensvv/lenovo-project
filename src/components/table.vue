@@ -132,8 +132,4 @@
  }
 </script>
 <style scoped>
-  .table{
-    border: 1px solid #EBEEF5;
-    border-bottom: none;
-  }
 </style>

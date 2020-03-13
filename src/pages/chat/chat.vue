@@ -69,12 +69,13 @@ export default {
         {
           prop: "ques",
           label: "问题",
+          align: "center",
           hasSort:true
         },
         {
           prop: "answ",
           label: "答案",
-          align: "left",
+          align: "center",
           hasSort:true
         },
         {
