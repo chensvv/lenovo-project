@@ -13,7 +13,31 @@
         
     </el-form>
     <div class="table-box">
-        <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+        <el-table
+                :data="list"
+                style="width: 100%"
+                v-loading="listLoading">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column
+                    label="KEY"
+                    prop="key"
+                    align="center">
+                </el-table-column>
+                <el-table-column
+                    label="VAL"
+                    prop="val"
+                    align="center">
+                </el-table-column>
+                <el-table-column label="操作" align="center" width="200" v-if="isshow">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)"
+                        v-has="'kv:update'">编辑</el-button>
+                    </template>
+                </el-table-column>
+            </el-table> 
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -63,14 +87,13 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
-import {kvList,kvAddUpd} from '@/config/api'
+import {kvList,kvAdd,kvUpd} from '@/config/api'
 export default {
-    components: { iTable },
     data() {
         return {
             list: [],
+            perList:[],
             addList: {//添加数据组
                 lasfpsd:"",
                 lasfkey:"",
@@ -94,29 +117,6 @@ export default {
                 className: 'reg'
                 }
             ],
-            options: {
-                stripe: false, // 是否为斑马纹 table
-                loading: true, // 是否添加表格loading加载动画
-                highlightCurrentRow: false, // 是否支持当前行高亮显示
-                mutiSelect: false, // 是否支持列表项选中功能
-                border:false     //是否显示纵向边框
-            },
-            operates: {
-                width: 150,
-                show: false,
-                list: [
-                    {
-                        id: "1",
-                        label: "编辑",
-                        show: true,
-                        plain: true,
-                        disabled: false,
-                        method: (index, row) => {
-                        this.handleEdit(index, row);
-                        }
-                    }
-                ]
-            }, // 列操作按钮
             addRules:{
                 lasfpsd:[{ required: true, message: '请输入修改密码', trigger: 'change' }],
                 lasfkey:[{ required: true, message: '请输入LASF KEY', trigger: 'change' }],
@@ -135,11 +135,22 @@ export default {
             pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             addBtnLoading:false,
-            editBtnLoading:false
+            editBtnLoading:false,
+            listLoading:true,
+            isshow:true
         };
     },
     created() {
+        let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+        perArr.map(t=>{
+        this.perList.push(Object.values(t).join())
+        })
         this.getList();
+    },
+    mounted(){
+        if(this.perList.indexOf('kv:update') == -1){
+        this.isshow = false
+        }
     },
     methods: {
         handleSizeChange(val) {
@@ -193,7 +204,7 @@ export default {
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
-                    kvAddUpd(updParams).then(res=>{
+                    kvUpd(updParams).then(res=>{
                         this.editBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
@@ -228,7 +239,7 @@ export default {
             this.$refs[addList].validate((valid) => {
                 if (valid) {
                     this.addBtnLoading = true
-                    kvAddUpd(addParams).then(res=>{
+                    kvAdd(addParams).then(res=>{
                         this.addBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
@@ -259,7 +270,7 @@ export default {
                 pcstr:this.pageSize
             }
             kvList(params).then(res => {
-                this.options.loading = false
+                this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
             });

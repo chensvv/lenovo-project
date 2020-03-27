@@ -382,6 +382,7 @@ export default {
       this.multipleSelection = val
     },
     optHandleClose(){
+      this.$refs.table.clearSelection()
       this.optVisible = false
     },
     optHandleConfirm(){

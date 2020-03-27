@@ -321,7 +321,9 @@ export default {
         },
         getList() {
             let params = {
-                id:this.appId
+                id:this.appId,
+                pgstr:this.currentPage,
+                pcstr:this.pageSize
             }
             skillInfo(params).then(res => {
                 this.listLoading = false

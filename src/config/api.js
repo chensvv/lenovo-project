@@ -701,9 +701,17 @@ export function kvList (data) {
   })
 }
 
-export function kvAddUpd (data) {
+export function kvAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/editsave',
+    method: 'post',
+    data: data
+  })
+}
+
+export function kvUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/kv/update',
     method: 'post',
     data: data
   })

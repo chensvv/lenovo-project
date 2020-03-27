@@ -378,6 +378,7 @@ export default {
         this.optVisible = true
     },
     optHandleClose(){
+      this.$refs.table.clearSelection()
       this.optVisible = false
     },
     handleSelectionChange(val) {

@@ -208,8 +208,6 @@ export default {
       roleEcho(echoParams).then(res=>{
         this.selectedKeys = res.data.ids
       })
-
-      
       this.editVisible = true
     },
     handleDel(index, row) {
@@ -246,6 +244,7 @@ export default {
         if(this.$refs[addList]){
           this.$refs[addList].resetFields();
         }
+        
       })
     },
     closeFun(currentItem){
@@ -256,10 +255,11 @@ export default {
       })
     },
     editHandleClose() {
+      this.$refs.tree.setCheckedKeys([])
       this.editVisible = false;
-      
     },
     addHandleClose(){
+      this.$refs.treeAdd.setCheckedKeys([])
       this.addVisible = false
     },
     editHandleConfirm(currentItem) {
