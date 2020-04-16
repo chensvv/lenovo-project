@@ -255,6 +255,11 @@ const router = new Router({
           meta: {title: '访问量统计'}
         },
         {
+          path: '/servlog/list',
+          component: () => import('@/pages/graph/servloglist'),
+          meta: {title: 'NL领域统计'}
+        },
+        {
           path: '/401',
           component: () => import('@/pages/401'),
           meta: {title: '401'}

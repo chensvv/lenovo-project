@@ -1243,3 +1243,11 @@ export function censusUserList (data) {
     data: data
   })
 }
+
+export function servlogList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/servlog/list',
+    method: 'post',
+    data: data
+  })
+}
