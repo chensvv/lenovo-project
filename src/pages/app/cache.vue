@@ -67,7 +67,7 @@
                 label="是否别名"
                 prop="isAlias"
                  align="center"
-                :formatter="formVal">
+                :formatter="aliasVal">
             </el-table-column>
             <el-table-column
                 label="原名"
@@ -78,7 +78,7 @@
                 label="是否索引"
                 prop="isIndex"
                  align="center"
-                :formatter="formVal">
+                :formatter="indexVal">
             </el-table-column>
             <el-table-column
                 label="更新时间"
@@ -196,9 +196,11 @@ export default {
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
         },
-        formVal(row,column){
-            return row.isIndex === true ? 'true' : 'false'
-            return row.isAlias === true ? 'true' : 'false'
+        indexVal(row,column){
+            return row.isIndex == true ? '是' : '否'
+        },
+        aliasVal(row,column){
+            return row.isAlias == true ? '是' : '否'
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();

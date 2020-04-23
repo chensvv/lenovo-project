@@ -12,12 +12,18 @@
             </el-form-item>
         <el-form-item label="VDM" prop="vdm">
             <el-select v-model="searchItem.vdm" placeholder="--" clearable>
-            <el-option label="all" value="all"></el-option>
-            <el-option label="les" value="les"></el-option>
-            <el-option label="app" value="app"></el-option>
-            <el-option label="vod" value="vod"></el-option>
+                <el-option label="all" value="all"></el-option>
+                <el-option label="les" value="les"></el-option>
+                <el-option label="app" value="app"></el-option>
+                <el-option label="vod" value="vod"></el-option>
             </el-select>
         </el-form-item>
+        <el-form-item label="数据类型" prop="dataType">
+                <el-select v-model.trim="searchItem.dataType" placeholder="--" clearable>
+                    <el-option label="纠正数据" value="1"></el-option>
+                    <el-option label="新增数据" value="2"></el-option>
+                </el-select>
+            </el-form-item>
         <el-form-item label="开始时间" prop="refreshTime">
             <el-date-picker 
                 type="date" 
@@ -62,6 +68,11 @@
                 prop="pronounceName"
                 align="center">
             </el-table-column>
+            <el-table-column label="数据类型" prop="dataType" align="center">
+                <template slot-scope="scope">
+                    <span>{{scope.row.dataType == '1' ? '纠正数据' : '新增数据'}}</span>
+                </template>
+            </el-table-column>
             <el-table-column
                 label="更新时间"
                 prop="upTime"
@@ -97,18 +108,23 @@
         <el-form :label-position="'left'" label-width="100px" :rules="editRules" :model="currentItem" ref="currentItem">
             <el-form-item label="热词" prop="hotName">
                 <el-input type="text" v-model.trim="currentItem.hotName" auto-complete="off"></el-input>
-                <el-button size="mini">获取推荐读音</el-button>
+                <!-- <el-button size="mini">获取推荐读音</el-button> -->
             </el-form-item>
             <el-form-item label="词语发音" prop="pronounceName">
-                <el-input type="text" v-model.trim="currentItem.pronounceName" auto-complete="off"></el-input>
-                <span style="font-size:12px">(如热词为‘A180’，此处可填写‘诶裔巴绫’)</span>
+                <el-input type="text" v-model.trim="currentItem.pronounceName" placeholder="(如热词为‘A180’，此处可填写‘诶裔巴绫’)" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="VDM" prop="vdm">
                 <el-select v-model="currentItem.vdm" placeholder="--">
-                <el-option label="all" value="all"></el-option>
-                <el-option label="les" value="les"></el-option>
-                <el-option label="app" value="app"></el-option>
-                <el-option label="vod" value="vod"></el-option>
+                    <el-option label="all" value="all"></el-option>
+                    <el-option label="les" value="les"></el-option>
+                    <el-option label="app" value="app"></el-option>
+                    <el-option label="vod" value="vod"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="数据类型" prop="dataType">
+                <el-select v-model="currentItem.dataType" placeholder="--">
+                    <el-option label="纠正数据" value="1"></el-option>
+                    <el-option label="新增数据" value="2"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -132,7 +148,13 @@
                     <el-option label="app" value="app"></el-option>
                     <el-option label="vod" value="vod"></el-option>
                 </el-select>
-        </el-form-item>
+            </el-form-item>
+            <el-form-item label="数据类型" prop="dataType">
+                <el-select v-model="addList.dataType" placeholder="--">
+                    <el-option label="纠正数据" value="1"></el-option>
+                    <el-option label="新增数据" value="2"></el-option>
+                </el-select>
+            </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button @click="addHandleClose">取 消</el-button>
@@ -144,7 +166,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {dictList, dictDel, dictAddUpd} from '@/config/api'
+import {dictList, dictDel, dictAddUpd, dictEcho} from '@/config/api'
 export default {
     data() {
         return {
@@ -154,27 +176,32 @@ export default {
                 hotName: "",
                 pronounceName: "",
                 vdm: "",
+                dataType:''
             },
             addList: {//添加数据组
                 hotName: "",
                 pronounceName: "",
                 vdm: "",
+                dataType:''
             },
             searchItem:{//搜索数据组
                 hotName:"",
                 vdm:"",
                 refreshTime:"",
-                putTime:""
+                putTime:"",
+                dataType:''
             },
             addRules:{
                 hotName:[{ required: true, message: '请输入网站名称add', trigger: 'change' }],
                 pronounceName:[{ required: true, message: '请输入说法', trigger: 'change' }],
-                vdm:[{ required: true, message: '请输入手机网址', trigger: 'change' }],
+                vdm:[{ required: true, message: '请选择VDM', trigger: 'change' }],
+                dataType:[{ required: true, message: '请选择数据类型', trigger: 'change' }],
             },
             editRules:{
-                hotName:[{ required: true, message: '请输入网站名称add', trigger: 'blur' }],
-                pronounceName:[{ required: true, message: '请输入说法', trigger: 'blur' }],
-                vdm:[{ required: true, message: '请输入手机网址', trigger: 'blur' }],
+                hotName:[{ required: true, message: '请输入网站名称add', trigger: 'change' }],
+                pronounceName:[{ required: true, message: '请输入说法', trigger: 'change' }],
+                vdm:[{ required: true, message: '请选择VDM', trigger: 'change' }],
+                dataType:[{ required: true, message: '请选择数据类型', trigger: 'change' }],
             },
             editVisible: false,
             addVisible: false,
@@ -236,12 +263,19 @@ export default {
         handleEdit(index, row) {
             console.log(index, row);
             this.editVisible = true;
-            this.currentItem = {
+            let dataEcho = {
                 id:row.id,
-                hotName: row.name,
-                pronounceName: row.pronounceName,
-                vdm: row.vdm
-            };
+            }
+            dictEcho(dataEcho).then(res=>{
+                this.currentItem = {
+                    id:res.data.id,
+                    hotName: res.data.name,
+                    pronounceName: res.data.pronounceName,
+                    vdm: res.data.vdm,
+                    dataType:res.data.data
+                }
+            })
+
         },
         handleDel(index, row) {
             let delParams = {
@@ -298,7 +332,8 @@ export default {
                 id:this.currentItem.id,
                 vdm:this.currentItem.vdm,
                 name:this.currentItem.hotName,
-                pronounceName:this.currentItem.pronounceName
+                pronounceName:this.currentItem.pronounceName,
+                dataType:this.currentItem.dataType
             }
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
@@ -335,7 +370,8 @@ export default {
             let addParams = {
                 name:this.addList.hotName,
                 vdm:this.addList.vdm,
-                pronounceName:this.addList.pronounceName
+                pronounceName:this.addList.pronounceName,
+                dataType:this.addList.dataType
             }
             this.$refs[addList].validate((valid) => {
                 if (valid) {
@@ -373,6 +409,7 @@ export default {
                 endStr:this.searchItem.putTime,
                 name: this.searchItem.hotName,
                 vdm:this.searchItem.vdm,
+                dataType:this.searchItem.dataType
             }
             dictList(params).then(res => {
                 this.listLoading = false

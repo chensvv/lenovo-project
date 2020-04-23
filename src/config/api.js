@@ -251,6 +251,14 @@ export function dictAddUpd (data) {
   })
 }
 
+export function dictEcho (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/dict/queryOne',
+    method: 'post',
+    data: data
+  })
+}
+
 export function dictDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/dict/del',
