@@ -10,7 +10,7 @@
         <!-- <div>
             <img src="https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3" class="img">
         </div> -->
-        <div class="workflow" v-has="'user:user'">
+        <div class="workflow" v-has="'user:user'" v-if="infoShow">
             <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline" size="mini">
                 <el-form-item label="内容" prop="con">
                     <el-input v-model.trim="searchItem.con" clearable></el-input>
@@ -103,7 +103,7 @@
                 <el-button type="primary" @click="handleConfirm()">关闭</el-button>
             </span>
         </el-dialog>
-        <div class="workflow" v-has="'user:data'">
+        <div class="workflow" v-has="'user:data'" v-if="n_infoShow">
             <el-form :inline="true" ref="n_searchItem" :model="n_searchItem" class="demo-form-inline" size="mini">
                 <el-form-item label="内容" prop="con">
                     <el-input v-model.trim="n_searchItem.con" clearable></el-input>
@@ -253,6 +253,8 @@ export default {
             n_btnLoading:false,
             n_infoVisible:false,
             n_listLoading:true,
+            infoShow:false,
+            n_infoShow:false
         }
     },
     created() {
@@ -428,6 +430,9 @@ export default {
                 this.listLoading = false
                 this.list = res.data.rows
                 this.totalCount = res.data.total
+                if(res.data.total >= 1){
+                    this.infoShow = true
+                }
             })
         },
         getNList() {
@@ -440,6 +445,9 @@ export default {
                 this.n_listLoading = false
                 this.nlist = res.data.data
                 this.n_totalCount = res.data.count
+                if(res.data.count >= 1){
+                    this.n_infoShow = true
+                }
             })
         },
     }
