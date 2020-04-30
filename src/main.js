@@ -30,6 +30,7 @@ require('echarts/lib/chart/bar')
 // 引入提示框和title组件
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
+require('echarts/lib/component/dataZoom')
 
 const has = Vue.directive('has', {
   inserted: function (el, binding) {
