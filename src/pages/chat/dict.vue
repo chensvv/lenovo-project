@@ -123,8 +123,7 @@
             </el-form-item>
             <el-form-item label="数据类型" prop="dataType">
                 <el-select v-model="currentItem.dataType" placeholder="--">
-                    <el-option label="纠正数据" value="1"></el-option>
-                    <el-option label="新增数据" value="2"></el-option>
+                    <el-option v-for="(item,index) in dataTypeArr" :key="index" :label="item.typeLabel" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
         </el-form>
@@ -166,7 +165,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {dictList, dictDel, dictAddUpd, dictEcho} from '@/config/api'
+import {dictList, dictDel, dictAddUpd} from '@/config/api'
 export default {
     data() {
         return {
@@ -203,6 +202,10 @@ export default {
                 vdm:[{ required: true, message: '请选择VDM', trigger: 'change' }],
                 dataType:[{ required: true, message: '请选择数据类型', trigger: 'change' }],
             },
+            dataTypeArr:[
+                {id:1,typeLabel:"纠正数据",typeVal:"1"},
+                {id:2,typeLabel:"新增数据",typeVal:"2"}
+            ],
             editVisible: false,
             addVisible: false,
             // 分页
@@ -261,20 +264,14 @@ export default {
             this.getList();
         },
         handleEdit(index, row) {
-            console.log(index, row);
             this.editVisible = true;
-            let dataEcho = {
+            this.currentItem = {
                 id:row.id,
+                hotName: row.name,
+                pronounceName: row.pronounceName,
+                vdm: row.vdm,
+                dataType:row.dataType
             }
-            dictEcho(dataEcho).then(res=>{
-                this.currentItem = {
-                    id:res.data.id,
-                    hotName: res.data.name,
-                    pronounceName: res.data.pronounceName,
-                    vdm: res.data.vdm,
-                    dataType:res.data.data
-                }
-            })
 
         },
         handleDel(index, row) {

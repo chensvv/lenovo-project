@@ -341,7 +341,6 @@ export default {
             this.getList();
         },
         handleEdit(index, row) {
-            console.log(row);
             this.editVisible = true;
             videoSelect().then(res=>{
                 this.sourceList = res.data
@@ -366,7 +365,6 @@ export default {
                 programSource:row.programSource,
                 programPoster:row.programPoster
             };
-            
         },
         handleDel(index, row) {
             let delParams = {
