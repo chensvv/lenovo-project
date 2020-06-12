@@ -16,7 +16,7 @@
             </el-form-item>
             <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:music:addsong'">添加</el-button>
             <el-button class="success" size="mini" @click="handleAlbum()" v-has="'skill:music:albumlist'">专辑列表</el-button>
-            <el-button class="success" size="mini" @click="handleSong()" v-has="'skill:music:singerlist'">歌手管理</el-button>
+            <el-button class="success" size="mini" @click="handleSinger()" v-has="'skill:music:singerlist'">歌手管理</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -28,26 +28,32 @@
                 <el-table-column
                     label="歌曲名称"
                     prop="songName"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="歌曲ID"
                     prop="songId"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="专辑ID"
-                    prop="id">
+                    prop="id"
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="QQ音乐MID"
                     prop="songMid"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="更新时间"
                     prop="displayUpdateTime"
-                    align="center">
+                    align="center"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
@@ -393,6 +399,11 @@ export default {
                 path:'/lasf-kv/album'
             })
         },
+        handleSinger(){
+            this.$router.push({
+                path:'/skill/music/singerlist'
+            })
+        }
     },
 };
 </script>

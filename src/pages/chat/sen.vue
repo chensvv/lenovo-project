@@ -27,13 +27,15 @@
                 <el-table-column
                     label="敏感词"
                     prop="word"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="更新/入库时间"
                     prop="it"
                     align="center"
-                    :formatter="formTime">
+                    :formatter="formTime"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
@@ -76,7 +78,7 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="80px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="敏感词" prop="word">
-                    <el-input type="textarea" v-model.trim="addList.word" placeholder="可以一次增加多个，用换行分隔。" auto-complete="off"></el-input>
+                    <el-input type="textarea" v-model="addList.word" placeholder="可以一次增加多个，用换行分隔。" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             

@@ -15,7 +15,7 @@
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
     </el-form> -->
-    <div class="table-box">
+    <div class="table-box" v-loading="loading">
         <div ref="myChart" :style="{width: '100%', height: '100%', margin:'30px auto 0'}"></div>
     </div>
   </div>
@@ -30,7 +30,8 @@ export default {
     return {
       list: [],
       seaBtnLoading:false,
-      fileBtnLoading:false
+      fileBtnLoading:false,
+      loading:true
     };
   },
   mounted() {
@@ -54,13 +55,12 @@ export default {
         const Ydata = []
         const Xdata = []
         servlogList().then(res=>{
+          this.loading=false
             var obj = res.data
             for(let key in obj){
                 Xdata.push(key)
                 Ydata.push(obj[key])
             }
-            console.log(Ydata)
-            console.log(Xdata)
             myChart.setOption({
               title: { 
                   text: 'NL领域统计',

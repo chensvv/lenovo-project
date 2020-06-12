@@ -13,11 +13,12 @@
             <el-form-item label="来源" prop="source">
                 <el-input v-model.trim="searchItem.source" clearable></el-input>
             </el-form-item>
-            <el-form-item label="开始时间" prop="refreshTime">
+            <el-form-item label="起始时间" prop="refreshTime">
                 <el-date-picker 
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.refreshTime" 
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -26,6 +27,7 @@
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.putTime" 
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -45,33 +47,39 @@
                 <el-table-column
                     label="网站名称"
                     prop="name"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="别名"
                     prop="alias"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="手机网址"
                     prop="wapUrl"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="WEB网址"
                     prop="url"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="来源"
                     prop="source"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="更新时间"
                     prop="createTime"
                     align="center"
-                    :formatter="formTime">
+                    :formatter="formTime"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
@@ -142,6 +150,12 @@ import {wasList, wasDel, wasUpd, wasAdd} from '@/config/api'
 export default {
     data() {
         return {
+            pickerOptions: {
+                disabledDate(time) {
+                    let times = Date.now() - 24 * 60 * 60 * 1000;
+                    return time.getTime() > times;
+                },
+            },
             list: [],
             perList:[],
             currentItem: {//编辑数据组

@@ -39,7 +39,8 @@
               label="更新时间"
               prop="updateTime"
               align="center"
-              :formatter="formTime">
+              :formatter="formTime"
+              min-width="140">
           </el-table-column>
           <el-table-column label="操作" align="center" v-if="isshow">
               <template slot-scope="scope">

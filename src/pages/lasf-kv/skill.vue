@@ -26,7 +26,8 @@
                 <el-table-column
                     label="技能名称"
                     prop="appName"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="技能数"
@@ -51,7 +52,8 @@
                 <el-table-column
                     label="更新时间"
                     prop="displayUpdateTime"
-                    align="center">
+                    align="center"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column label="操作" align="center" width="200" v-if="isshow">
                     <template slot-scope="scope">

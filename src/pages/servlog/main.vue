@@ -4,10 +4,6 @@
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <div class="a_alert">
-            <i class="el-icon-info"></i>
-            <span class="alert_main">明细日志今天更新了<countTo :startVal='startVal' :endVal='endVal' :duration='3000'></countTo> 条</span>
-        </div>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline cache" size="mini">
             <el-form-item label="客户端类型" prop="dtp">
                 <el-input v-model.trim="searchItem.dtp" clearable></el-input>
@@ -35,11 +31,12 @@
                 <el-option label="失败" value="failed"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="开始时间" prop="refreshTime" class="width140">
+            <el-form-item label="起始时间" prop="refreshTime" class="width140">
                 <el-date-picker 
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.refreshTime" 
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -48,6 +45,7 @@
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.putTime" 
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -62,13 +60,13 @@
             v-loading="listLoading">
             <el-table-column label="ID" prop="id" align="center">
             </el-table-column>
-            <el-table-column label="IT" prop="it" align="center" :formatter="formTime">
+            <el-table-column label="IT" prop="it" align="center" :formatter="formTime" min-width="140">
             </el-table-column>
-            <el-table-column label="IXID" prop="ixid" align="center">
+            <el-table-column label="IXID" prop="ixid" align="center" :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="DID" prop="did" align="center">
+            <el-table-column label="DID" prop="did" align="center" :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="CODEC" prop="codec" align="center">
+            <el-table-column label="CODEC" prop="codec" align="center" :show-overflow-tooltip="true">
                 <template slot-scope="scope">
                     <span>{{scope.row.codec == '7' ? 'Speex 16k' : 
                             scope.row.codec == '3' ? 'Speex 8k' : 
@@ -78,15 +76,15 @@
                             scope.row.codec == '0' ? 'Bv32 8k' : '未知'}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="UID" prop="uid" align="center">
+            <el-table-column label="UID" prop="uid" align="center" :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="DTP" prop="dtp" align="center">
+            <el-table-column label="DTP" prop="dtp" align="center" :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="VER" prop="ver" align="center">
+            <el-table-column label="VER" prop="ver" align="center" :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="VDM" prop="vdm" align="center">
+            <el-table-column label="VDM" prop="vdm" align="center" :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="APP" prop="app" align="center">
+            <el-table-column label="APP" prop="app" align="center" :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="STAT"
@@ -98,12 +96,7 @@
                     disable-transitions>{{scope.row.stat == 'success'? 'S': 'F'}}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column label="L1C" prop="l1c" align="center" className="reg">
-                <template slot-scope="scope">
-                      <el-tooltip effect="dark" :content="scope.row.l1c" placement="top">
-                      <span slot>{{scope.row.l1c}}</span>
-                      </el-tooltip>
-                  </template>
+            <el-table-column label="L1C" prop="l1c" align="center" :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column label="操作" align="center" width="130" v-if="isshow">
                     <template slot-scope="scope">
@@ -215,15 +208,18 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {logList, logDown, logInfo} from '@/config/api'
-import countTo from 'vue-count-to';
 import downUrl from '@/config/http'
 export default {
-    components: { iTable, countTo },
     data(){
         return{
+            pickerOptions: {
+                disabledDate(time) {
+                    let times = Date.now() - 24 * 60 * 60 * 1000;
+                    return time.getTime() > times;
+                },
+            },
             searchItem:{
                 dtp:'',
                 uip:'',
@@ -272,8 +268,6 @@ export default {
             infoVisible:false,
             listLoading:true,
             isshow:true,
-            startVal:0,
-            endVal:0,
         }
     },
     created() {
@@ -320,7 +314,6 @@ export default {
                 this.listLoading = false
                 this.list = res.data.data.data
                 this.totalCount = res.data.data.total
-                this.endVal = res.data.count
             })
         },
         rowClick(index,row){

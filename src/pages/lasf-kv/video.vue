@@ -26,17 +26,20 @@
                 <el-table-column
                     label="名称"
                     prop="programName"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="类型"
                     prop="programDisplayType"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="导演"
                     prop="programDirector"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="集数"
@@ -46,7 +49,8 @@
                 <el-table-column
                     label="链接"
                     prop="programUrl"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="来源"

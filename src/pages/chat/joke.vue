@@ -31,7 +31,8 @@
                     label="内容"
                     prop="con"
                     align="left"
-                    header-align="center">
+                    header-align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="状态"
@@ -44,10 +45,10 @@
                     label="更新/入库时间"
                     prop="it"
                     align="center"
-                    width="200"
+                    min-width="140"
                     :formatter="formTime">
                 </el-table-column>
-                <el-table-column label="操作" align="center" width="250" v-if="isshow">
+                <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
                       <el-button
                         size="mini"

@@ -32,17 +32,20 @@
           <el-table-column
               label="问题"
               prop="speak"
-              align="center">
+              align="center"
+              :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="答案"
               prop="answer"
-              align="center">
+              align="center"
+              :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="所属excel文件"
               prop="excel"
-              align="center">
+              align="center"
+              :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="状态"
@@ -59,13 +62,15 @@
               label="添加时间"
               prop="createTime"
               align="center"
-              :formatter="formTime">
+              :formatter="formTime"
+              min-width="140">
           </el-table-column>
           <el-table-column
               label="更新时间"
               prop="updateTime"
               align="center"
-              :formatter="formTime2">
+              :formatter="formTime2"
+              min-width="140">
           </el-table-column>
           <el-table-column label="操作" align="center" v-if="btnshow">
               <template slot-scope="scope">

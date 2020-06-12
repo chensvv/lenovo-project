@@ -29,16 +29,20 @@
                 <el-table-column
                     label="名称"
                     prop="singerName"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="歌手ID"
                     prop="id"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="QQ音乐ID"
-                    prop="singerQqId">
+                    prop="singerQqId"
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="QQ音乐MID"
@@ -48,7 +52,8 @@
                 <el-table-column
                     label="更新时间"
                     prop="displayUpdateTime"
-                    align="center">
+                    align="center"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">

@@ -16,7 +16,7 @@
             </el-form-item>
             <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:music:addalbum'">添加</el-button>
             <el-button class="success" size="mini" @click="handleSong()" v-has="'skill:music:songlist'">歌曲列表</el-button>
-            <el-button class="success" size="mini" @click="handleSong()" v-has="'skill:music:singerlist'">歌手管理</el-button>
+            <el-button class="success" size="mini" @click="handleSinger()" v-has="'skill:music:singerlist'">歌手管理</el-button>
         </el-form>
         <div class="table-box">
             <el-table
@@ -28,31 +28,37 @@
                 <el-table-column
                     label="名称"
                     prop="albumName"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="专辑ID"
                     prop="id"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="QQ音乐ID"
-                    prop="albumQqId">
+                    prop="albumQqId"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="QQ音乐MID"
                     prop="albumQqMid"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="专辑对应歌手ID"
                     prop="albumQqSingerId"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="更新时间"
                     prop="displayUpdateTime"
-                    align="center">
+                    align="center"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
@@ -372,6 +378,11 @@ export default {
         handleSong(){
             this.$router.push({
                 path:'/lasf-kv/song'
+            })
+        },
+        handleSinger(){
+            this.$router.push({
+                path:'/skill/music/singerlist'
             })
         }
     },

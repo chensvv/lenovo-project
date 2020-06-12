@@ -28,24 +28,28 @@
                 <el-table-column
                     label="用户query"
                     prop="command"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="预设指令"
                     prop="commandInterface"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="添加时间"
                     prop="createTime"
                     align="center"
-                    :formatter="formTime">
+                    :formatter="formTime"
+                    min-with="140">
                 </el-table-column>
                 <el-table-column
                     label="修改时间"
                     prop="updateTime"
                     align="center"
-                    :formatter="formTime2">
+                    :formatter="formTime2"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">

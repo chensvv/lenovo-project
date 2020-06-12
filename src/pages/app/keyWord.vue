@@ -18,6 +18,7 @@
                   type="date" 
                   placeholder="选择日期" 
                   v-model="searchItem.refreshTime" 
+                  :picker-options="pickerOptions"
                   style="width: 100%;"
                   value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -25,7 +26,8 @@
                 <el-date-picker 
                   type="date" 
                   placeholder="选择日期" 
-                  v-model="searchItem.putTime" 
+                  v-model="searchItem.putTime"
+                  :picker-options="pickerOptions" 
                   style="width: 100%;"
                   value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -45,34 +47,40 @@
                 <el-table-column
                     label="原始名"
                     prop="name"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="标准名"
                     prop="stname"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="别名"
                     prop="alias"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="来源"
                     prop="source"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="查询时间"
                     prop="searchDate"
                     align="center"
-                    :formatter="formTime">
+                    :formatter="formTime"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column
                     label="入库时间"
                     prop="createTime"
                     align="center"
-                    :formatter="formTime2">
+                    :formatter="formTime2"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
@@ -141,46 +149,52 @@ import {wordList,keyAdd,keyUpd,keyDel} from '@/config/api'
 export default {
   data() {
     return {
-      list: [],
-      perList:[],
-      addList:{
-        name:"",
-        stname:"",
-        alias:""
-      },
-      currentItem:{
-          name:"",
-          stname:"",
-          alias:""
-      },
-      searchItem:{//搜索数据组
-        name:"",
-        stname:"",
-        refreshTime:"",
-        putTime:""
-      },
-      addRules:{
-          name:[{ required: true, message: '请输入关键字', trigger: 'change' }],
-          stname:[{ required: true, message: '请输入标准名', trigger: 'change' }],
-          alias:[{ required: true, message: '请输入别名', trigger: 'change' }],
-      },
-      editRules:{
-          name:[{ required: true, message: '请输入关键字', trigger: 'change' }],
-          stname:[{ required: true, message: '请输入标准名', trigger: 'change' }],
-          alias:[{ required: true, message: '请输入别名', trigger: 'change' }],
-      },
-      // 分页
-      currentPage: 1, //默认显示第几页
-      pageSize: 10,   //默认每页条数
-      pageSizes:[10, 20, 30],
-      totalCount:1,     // 总条数
-      btnLoading:false,
-      addVisible:false,
-      addBtnLoading:false,
-      editVisible: false,
-      editBtnLoading:false,
-      listLoading:true,
-      isshow:true
+        pickerOptions: {
+            disabledDate(time) {
+            let times = Date.now() - 24 * 60 * 60 * 1000;
+            return time.getTime() > times;
+            },
+        },
+        list: [],
+        perList:[],
+        addList:{
+            name:"",
+            stname:"",
+            alias:""
+        },
+        currentItem:{
+            name:"",
+            stname:"",
+            alias:""
+        },
+        searchItem:{//搜索数据组
+            name:"",
+            stname:"",
+            refreshTime:"",
+            putTime:""
+        },
+        addRules:{
+            name:[{ required: true, message: '请输入关键字', trigger: 'change' }],
+            stname:[{ required: true, message: '请输入标准名', trigger: 'change' }],
+            alias:[{ required: true, message: '请输入别名', trigger: 'change' }],
+        },
+        editRules:{
+            name:[{ required: true, message: '请输入关键字', trigger: 'change' }],
+            stname:[{ required: true, message: '请输入标准名', trigger: 'change' }],
+            alias:[{ required: true, message: '请输入别名', trigger: 'change' }],
+        },
+        // 分页
+        currentPage: 1, //默认显示第几页
+        pageSize: 10,   //默认每页条数
+        pageSizes:[10, 20, 30],
+        totalCount:1,     // 总条数
+        btnLoading:false,
+        addVisible:false,
+        addBtnLoading:false,
+        editVisible: false,
+        editBtnLoading:false,
+        listLoading:true,
+        isshow:true
     };
   },
   created() {

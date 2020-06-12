@@ -4,10 +4,6 @@
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <div class="a_alert">
-        <i class="el-icon-info"></i>
-        <span class="alert_main">服务端日志今天更新了<countTo :startVal='startVal' :endVal='endVal' :duration='3000'></countTo> 条</span>
-    </div>
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="客户端ip" prop="uip">
         <el-input v-model.trim="searchItem.uip" clearable></el-input>
@@ -17,6 +13,7 @@
           type="date" 
           placeholder="选择日期" 
           v-model="searchItem.refreshTime" 
+          :picker-options="pickerOptions"
           style="width: 100%;"
           value-format="yyyy-MM-dd"></el-date-picker>
       </el-form-item>
@@ -25,6 +22,7 @@
           type="date" 
           placeholder="选择日期" 
           v-model="searchItem.putTime" 
+          :picker-options="pickerOptions"
           style="width: 100%;"
           value-format="yyyy-MM-dd"></el-date-picker>
       </el-form-item>
@@ -40,30 +38,25 @@
               v-loading="listLoading">
               <el-table-column type="index" align="center">
               </el-table-column>
-              <el-table-column label="ID" prop="id" align="center">
+              <el-table-column label="ID" prop="id" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端ip" prop="ip" align="center">
+              <el-table-column label="客户端ip" prop="ip" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端地址" prop="address" align="center">
+              <el-table-column label="客户端地址" prop="address" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端设备" prop="devid" align="center">
+              <el-table-column label="客户端设备" prop="devid" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端id" prop="appid" align="center">
+              <el-table-column label="客户端id" prop="appid" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端类型" prop="model" align="center">
+              <el-table-column label="客户端类型" prop="model" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="接口输入" prop="cinput" align="center">
+              <el-table-column label="接口输入" prop="cinput" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="接口返回" prop="result" align="center" className="reg">
-                  <template slot-scope="scope">
-                      <el-tooltip effect="dark" :content="scope.row.result" placement="top">
-                      <span slot>{{scope.row.result}}</span>
-                      </el-tooltip>
-                  </template>
+              <el-table-column label="接口返回" prop="result" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="计算时间" prop="dur" align="center">
+              <el-table-column label="计算时间" prop="dur" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime">
+              <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime" min-width="140">
               </el-table-column>
           </el-table>
       <!-- <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table> -->
@@ -81,14 +74,17 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {servList} from '@/config/api'
-import countTo from 'vue-count-to';
 export default {
-  components: { iTable, countTo },
   data() {
     return {
+      pickerOptions: {
+          disabledDate(time) {
+              let times = Date.now() - 24 * 60 * 60 * 1000;
+              return time.getTime() > times;
+          },
+      },
       list: [],
       searchItem:{//搜索数据组
         uip:"",
@@ -101,9 +97,7 @@ export default {
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
-      listLoading:false,
-      startVal:0,
-      endVal:0
+      listLoading:false
     };
   },
   created() {
@@ -158,7 +152,6 @@ export default {
         this.listLoading = false
         this.list = res.data.data.data
         this.totalCount = res.data.data.total
-        this.endVal = res.data.count
       })
     }
   }

@@ -16,11 +16,12 @@
                 <el-option label="百度" value="baidu"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="开始时间" prop="refreshTime">
+            <el-form-item label="起始时间" prop="refreshTime">
                 <el-date-picker 
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.refreshTime" 
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -28,7 +29,8 @@
                 <el-date-picker 
                     type="date" 
                     placeholder="选择日期" 
-                    v-model="searchItem.putTime" 
+                    v-model="searchItem.putTime"
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -38,7 +40,64 @@
             </el-form-item>
         </el-form>
         <div class="table-box">
-        <i-table :list="this.list" :options="options" :columns="columns" :operates="operates"></i-table>
+            <el-table
+                :data="list"
+                style="width: 100%"
+                v-loading="listLoading">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column label="应用名" prop="name" align="center" :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="类别"
+                    prop="cat"
+                    align="center"
+                    :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="平台"
+                    prop="platform"
+                    align="center"
+                    :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="费用"
+                    prop="fee"
+                    align="center"
+                    :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="积分"
+                    prop="score"
+                    align="center"
+                    :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="下载次数"
+                    prop="dnum"
+                    align="center"
+                    :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="来自"
+                    prop="source"
+                    align="center"
+                    :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="更新时间"
+                    prop="updateTime"
+                    align="center"
+                    min-width="140">
+                </el-table-column>
+                <el-table-column
+                    label="入库时间"
+                    prop="createTime"
+                    align="center"
+                    :formatter="formTime"
+                    min-width="140">
+                </el-table-column>
+            </el-table>
         <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
@@ -53,115 +112,46 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {appList} from '@/config/api'
 export default {
-    components: { iTable },
     data() {
         return {
-        list: [],
-        searchItem:{//搜索数据组
-            appName:"",
-            source:"",
-            refreshTime:"",
-            putTime:""
-        },
-        columns: [
-            {
-                prop: "name",
-                label: "应用名",
-                align: "center",
-                hasSort:true
+            pickerOptions: {
+                disabledDate(time) {
+                    let times = Date.now() - 24 * 60 * 60 * 1000;
+                    return time.getTime() > times;
+                },
             },
-            {
-                prop: "cat",
-                label: "类别",
-                align: "center",
-                hasSort:true
+            list: [],
+            searchItem:{//搜索数据组
+                appName:"",
+                source:"",
+                refreshTime:"",
+                putTime:""
             },
-            {
-                prop: "platform",
-                label: "平台",
-                align: "center",
-                hasSort:true
-            },
-            {
-                prop: "fee",
-                label: "费用",
-                align: "center",
-                hasSort:true
-            },
-            {
-                prop: "score",
-                label: "积分",
-                align: "center",
-                hasSort:true
-            },
-            {
-                prop: "dnum",
-                label: "下载次数",
-                align: "center",
-                hasSort:true
-            },
-            {
-                prop: "source",
-                label: "来自",
-                align: "center",
-                hasSort:true
-            },
-            {
-                prop: "updateTime",
-                label: "更新时间",
-                align: "center",
-                hasSort:true,
-                // render: (h, params)=>{
-                //     var timer = parseInt(params.row.updateTime)
-                //     return h('span',
-                //     formatDate(new Date(timer), 'yyyy-MM-dd'))
-                // }
-            },
-            {
-                prop: "createTime",
-                label: "入库时间",
-                align: "center",
-                hasSort:true,
-                render: (h, params)=>{
-                    var timer = params.row.createTime
-                    var date = new Date(timer)
-                    return h('span',
-                      date.getFullYear()+'-'+
-                      checkTime(date.getMonth()+1)+'-'+
-                      checkTime(date.getDate())+' '+
-                      checkTime(date.getHours())+':'+
-                      checkTime(date.getMinutes()))
-                }
-            }
-        ],
-        options: {
-            stripe: false, // 是否为斑马纹 table
-            loading: true, // 是否添加表格loading加载动画
-            highlightCurrentRow: false, // 是否支持当前行高亮显示
-            mutiSelect: false, // 是否支持列表项选中功能
-            border:false     //是否显示纵向边框
-        },
-        operates: {
-            show: false,
-            list: [
-            ]
-        }, // 列操作按钮
-        // 分页
-        currentPage: 1, //默认显示第几页
-        pageSize: 10,   //默认每页条数
-        pageSizes:[10, 20, 30],
-        totalCount:1,     // 总条数
-        btnLoading:false
+            // 分页
+            currentPage: 1, //默认显示第几页
+            pageSize: 10,   //默认每页条数
+            pageSizes:[10, 20, 30],
+            totalCount:1,     // 总条数
+            btnLoading:false,
+            listLoading:true,
         };
     },
     created() {
         this.getList();
     },
     methods: {
+        formTime(row, column){
+            var timer = row.createTime
+            var date = new Date(timer)
+                return date.getFullYear()+'-'+
+                checkTime(date.getMonth()+1)+'-'+
+                checkTime(date.getDate())+' '+
+                checkTime(date.getHours())+':'+
+                checkTime(date.getMinutes())
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1
@@ -193,7 +183,7 @@ export default {
                 source:this.searchItem.source
             }
             appList(params).then(res => {
-                this.options.loading = false
+                this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
             });

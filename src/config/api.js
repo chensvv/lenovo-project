@@ -1251,3 +1251,11 @@ export function servlogList (data) {
     data: data
   })
 }
+
+export function avaterList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/avater/list',
+    method: 'post',
+    data: data
+  })
+}

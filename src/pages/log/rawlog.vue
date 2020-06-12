@@ -4,10 +4,6 @@
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <div class="a_alert">
-        <i class="el-icon-info"></i>
-        <span class="alert_main">原始日志今天更新了<countTo :startVal='startVal' :endVal='endVal' :duration='3000'></countTo> 条</span>
-    </div>
     <el-form
       :inline="true"
       ref="searchItem"
@@ -29,6 +25,7 @@
           type="date"
           placeholder="选择日期"
           v-model="searchItem.refreshTime"
+          :picker-options="pickerOptions"
           style="width: 100%;"
           value-format="yyyy-MM-dd"
         ></el-date-picker>
@@ -38,6 +35,7 @@
           type="date"
           placeholder="选择日期"
           v-model="searchItem.putTime"
+          :picker-options="pickerOptions"
           style="width: 100%;"
           value-format="yyyy-MM-dd"
         ></el-date-picker>
@@ -50,12 +48,12 @@
     <div class="table-box">
       <el-table :data="list" style="width: 100%" v-loading="listLoading">
         <el-table-column type="index" align="center"></el-table-column>
-        <el-table-column label="UID" prop="uid" align="center" sortable></el-table-column>
-        <el-table-column label="客户端设备类型" prop="dtp" align="center" sortable></el-table-column>
-        <el-table-column label="客户端IP" prop="uip" align="center" sortable></el-table-column>
-        <el-table-column label="客户端ID" prop="did" align="center" sortable></el-table-column>
-        <el-table-column label="客户端版本" prop="ver" align="center" sortable></el-table-column>
-        <el-table-column label="插入时间" prop="it" align="center" sortable :formatter="formTime"></el-table-column>
+        <el-table-column label="UID" prop="uid" align="center" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="客户端设备类型" prop="dtp" align="center" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="客户端IP" prop="uip" align="center" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="客户端ID" prop="did" align="center" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="客户端版本" prop="ver" align="center" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="插入时间" prop="it" align="center" sortable :formatter="formTime" min-width="140"></el-table-column>
         <el-table-column label="原始日志" align="center" v-if="isshow">
           <template slot-scope="scope">
             <span slot @click="handleInfo(scope.$index, scope.row)" class="cur-info" v-has="'asr:rawview'">
@@ -92,6 +90,12 @@ export default {
   components: {countTo },
   data() {
     return {
+      pickerOptions: {
+          disabledDate(time) {
+            let times = Date.now() - 24 * 60 * 60 * 1000;
+            return time.getTime() > times;
+          },
+      },
       list: [],
       perList:[],
       infoList:[],
@@ -126,8 +130,6 @@ export default {
       editVisible:false,
       listLoading:true,
       isshow:true,
-      startVal:0,
-      endVal:0,
       bigId:1
     };
   },

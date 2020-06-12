@@ -15,11 +15,12 @@
             <el-form-item label="类别" prop="cn">
                 <el-input v-model.trim="searchItem.cn" clearable></el-input>
             </el-form-item>
-            <el-form-item label="开始时间" prop="refreshTime" class="width140">
+            <el-form-item label="起始时间" prop="refreshTime" class="width140">
                 <el-date-picker 
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.refreshTime" 
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -28,6 +29,7 @@
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.putTime" 
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -46,22 +48,26 @@
             <el-table-column
                 label="名称"
                 prop="name"
-                align="center">
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="拼音"
                 prop="pinyin"
-                align="center">
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="类型"
                 prop="atype"
-                align="center">
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="类别"
                 prop="cname"
-                 align="center">
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="是否别名"
@@ -72,19 +78,21 @@
             <el-table-column
                 label="原名"
                 prop="sname"
-                 align="center">
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="是否索引"
                 prop="isIndex"
-                 align="center"
+                align="center"
                 :formatter="indexVal">
             </el-table-column>
             <el-table-column
                 label="更新时间"
                 prop="upTime"
                  align="center"
-                :formatter="formTime">
+                :formatter="formTime"
+                min-width="140">
             </el-table-column>
             <el-table-column label="操作" align="center" v-if="isshow">
                 <template slot-scope="scope">
@@ -109,10 +117,10 @@
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="应用名" prop="name">
-                    <el-input type="text" v-model.trim="addList.name" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="addList.name"  auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="别名" prop="alias">
-                    <el-input type="text" v-model.trim="addList.alias" auto-complete="off" placeholder="别名对应的原始名—只对别名有效"></el-input>
+                    <el-input type="text" v-model.trim="addList.alias" auto-complete="off" placeholder="别名对应的原始名 — 只对别名有效"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -129,6 +137,12 @@ import {cacheList, cacheDel, cacheAdd} from '@/config/api'
 export default {
     data(){
         return{
+            pickerOptions: {
+                disabledDate(time) {
+                let times = Date.now() - 24 * 60 * 60 * 1000;
+                return time.getTime() > times;
+                },
+            },
             searchItem:{
                 name:"",
                 type:"",

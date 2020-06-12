@@ -19,11 +19,12 @@
             <el-form-item label="响应状态" prop="respstatus">
                 <el-input v-model.trim="searchItem.respstatus" clearable></el-input>
             </el-form-item>
-            <el-form-item label="开始时间" prop="refreshTime" class="width140">
+            <el-form-item label="起始时间" prop="refreshTime" class="width140">
                 <el-date-picker 
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.refreshTime" 
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -32,6 +33,7 @@
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.putTime" 
+                    :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
@@ -50,37 +52,44 @@
                 <el-table-column
                     label="用户ID"
                     prop="uid"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="用户指令"
                     prop="userText"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="解析领域"
                     prop="nlpDomain"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="响应状态"
                     prop="responseStatus"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="三方名称"
                     prop="outerType"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="接口名称"
                     prop="interfaceUrl"
-                    align="center">
+                    align="center"
+                    :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="时间"
                     prop="displayTime"
-                    align="center">
+                    align="center"
+                    min-width="140">
                 </el-table-column>
                 <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
@@ -166,6 +175,12 @@ import {outerList, outerInfo} from '@/config/api'
 export default {
     data() {
         return {
+            pickerOptions: {
+                disabledDate(time) {
+                let times = Date.now() - 24 * 60 * 60 * 1000;
+                return time.getTime() > times;
+                },
+            },
             list: [],
             perList:[],
             searchItem:{

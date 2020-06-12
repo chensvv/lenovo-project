@@ -4,10 +4,6 @@
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <div class="a_alert">
-        <i class="el-icon-info"></i>
-        <span class="alert_main">原始音频今天更新了<countTo :startVal='startVal' :endVal='endVal' :duration='3000'></countTo> 条</span>
-    </div>
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="客户端设备类型" prop="dtp">
         <el-input v-model.trim="searchItem.dtp" clearable></el-input>
@@ -33,19 +29,19 @@
               v-loading="listLoading">
               <el-table-column type="index" align="center">
               </el-table-column>
-              <el-table-column label="客户端设备类型" prop="dtp" align="center" sortable>
+              <el-table-column label="客户端设备类型" prop="dtp" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="版本" prop="ver" align="center" sortable>
+              <el-table-column label="版本" prop="ver" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端ip" prop="uip" align="center" sortable>
+              <el-table-column label="客户端ip" prop="uip" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端设备ID" prop="did" align="center" sortable>
+              <el-table-column label="客户端设备ID" prop="did" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="开发者ID" prop="dev" align="center" sortable>
+              <el-table-column label="开发者ID" prop="dev" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="应用ID" prop="zhi" align="center" sortable>
+              <el-table-column label="应用ID" prop="zhi" align="center" :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="设备文本" prop="tai" align="center" sortable>
+              <el-table-column label="设备文本" prop="tai" align="center" :show-overflow-tooltip="true">
               </el-table-column>
               <el-table-column label="音频文件" align="center" v-if="isshow">
                 <template slot-scope="scope">

@@ -31,11 +31,12 @@
           <el-form-item label="数据来源" prop="origin">
             <el-input v-model.trim="searchItem.origin" clearable></el-input>
           </el-form-item>
-          <el-form-item label="开始时间" prop="refreshTime" class="width140">
+          <el-form-item label="起始时间" prop="refreshTime" class="width140">
               <el-date-picker 
                 type="date" 
                 placeholder="选择日期" 
                 v-model="searchItem.refreshTime" 
+                :picker-options="pickerOptions"
                 style="width: 100%;"
                 value-format="yyyy-MM-dd"></el-date-picker>
           </el-form-item>
@@ -44,6 +45,7 @@
                 type="date" 
                 placeholder="选择日期" 
                 v-model="searchItem.putTime" 
+                :picker-options="pickerOptions"
                 style="width: 100%;"
                 value-format="yyyy-MM-dd"></el-date-picker>
           </el-form-item>
@@ -67,7 +69,8 @@
             <el-table-column
                 label="设备类型"
                 prop="dtp"
-                align="center">
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="用户ID"
@@ -76,44 +79,46 @@
             </el-table-column>
             <el-table-column
                 label="客户端版本"
-                prop="clientVersion">
+                prop="clientVersion"
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="引擎版本"
                 prop="engineVersion"
-                 align="center">
+                 align="center"
+                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="开发者"
                 prop="developer"
-                 align="center">
+                 align="center"
+                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="唤醒词类型"
                 prop="keywordType"
-                 align="center">
+                 align="center"
+                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="唤醒词"
                 prop="keywordPhrase"
-                 align="center">
+                 align="center"
+                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="数据来源"
                 prop="origin"
-                 align="center">
+                 align="center"
+                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="数据日期"
                 prop="displayDate"
-                 align="center">
+                align="center"
+                min-width="140">
             </el-table-column>
-            <!-- <el-table-column 
-                label="操作"
-                prop="filePath"
-                 align="center"
-                :formatter="formTime">
-            </el-table-column> -->
             <el-table-column label="操作" align="center" v-if="btnshow">
                 <template slot-scope="scope">
                     <el-button
@@ -154,6 +159,12 @@ import downUrl from '@/config/http'
 export default {
   data() {
     return {
+      pickerOptions: {
+          disabledDate(time) {
+              let times = Date.now() - 24 * 60 * 60 * 1000;
+              return time.getTime() > times;
+          },
+      },
       list: [],
       perList:[],
       zipLists:[],

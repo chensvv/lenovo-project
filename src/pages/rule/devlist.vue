@@ -32,18 +32,21 @@
           <el-table-column
               label="机型名称"
               prop="name"
-              align="center">
+              align="center"
+              :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="机型代码"
               prop="code"
-              align="center">
+              align="center"
+              :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="更新/入库时间"
               prop="it"
               align="center"
-              :formatter="formTime">
+              :formatter="formTime"
+              min-width="140">
           </el-table-column>
           <el-table-column label="操作" align="center" v-if="isshow">
               <template slot-scope="scope">

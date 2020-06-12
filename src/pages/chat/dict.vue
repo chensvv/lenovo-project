@@ -24,11 +24,12 @@
                     <el-option label="新增数据" value="2"></el-option>
                 </el-select>
             </el-form-item>
-        <el-form-item label="开始时间" prop="refreshTime">
+        <el-form-item label="起始时间" prop="refreshTime">
             <el-date-picker 
                 type="date" 
                 placeholder="选择日期" 
                 v-model="searchItem.refreshTime" 
+                :picker-options="pickerOptions"
                 style="width: 100%;"
                 value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
@@ -37,6 +38,7 @@
                 type="date" 
                 placeholder="选择日期" 
                 v-model="searchItem.putTime" 
+                :picker-options="pickerOptions"
                 style="width: 100%;"
                 value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
@@ -56,17 +58,20 @@
             <el-table-column
                 label="VDM"
                 prop="vdm"
-                align="center">
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="热词"
                 prop="name"
-                align="center">
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="发音"
                 prop="pronounceName"
-                align="center">
+                align="center"
+                :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column label="数据类型" prop="dataType" align="center">
                 <template slot-scope="scope">
@@ -74,10 +79,17 @@
                 </template>
             </el-table-column>
             <el-table-column
+                label="匹配模式"
+                prop="matcherPattern"
+                align="center"
+                :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column
                 label="更新时间"
                 prop="upTime"
                  align="center"
-                :formatter="formTime">
+                :formatter="formTime"
+                min-width="140">
             </el-table-column>
             <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
@@ -113,6 +125,9 @@
             <el-form-item label="词语发音" prop="pronounceName">
                 <el-input type="text" v-model.trim="currentItem.pronounceName" placeholder="(如热词为‘A180’，此处可填写‘诶裔巴绫’)" auto-complete="off"></el-input>
             </el-form-item>
+            <el-form-item label="匹配模式" prop="matcherPattern">
+                <el-input type="text" v-model.trim="currentItem.matcherPattern" auto-complete="off"></el-input>
+            </el-form-item>
             <el-form-item label="VDM" prop="vdm">
                 <el-select v-model="currentItem.vdm" placeholder="--">
                     <el-option label="all" value="all"></el-option>
@@ -139,6 +154,9 @@
             </el-form-item>
             <el-form-item label="词语发音" prop="pronounceName">
                 <el-input type="text" v-model.trim="addList.pronounceName" placeholder="(如热词为‘A180’，此处可填写‘诶裔巴绫’)" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="匹配模式" prop="matcherPattern">
+                <el-input type="text" v-model.trim="addList.matcherPattern" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="VDM" prop="vdm">
                 <el-select v-model="addList.vdm" placeholder="--">
@@ -169,6 +187,12 @@ import {dictList, dictDel, dictAddUpd} from '@/config/api'
 export default {
     data() {
         return {
+            pickerOptions: {
+                disabledDate(time) {
+                    let times = Date.now() - 24 * 60 * 60 * 1000;
+                    return time.getTime() > times;
+                },
+            },
             list: [],
             perList:[],
             currentItem: {//编辑数据组
@@ -181,6 +205,7 @@ export default {
                 hotName: "",
                 pronounceName: "",
                 vdm: "",
+                matcherPattern:'',
                 dataType:''
             },
             searchItem:{//搜索数据组
@@ -191,13 +216,13 @@ export default {
                 dataType:''
             },
             addRules:{
-                hotName:[{ required: true, message: '请输入网站名称add', trigger: 'change' }],
+                hotName:[{ required: true, message: '请输入热词名称', trigger: 'change' }],
                 pronounceName:[{ required: true, message: '请输入说法', trigger: 'change' }],
                 vdm:[{ required: true, message: '请选择VDM', trigger: 'change' }],
                 dataType:[{ required: true, message: '请选择数据类型', trigger: 'change' }],
             },
             editRules:{
-                hotName:[{ required: true, message: '请输入网站名称add', trigger: 'change' }],
+                hotName:[{ required: true, message: '请输入热词名称', trigger: 'change' }],
                 pronounceName:[{ required: true, message: '请输入说法', trigger: 'change' }],
                 vdm:[{ required: true, message: '请选择VDM', trigger: 'change' }],
                 dataType:[{ required: true, message: '请选择数据类型', trigger: 'change' }],
@@ -269,6 +294,7 @@ export default {
                 id:row.id,
                 hotName: row.name,
                 pronounceName: row.pronounceName,
+                matcherPattern:row.matcherPattern,
                 vdm: row.vdm,
                 dataType:row.dataType
             }
@@ -329,6 +355,7 @@ export default {
                 id:this.currentItem.id,
                 vdm:this.currentItem.vdm,
                 name:this.currentItem.hotName,
+                matcherPattern:this.currentItem.matcherPattern,
                 pronounceName:this.currentItem.pronounceName,
                 dataType:this.currentItem.dataType
             }
@@ -368,6 +395,7 @@ export default {
                 name:this.addList.hotName,
                 vdm:this.addList.vdm,
                 pronounceName:this.addList.pronounceName,
+                matcherPattern:this.addList.matcherPattern,
                 dataType:this.addList.dataType
             }
             this.$refs[addList].validate((valid) => {

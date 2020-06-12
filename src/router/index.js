@@ -260,6 +260,16 @@ const router = new Router({
           meta: {title: 'NL领域统计'}
         },
         {
+          path: '/avater/uv',
+          component: () => import('@/pages/userStat/uvStat'),
+          meta: {title: '用户统计'}
+        },
+        {
+          path: '/avater/list',
+          component: () => import('@/pages/userStat/pvStat'),
+          meta: {title: '事件统计'}
+        },
+        {
           path: '/401',
           component: () => import('@/pages/401'),
           meta: {title: '401'}

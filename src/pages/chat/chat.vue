@@ -14,6 +14,7 @@
           type="date" 
           placeholder="选择日期" 
           v-model="searchItem.refreshTime" 
+          :picker-options="pickerOptions"
           style="width: 100%;"
           value-format="yyyy-MM-dd"></el-date-picker>
       </el-form-item>
@@ -22,6 +23,7 @@
           type="date" 
           placeholder="选择日期" 
           v-model="searchItem.putTime" 
+          :picker-options="pickerOptions"
           style="width: 100%;"
           value-format="yyyy-MM-dd"></el-date-picker>
       </el-form-item>
@@ -34,7 +36,41 @@
       </el-tooltip>
     </el-form>
     <div class="table-box">
-      <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table>
+      <el-table
+                :data="list"
+                style="width: 100%"
+                v-loading="listLoading">
+                <el-table-column type="index" align="center">
+                </el-table-column>
+                <el-table-column
+                    label="问题"
+                    prop="ques"
+                    align="left"
+                    header-align="center"
+                    :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="答案"
+                    prop="answ"
+                    align="left"
+                    header-align="center"
+                    :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="引擎"
+                    prop="engi"
+                    align="left"
+                    header-align="center"
+                    :show-overflow-tooltip="true">
+                </el-table-column>
+                <el-table-column
+                    label="入库时间"
+                    prop="it"
+                    align="center"
+                    min-width="140"
+                    :formatter="formTime">
+                </el-table-column>
+            </el-table>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -49,13 +85,17 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {chatList, chatExport} from '@/config/api'
 export default {
-  components: { iTable },
   data() {
     return {
+      pickerOptions: {
+          disabledDate(time) {
+            let times = Date.now() - 24 * 60 * 60 * 1000;
+            return time.getTime() > times;
+          },
+      },
       list: [],
       searchItem:{//搜索数据组
         question:"",
@@ -65,55 +105,6 @@ export default {
       exList:{
 
       },
-      columns: [
-        {
-          prop: "ques",
-          label: "问题",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "answ",
-          label: "答案",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "engi",
-          label: "引擎",
-          align: "center",
-          hasSort:true
-        },
-        {
-          prop: "it",
-          label: "入库时间",
-          align: "center",
-          hasSort:true,
-          render: (h, params)=>{
-            var timer = params.row.it
-            var date = new Date(timer)
-              return h('span',
-                date.getFullYear()+'-'+
-                checkTime(date.getMonth()+1)+'-'+
-                checkTime(date.getDate())+' '+
-                checkTime(date.getHours())+':'+
-                checkTime(date.getMinutes()))
-          }
-        }
-      ],
-      options: {
-        stripe: false, // 是否为斑马纹 table
-        loading: true, // 是否添加表格loading加载动画
-        highlightCurrentRow: false, // 是否支持当前行高亮显示
-        mutiSelect: false, // 是否支持列表项选中功能
-        border:false     //是否显示纵向边框
-      },
-      operates: {
-        width: 120,
-        show: false,
-        list: [
-        ]
-      }, // 列操作按钮
       editVisible: false,
       addVisible: false,
       // 分页
@@ -122,13 +113,23 @@ export default {
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
-      fileBtnLoading:false
+      fileBtnLoading:false,
+      listLoading:true
     };
   },
   created() {
     this.getList();
   },
   methods: {
+    formTime(row, column){
+            var timer = row.it
+            var date = new Date(timer)
+                return date.getFullYear()+'-'+
+                checkTime(date.getMonth()+1)+'-'+
+                checkTime(date.getDate())+' '+
+                checkTime(date.getHours())+':'+
+                checkTime(date.getMinutes())
+        },
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.currentPage = 1
@@ -183,7 +184,7 @@ export default {
         endStr:this.searchItem.putTime
       }
       chatList(params).then(res => {
-        this.options.loading = false
+        this.listLoading = false
         this.list = res.data.data;
         this.totalCount = res.data.count
       });
