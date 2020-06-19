@@ -270,6 +270,11 @@ const router = new Router({
           meta: {title: '事件统计'}
         },
         {
+          path: '/lenovokey/list',
+          component: () => import('@/pages/userStat/brain'),
+          meta: {title: '联想大脑统计'}
+        },
+        {
           path: '/401',
           component: () => import('@/pages/401'),
           meta: {title: '401'}

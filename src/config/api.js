@@ -1259,3 +1259,11 @@ export function avaterList (data) {
     data: data
   })
 }
+
+export function lenKeyList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/lenovokey/list',
+    method: 'post',
+    data: data
+  })
+}

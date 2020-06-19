@@ -24,7 +24,7 @@
                 <el-table-column type="index" align="center">
                 </el-table-column>
                 <el-table-column
-                    label="技能名称"
+                    label="应用名称"
                     prop="appName"
                     align="center"
                     :show-overflow-tooltip="true">
