@@ -69,6 +69,13 @@ export default {
         this.searchItem.startTime = val[0]
         this.searchItem.endTime = val[1]
     },
+    computedPosition(length,xArraylength) {
+        if(xArraylength>=10){
+            return length <= 10 ? this.end = 50 : this.end = (100 -   Math.floor(50 / length * 100));
+        }else{
+            return 100;//小于十条数据显示全部
+        }
+    },
     getChartsData(){
         // 基于准备好的dom，初始化echarts实例
         let paramsList = {
@@ -78,6 +85,7 @@ export default {
         let myChart = echarts.init(this.$refs.myChart)
         lenKeyList(paramsList).then(res=>{
             this.loading = false
+            var xArraylength = res.data.data.visit.length
             myChart.setOption({
               title: { 
                   text: '联想大脑统计',
@@ -86,7 +94,7 @@ export default {
               tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    type: ''        // 默认为直线，可选为：'line' | 'shadow'
                 }
               },
               xAxis: {
@@ -96,11 +104,11 @@ export default {
                   }
               },
               grid:{
-                show:false,//是否显示直角坐标系网格。[ default: false ]
-                left:"20%",//grid 组件离容器左侧的距离。
-                right:"10%",
-                borderColor:"#c45455",//网格的边框颜色
-                bottom:"20%"
+                 x:'5%', //左上角x轴距盒子边框的距离
+                 y:'10%', //左上角Y轴距盒子边框的距离
+                  x2:'5%',//右下角x轴距盒子边框的距离
+                 y2:'15%',//右下角Y轴距盒子边框的距离
+                 borderWidth:1
               },
               yAxis: {
                 minInterval : 1
@@ -110,7 +118,7 @@ export default {
                   type: 'bar',
                   data: res.data.data.visit,
                   color:"#409eff",
-                  barMaxWidth: 45, // 最大宽度
+                  barMaxWidth: 60, // 最大宽度
                   itemStyle: {
                     normal: {
                         label: {
@@ -124,14 +132,16 @@ export default {
                     }
                   }
               }],
-              dataZoom: [{
-                id: 'dataZoomX',
-                type: 'slider',
-                show: true,
-                start: 0,
-                end: 80,
-                handleSize: 8
-              }]
+              dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        handleSize: 2,
+                        height: '15px',
+                        start:0 ,
+                        end: this.computedPosition(1,xArraylength)
+                    }
+                ]
             })
         })
     }

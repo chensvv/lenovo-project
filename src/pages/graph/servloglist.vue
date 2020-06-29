@@ -49,18 +49,26 @@ export default {
     //   this.getChartsData()
     //   this.seaBtnLoading = false
     // },
+    computedPosition(length,xArraylength) {
+        if(xArraylength>=10){
+            return length <= 10 ? this.end = 50 : this.end = (100 -   Math.floor(50 / length * 100));
+        }else{
+            return 100;//小于十条数据显示全部
+        }
+    },
     getChartsData(){
         // 基于准备好的dom，初始化echarts实例
         let myChart = echarts.init(this.$refs.myChart)
         const Ydata = []
         const Xdata = []
         servlogList().then(res=>{
-          this.loading=false
+            this.loading=false
             var obj = res.data
             for(let key in obj){
                 Xdata.push(key)
                 Ydata.push(obj[key])
             }
+            var xArraylength = Xdata.length
             myChart.setOption({
               title: { 
                   text: 'NL领域统计',
@@ -69,7 +77,7 @@ export default {
               tooltip: {
                 trigger: 'axis',
                 axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    type: ''        // 默认为直线，可选为：'line' | 'shadow'
                 }
               },
               xAxis: {
@@ -93,6 +101,7 @@ export default {
                   type: 'bar',
                   data: Ydata,
                   color:"#409eff",
+                  barMaxWidth: 60, // 最大宽度
                   itemStyle: {
                     normal: {
                         label: {
@@ -106,15 +115,16 @@ export default {
                     }
                   }
               }],
-              dataZoom: [{
-                    id: 'dataZoomX',
-                    type: 'slider',
-                    show: true,
-                    start: 0,
-                    end: 80,
-                    handleSize: 8
-                  }]
-            
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        handleSize: 2,
+                        height: '15px',
+                        start:0 ,
+                        end: this.computedPosition(1,xArraylength)
+                    }
+                ]
             })
         })
     }

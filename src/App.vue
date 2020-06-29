@@ -18,6 +18,7 @@ export default {
 * {
   margin: 0px;
   padding: 0px;
+  touch-action: pan-x;
 }
 
 html, body, #app {
