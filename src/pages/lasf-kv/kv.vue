@@ -8,6 +8,7 @@
     
     <el-form :inline="true" class="demo-form-inline search_box" size="mini">
         <el-form-item>
+            <el-button class="success" size="mini" @click="handleState()">报表配置</el-button>
             <el-button class="success" size="mini" @click="handleAdd()" v-has="'kv:editsave'">添加</el-button>
         </el-form-item>
         
@@ -276,6 +277,11 @@ export default {
                 this.list = res.data.data;
                 this.totalCount = res.data.count
             });
+        },
+        handleState(){
+            this.$router.push({
+                path:'/gift/add'
+            })
         }
     }
 };

@@ -382,6 +382,7 @@ export default {
                         type:"success",
                         duration:1000
                     });
+                    this.infoVisible = false
                     this.getList()
                 }else{
                     this.$message({
@@ -407,6 +408,7 @@ export default {
                         type:"success",
                         duration:1000
                     });
+                    this.infoVisible = false
                     this.getList()
                 }else{
                     this.$message({

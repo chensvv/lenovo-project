@@ -71,12 +71,12 @@ const router = new Router({
         },
         {
           path: '/joke/speakList',
-          component: () => import('@/pages/chat/qa'),
+          component: () => import('@/pages/statement/qa'),
           meta: {title: '笑话领域说法'}
         },
         {
           path: '/unit/list',
-          component: () => import('@/pages/chat/unit'),
+          component: () => import('@/pages/statement/unit'),
           meta: {title: '单位换算领域说法'}
         },
         {
@@ -91,12 +91,12 @@ const router = new Router({
         },
         {
           path: '/movie/list',
-          component: () => import('@/pages/chat/movie'),
+          component: () => import('@/pages/statement/movie'),
           meta: {title: '电影管理'}
         },
         {
           path: '/ask/list',
-          component: () => import('@/pages/chat/ask'),
+          component: () => import('@/pages/statement/ask'),
           meta: {title: '要求管理'}
         },
         {
@@ -136,47 +136,47 @@ const router = new Router({
         },
         {
           path: '/outer/list',
-          component: () => import('@/pages/lasf-kv/outer'),
+          component: () => import('@/pages/skillment/outer'),
           meta: {title: '三方错误信息'}
         },
         {
           path: '/skill/applist',
-          component: () => import('@/pages/lasf-kv/skill'),
+          component: () => import('@/pages/skillment/skill'),
           meta: {title: '应用列表'}
         },
         {
           path: '/lasf-kv/skill/detail',
-          component: () => import('@/pages/lasf-kv/detail'),
+          component: () => import('@/pages/skillment/detail'),
           meta: {title: '应用详情'}
         },
         {
           path: '/lasf-kv/skill/detail/speak',
-          component: () => import('@/pages/lasf-kv/speak'),
+          component: () => import('@/pages/skillment/speak'),
           meta: {title: '技能说法列表'}
         },
         {
           path: '/lasf-kv/skill/detail/sersion',
-          component: () => import('@/pages/lasf-kv/sersion'),
+          component: () => import('@/pages/skillment/sersion'),
           meta: {title: '技能答案列表'}
         },
         {
           path: '/skill/videolist',
-          component: () => import('@/pages/lasf-kv/video'),
+          component: () => import('@/pages/skillment/video'),
           meta: {title: '技能视频管理'}
         },
         {
           path: '/skill/music/singerlist',
-          component: () => import('@/pages/lasf-kv/singer'),
+          component: () => import('@/pages/skillment/singer'),
           meta: {title: '音乐歌手管理'}
         },
         {
           path: '/lasf-kv/album',
-          component: () => import('@/pages/lasf-kv/album'),
+          component: () => import('@/pages/skillment/album'),
           meta: {title: '音乐歌手管理'}
         },
         {
           path: '/lasf-kv/song',
-          component: () => import('@/pages/lasf-kv/song'),
+          component: () => import('@/pages/skillment/song'),
           meta: {title: '音乐歌手管理'}
         },
         {
@@ -201,17 +201,17 @@ const router = new Router({
         },
         {
           path: '/command/list',
-          component: () => import('@/pages/lasf-kv/command'),
+          component: () => import('@/pages/skillment/command'),
           meta: {title: '相似度命令管理'}
         },
         {
           path: '/command/norun/list',
-          component: () => import('@/pages/lasf-kv/norun'),
+          component: () => import('@/pages/skillment/norun'),
           meta: {title: '指令忽略管理'}
         },
         {
           path: '/command/mainlist',
-          component: () => import('@/pages/lasf-kv/original'),
+          component: () => import('@/pages/skillment/original'),
           meta: {title: '指令忽略管理'}
         },
         {
@@ -236,18 +236,18 @@ const router = new Router({
         },
         {
           path: '/servlog/loglist',
-          component: () => import('@/pages/servlog/main'),
+          component: () => import('@/pages/log/main'),
           meta: {title: '明细日志'}
         },
         {
           path: '/asr/log/asrf',
-          component: () => import('@/pages/servlog/asrf'),
+          component: () => import('@/pages/log/asrf'),
           meta: {title: '服务端错误日志'}
         },
         {
           path: '/vse/log/serv',
-          component: () => import('@/pages/vse/serv'),
-          meta: {title: 'VOD错误日志'}
+          component: () => import('@/pages/log/serv'),
+          meta: {title: '服务端日志'}
         },
         {
           path: '/census/list',
@@ -261,18 +261,33 @@ const router = new Router({
         },
         {
           path: '/avater/uv',
-          component: () => import('@/pages/userStat/uvStat'),
+          component: () => import('@/pages/avater/uvStat'),
           meta: {title: '用户统计'}
         },
         {
           path: '/avater/list',
-          component: () => import('@/pages/userStat/pvStat'),
+          component: () => import('@/pages/avater/pvStat'),
           meta: {title: '事件统计'}
         },
         {
           path: '/lenovokey/list',
-          component: () => import('@/pages/userStat/brain'),
+          component: () => import('@/pages/avater/brain'),
           meta: {title: '联想大脑统计'}
+        },
+        {
+          path: '/gift/add',
+          component: () => import('@/pages/statcon/state'),
+          meta: {title: '报表配置'}
+        },
+        {
+          path: '/gift/querySql',
+          component: () => import('@/pages/statcon/common'),
+          meta: {title: '报表配置'}
+        },
+        {
+          path: '/item/list',
+          component: () => import('@/pages/statement/item'),
+          meta: {title: '用户自定义'}
         },
         {
           path: '/401',

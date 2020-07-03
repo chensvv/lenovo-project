@@ -2,6 +2,7 @@
   <div class="table">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>业务报表</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline no_width" size="mini">

@@ -91,7 +91,7 @@ export default {
                     login(params).then((res)=>{
                         if(res.data.code == 200){
                             sessionStorage.setItem('username',this.loginForm.username)
-                            // this.$store.dispatch('menuData',res.data)
+                            sessionStorage.setItem('log',this.loginForm.password)
                             sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                             
                             this.$router.push('/home')

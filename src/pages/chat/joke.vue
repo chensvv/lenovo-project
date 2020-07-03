@@ -30,7 +30,7 @@
                 <el-table-column
                     label="内容"
                     prop="con"
-                    align="left"
+                    align="center"
                     header-align="center"
                     :show-overflow-tooltip="true">
                 </el-table-column>
@@ -38,14 +38,13 @@
                     label="状态"
                     prop="sta"
                     align="center"
-                    width="100"
                     :formatter="formState">
                 </el-table-column>
                 <el-table-column
                     label="更新/入库时间"
                     prop="it"
                     align="center"
-                    min-width="140"
+                    min-width="120"
                     :formatter="formTime">
                 </el-table-column>
                 <el-table-column label="操作" align="center" v-if="isshow">

@@ -92,7 +92,7 @@
                 prop="upTime"
                  align="center"
                 :formatter="formTime"
-                min-width="140">
+                min-width="120">
             </el-table-column>
             <el-table-column label="操作" align="center" v-if="isshow">
                 <template slot-scope="scope">

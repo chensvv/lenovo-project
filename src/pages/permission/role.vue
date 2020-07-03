@@ -2,6 +2,7 @@
     <div class="table">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>权限管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
@@ -114,8 +115,9 @@
 </template>
 
 <script>
-import {roleList, authList, roleAdd, roleEcho, roleUpd, roleDel} from '@/config/adminApi'
+import {roleList, authList, roleAdd, roleEcho, roleUpd, roleDel, login} from '@/config/adminApi'
 export default {
+  inject:['reload'],
   data() {
     return {
       list: [],
@@ -269,6 +271,10 @@ export default {
         roleCode:this.currentItem.roleCode,
         ids:this.selectedKeys
       }
+      let logParams = {
+          userName:sessionStorage.getItem('username'),
+          password:sessionStorage.getItem('log')
+      }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -282,6 +288,20 @@ export default {
                 });
                 this.getList()
                 this.editVisible = false
+                sessionStorage.removeItem('menuData');
+                sessionStorage.removeItem('btnpermission')
+                login(logParams).then((res)=>{
+                    if(res.data.code == 200){
+                        sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                        this.reload();
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1000
+                        });
+                    }
+                })
             }else{
                 this.$message({
                     message:res.data.errorMessage,

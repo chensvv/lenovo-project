@@ -24,9 +24,9 @@
     name: 'NavMenu',
     props: ['navMenus'],
     data() {
-      return {}
+      return {
+      }
     },
-    methods: {}
   }
 </script>
  

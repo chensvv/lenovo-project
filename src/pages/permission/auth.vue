@@ -2,6 +2,7 @@
     <div class="table">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>权限管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         
@@ -122,8 +123,9 @@
 </template>
 
 <script>
-import {userList, userDel, userUpd, userAdd, userEcho, userRole, userRoleEcho, userRoleSave} from '@/config/adminApi'
+import {userList, userDel, userUpd, userAdd, userEcho, userRole, userRoleEcho, userRoleSave, login} from '@/config/adminApi'
 export default {
+    inject:['reload'],
     data() {
         return {
             list: [],
@@ -368,6 +370,10 @@ export default {
                 id:this.seleId,
                 ids:this.multipleSelection,
             }
+            let logParams = {
+                userName:sessionStorage.getItem('username'),
+                password:sessionStorage.getItem('log')
+            }
             this.roleBtnLoading = true
             userRoleSave(Saveparams).then(res=>{
                 this.roleBtnLoading = false
@@ -379,6 +385,20 @@ export default {
                     });
                     this.getList()
                     this.roleVisible = false
+                    sessionStorage.removeItem('menuData');
+                    sessionStorage.removeItem('btnpermission')
+                    login(logParams).then((res)=>{
+                        if(res.data.code == 200){
+                            sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                            this.reload();
+                        }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
+                        }
+                    })
                 }else{
                     this.$message({
                         message:res.data.errorMessage,

@@ -52,14 +52,14 @@
               prop="createTime"
               align="center"
               :formatter="formTime"
-              min-width="140">
+              min-width="120">
           </el-table-column>
           <el-table-column
               label="更新时间"
               prop="updateTime"
               align="center"
               :formatter="formTime2"
-              min-width="140">
+              min-width="120">
           </el-table-column>
             <el-table-column label="操作" align="center" v-if="btnshow">
                 <template slot-scope="scope">

@@ -117,7 +117,7 @@
                 label="数据日期"
                 prop="displayDate"
                 align="center"
-                min-width="140">
+                min-width="120">
             </el-table-column>
             <el-table-column label="操作" align="center" v-if="btnshow">
                 <template slot-scope="scope">

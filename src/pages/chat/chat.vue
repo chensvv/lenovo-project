@@ -45,29 +45,26 @@
                 <el-table-column
                     label="问题"
                     prop="ques"
-                    align="left"
-                    header-align="center"
+                    align="center"
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="答案"
                     prop="answ"
-                    align="left"
-                    header-align="center"
+                    align="center"
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="引擎"
                     prop="engi"
-                    align="left"
-                    header-align="center"
+                    align="center"
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="入库时间"
                     prop="it"
                     align="center"
-                    min-width="140"
+                    min-width="120"
                     :formatter="formTime">
                 </el-table-column>
             </el-table>

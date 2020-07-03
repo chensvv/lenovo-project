@@ -2,6 +2,7 @@
     <div class="joke">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>官网用户</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline cache" size="mini">
@@ -40,14 +41,14 @@
                 prop="createTime"
                 align="center"
                 :formatter="formTime"
-                min-width="140">
+                min-width="120">
             </el-table-column>
             <el-table-column
                 label="更新时间"
                 prop="updateTime"
                 align="center"
                 :formatter="formTime2"
-                min-width="140">
+                min-width="120">
             </el-table-column>
             <el-table-column label="操作" align="center" width="130" v-if="isshow">
                     <template slot-scope="scope">

@@ -2,6 +2,7 @@
   <div class="table">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>日志管理</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     <el-form
@@ -53,7 +54,7 @@
         <el-table-column label="客户端IP" prop="uip" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="客户端ID" prop="did" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="客户端版本" prop="ver" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="插入时间" prop="it" align="center" sortable :formatter="formTime" min-width="140"></el-table-column>
+        <el-table-column label="插入时间" prop="it" align="center" sortable :formatter="formTime" min-width="120"></el-table-column>
         <el-table-column label="原始日志" align="center" v-if="isshow">
           <template slot-scope="scope">
             <span slot @click="handleInfo(scope.$index, scope.row)" class="cur-info" v-has="'asr:rawview'">

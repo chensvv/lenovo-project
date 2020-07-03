@@ -1267,3 +1267,59 @@ export function lenKeyList (data) {
     data: data
   })
 }
+
+export function stateAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/gift/add',
+    method: 'post',
+    data: data
+  })
+}
+
+export function querySql (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/gift/querySql',
+    method: 'post',
+    data: data
+  })
+}
+
+export function itemList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/item/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function itemSave (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/item/save',
+    method: 'post',
+    data: data
+  })
+}
+
+export function itemDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/item/del',
+    method: 'post',
+    data: data
+  })
+}
+
+export function itemUpFile (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/item/excel',
+    method: 'post',
+    data: data
+  })
+}
+
+export function itemPub (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/item/pub',
+    method: 'post',
+    data: data
+  })
+}

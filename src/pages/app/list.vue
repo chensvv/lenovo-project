@@ -88,14 +88,14 @@
                     label="更新时间"
                     prop="updateTime"
                     align="center"
-                    min-width="140">
+                    min-width="120">
                 </el-table-column>
                 <el-table-column
                     label="入库时间"
                     prop="createTime"
                     align="center"
                     :formatter="formTime"
-                    min-width="140">
+                    min-width="120">
                 </el-table-column>
             </el-table>
         <el-pagination
