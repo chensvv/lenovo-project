@@ -717,6 +717,14 @@ export function kvUpd (data) {
   })
 }
 
+export function giftDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/gift/status',
+    method: 'post',
+    data: data
+  })
+}
+
 export function engineView (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/engine/view',

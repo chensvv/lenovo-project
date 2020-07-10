@@ -38,6 +38,18 @@
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
                         v-has="'kv:update'">编辑</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        v-if="scope.row.sta == 1"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="'gift:status'">删除</el-button>
+                        <el-button
+                        size="mini"
+                        type="warning"
+                        v-if="scope.row.sta == 2"
+                        @click="handleRecall(scope.$index, scope.row)"
+                        v-has="'gift:status'">撤回</el-button>
                     </template>
                 </el-table-column>
             </el-table> 
@@ -91,8 +103,10 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {kvList,kvAdd,kvUpd} from '@/config/api'
+import {kvList,kvAdd,kvUpd, giftDel} from '@/config/api'
+import {login} from '@/config/adminApi'
 export default {
+    inject:['reload'],
     data() {
         return {
             list: [],
@@ -266,6 +280,94 @@ export default {
                     return false;
                 }
             });
+        },
+        handleDel(index, row) {
+            let delParams = {
+                sql:row.sta,
+                name:row.key,
+            }
+            let logParams = {
+                userName:sessionStorage.getItem('username'),
+                password:sessionStorage.getItem('log')
+            }
+            this.$confirm("此操作不会永久删除该数据, 可以随时撤回, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            }).then(() => {
+                giftDel(delParams).then(res=>{
+                    if(res.data.code == 200){
+                        this.$message({
+                            message:'删除成功',
+                            type:"success",
+                            duration:1000
+                        });
+                        this.getList();
+                        sessionStorage.removeItem('menuData');
+                        sessionStorage.removeItem('btnpermission')
+                        login(logParams).then((res)=>{
+                            if(res.data.code == 200){
+                                sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                                this.reload();
+                            }else{
+                                this.$message({
+                                    message:res.data.errorMessage,
+                                    type:"error",
+                                    duration:1000
+                                });
+                            }
+                        })
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1000
+                        });
+                    }
+                })
+            }).catch(err => {
+                console.log(err);
+            });
+        },
+        handleRecall(index, row) {
+            let delParams = {
+                sql:row.sta,
+                name:row.key,
+            }
+            let logParams = {
+                userName:sessionStorage.getItem('username'),
+                password:sessionStorage.getItem('log')
+            }
+            giftDel(delParams).then(res=>{
+                if(res.data.code == 200){
+                    this.$message({
+                        message:'撤回成功',
+                        type:"success",
+                        duration:1000
+                    });
+                    this.getList();
+                    sessionStorage.removeItem('menuData');
+                    sessionStorage.removeItem('btnpermission')
+                    login(logParams).then((res)=>{
+                        if(res.data.code == 200){
+                            sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                            this.reload();
+                        }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
+                        }
+                    })
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:"error",
+                        duration:1000
+                    });
+                }
+            })
         },
         getList() {
             let params = {

@@ -67,7 +67,7 @@
                 :total="totalCount"
             ></el-pagination>
         </div>
-        <el-dialog title="详情" :visible.sync="infoVisible" width="300" :before-close="handleClose">
+        <el-dialog title="详情" :visible.sync="infoVisible" width="300" :close-on-press-escape="false" :close-on-click-modal="false" :before-close="handleClose">
             <el-form :label-position="'left'" label-width="120px">
                 <el-form-item label="用户名称">
                     <el-input type="text" v-model="infoList.username" auto-complete="off" readonly></el-input>
@@ -103,6 +103,18 @@
                 <el-button type="primary" @click="handleConfirm()">关闭</el-button>
             </span>
         </el-dialog>
+
+        <el-dialog title="退回理由" :visible.sync="backVisible" width="300" :before-close="back_handleClose">
+            <el-form :label-position="'left'" label-width="120px">
+                <el-form-item label="退回理由">
+                    <el-input type="textarea" v-model="infoList.backres" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="handleEnsure()">确定</el-button>
+            </span>
+        </el-dialog>
+        
         <div class="workflow" v-has="'user:data'" v-if="n_infoShow">
             <el-form :inline="true" ref="n_searchItem" :model="n_searchItem" class="demo-form-inline" size="mini">
                 <el-form-item label="内容" prop="con">
@@ -226,7 +238,8 @@ export default {
                 createTime:'',
                 updateTime:'',
                 taskid:'',
-                result:''
+                result:'',
+                backres:''
             },
             n_infoList:{
                 id:'',
@@ -246,6 +259,7 @@ export default {
             btnLoading:false,
             infoVisible:false,
             listLoading:true,
+            backVisible:false,
             n_currentPage: 1, //默认显示第几页
             n_pageSize: 10,   //默认每页条数
             n_pageSizes:[10, 20, 30],
@@ -351,6 +365,9 @@ export default {
         handleClose(){
             this.infoVisible = false
         },
+        back_handleClose(){
+            this.backVisible = false
+        },
         handleConfirm(){
             this.infoVisible = false
         },
@@ -396,10 +413,13 @@ export default {
             });
         },
         handleBack(){
+            this.backVisible = true
+        },
+        handleEnsure(){
             let passParams = {
                 id:this.infoList.taskid,
                 status:2,
-                speak:this.infoList.speak
+                speak:this.infoList.backres
             }
             activitiPass(passParams).then(res=>{
                 if(res.data.code == 200){
@@ -409,6 +429,7 @@ export default {
                         duration:1000
                     });
                     this.infoVisible = false
+                    this.backVisible = false
                     this.getList()
                 }else{
                     this.$message({

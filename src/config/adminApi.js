@@ -106,7 +106,7 @@ export function roleUpd (data) {
 
 export function authList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/Rule/list',
+    url: '/lasf-mgr/Rule/queryone',
     method: 'post',
     data: data
   })
