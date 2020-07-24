@@ -19,6 +19,30 @@ export function appList (data) {
   })
 }
 
+export function appAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/add',
+    method: 'post',
+    data: data
+  })
+}
+
+export function appUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function appDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/app/del',
+    method: 'post',
+    data: data
+  })
+}
+
 export function wordList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/keyword',

@@ -378,6 +378,7 @@ export default {
             });
         },
         getList() {
+            this.listLoading = true
             let params = {
                 title:this.searchItem.name,
                 source:this.searchItem.source,

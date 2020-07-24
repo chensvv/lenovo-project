@@ -225,6 +225,7 @@ export default {
             });
         },
         getList() {
+            this.listLoading = true
             let params = {
                 command:this.searchItem.command,
                 pgstr:this.currentPage,

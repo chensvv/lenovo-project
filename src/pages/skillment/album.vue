@@ -364,6 +364,7 @@ export default {
             });
         },
         getList() {
+            this.listLoading = true
             let params = {
                 name:this.searchItem.name,
                 pgstr:this.currentPage,

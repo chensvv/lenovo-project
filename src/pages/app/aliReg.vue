@@ -74,6 +74,7 @@ export default {
     },
     methods:{
         getList() {
+            this.listLoading = true
             let params={
                 reg:this.searchItem.reg,
                 pgstr:this.currentPage,

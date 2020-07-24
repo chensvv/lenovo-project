@@ -169,6 +169,7 @@ export default {
       return row.sta == 1 ? "已审核" : "未审核"
     },
     getList() {
+      this.listLoading = true
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
@@ -213,6 +214,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val
+      this.listLoading = true
       console.log(`当前页: ${val}`);
       this.getList();
     },

@@ -2,7 +2,7 @@
   <div class="table">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>规则定义</el-breadcrumb-item>
+      <el-breadcrumb-item>说法配置</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
@@ -452,6 +452,7 @@ export default {
           })
     },
     getList() {
+      this.listLoading = true
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,

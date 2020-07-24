@@ -246,6 +246,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val
+      this.listLoading = true
       console.log(`当前页: ${val}`);
       this.getList();
     },
@@ -382,19 +383,20 @@ export default {
         });
     },
     getList() {
-      let params = {
-        pgstr:this.currentPage,
-        pcstr:this.pageSize,
-        name:this.searchItem.name,
-        stname:this.searchItem.stname,
-        startStr:this.searchItem.refreshTime,
-        endStr:this.searchItem.putTime
-      }
-      wordList(params).then(res => {
-        this.listLoading = false
-        this.list = res.data.data;
-        this.totalCount = res.data.count
-      });
+        this.listLoading = true
+        let params = {
+            pgstr:this.currentPage,
+            pcstr:this.pageSize,
+            name:this.searchItem.name,
+            stname:this.searchItem.stname,
+            startStr:this.searchItem.refreshTime,
+            endStr:this.searchItem.putTime
+        }
+        wordList(params).then(res => {
+            this.listLoading = false
+            this.list = res.data.data;
+            this.totalCount = res.data.count
+        });
     }
   }
 };

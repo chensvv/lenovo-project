@@ -384,6 +384,7 @@ export default {
           })
     },
     getList() {
+      this.listLoading = true
       let params = {
         functionId:this.functionId,
         appId:this.appId,

@@ -338,6 +338,7 @@ export default {
           })
     },
     getList() {
+      this.listLoading = true
       let params = {
         appId:this.appId,
         functionId:this.functionId,

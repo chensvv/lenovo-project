@@ -84,6 +84,7 @@ export default {
         return obj;
     },
     getList() {
+      this.listLoading = true
         this.list = []
         this.header = []
         let params = {

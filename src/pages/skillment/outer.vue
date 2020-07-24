@@ -255,6 +255,7 @@ export default {
             this.infoVisible = false;
         },
         getList() {
+            this.listLoading = true
             let params = {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,

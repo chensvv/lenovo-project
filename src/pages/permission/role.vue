@@ -362,6 +362,7 @@ export default {
       this.selectedKeysAdd = this.$refs.treeAdd.getCheckedKeys()
     },
     getList() {
+      this.listLoading = true
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,

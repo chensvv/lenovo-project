@@ -322,6 +322,7 @@ export default {
             });
         },
         getList() {
+            this.listLoading = true
             let params = {
                 id:this.appId,
                 pgstr:this.currentPage,

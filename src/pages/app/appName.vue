@@ -217,7 +217,6 @@ export default {
       this.getList();
     },
     handleEdit(index, row) {
-      console.log(index, row);
       this.editVisible = true;
       this.currentItem = {
         id:row.id,
@@ -395,6 +394,7 @@ export default {
         this.uploadVisible = false;
     },
     getList() {
+      this.listLoading = true
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,

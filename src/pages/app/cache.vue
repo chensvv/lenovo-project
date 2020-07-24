@@ -186,6 +186,7 @@ export default {
     },
     methods:{
         getList() {
+            this.listLoading = true
             let params = {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
@@ -224,16 +225,19 @@ export default {
         onSubmit(){
             this.btnLoading = true
             this.currentPage = 1
+            this.listLoading = true
             this.getList()
             this.btnLoading = false
         },
         handleSizeChange(val) {
             this.pageSize = val;
             this.currentPage = 1
+            this.listLoading = true
             this.getList();
         },
         handleCurrentChange(val) {
             this.currentPage = val
+            this.listLoading = true
             console.log(`当前页: ${val}`);
             this.getList();
         },

@@ -153,6 +153,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val
+      this.listLoading = true
       console.log(`当前页: ${val}`);
       this.getList();
     },
@@ -233,6 +234,7 @@ export default {
       });
     },
     getList() {
+      this.listLoading = true
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,

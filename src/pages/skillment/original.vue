@@ -330,16 +330,17 @@ export default {
         });
     },
     getList() {
-      let params = {
-        pgstr:this.currentPage,
-        pcstr:this.pageSize,
-        command:this.searchItem.command,
-      }
-      originalList(params).then(res => {
-          this.listLoading = false
-        this.list = res.data.data;
-        this.totalCount = res.data.count
-      });
+        this.listLoading = true
+        let params = {
+            pgstr:this.currentPage,
+            pcstr:this.pageSize,
+            command:this.searchItem.command,
+        }
+        originalList(params).then(res => {
+            this.listLoading = false
+            this.list = res.data.data;
+            this.totalCount = res.data.count
+        });
     },
     handleSong(){
         this.$router.push({

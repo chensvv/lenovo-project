@@ -299,6 +299,7 @@ export default {
             this.getList()
         },
         getList() {
+            this.listLoading = true
             let params = {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
