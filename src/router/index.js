@@ -11,6 +11,23 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
+      path: '/login',
+      component: () => import('@/pages/login'),
+      meta: {title: '登录'}
+    },
+    {
+      path: '/register',
+      component: () => import('@/pages/register')
+    },
+    {
+      path: '/',
+      redirect: '/home'
+    },
+    {
+      path: '*',
+      redirect: '/404'
+    },
+    {
       path: '/home',
       component: () => import('@/pages/home'),
       children: [
@@ -304,23 +321,6 @@ const router = new Router({
           redirect: '/home/index'
         }
       ]
-    },
-    {
-      path: '/login',
-      component: () => import('@/pages/login'),
-      meta: {title: '登录'}
-    },
-    {
-      path: '/register',
-      component: () => import('@/pages/register')
-    },
-    {
-      path: '/',
-      redirect: '/home'
-    },
-    {
-      path: '*',
-      redirect: '/404'
     }
   ]
 })

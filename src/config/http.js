@@ -6,7 +6,8 @@ import {
 // eslint-disable-next-line no-unused-vars
 let service = {}
 // let proURL = 'http://10.110.148.59:8085'
-let proURL = 'http://m.voice.lenovomm.com'
+// let proURL = 'http://m.voice.lenovomm.com'
+let proURL = 'https://voice.lenovomm.com'
 // axios 配置
 // eslint-disable-next-line camelcase
 const service_head = axios.create({

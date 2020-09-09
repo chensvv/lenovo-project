@@ -477,7 +477,6 @@ export default {
                     type:"success",
                 });
                 this.$refs.upload.clearFiles()
-                
                 this.uploadVisible = false
                 this.getList()
             }else{
