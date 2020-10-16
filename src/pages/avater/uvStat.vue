@@ -6,22 +6,33 @@
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-                <el-date-picker
-                    v-model="pickerVal"
-                    type="daterange"
-                    align="right"
-                    size="mini"
-                    range-separator="至"
-                    start-placeholder="开始日期"
-                    end-placeholder="结束日期"
-                    :picker-options="pickerOptions"
-                    value-format="yyyy-MM-dd"
-                    @change="dateChangebirthday">
-                </el-date-picker>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button @click="resetForm('searchItem')">重置</el-button>
-            </el-form-item>
+          <el-form-item label="渠道" prop="channelVal">
+            <el-select v-model="searchItem.channelVal" placeholder="请选择">
+              <el-option
+                v-for="item in channelList"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <span class="label-time">选择日期</span>
+          <el-date-picker
+            v-model="pickerVal"
+            type="daterange"
+            align="right"
+            size="mini"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            :picker-options="pickerOptions"
+            value-format="yyyy-MM-dd"
+            @change="dateChangebirthday">
+          </el-date-picker>
+          <el-form-item>
+              <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+              <el-button @click="resetForm()">重置</el-button>
+          </el-form-item>
         </el-form>
         <div class="table-box" v-loading="loading">
             <div ref="myChart" :style="{width: '100%', height: '100%', margin:'20px auto 0'}"></div>
@@ -30,7 +41,7 @@
 </template>
 
 <script>
-import {avaterList} from '@/config/api'
+import {avaterList,avaterChannel} from '@/config/api'
 import {checkTime} from '@/utils/timer.js'
 let echarts = require('echarts/lib/echarts')
 export default {
@@ -79,20 +90,29 @@ export default {
         },
         searchItem:{
             startTime:'',
-            endTime:''
+            endTime:'',
+            channelVal:''
         },
         list: [],
         pickerVal:[],
         seaBtnLoading:false,
+        channelList:[],
+        
         loading:true
     };
   },
   mounted() {
     this.getChartsData()
+    this.getChannelList()
   },
   methods: {
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm() {
+      this.searchItem = {
+        startTime:'',
+        endTime:'',
+        channelVal:''
+      }
+      this.pickerVal = []
       this.getChartsData()
     },
     onSubmit(){
@@ -115,7 +135,8 @@ export default {
         // 基于准备好的dom，初始化echarts实例
         let paramsList = {
           startStr:this.searchItem.startTime,
-          endStr:this.searchItem.endTime
+          endStr:this.searchItem.endTime,
+          channel:this.searchItem.channelVal
         }
         let myChart = echarts.init(this.$refs.myChart)
         avaterList(paramsList).then(res=>{
@@ -179,6 +200,11 @@ export default {
                 ]
             })
         })
+    },
+    getChannelList(){
+      avaterChannel().then(res=>{
+        this.channelList = res.data.data
+      })
     }
   }
 };
@@ -192,5 +218,10 @@ export default {
 .table-box {
     width: 100%;
     height: 90%;
+}
+.label-time{
+    color: #606266;
+    font-size: 12px;
+    padding: 0 2px 0 0;
 }
 </style>

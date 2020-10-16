@@ -1355,3 +1355,11 @@ export function itemPub (data) {
     data: data
   })
 }
+
+export function avaterChannel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/avater/channelList',
+    method: 'post',
+    data: data
+  })
+}

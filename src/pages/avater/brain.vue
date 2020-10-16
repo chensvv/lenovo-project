@@ -6,6 +6,7 @@
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
+          <span class="label-time">选择日期</span>
                 <el-date-picker
                     v-model="pickerVal"
                     type="daterange"
@@ -20,7 +21,7 @@
                 </el-date-picker>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button @click="resetForm('searchItem')">重置</el-button>
+                <el-button @click="resetForm()">重置</el-button>
             </el-form-item>
         </el-form>
         <div class="table-box" v-loading="loading">
@@ -57,8 +58,12 @@ export default {
     this.getChartsData()
   },
   methods: {
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm() {
+      this.searchItem = {
+        startTime:'',
+        endTime:''
+      }
+      this.pickerVal = []
       this.getChartsData()
     },
     onSubmit(){
@@ -158,5 +163,10 @@ export default {
 .table-box {
     width: 100%;
     height: 90%;
+}
+.label-time{
+    color: #606266;
+    font-size: 12px;
+    padding: 0 2px 0 0;
 }
 </style>
