@@ -50,7 +50,7 @@ export default {
     return {
       pickerOptions: {
         disabledDate(time) {
-              let times = Date.now() - 24 * 60 * 60 * 1000;
+              let times = Date.now();
               let timeOptionRange = vue.timeOptionRange;
               let secondNum = 60 * 60 * 24 * 6 * 1000;
               if (timeOptionRange) {
@@ -58,6 +58,7 @@ export default {
               }else{
                 return time.getTime() > times;
               }
+              // return time.getTime() > Date.now();
           },
           onPick(time) {
               //当第一时间选中才设置禁用
@@ -138,9 +139,16 @@ export default {
           channel:this.searchItem.channelVal
         }
         let myChart = echarts.init(this.$refs.myChart)
+        let Xdata = []
+        let Ydata = []
         avaterList(paramsList).then(res=>{
             this.loading = false
-            var xArraylength = res.data.data.visit.length
+            let obj = res.data
+              for(let key in obj){
+                Xdata.push(obj[key].time)
+                Ydata.push(obj[key].pCount)
+            }
+            var xArraylength = Xdata.length
             myChart.setOption({
               title: { 
                   text: '事件统计',
@@ -153,7 +161,7 @@ export default {
                 }
               },
               xAxis: {
-                  data: res.data.data.data,
+                  data: Xdata,
                   axisLabel:{
                       rotate:20
                   }
@@ -171,7 +179,7 @@ export default {
               series: [{
                   name: '数据条数',
                   type: 'bar',
-                  data: res.data.data.visit,
+                  data: Ydata,
                   color:"#409eff",
                   barMaxWidth: 60, // 最大宽度
                   itemStyle: {

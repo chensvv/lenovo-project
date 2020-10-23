@@ -50,7 +50,8 @@ export default {
     return {
       pickerOptions: {
         disabledDate(time) {
-              let times = Date.now() - 24 * 60 * 60 * 1000;
+          // 当天不可选(包括当天)
+              let times = Date.now();
               let timeOptionRange = vue.timeOptionRange;
               let secondNum = 60 * 60 * 24 * 6 * 1000;
               if (timeOptionRange) {
@@ -58,6 +59,8 @@ export default {
               }else{
                 return time.getTime() > times;
               }
+              // 当天之后的不可选(不包括当天)
+              // return time.getTime() > Date.now();
           },
           onPick(time) {
               //当第一时间选中才设置禁用
@@ -139,9 +142,16 @@ export default {
           channel:this.searchItem.channelVal
         }
         let myChart = echarts.init(this.$refs.myChart)
+        let Xdata = []
+        let Ydata = []
         avaterList(paramsList).then(res=>{
             this.loading = false
-            var xArraylength = res.data.data.uv.length
+            var obj = res.data
+              for(let key in obj){
+                Xdata.push(obj[key].time)
+                Ydata.push(obj[key].uCount)
+            }
+            var xArraylength = Xdata.length
             myChart.setOption({
               title: { 
                   text: '用户统计',
@@ -154,7 +164,7 @@ export default {
                 }
               },
               xAxis: {
-                  data: res.data.data.data,
+                  data: Xdata,
                   axisLabel:{
                       rotate:20
                   }
@@ -172,7 +182,7 @@ export default {
               series: [{
                   name: '数据条数',
                   type: 'bar',
-                  data: res.data.data.uv,
+                  data: Ydata,
                   color:"#409eff",
                   barMaxWidth: 60, // 最大宽度
                   itemStyle: {
