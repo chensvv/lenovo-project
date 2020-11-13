@@ -1363,3 +1363,19 @@ export function avaterChannel (data) {
     data: data
   })
 }
+
+export function sourceList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/source/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function sourceExport (data) {
+  return fetch.ExcelDownload({
+    url: '/lasf-mgr/source/export',
+    method: 'post',
+    data: data
+  })
+}

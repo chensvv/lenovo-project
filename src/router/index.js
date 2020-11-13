@@ -267,6 +267,11 @@ const router = new Router({
           meta: {title: '服务端日志'}
         },
         {
+          path: '/source/list',
+          component: () => import('@/pages/log/source'),
+          meta: {title: 'NLP日志分析'}
+        },
+        {
           path: '/census/list',
           component: () => import('@/pages/graph/census'),
           meta: {title: '访问量统计'}

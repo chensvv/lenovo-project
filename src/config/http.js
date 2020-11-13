@@ -86,9 +86,15 @@ const FileDownload = axios.create({
   },
   responseType: 'blob'
 })
+const ExcelDownload = axios.create({
+  baseURL: proURL,
+  // timeout: 15000, // 请求超时时间
+  responseType: 'blob'
+})
 export default service = {
   service_head,
   UPFile,
   FileDownload,
-  proURL
+  proURL,
+  ExcelDownload
 }

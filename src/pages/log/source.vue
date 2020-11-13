@@ -1,0 +1,220 @@
+<template>
+  <div class="table">
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>日志管理</el-breadcrumb-item>
+      <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
+    </el-breadcrumb>
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
+        <el-form-item label="类型" prop="channel">
+            <el-select v-model.trim="searchItem.channel" placeholder="--" clearable>
+                <el-option label="itemClick" value="itemClick"></el-option>
+                <el-option label="softKeyboard" value="softKeyboard"></el-option>
+                <el-option label="voice" value="voice"></el-option>
+            </el-select>
+        </el-form-item>
+      <el-form-item label="起始时间" prop="refreshTime">
+          <el-date-picker 
+          type="date" 
+          placeholder="选择日期" 
+          v-model="searchItem.refreshTime" 
+          :picker-options="pickerOptions"
+          style="width: 100%;"
+          value-format="yyyy-MM-dd"></el-date-picker>
+      </el-form-item>
+      <el-form-item label="结束时间" prop="putTime">
+          <el-date-picker 
+          type="date" 
+          placeholder="选择日期" 
+          v-model="searchItem.putTime" 
+          :picker-options="pickerOptions"
+          style="width: 100%;"
+          value-format="yyyy-MM-dd"></el-date-picker>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+      </el-form-item>
+      <el-tooltip class="item" effect="dark" content="请在左侧选择起始时间和结束时间或者选择类型导出" placement="top-end">
+        <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="'source:export'">导出数据</el-button>
+      </el-tooltip>
+    </el-form>
+    <div class="table-box">
+      <el-table
+              :data="list"
+              style="width: 100%"
+              v-loading="listLoading">
+              <el-table-column type="index" align="center">
+              </el-table-column>
+              <el-table-column label="ID" prop="id" align="center" :show-overflow-tooltip="true">
+              </el-table-column>
+              <el-table-column label="说法" prop="speak" align="center" :show-overflow-tooltip="true">
+              </el-table-column>
+              <el-table-column label="领域" prop="vdm" align="center" :show-overflow-tooltip="true">
+              </el-table-column>
+              <el-table-column label="结果" prop="nlpResult" align="center" :show-overflow-tooltip="true">
+              </el-table-column>
+              <el-table-column label="类型" prop="sourceType" align="center" :show-overflow-tooltip="true">
+              </el-table-column>
+              <el-table-column label="创建时间" prop="createTime" align="center" :formatter="formTime" min-width="120">
+              </el-table-column>
+              <el-table-column label="修改时间" prop="updateTime" align="center" :formatter="formTime2" min-width="120">
+              </el-table-column>
+          </el-table>
+      <!-- <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table> -->
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page.sync="currentPage"
+        :page-sizes="pageSizes"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="totalCount"
+      ></el-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+import {checkTime} from '@/utils/timer.js'
+import {sourceList, sourceExport} from '@/config/api'
+export default {
+  data() {
+    return {
+      pickerOptions: {
+          disabledDate(time) {
+              let times = Date.now() - 24 * 60 * 60 * 1000;
+              return time.getTime() > times;
+          },
+      },
+      list: [],
+      searchItem:{//搜索数据组
+        channel:"",
+        refreshTime:"",
+        putTime:""
+      },
+      // 分页
+      currentPage: 1, //默认显示第几页
+      pageSize: 10,   //默认每页条数
+      pageSizes:[10, 20, 30],
+      totalCount:1,     // 总条数
+      seaBtnLoading:false,
+      listLoading:false,
+      fileBtnLoading:false
+    };
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      this.currentPage = 1
+      this.getList()
+    },
+    formTime(row, column) {
+      var timer = row.createTime;
+      var date = new Date(timer);
+      return (
+        date.getFullYear() +
+        "-" +
+        checkTime(date.getMonth() + 1) +
+        "-" +
+        checkTime(date.getDate()) +
+        " " +
+        checkTime(date.getHours()) +
+        ":" +
+        checkTime(date.getMinutes())
+      );
+    },
+    formTime2(row, column) {
+      var timer = row.updateTime;
+      var date = new Date(timer);
+      return (
+        date.getFullYear() +
+        "-" +
+        checkTime(date.getMonth() + 1) +
+        "-" +
+        checkTime(date.getDate()) +
+        " " +
+        checkTime(date.getHours()) +
+        ":" +
+        checkTime(date.getMinutes())
+      );
+    },
+    onSubmit(){
+      this.seaBtnLoading = true
+      this.currentPage = 1
+      this.getList()
+      this.seaBtnLoading = false
+    },
+    handleSizeChange(val) {
+      this.pageSize = val;
+      this.currentPage = 1
+      this.getList();
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val
+      console.log(`当前页: ${val}`);
+      this.getList();
+    },
+    exportFile(){
+        this.fileBtnLoading = true
+        if(this.searchItem.refreshTime == '' || this.searchItem.putTime == ''){
+            this.$message({
+                message:'请选择起始时间和结束时间！',
+                type:"error",
+                duration:1000
+            });
+            this.fileBtnLoading = false
+        }else{
+            let exprotParams = {
+                startStr:this.searchItem.refreshTime,
+                endStr:this.searchItem.putTime,
+                channel:this.searchItem.channel
+            }
+            sourceExport(exprotParams).then(res=>{
+              if(res.data.size == 0){
+                this.$message({
+                    message:'请选择起始时间和结束时间！',
+                    type:"error",
+                    duration:1000
+                });
+                this.fileBtnLoading = false
+              }else{
+                let blobUrl = new Blob([res.data],{type:'application/vnd.ms-excel'})
+                let a = document.createElement('a');
+                let url = window.URL.createObjectURL(blobUrl);
+                let filename = this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.xlsx';
+                a.href = url;
+                a.download = filename;
+                a.click();
+                window.URL.revokeObjectURL(url);
+                this.fileBtnLoading = false
+              }
+            }).catch(err => {
+                this.fileBtnLoading = false
+            })
+        }
+    },
+    getList() {
+      this.listLoading = true
+      let params = {
+        pgstr:this.currentPage,
+        pcstr:this.pageSize,
+        startStr:this.searchItem.refreshTime,
+        endStr:this.searchItem.putTime,
+        channel:this.searchItem.channel
+      }
+      sourceList(params).then(res=>{
+        this.listLoading = false
+        this.list = res.data.data.data
+        this.totalCount = res.data.data.total
+      })
+    }
+  }
+};
+</script>
+
+<style scoped>
+</style>

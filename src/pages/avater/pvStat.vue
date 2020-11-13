@@ -148,7 +148,7 @@ export default {
                 Xdata.push(obj[key].time)
                 Ydata.push(obj[key].pCount)
             }
-            var xArraylength = Xdata.length
+            let xArraylength = Xdata.length
             myChart.setOption({
               title: { 
                   text: '事件统计',

@@ -146,12 +146,12 @@ export default {
         let Ydata = []
         avaterList(paramsList).then(res=>{
             this.loading = false
-            var obj = res.data
+            let obj = res.data
               for(let key in obj){
                 Xdata.push(obj[key].time)
                 Ydata.push(obj[key].uCount)
             }
-            var xArraylength = Xdata.length
+            let xArraylength = Xdata.length
             myChart.setOption({
               title: { 
                   text: '用户统计',
