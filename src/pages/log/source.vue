@@ -6,6 +6,16 @@
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
+          <el-form-item label="用户" prop="username">
+            <el-select v-model.trim="searchItem.username" placeholder="--" clearable>
+                <el-option
+                  v-for="item in usernameList"
+                  :key="item"
+                  :label="item"
+                  :value="item">
+              </el-option>
+            </el-select>
+        </el-form-item>
         <el-form-item label="类型" prop="channel">
             <el-select v-model.trim="searchItem.channel" placeholder="--" clearable>
                 <el-option label="itemClick" value="itemClick"></el-option>
@@ -77,7 +87,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {sourceList, sourceExport} from '@/config/api'
+import {sourceList, sourceExport,sourceUserNameList} from '@/config/api'
 export default {
   data() {
     return {
@@ -91,8 +101,11 @@ export default {
       searchItem:{//搜索数据组
         channel:"",
         refreshTime:"",
-        putTime:""
+        putTime:"",
+        username:''
+
       },
+      usernameList:[],
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
@@ -105,6 +118,7 @@ export default {
   },
   created() {
     this.getList();
+    this.getUsernameList()
   },
   methods: {
     resetForm(formName) {
@@ -204,12 +218,22 @@ export default {
         pcstr:this.pageSize,
         startStr:this.searchItem.refreshTime,
         endStr:this.searchItem.putTime,
-        channel:this.searchItem.channel
+        channel:this.searchItem.channel,
+        userName:this.searchItem.username
       }
       sourceList(params).then(res=>{
         this.listLoading = false
         this.list = res.data.data.data
         this.totalCount = res.data.data.total
+      })
+    },
+    getUsernameList(){
+      sourceUserNameList().then(res=>{
+        if(res.data.data[0] == null){
+          this.usernameList = res.data.data.slice(1);
+        }else{
+          this.usernameList = res.data.data
+        }
       })
     }
   }

@@ -1379,3 +1379,19 @@ export function sourceExport (data) {
     data: data
   })
 }
+
+export function usernameList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/lenovokey/userNameList',
+    method: 'post',
+    data: data
+  })
+}
+
+export function sourceUserNameList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/source/userNameList',
+    method: 'post',
+    data: data
+  })
+}

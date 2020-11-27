@@ -2,10 +2,20 @@
     <div class="table">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>avater</el-breadcrumb-item>
+            <el-breadcrumb-item>日志管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
+          <el-form-item label="用户" prop="username">
+            <el-select v-model.trim="searchItem.username" placeholder="--" clearable>
+                <el-option
+                  v-for="item in usernameList"
+                  :key="item"
+                  :label="item"
+                  :value="item">
+              </el-option>
+            </el-select>
+          </el-form-item>
           <span class="label-time">选择日期</span>
                 <el-date-picker
                     v-model="pickerVal"
@@ -31,7 +41,7 @@
 </template>
 
 <script>
-import {lenKeyList} from '@/config/api'
+import {lenKeyList, usernameList} from '@/config/api'
 import {checkTime} from '@/utils/timer.js'
 let echarts = require('echarts/lib/echarts')
 export default {
@@ -46,13 +56,18 @@ export default {
         },
         searchItem:{
             startTime:'',
-            endTime:''
+            endTime:'',
+            username:''
         },
         list: [],
         pickerVal:[],
+        usernameList:[],
         seaBtnLoading:false,
         loading:true
     };
+  },
+  created() {
+    this.getUsernameList()
   },
   mounted() {
     this.getChartsData()
@@ -82,11 +97,21 @@ export default {
             return 100;//小于十条数据显示全部
         }
     },
+    getUsernameList(){
+      usernameList().then(res=>{
+        if(res.data.data[0] == null){
+          this.usernameList = res.data.data.slice(1);
+        }else{
+          this.usernameList = res.data.data
+        }
+      })
+    },
     getChartsData(){
         // 基于准备好的dom，初始化echarts实例
         let paramsList = {
           startStr:this.searchItem.startTime,
-          endStr:this.searchItem.endTime
+          endStr:this.searchItem.endTime,
+          userName:this.searchItem.username
         }
         let myChart = echarts.init(this.$refs.myChart)
         lenKeyList(paramsList).then(res=>{
