@@ -142,6 +142,31 @@ const router = new Router({
           meta: {title: '灰度发布-机型列表'}
         },
         {
+          path: '/showmode/conf',
+          component: () => import('@/pages/rule/config'),
+          meta: {title: '资源发布'}
+        },
+        {
+          path: '/showmode/list',
+          component: () => import('@/pages/rule/list'),
+          meta: {title: '资源管理'}
+        },
+        {
+          path: '/showmode/add',
+          component: () => import('@/pages/rule/addChannel'),
+          meta: {title: '创建资源'}
+        },
+        {
+          path: '/showmode/edit',
+          component: () => import('@/pages/rule/editChannel'),
+          meta: {title: '编辑资源'}
+        },
+        {
+          path: '/showmode/history',
+          component: () => import('@/pages/rule/history'),
+          meta: {title: '历史版本'}
+        },
+        {
           path: '/kv/list',
           component: () => import('@/pages/lasf-kv/kv'),
           meta: {title: 'KV列表'}
@@ -347,6 +372,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
+  window.scrollTo(0, 0)
   NProgress.done()
 })
 

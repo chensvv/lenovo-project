@@ -1395,3 +1395,115 @@ export function sourceUserNameList (data) {
     data: data
   })
 }
+
+export function showModeList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function showModeAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/add',
+    method: 'post',
+    data: data
+  })
+}
+
+export function showModeUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/update',
+    method: 'post',
+    data: data
+  })
+}
+
+export function showModeRele (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/toBeReleased',
+    method: 'post',
+    data: data
+  })
+}
+
+export function configList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/resources/config/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function configAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/resources/config/add',
+    method: 'post',
+    data: data
+  })
+}
+
+export function showModeAll (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/queryRelease',
+    method: 'post',
+    data: data
+  })
+}
+
+export function showModeSave (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/savePublish',
+    method: 'post',
+    data: data
+  })
+}
+
+export function carouselListEnable (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/carousel/listEnable',
+    method: 'post',
+    data: data
+  })
+}
+
+export function grayList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/listGray',
+    method: 'post',
+    data: data
+  })
+}
+
+export function grayAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/addGray',
+    method: 'post',
+    data: data
+  })
+}
+
+export function grayUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/updateGray',
+    method: 'post',
+    data: data
+  })
+}
+
+export function historyList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/history',
+    method: 'post',
+    data: data
+  })
+}
+
+export function historyDetails (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/versionDetails',
+    method: 'post',
+    data: data
+  })
+}

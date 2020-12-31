@@ -3,17 +3,17 @@ import router from '../router'
 import {
   // Loading,
   Message} from 'element-ui'
+  // let proURL = 'http://m.voice.lenovomm.com'
 // eslint-disable-next-line no-unused-vars
 let service = {}
 // let proURL = 'http://10.110.148.59:8085'
-// let proURL = 'http://m.voice.lenovomm.com'
 let proURL = 'https://voice.lenovomm.com'
 // axios 配置
 // eslint-disable-next-line camelcase
 const service_head = axios.create({
   baseURL: proURL,
   // timeout: 15000, // 请求超时时间
-  withCredentials: true
+  withCredentials: false
 })
 // let loading
 // function startLoading () { // 使用Element loading-start 方法

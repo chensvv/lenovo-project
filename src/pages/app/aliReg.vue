@@ -84,7 +84,7 @@ export default {
                 this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
-            });
+            })
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();

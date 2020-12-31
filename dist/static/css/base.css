@@ -1,4 +1,4 @@
-
+* { touch-action: pan-y; }
 .el-dialog__wrapper{
   min-width: 1200px;
 }
@@ -280,4 +280,39 @@
 }
 .el-range-editor--mini.el-input__inner{
   height: 30px !important;
+}
+.carousel .el-button+.el-button{
+  margin-left: 0;
+}
+.carousel .transfer .el-button{
+  display: block;
+  padding: 20px;
+  border-radius: 50%;
+}
+.carousel .el-transfer-panel__header .el-checkbox .el-checkbox__input{
+  display: none;
+}
+.carousel .el-checkbox:last-child{
+  margin-right: 20px;
+}
+.carousel .el-transfer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel .el-carousel{
+  width: 800px;
+  margin: 0 auto;
+}
+.carousel .el-transfer-panel{
+  width: 350px;
+}
+.carousel .el-transfer-panel__body .el-transfer-panel__item{
+  display: block;
+}
+.thum{
+  width: 100%;
+}
+.add-width{
+  width: 288px;
 }
