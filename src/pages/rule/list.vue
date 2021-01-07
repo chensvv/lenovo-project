@@ -92,8 +92,7 @@
                   <el-button
                   size="mini"
                   @click="handleIssue(scope.$index, scope.row)"
-                  :disabled="scope.row.publishStatus == 1 ? true : false"
-                  v-has="'showmode:toBeReleased'">{{scope.row.publishStatus == 1 ? '已添加' : '添加'}}</el-button>
+                  v-has="'showmode:toBeReleased'">{{scope.row.publishStatus == 0 ? '添加' : '撤回'}}</el-button>
               </template>
           </el-table-column>
           <el-table-column label="操作" align="center" v-if="isshow">
@@ -257,12 +256,13 @@ export default {
     },
     handleIssue(index, row) {
         let issueParams = {
-            id:row.id
+            id:row.id,
+            publishStatus:row.publishStatus
         }
         showModeRele(issueParams).then(res=>{
         if(res.data.code == 200){
             this.$message({
-                message:'已添加到待发布',
+                message:'操作成功',
                 type:"success",
                 duration:1000
             });

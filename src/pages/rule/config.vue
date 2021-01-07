@@ -156,7 +156,7 @@ export default {
           return j.id === this.value[i]
         })
         this.newData.push(obj)
-        console.log(this.newData)
+        // console.log(this.newData)
       }
     },
     addHandleConfirm(addList){

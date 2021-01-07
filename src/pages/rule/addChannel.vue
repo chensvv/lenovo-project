@@ -273,12 +273,11 @@ export default {
     //   let fileName = file.name.substring(files.name.lastIndexOf('.') + 1)
     //   fileName =='jpg' || fileName =='png' || fileName =='jpeg'
       // const isLt2M = this.uploadFile.size / 1024 / 1024 < 1;     //裁剪后的图片（会比原图片大很多，应该是转成Blob的原因导致）
-      if (!isLt2M) {
-        this.$message.error("上传图片大小不能超过 2MB!");
-        this.noCanUpload = true     // 如果这里被拦截，将自动删除不能上传的图片
-        return false
-      }
-      // return isLt2M
+      // if (!isLt2M) {
+      //   this.$message.error("上传图片大小不能超过 2MB!");
+      //   this.noCanUpload = true     // 如果这里被拦截，将自动删除不能上传的图片
+      //   return false
+      // }
     },
     addPadRemoveImage(file, fileList) {
       const index = this.addPadProductImageList.findIndex(item => {
@@ -373,12 +372,11 @@ export default {
     addPhoneBeforeAvatarUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2;     // 原图片
       // const isLt2M = this.uploadFile.size / 1024 / 1024 < 1;     //裁剪后的图片（会比原图片大很多，应该是转成Blob的原因导致）
-      if (!isLt2M) {
-        this.$message.error("上传图片大小不能超过 2MB!");
-        this.noCanUpload = true     // 如果这里被拦截，将自动删除不能上传的图片
-        return false
-      }
-      // return isLt2M
+      // if (!isLt2M) {
+      //   this.$message.error("上传图片大小不能超过 2MB!");
+      //   this.noCanUpload = true     // 如果这里被拦截，将自动删除不能上传的图片
+      //   return false
+      // }
     },
     addPhoneRemoveImage(file, fileList) {
       const index = this.addPhoneProductImageList.findIndex(item => {
