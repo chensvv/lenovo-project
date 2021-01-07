@@ -97,7 +97,7 @@ export default {
         // autoCropWidth: 500, // 默认生成截图框宽度
         // autoCropHeight: 500, // 默认生成截图框高度
         centerBox: true, // 截图框是否被限制在图片里面
-        high: false, // 是否按照设备的dpr 输出等比例图片
+        high: true, // 是否按照设备的dpr 输出等比例图片
         enlarge: 1, // 图片根据截图框输出比例倍数
         mode: 'contain', // 图片默认渲染方式
         maxImgSize: 2000, // 限制图片最大宽度和高度
