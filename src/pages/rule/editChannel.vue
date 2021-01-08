@@ -39,75 +39,75 @@
             </el-select>
         </el-form-item>
         <el-form-item label="PAD" prop="resPadFile">
-          <div v-if="padOfterImg" class="img-box" @mouseenter="padEnter" @mouseleave="padLeave">
-            <div class="x-box" v-show="padSeen">
-              <img src="../../../static/images/close.png" class="x" @click="padEmpty()">
-            </div>
-            <img  :src="padOfterImg" class="oftimg">
+          <div id="demo">
+              <!-- 遮罩层 -->
+              <div class="father" v-show="padPanel">
+                  <div class="container">
+                      <div id="cropper" style="margin-top:1%;margin-left: 1%;margin-right: 1%;height: 85%;margin-bottom: 1%">
+                          <img id="padImage" :src="padUrl" alt="Picture">
+                      </div>
+                      <div style="text-align: right; padding: 0 10px 5px;">
+                          <div>
+                          <!-- <el-button icon="el-icon-zoom-out" @click="zoom(-1)" size="mini" circle></el-button>
+                          <el-button icon="el-icon-zoom-in" @click="zoom(1)" size="mini" circle></el-button>
+                          <el-button icon="el-icon-refresh" @click="rotate" size="mini" circle></el-button> -->
+                          <el-button type="danger" @click="padPanel=false" size="mini">取消</el-button>
+                          <el-button type="success" @click="padCrop" size="mini">确定</el-button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <div>
+                      <input type="file" id="padChange" accept="image" @change="padChange" style="display:none;">
+                      <div  class="show"
+                          v-on:mouseover="padAddClassload"
+                          v-on:mouseout="padRemoveClassload"
+                          @click="padUpload"
+                          :style="'backgroundImage:url('+padHeaderImage+');border: 1px dashed '+padColor">
+                      <i class="el-icon-plus i" :style="'color: '+padColor"></i>
+                      </div>
+                  </div>
+                  <el-button @click="padTailor" v-if="padBtnShow" size="mini">裁剪</el-button>
+              </div>
           </div>
-          <el-upload
-            v-else
-            :http-request="addUploadPad"
-            :multiple="true"
-            list-type="picture-card"
-            :file-list="addPadProductImageList"
-            :on-remove="addPadRemoveImage"
-            :limit="1"
-            :before-upload="addPadBeforeAvatarUpload"
-            ref="addPadFileUpload"
-            :auto-upload="false"
-            :on-change="addPadSelectChange"
-            action=""
-            class="cropper-upload-box"
-            >
-            <i class="el-icon-upload"></i>
-            </el-upload>
-            <cropper
-            v-if="addPadShowCropper"
-            :dialog-visible="addPadShowCropper"
-            :cropper-img="addPadCropperImg"
-            :zoomScale="addPadZoomScale"
-            @update-cropper="addPadUpdateCropper"
-            @colse-dialog="addPadCloseDialog"
-            @upload-img="addPadUploadImg"
-            />
         </el-form-item>
         <el-form-item label="资源URL" prop="resPadLink">
           <el-input type="text" v-model.trim="currentItem.resPadLink" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="手机">
-          <div v-if="phoneOfterImg" class="img-box" @mouseenter="phoneEnter" @mouseleave="phoneLeave">
-            <div class="x-box" v-show="phoneSeen">
-              <img src="../../../static/images/close.png" class="x" @click="phoneEmpty()">
-            </div>
-            <img  :src="phoneOfterImg" class="oftimg">
+          <div id="demo">
+              <!-- 遮罩层 -->
+              <div class="father" v-show="phonePanel">
+                  <div class="container">
+                      <div id="cropper" style="margin-top:1%;margin-left: 1%;margin-right: 1%;height: 85%;margin-bottom: 1%">
+                          <img id="phoneImage" :src="phoneUrl" alt="Picture">
+                      </div>
+                      <div style="text-align: right; padding: 0 10px 5px;">
+                          <div>
+                          <!-- <el-button icon="el-icon-zoom-out" @click="zoom(-1)" size="mini" circle></el-button>
+                          <el-button icon="el-icon-zoom-in" @click="zoom(1)" size="mini" circle></el-button>
+                          <el-button icon="el-icon-refresh" @click="rotate" size="mini" circle></el-button> -->
+                          <el-button type="danger" @click="phonePanel=false" size="mini">取消</el-button>
+                          <el-button type="success" @click="phoneCrop" size="mini">确定</el-button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <div>
+                      <input type="file" id="phoneChange" accept="image" @change="phoneChange" style="display:none;">
+                      <div  class="show"
+                          v-on:mouseover="phoneAddClassload"
+                          v-on:mouseout="phoneRemoveClassload"
+                          @click="phoneUpload"
+                          :style="'backgroundImage:url('+phoneHeaderImage+');border: 1px dashed '+phoneColor">
+                      <i class="el-icon-plus i" :style="'color: '+phoneColor"></i>
+                      </div>
+                  </div>
+                  <el-button @click="phoneTailor" v-if="phoneBtnShow" size="mini">裁剪</el-button>
+              </div>
           </div>
-          <el-upload
-            v-else
-            :http-request="addUploadPhone"
-            :multiple="true"
-            list-type="picture-card"
-            :file-list="addPhoneProductImageList"
-            :on-remove="addPhoneRemoveImage"
-            :limit="1"
-            :before-upload="addPhoneBeforeAvatarUpload"
-            ref="addPhoneFileUpload"
-            :auto-upload="false"
-            :on-change="addPhoneSelectChange"
-            action=""
-            class="cropper-upload-box"
-            >
-            <i class="el-icon-upload"></i>
-            </el-upload>
-            <cropper
-            v-if="addPhoneShowCropper"
-            :dialog-visible="addPhoneShowCropper"
-            :cropper-img="addPhoneCropperImg"
-            :zoomScale="addPhoneZoomScale"
-            @update-cropper="addPhoneUpdateCropper"
-            @colse-dialog="addPhoneCloseDialog"
-            @upload-img="addPhoneUploadImg"
-            />
         </el-form-item>
         <el-form-item label="资源URL" prop="resPhoneLink">
           <el-input type="text" v-model.trim="currentItem.resPhoneLink" auto-complete="off"></el-input>
@@ -161,13 +161,12 @@
 </template>
 
 <script>
-import Cropper from "@/components/cropper";
+// import Cropper from "@/components/cropper";
+  import Cropper from 'cropperjs'
 import { showModeUpd, configList} from '@/config/api'
 export default {
   data() {
     return {
-        padOfterImg:'',
-        phoneOfterImg:'',
         channelList:[],//渠道
         typeList:[],//类型
         phoneTypeList:[],//机型
@@ -209,44 +208,35 @@ export default {
             resAlbum:[{ required: true, message: '请输入专辑', trigger: 'change' }],
             resLabel:[{ required: true, message: '请输入资源标签', trigger: 'change' }]
         },
-        addPadProductImageList: [],
-        addPhoneProductImageList: [],
-        addPadDefaultImgList:[],
-        addPhoneDefaultImgList:[],
-        addPadZoomScale:[1,1],
-        addPhoneZoomScale:[1,1],
-        addPadShowCropper: false, // 是否显示裁剪框
-        addPhoneShowCropper: false, // 是否显示裁剪框
-        addPadCropperImg: "", // 需要裁剪的图片
-        addPhoneCropperImg: "", // 需要裁剪的图片
+        padHeaderImage:'',
+        padPicValue:'',
+        padCropper:'',
+        padCroppable:false,
+        padPanel:false,
+        padUrl:'',
+        padColor:"#d9d9d9",
+        padCurrent:0,
+        phoneHeaderImage:'',
+        phonePicValue:'',
+        phoneCropper:'',
+        phoneCroppable:false,
+        phonePanel:false,
+        phoneUrl:'',
+        phoneColor:"#d9d9d9",
+        phoneCurrent:0,
         editBtnLoading:false,
         singerShow:false,
         labelShow:false,
-        padSeen:false,
-        phoneSeen:false
+        padE:[],
+        phoneE:[],
+        padBtnShow:false,
+        phoneBtnShow:false,
         };
-  },
-  components: {
-    Cropper
-  },
-  watch: {
-    addPadDefaultImgList: {
-      handler: function(newVal, oldVal){
-        this.addPadProductImageList = newVal   // 赋值
-      },
-      deep: true
-    },
-    addPhoneDefaultImgList: {
-      handler: function(newVal, oldVal){
-        this.addPhoneProductImageList = newVal   // 赋值
-      },
-      deep: true
-    }
   },
   created() {
       this.datas = JSON.parse(this.$route.query.data)
-      this.padOfterImg = this.datas.padImg
-      this.phoneOfterImg = this.datas.phoneImg
+      this.padHeaderImage = this.datas.padImg
+      this.phoneHeaderImage = this.datas.phoneImg
       this.currentItem = {
         id:this.datas.id,
         resTypeVal:this.datas.type,
@@ -290,224 +280,183 @@ export default {
     this.getTypeList()
     this.getPhoneTypeList()
   },
-  methods: {
-    padEnter(){
-      this.padSeen = true
-    },
-    padLeave(){
-      this.padSeen = false
-    },
-    padEmpty(){
-      this.padOfterImg = ''
-      this.currentItem.resPadFile = null
-    },
-    phoneEnter(){
-      this.phoneSeen = true
-    },
-    phoneLeave(){
-      this.phoneSeen = false
-    },
-    phoneEmpty(){
-      this.phoneOfterImg = ''
-      this.currentItem.resPhoneFile = null
-    },
-      // 图片上传裁剪函数
-    addPadBeforeAvatarUpload(file) {
-      const isLt2M = file.size / 1024 / 1024 < 2;     // 原图片
-      // const isLt2M = this.uploadFile.size / 1024 / 1024 < 1;     //裁剪后的图片（会比原图片大很多，应该是转成Blob的原因导致）
-      // if (!isLt2M) {
-      //   this.$message.error("上传图片大小不能超过 2MB!");
-      //   this.noCanUpload = true     // 如果这里被拦截，将自动删除不能上传的图片
-      //   return false
-      // }
-    },
-    addPadRemoveImage(file, fileList) {
-      const index = this.addPadProductImageList.findIndex(item => {
-        return item.uid == file.uid;
-      });
-      if (index > -1) {
-        this.addPadProductImageList.splice(index, 1);
-      }
-      this.$emit('getUploadImg', this.addPadProductImageList)   // 把最新上传的图片列表返回
-    },
-    // 更新图片
-    addPadUpdateCropper() {
-      if(!this.noCanUpload){
-        let fileList = this.$refs.addPadFileUpload.uploadFiles        // 获取文件列表
-        let index02 = fileList.findIndex(item => {        // 把取消裁剪的图片删除
-          return item.uid == this.currentFile.uid;
-        });
-        fileList.splice(index02, 1)
-      }
- 
-      let index = this.$refs.addPadFileUpload.$children.length - 1;
-      this.$refs.addPadFileUpload.$children[index].$el.click();
-    },
-    // 关闭窗口
-    addPadCloseDialog() {
-      this.addPadShowCropper = false;
-      if(!this.noCanUpload){
-        let fileList = this.$refs.addPadFileUpload.uploadFiles        // 获取文件列表
-        let index = fileList.findIndex(item => {        // 把取消裁剪的图片删除
-          return item.uid == this.currentFile.uid;
-        });
-        fileList.splice(index, 1)
-      }
-    },
-    addPadUploadImg(file) {
-      this.uploadFile = file;
-      this.currentItem.resPadFile = file
-      // this.$refs.fileUpload.submit();
-      // 判断裁剪后图片的宽高
-      let img =  new Image()
-      img.src = window.URL.createObjectURL(file);     // Blob转成url 才能给img显示
-      this.padOfterImg = img.src
-      img.onload = () => {
-        let minProp = Math.min(img.width, img.height)  //裁剪后的图片宽，高  ==> 取最小值
-        // if( minProp < 500){     // 如果最小值比设置的最小值（默认为500）小
-        //   this.$message.error(`请保证图片短边最小为500`);
-        //   return false
-        // }
-        // console.log(this.$refs.fileUpload.uploadFiles[0].raw)
-        // this.$refs.fileUpload.submit();
-        this.addPadShowCropper = false;
-      }
-    },
-    addPadSelectChange(file) {
-        // console.log(file)
-      this.noCanUpload = false
-      let files = file.raw;
-      console.log('files:'+files)
-      var reader = new FileReader();
-      reader.onload = e => {
-        let data;
-        if (typeof e.target.result === "object") {
-          // 把Array Buffer转化为blob 如果是base64不需要
-          data = window.URL.createObjectURL(new Blob([e.target.result]));
-        } else {
-          data = e.target.result;
+  mounted () {
+      //初始化这个裁剪框
+      var self = this;
+      var padImage = document.getElementById('padImage');
+      this.padCropper = new Cropper(padImage, {
+        aspectRatio: NaN,
+        viewMode: 1,
+        zoomOnWheel:false,//是否允许通过鼠标滚轮来缩放图片
+        background:true,//是否在容器上显示网格背景
+        rotatable:false,//是否允许旋转图片
+        ready: function () {
+          self.padCroppable = true;
         }
-        this.addPadCropperImg = data;
- 
-        // 图片图片尺寸，如果是正方形，则直接上传；否则调用裁剪
-        // let img =  new Image()
-        // img.src = this.addPadCropperImg;
-        // img.onload = () => {
-        //   if(img.width == img.height){    // 本来就是正方形 => 直接上传
-        //     this.uploadFile = files;
-        //     this.$refs.addPadFileUpload.submit();   // 调用上传方法
-        //   }else{
-            this.addPadShowCropper = true;      // 不是正方形的图片才开启裁剪
-            this.currentFile = file       // 保存当前操作裁剪的图片
-        //   }
-        // }
-      };
-      // 转化为base64
-      // reader.readAsDataURL(file)
-      // 转化为blob
-      reader.readAsArrayBuffer(files);
-      
-      // this.showCropper = true;     // 默认开启裁剪
-    },
+      });
 
-      // 图片上传裁剪函数
-    addPhoneBeforeAvatarUpload(file) {
-      const isLt2M = file.size / 1024 / 1024 < 2;     // 原图片
-      // const isLt2M = this.uploadFile.size / 1024 / 1024 < 1;     //裁剪后的图片（会比原图片大很多，应该是转成Blob的原因导致）
-      // if (!isLt2M) {
-      //   this.$message.error("上传图片大小不能超过 2MB!");
-      //   this.noCanUpload = true     // 如果这里被拦截，将自动删除不能上传的图片
-      //   return false
-      // }
-    },
-    addPhoneRemoveImage(file, fileList) {
-      const index = this.addPhoneProductImageList.findIndex(item => {
-        return item.uid == file.uid;
-      });
-      if (index > -1) {
-        this.addPhoneProductImageList.splice(index, 1);
-      }
-      this.$emit('getUploadImg', this.addPhoneProductImageList)   // 把最新上传的图片列表返回
-    },
-    // 更新图片
-    addPhoneUpdateCropper() {
-      if(!this.noCanUpload){
-        let fileList = this.$refs.addPhoneFileUpload.uploadFiles        // 获取文件列表
-        let index02 = fileList.findIndex(item => {        // 把取消裁剪的图片删除
-          return item.uid == this.currentFile.uid;
-        });
-        fileList.splice(index02, 1)
-      }
- 
-      let index = this.$refs.addPhoneFileUpload.$children.length - 1;
-      this.$refs.addPhoneFileUpload.$children[index].$el.click();
-    },
-    // 关闭窗口
-    addPhoneCloseDialog() {
-      this.addPhoneShowCropper = false;
-      if(!this.noCanUpload){
-        let fileList = this.$refs.addPhoneFileUpload.uploadFiles        // 获取文件列表
-        let index = fileList.findIndex(item => {        // 把取消裁剪的图片删除
-          return item.uid == this.currentFile.uid;
-        });
-        fileList.splice(index, 1)
-      }
-    },
-    addPhoneUploadImg(file) {
-      this.uploadFile = file;
-      this.currentItem.resPhoneFile = file
-      // this.$refs.fileUpload.submit();
-      // 判断裁剪后图片的宽高
-      let img =  new Image()
-      img.src = window.URL.createObjectURL(file);     // Blob转成url 才能给img显示
-      this.phoneOfterImg = img.src
-      img.onload = () => {
-        let minProp = Math.min(img.width, img.height)  //裁剪后的图片宽，高  ==> 取最小值
-        // if( minProp < 500){     // 如果最小值比设置的最小值（默认为500）小
-        //   this.$message.error(`请保证图片短边最小为500`);
-        //   return false
-        // }
-        // console.log(this.$refs.fileUpload.uploadFiles[0].raw)
-        // this.$refs.fileUpload.submit();
-        this.addPhoneShowCropper = false;
-      }
-    },
-    addPhoneSelectChange(file) {
-        // console.log(file)
-      this.noCanUpload = false
-      let files = file.raw;
-      console.log('files:'+files)
-      var reader = new FileReader();
-      reader.onload = e => {
-        let data;
-        if (typeof e.target.result === "object") {
-          // 把Array Buffer转化为blob 如果是base64不需要
-          data = window.URL.createObjectURL(new Blob([e.target.result]));
-        } else {
-          data = e.target.result;
+      var phoneImage = document.getElementById('phoneImage');
+      this.phoneCropper = new Cropper(phoneImage, {
+        aspectRatio: NaN,
+        viewMode: 1,
+        zoomOnWheel:false,//是否允许通过鼠标滚轮来缩放图片
+        background:true,//是否在容器上显示网格背景
+        rotatable:false,//是否允许旋转图片
+        ready: function () {
+          self.phoneCroppable = true;
         }
-        this.addPhoneCropperImg = data;
- 
-        // 图片图片尺寸，如果是正方形，则直接上传；否则调用裁剪
-        // let img =  new Image()
-        // img.src = this.addPadCropperImg;
-        // img.onload = () => {
-        //   if(img.width == img.height){    // 本来就是正方形 => 直接上传
-        //     this.uploadFile = files;
-        //     this.$refs.addPadFileUpload.submit();   // 调用上传方法
-        //   }else{
-            this.addPhoneShowCropper = true;      // 不是正方形的图片才开启裁剪
-            this.currentFile = file       // 保存当前操作裁剪的图片
-        //   }
-        // }
-      };
-      // 转化为base64
-      // reader.readAsDataURL(file)
-      // 转化为blob
-      reader.readAsArrayBuffer(files);
-      
-      // this.showCropper = true;     // 默认开启裁剪
+      });
     },
+  methods: {
+    padAddClassload(){
+        this.padColor="#1b95e0"
+      },
+      phoneAddClassload(){
+        this.phoneColor="#1b95e0"
+      },
+      padRemoveClassload(){
+        this.padColor="#d9d9d9"
+      },
+      phoneRemoveClassload(){
+        this.phoneColor="#d9d9d9"
+      },
+      //点击按钮自动执行选择文件事件
+      padUpload(){
+        this.padUrl='',
+        this.padCurrent=0;
+        document.getElementById("padChange").value=null;
+        document.getElementById("padChange").click();
+      },
+      phoneUpload(){
+        this.phoneUrl='',
+        this.phoneCurrent=0;
+        document.getElementById("phoneChange").value=null;
+        document.getElementById("phoneChange").click();
+      },
+      padGetObjectURL (file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+      },
+      phoneGetObjectURL (file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+          url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+          url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+          url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+      },
+      padTailor(){
+        let files = this.padE.target.files || this.padE.dataTransfer.files;
+        if (!files.length) return;
+        this.padPanel = true;
+        this.padPicValue = files[0];
+        this.padUrl = this.padGetObjectURL(this.padPicValue);
+        //每次替换图片要重新得到新的url
+        if(this.padCropper){
+          this.padCropper.replace(this.padUrl);
+        }
+        this.padPanel = true;
+      },
+      padChange (e) {
+        this.padE = e
+        this.padHeaderImage = this.phoneGetObjectURL(e.target.files[0])
+        this.currentItem.resPadFile = e.target.files[0]
+        this.padBtnShow = true
+      },
+      phoneTailor(){
+        let files = this.phoneE.target.files || this.phoneE.dataTransfer.files;
+        if (!files.length) return;
+        this.phonePanel = true;
+        this.phonePicValue = files[0];
+        this.phoneUrl = this.phoneGetObjectURL(this.phonePicValue);
+        //每次替换图片要重新得到新的url
+        if(this.phoneCropper){
+          this.phoneCropper.replace(this.phoneUrl);
+        }
+        this.phonePanel = true;
+      },
+      phoneChange (e) {
+        this.phoneE = e
+        this.phoneHeaderImage = this.phoneGetObjectURL(e.target.files[0])
+        this.currentItem.resPhoneFile = e.target.files[0]
+        this.phoneBtnShow = true
+      },
+      padCrop () {
+        this.padPanel = false;
+        var croppedCanvas;
+        var roundedCanvas;
+ 
+        if (!this.padCroppable) {
+          return;
+        }
+        // Crop
+        croppedCanvas = this.padCropper.getCroppedCanvas();
+        // console.log(this.padCropper)
+        //方形
+        this.padHeaderImage = croppedCanvas.toDataURL();
+ 
+        var gettype=Object.prototype.toString
+        this.padPostImg()
+ 
+      },
+      phoneCrop () {
+        this.phonePanel = false;
+        var croppedCanvas;
+        var roundedCanvas;
+ 
+        if (!this.phoneCroppable) {
+          return;
+        }
+        // Crop
+        croppedCanvas = this.phoneCropper.getCroppedCanvas();
+        // console.log(this.padCropper)
+        //方形
+        this.phoneHeaderImage = croppedCanvas.toDataURL();
+ 
+        var gettype=Object.prototype.toString
+        this.phonePostImg()
+ 
+      },
+      padDataURLtoFile (dataurl, filename = 'file') {
+        let arr = dataurl.split(',')
+        let mime = arr[0].match(/:(.*?);/)[1]
+        let suffix = mime.split('/')[1]
+        let bstr = atob(arr[1])
+        let n = bstr.length
+        let u8arr = new Uint8Array(n)
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n)
+        }
+        return new File([u8arr], `${filename}.${suffix}`, {type: mime})
+      },
+      phoneDataURLtoFile (dataurl, filename = 'file') {
+        let arr = dataurl.split(',')
+        let mime = arr[0].match(/:(.*?);/)[1]
+        let suffix = mime.split('/')[1]
+        let bstr = atob(arr[1])
+        let n = bstr.length
+        let u8arr = new Uint8Array(n)
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n)
+        }
+        return new File([u8arr], `${filename}.${suffix}`, {type: mime})
+      },
+      padPostImg () {
+        this.currentItem.resPadFile = this.padDataURLtoFile(this.padHeaderImage)
+      },
+      phonePostImg () {
+        this.currentItem.resPhoneFile = this.phoneDataURLtoFile(this.phoneHeaderImage)
+      },
     handleType(value){
         if(value == 9){
             this.singerShow = true
