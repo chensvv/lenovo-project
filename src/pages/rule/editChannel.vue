@@ -60,12 +60,18 @@
               <div>
                   <div>
                       <input type="file" id="padChange" accept="image" @change="padChange" style="display:none;">
-                      <div  class="show"
+                      <div class="show" :style="'backgroundImage:url('+padHeaderImage+');'">
+                      <i class="el-icon-plus i" :style="'color: '+padColor"
                           v-on:mouseover="padAddClassload"
                           v-on:mouseout="padRemoveClassload"
                           @click="padUpload"
-                          :style="'backgroundImage:url('+padHeaderImage+');border: 1px dashed '+padColor">
-                      <i class="el-icon-plus i" :style="'color: '+padColor"></i>
+                      ></i>
+                      <i class="el-icon-delete i remove-btn" :style="'color: '+padDelColor"
+                          v-if="padRemoveBtn"
+                          v-on:mouseover="padDelClassload"
+                          v-on:mouseout="padDelReClassload"
+                          @click="padRemoveUpload"
+                      ></i>
                       </div>
                   </div>
                   <el-button @click="padTailor" v-if="padBtnShow" size="mini">裁剪</el-button>
@@ -97,12 +103,18 @@
               <div>
                   <div>
                       <input type="file" id="phoneChange" accept="image" @change="phoneChange" style="display:none;">
-                      <div  class="show"
+                      <div class="show" :style="'backgroundImage:url('+phoneHeaderImage+');'">
+                      <i class="el-icon-plus i" :style="'color: '+phoneColor"
                           v-on:mouseover="phoneAddClassload"
                           v-on:mouseout="phoneRemoveClassload"
                           @click="phoneUpload"
-                          :style="'backgroundImage:url('+phoneHeaderImage+');border: 1px dashed '+phoneColor">
-                      <i class="el-icon-plus i" :style="'color: '+phoneColor"></i>
+                      ></i>
+                      <i class="el-icon-delete i remove-btn" :style="'color: '+phoneDelColor"
+                          v-if="phoneRemoveBtn"
+                          v-on:mouseover="phoneDelClassload"
+                          v-on:mouseout="phoneDelReClassload"
+                          @click="phoneRemoveUpload"
+                      ></i>
                       </div>
                   </div>
                   <el-button @click="phoneTailor" v-if="phoneBtnShow" size="mini">裁剪</el-button>
@@ -161,7 +173,6 @@
 </template>
 
 <script>
-// import Cropper from "@/components/cropper";
   import Cropper from 'cropperjs'
 import { showModeUpd, configList} from '@/config/api'
 export default {
@@ -215,6 +226,7 @@ export default {
         padPanel:false,
         padUrl:'',
         padColor:"#d9d9d9",
+        padDelColor:"#d9d9d9",
         padCurrent:0,
         phoneHeaderImage:'',
         phonePicValue:'',
@@ -223,6 +235,7 @@ export default {
         phonePanel:false,
         phoneUrl:'',
         phoneColor:"#d9d9d9",
+        phoneDelColor:"#d9d9d9",
         phoneCurrent:0,
         editBtnLoading:false,
         singerShow:false,
@@ -231,6 +244,8 @@ export default {
         phoneE:[],
         padBtnShow:false,
         phoneBtnShow:false,
+        padRemoveBtn:false,
+        phoneRemoveBtn:false
         };
   },
   created() {
@@ -279,6 +294,12 @@ export default {
     this.getChannelList()
     this.getTypeList()
     this.getPhoneTypeList()
+    if(this.padHeaderImage !=''){
+      this.padRemoveBtn = true
+    }
+    if(this.phoneHeaderImage !=''){
+      this.phoneRemoveBtn = true
+    }
   },
   mounted () {
       //初始化这个裁剪框
@@ -308,8 +329,14 @@ export default {
       });
     },
   methods: {
-    padAddClassload(){
+      padAddClassload(){
         this.padColor="#1b95e0"
+      },
+      padDelClassload(){
+        this.padDelColor="#1b95e0"
+      },
+      phoneDelClassload(){
+        this.phoneDelColor="#1b95e0"
       },
       phoneAddClassload(){
         this.phoneColor="#1b95e0"
@@ -317,8 +344,14 @@ export default {
       padRemoveClassload(){
         this.padColor="#d9d9d9"
       },
+      padDelReClassload(){
+        this.padDelColor="#d9d9d9"
+      },
       phoneRemoveClassload(){
         this.phoneColor="#d9d9d9"
+      },
+      phoneDelReClassload(){
+        this.phoneDelColor="#d9d9d9"
       },
       //点击按钮自动执行选择文件事件
       padUpload(){
@@ -326,6 +359,18 @@ export default {
         this.padCurrent=0;
         document.getElementById("padChange").value=null;
         document.getElementById("padChange").click();
+      },
+      phoneRemoveUpload(){
+        this.phoneHeaderImage = ''
+        this.phoneRemoveBtn = false
+        this.phoneBtnShow = false
+        this.phoneDelReClassload()
+      },
+      padRemoveUpload(){
+          this.padHeaderImage = ''
+          this.padRemoveBtn = false
+          this.padBtnShow = false
+          this.padDelReClassload()
       },
       phoneUpload(){
         this.phoneUrl='',
@@ -372,6 +417,7 @@ export default {
         this.padHeaderImage = this.phoneGetObjectURL(e.target.files[0])
         this.currentItem.resPadFile = e.target.files[0]
         this.padBtnShow = true
+        this.padRemoveBtn = true
       },
       phoneTailor(){
         let files = this.phoneE.target.files || this.phoneE.dataTransfer.files;
@@ -390,6 +436,7 @@ export default {
         this.phoneHeaderImage = this.phoneGetObjectURL(e.target.files[0])
         this.currentItem.resPhoneFile = e.target.files[0]
         this.phoneBtnShow = true
+        this.phoneRemoveBtn = true
       },
       padCrop () {
         this.padPanel = false;

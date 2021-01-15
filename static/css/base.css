@@ -327,12 +327,14 @@
   z-index: 33;
 }
 .i{
-  font-size: 28px;
+  font-size: 23px;
   color: #8c939d;
-  width: 100px;
   height: 100px;
   line-height: 100px;
   text-align: center;
+}
+.remove-btn{
+  padding-left: 10px;
 }
 #demo .show {
   border: 1px dashed #d9d9d9;

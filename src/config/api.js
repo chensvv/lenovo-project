@@ -1460,6 +1460,14 @@ export function showModeSave (data) {
   })
 }
 
+export function showModeImport (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/xmlyImport',
+    method: 'post',
+    data: data
+  })
+}
+
 export function carouselListEnable (data) {
   return fetch.service_head({
     url: '/lasf-mgr/carousel/listEnable',

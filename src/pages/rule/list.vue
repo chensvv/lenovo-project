@@ -39,6 +39,7 @@
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
+      <el-button class="success" size="mini" @click="handleImport()" v-has="'showmode:add'">导入喜马拉雅数据</el-button>
       <el-button class="success" size="mini" @click="handleAdd()" v-has="'showmode:add'">创建资源</el-button>
       <el-button class="success" size="mini" @click="handleAddChannel()" v-has="'config:list'">添加渠道类型</el-button>
     </el-form>
@@ -141,7 +142,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import Cropper from "@/components/cropper";
-import {showModeList, showModeRele, configList, configAdd} from '@/config/api'
+import {showModeList, showModeRele, configList, configAdd, showModeImport} from '@/config/api'
 export default {
   data() {
     return {
@@ -263,6 +264,24 @@ export default {
         if(res.data.code == 200){
             this.$message({
                 message:'操作成功',
+                type:"success",
+                duration:1000
+            });
+            this.getList();
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1000
+            });
+        }
+        })
+    },
+    handleImport() {
+        showModeImport().then(res=>{
+        if(res.data.code == 200){
+            this.$message({
+                message:'导入成功',
                 type:"success",
                 duration:1000
             });
