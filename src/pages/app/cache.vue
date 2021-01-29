@@ -1,5 +1,5 @@
 <template>
-    <div class="joke">
+    <div class="table">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>应用搜索</el-breadcrumb-item>
@@ -33,14 +33,17 @@
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
-            <el-form-item>
+            <el-form-item class="sub-btn">
                 <el-button type="primary" @click="onSubmit" size="mini" :loading="btnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')" size="mini">重置</el-button>
+                <el-button size="mini" @click="handleAdd()" v-has="'app:cacheadd'">添加</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="'app:cacheadd'">添加</el-button>
+            
         </el-form>
-          <el-table
+        <div class="table-box">
+             <el-table
             :data="list"
+            :class="this.totalCount < 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column type="index" align="center">
@@ -109,13 +112,15 @@
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page.sync="currentPage"
-            :page-sizes="pageSizes"
             :page-size="pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
+            layout="total, prev, pager, next, jumper"
             :total="totalCount"
         ></el-pagination>
+        </div>
+         
+        
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
+            <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="应用名" prop="name">
                     <el-input type="text" v-model.trim="addList.name"  auto-complete="off"></el-input>
                 </el-form-item>
@@ -163,7 +168,6 @@ export default {
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
-            pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             btnLoading:false,
             addVisible:false,

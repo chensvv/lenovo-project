@@ -1,8 +1,8 @@
 <template>
-    <div class="table">
+    <div class="table chart">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>avater</el-breadcrumb-item>
+            <el-breadcrumb-item>avatar</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
@@ -35,7 +35,7 @@
           </el-form-item>
         </el-form>
         <div class="table-box" v-loading="loading">
-            <div ref="myChart" :style="{width: '100%', height: '100%', margin:'20px auto 0'}"></div>
+            <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>
         </div>
     </div>
 </template>
@@ -225,9 +225,10 @@ export default {
     width: 100%;
     height: 100%;
 }
-.table-box {
-    width: 100%;
-    height: 90%;
+.chart .table-box {
+    width: 90%;
+    height: 80% !important;
+    margin: 0 auto;
 }
 .label-time{
     color: #606266;

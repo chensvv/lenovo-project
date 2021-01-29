@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div class="table chart">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
@@ -16,7 +16,7 @@
       </el-form-item>
     </el-form>
     <div class="table-box">
-        <div ref="myChart" :style="{width: '700px', height: '400px', margin:'30px auto 0'}"></div>
+        <div ref="myChart" :style="{width: '700px', height: '400px'}"></div>
     </div>
   </div>
 </template>

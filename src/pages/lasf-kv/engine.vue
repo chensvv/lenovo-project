@@ -17,7 +17,7 @@
             <el-input type="textarea" v-model="list[0]" auto-complete="off" readonly class="textarea"></el-input>
         </div>
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @open="closeFun('currentItem')">
-            <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
+            <el-form :label-position="'right'" label-width="80px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="修改密码" prop="asrpsd">
                     <el-input type="text" v-model.trim="currentItem.asrpsd" auto-complete="off"></el-input>
                 </el-form-item>

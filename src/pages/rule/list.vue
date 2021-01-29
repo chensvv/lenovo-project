@@ -35,17 +35,18 @@
                 style="width: 100%;"
                 value-format="yyyy-MM-dd"></el-date-picker>
         </el-form-item>
-      <el-form-item>
+      <el-form-item class="sub-btn">
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
+        <el-button size="mini" @click="handleImport()" v-has="'showmode:add'">导入喜马拉雅数据</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'showmode:add'">创建资源</el-button>
+        <el-button size="mini" @click="handleAddChannel()" v-has="'config:list'">添加渠道类型</el-button>
       </el-form-item>
-      <el-button class="success" size="mini" @click="handleImport()" v-has="'showmode:add'">导入喜马拉雅数据</el-button>
-      <el-button class="success" size="mini" @click="handleAdd()" v-has="'showmode:add'">创建资源</el-button>
-      <el-button class="success" size="mini" @click="handleAddChannel()" v-has="'config:list'">添加渠道类型</el-button>
     </el-form>
     <div class="table-box">
       <el-table
           :data="list"
+          :class="this.totalCount < 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="center">
@@ -116,7 +117,7 @@
       ></el-pagination>
     </div>
     <el-dialog title="添加资源渠道类型" :visible.sync="addResVisible" width="300" :before-close="addResHandleClose" @open="openResFun('addResList')">
-      <el-form :label-position="'left'" label-width="100px" :rules="addResRules" :model="addResList" ref="addResList">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addResRules" :model="addResList" ref="addResList">
         <el-form-item label="资源类型" prop="resType">
             <el-select v-model="addResList.resType" placeholder="请选择">
                 <el-option
@@ -178,7 +179,7 @@ export default {
       addResVisible: false,
       // 分页
       currentPage: 1, //默认显示第几页
-      pageSize: 10,   //默认每页条数
+      pageSize: 5,   //默认每页条数
       pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
     //   图片上传裁剪参数

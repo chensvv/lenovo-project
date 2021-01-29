@@ -17,8 +17,10 @@
     font-weight: initial;
 }
 .el-pagination {
-  padding: 30px 0;
-  text-align: center;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .el-aside::-webkit-scrollbar {
@@ -51,6 +53,7 @@
 /* 修改input宽度 */
 .search_box,.cache,.outer, .no_width, .trigger {
   text-align: right;
+  height: 11%;
 }
 .search_box .el-form-item .el-form-item__label,.outer .el-form-item .el-form-item__label,.trigger .el-form-item .el-form-item__label{
   font-size: 12px;
@@ -59,18 +62,50 @@
 .search_box .el-form-item__content {
   width: 140px;
 }
+.search_box .sub-btn .el-form-item__content{
+  width: auto;
+}
 .cache .el-form-item__content,.trigger .el-form-item__content {
   width: 130px;
 }
+.trigger .el-form-item__content{
+  width: 82px;
+}
+.cache .sub-btn .el-form-item__content{
+  width: 155px;
+}
+.trigger .sub-btn .el-form-item__content{
+  width: auto;
+}
+
 .width140 .el-form-item__content{
   width: 140px !important;
+}
+.trigger .width140 .el-form-item__content{
+  width: 125px !important;
 }
 .outer .el-form-item__content {
   width: 110px;
 }
+.outer .sub-btn .el-form-item__content {
+  width: auto;
+}
+.el-form-item__content .el-button+.el-button{
+  margin-left: 3px;
+}
 .el-table__header thead tr th {
   padding: 5px 0;
   background: #f8f8f9;
+}
+.el-table__header-wrapper {
+  overflow: hidden;
+  height: 7%;
+}
+.el-table__body-wrapper{
+  height: 93%;
+}
+.el-table__body{
+  height: 100%;
 }
 
 .el-dropdown-link {
@@ -78,12 +113,14 @@
 }
 
 .el-breadcrumb {
-  margin-bottom: 30px;
+  height: 4%;
+  display: flex;
+  align-items: center;
 }
 
 .el-table{
     font-size: 12px;
-    min-height: 400px;
+    height: 90%;
 }
 .el-table thead{
     color: #515a6e;
@@ -311,12 +348,29 @@
   display: block;
 }
 .thum{
-  width: 100%;
+  width: 80px;
+  vertical-align: middle;
 }
 .add-width{
   width: 288px;
 }
-
+.table-box .el-tabs{
+  height: 100%;
+}
+.table-box .el-tabs__item{
+  height: 40px;
+  line-height: 40px;
+}
+.table-box .el-tabs__header{
+  margin: 0;
+  height: 5.5%;
+}
+.table-box .el-tabs__content{
+  height: 94.5%;
+}
+.table-box .el-tabs__content .el-tab-pane{
+  height: 100%;
+}
 .father{
   background-color: rgba(0,0,0,0.5);
   position: fixed;
@@ -566,6 +620,63 @@
   height: 20px;
   cursor: se-resize;
   opacity: 1
+}
+.el-menu-item, .el-submenu__title{
+  height: 40px;
+  line-height: 40px;
+}
+.el-submenu .el-menu-item{
+  height: 40px;
+  line-height: 40px;
+}
+.el-main{
+  padding: 10px;
+  height: 100%;
+}
+.el-main .table{
+  height: 100%;
+}
+.table .table-box{
+  height: 85%;
+}
+.mainlog .cache, .trigg .trigger{
+  height: 13%;
+}
+.mainlog .table-box, .trigg .table-box{
+  height: 83%;
+}
+.el-table td, .el-table th{
+  padding: 5px 0;
+}
+.el-button--mini {
+  padding: 5px 8px;
+}
+.el-form-item--mini.el-form-item, .ma15 {
+  margin-bottom: 10px;
+}
+.el-form--inline .el-form-item {
+  margin-right: 5px;
+}
+.el-dialog__wrapper .el-dialog__body .el-form-item {
+  margin-bottom: 15px;
+}
+.el-dialog__body{
+  padding: 30px 20px 0px;
+}
+
+/* .el-form-item--small .el-form-item__content{
+  width: 167px;
+} */
+.dialog-add-footer{
+  display: block;
+  padding: 0 0 20px 100px;
+}
+.dialog-con-footer{
+  display: block;
+  padding-left: 100px;
+}
+.limitWidth{
+  height: auto;
 }
 @media (min-width: 768px) {
   .cropper-point.point-se {

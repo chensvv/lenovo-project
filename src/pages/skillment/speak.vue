@@ -12,11 +12,11 @@
         <div class="d_t">
             <span class="d_title">{{skillDetail.appName}}  >> </span><span>{{skillDetail.functionName}}</span>
         </div>
-        <el-form-item>
-            <el-button class="success" size="mini" @click="release()" :loading="relBtnLoading" v-has="'skill:speakpublish'">发布</el-button>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:speakadd'">添加</el-button>
-            <router-link :to="{ path: '/lasf-kv/skill/detail/sersion',query:{functionId:this.functionId, appId:this.appId}}">
-                <el-button class="success" size="mini" v-has="'skill:versionlist'">答案列表</el-button>
+        <el-form-item class="sub-btn">
+            <el-button size="mini" @click="release()" :loading="relBtnLoading" v-has="'skill:speakpublish'">发布</el-button>
+            <el-button size="mini" @click="handleAdd()" v-has="'skill:speakadd'">添加</el-button>
+            <router-link style="margin-left:10px;" :to="{ path: '/lasf-kv/skill/detail/sersion',query:{functionId:this.functionId, appId:this.appId}}">
+                <el-button size="mini" v-has="'skill:versionlist'">答案列表</el-button>
             </router-link>
         </el-form-item>
         
@@ -24,6 +24,7 @@
     <div class="table-box">
         <el-table
             :data="list"
+            :class="this.totalCount < 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column type="index" align="center">
@@ -77,7 +78,7 @@
         ></el-pagination>
     </div>
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
-        <el-form :label-position="'left'" label-width="80px" :rules="editRules" :model="currentItem" ref="currentItem">
+        <el-form :label-position="'right'" label-width="80px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
             <el-form-item label="说法" prop="speak">
                 <el-input type="text" v-model.trim="currentItem.speak" auto-complete="off"></el-input>
             </el-form-item>
@@ -94,7 +95,7 @@
         </span>
         </el-dialog>
         <el-dialog title="添加说法" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'left'" label-width="80px" :rules="addRules" :model="addList" ref="addList">
+            <el-form :label-position="'right'" label-width="80px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="说法" prop="speak">
                     <el-input type="text" v-model.trim="addList.speak" auto-complete="off"></el-input>
                 </el-form-item>

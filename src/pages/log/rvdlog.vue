@@ -18,7 +18,7 @@
       <el-form-item label="识别文本" prop="desc">
         <el-input v-model.trim="searchItem.desc" clearable></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="sub-btn">
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
@@ -26,6 +26,7 @@
     <div class="table-box">
       <el-table
               :data="list"
+              :class="this.totalCount < 5 ? 'limitWidth' :''"
               style="width: 100%"
               v-loading="listLoading">
               <el-table-column type="index" align="center">

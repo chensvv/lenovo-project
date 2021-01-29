@@ -10,16 +10,18 @@
       <el-form-item label="应用名称" prop="appName">
         <el-input v-model.trim="searchItem.appName" clearable></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="sub-btn">
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'app:appadd'">添加</el-button>
+        <el-button icon="el-icon-upload" size="mini" @click="importExcel()" v-has="'app:excel'">导入Excel文件</el-button>
       </el-form-item>
-      <el-button class="success" size="mini" @click="handleAdd()" v-has="'app:appadd'">添加</el-button>
-      <el-button icon="el-icon-upload" class="success" size="mini" @click="importExcel()" v-has="'app:excel'">导入Excel文件</el-button>
+      
     </el-form>
     <div class="table-box">
       <el-table
           :data="list"
+          :class="this.totalCount < 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="center">
@@ -44,7 +46,7 @@
               :formatter="formTime"
               min-width="120">
           </el-table-column>
-          <el-table-column label="操作" align="center" v-if="isshow">
+          <el-table-column label="操作" min-width="130" align="center" v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
@@ -62,15 +64,14 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page.sync="currentPage"
-        :page-sizes="pageSizes"
         :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next, jumper"
         :total="totalCount"
       ></el-pagination>
     </div>
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
-      <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
+      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="应用名称" prop="appName">
           <el-input type="text" v-model.trim="currentItem.appName" auto-complete="off"></el-input>
         </el-form-item>
@@ -81,7 +82,7 @@
       </span>
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-      <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="应用名称" prop="appName">
           <el-input type="text" v-model.trim="addList.appName" auto-complete="off"></el-input>
         </el-form-item>
@@ -155,7 +156,6 @@ export default {
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
-      pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
       addBtnLoading:false,
@@ -346,13 +346,25 @@ export default {
     },
     //上传excel表格
     beforeUpload(file) {
-      const isText = file.type === "application/vnd.ms-excel";
-      const isTextComputer =
-        file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      if (!isText && !isTextComputer) {
-        this.$message.error("上传文件必须是Excel格式!");
+      // const isText = file.type === "application/vnd.ms-excel";
+      // const isTextComputer =
+      //   file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      // if (!isText && !isTextComputer) {
+      //   this.$message.error("上传文件必须是Excel格式!");
+      // }
+      // return isText || isTextComputer;
+      const extension = file.name.split('.')[1] === 'xls'
+      const extension2 = file.name.split('.')[1] === 'xlsx'
+      // const isText = file.type === "application/vnd.ms-excel";
+      // const isTextComputer = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      // if (!isText && !isTextComputer) {
+      //   this.$message.error("上传文件必须是Excel格式!");
+      // }
+      if (!extension && !extension2) {
+          this.$message.warning('上传文件必须是Excel格式!')
+          return false
       }
-      return isText || isTextComputer;
+      return extension || extension2;
     },
     // 上传文件个数超过定义的数量
     handleExceed(files, fileList) {
@@ -362,32 +374,38 @@ export default {
       this.file = item.file;
     },
     postFile() {
-      const fileObj = this.file;
-      var fileData = new FormData();
-      fileData.append("ex", fileObj);
-      this.fileBtnLoading = true;
-      appNameUpFile(fileData).then(res => {
-                this.fileBtnLoading = false
-            if(res.data.code == 200){
-                this.$message({
-                    message:res.data.msg,
-                    type:"success",
-                    duration:1000
-                });
-                this.$refs.upload.clearFiles()
-                this.uploadVisible = false
-                this.getList()
-            }else{
-                this.$message({
-                    message:res.data.errorMessage,
-                    type:"error",
-                    duration:1000
-                });
-            }
+      if(this.file == ''){
+        this.$message.warning('请选择要上传的文件！')
+        return false
+      }else{
+        const fileObj = this.file;
+        var fileData = new FormData();
+        fileData.append("ex", fileObj);
+        this.fileBtnLoading = true;
+        appNameUpFile(fileData).then(res => {
+                  this.fileBtnLoading = false
+              if(res.data.code == 200){
+                  this.$message({
+                      message:res.data.msg,
+                      type:"success",
+                      duration:1000
+                  });
+                  this.$refs.upload.clearFiles()
+                  this.uploadVisible = false
+                  this.getList()
+              }else{
+                  this.$message({
+                      message:res.data.errorMessage,
+                      type:"error",
+                      duration:1000
+                  });
+              }
 
-      }).catch(err => {
-        this.fileBtnLoading = false
-      })
+        }).catch(err => {
+          this.fileBtnLoading = false
+        })
+      }
+      
     },
     closeFile() {
         this.$refs.upload.clearFiles()

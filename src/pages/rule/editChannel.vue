@@ -7,7 +7,7 @@
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     <div>
-        <el-form :label-position="'right'" label-width="100px" :rules="editRules" :model="currentItem" ref="currentItem">
+        <el-form :label-position="'right'" label-width="100px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="资源类型" prop="resTypeVal">
             <el-select v-model="currentItem.resTypeVal" clearable placeholder="请选择" @change="handleType">
                 <el-option
@@ -163,7 +163,7 @@
             </el-select>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
+      <span slot="footer" class="dialog-add-footer">
         <el-button @click="addHandleClose">取 消</el-button>
         <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
       </span>

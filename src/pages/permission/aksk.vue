@@ -1,5 +1,5 @@
 <template>
-    <div class="joke">
+    <div class="table">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>官网用户</el-breadcrumb-item>
@@ -14,8 +14,10 @@
                 <el-button @click="resetForm('searchItem')" size="mini">重置</el-button>
             </el-form-item>
         </el-form>
-          <el-table
+        <div class="table-box">
+            <el-table
             :data="list"
+            :class="this.totalCount < 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column
@@ -69,8 +71,10 @@
             layout="total, sizes, prev, pager, next, jumper"
             :total="totalCount"
         ></el-pagination>
+        </div>
+          
         <el-dialog title="详情" :visible.sync="infoVisible" width="300" :before-close="handleClose">
-            <el-form :label-position="'left'" label-width="100px">
+            <el-form :label-position="'right'" label-width="100px" size="small">
                 <el-form-item label="lenovoId">
                     <el-input type="text" v-model="infoList.lenovoId" auto-complete="off" readonly></el-input>
                 </el-form-item>

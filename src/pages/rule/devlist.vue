@@ -6,25 +6,28 @@
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
+    <el-form :inline="true" ref="searchItem" size="small" :model="searchItem" class="demo-form-inline search_box" size="mini">
       <el-form-item label="机型名称" prop="name">
         <el-input v-model="searchItem.name" clearable></el-input>
       </el-form-item>
       <el-form-item label="机型" prop="inc">
         <el-input v-model="searchItem.inc" clearable></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="sub-btn">
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
+        <el-button class="success" size="m ini" @click="handleAdd()" v-has="'grey:devadd'">添加</el-button>
+        <router-link :to="{ path: '/grey/funlist'}">
+            <el-button class="success" size="mini" v-has="'grey:funlist'">功能列表</el-button>
+        </router-link>
       </el-form-item>
-      <el-button class="success" size="mini" @click="handleAdd()" v-has="'grey:devadd'">添加</el-button>
-      <router-link :to="{ path: '/grey/funlist'}">
-          <el-button class="success" size="mini" v-has="'grey:funlist'">功能列表</el-button>
-      </router-link>
+      
+      
     </el-form>
     <div class="table-box">
       <el-table
           :data="list"
+          :class="this.totalCount < 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="center">
@@ -78,7 +81,7 @@
     </div>
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
-      <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
+      <el-form :label-position="'right'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="机型名称" prop="name">
           <el-input type="textarea" v-model="currentItem.name" auto-complete="off"></el-input>
         </el-form-item>
@@ -92,7 +95,7 @@
       </span>
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-      <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
+      <el-form :label-position="'right'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="机型名称" prop="name">
           <el-input type="textarea" v-model="addList.name" auto-complete="off"></el-input>
         </el-form-item>
@@ -106,7 +109,7 @@
       </span>
     </el-dialog>
     <el-dialog title="配置" :visible.sync="optVisible" width="300" :before-close="optHandleClose" @open="optShow()">
-      <el-form :label-position="'left'" label-width="100px">
+      <el-form :label-position="'right'" label-width="100px">
         <el-form-item label="机型名称">
           <el-input type="text" v-model="optList.name" auto-complete="off" readonly></el-input>
         </el-form-item>

@@ -1,5 +1,5 @@
 <template>
-    <div class="joke">
+    <div class="table mainlog">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>日志管理</el-breadcrumb-item>
@@ -50,13 +50,15 @@
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
-            <el-form-item>
+            <el-form-item class="sub-btn">
                 <el-button type="primary" @click="onSubmit" size="mini" :loading="btnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')" size="mini">重置</el-button>
             </el-form-item>
         </el-form>
-          <el-table
+        <div  class="table-box">
+            <el-table
             :data="list"
+            :class="this.totalCount < 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column label="ID" prop="id" align="center">
@@ -123,8 +125,10 @@
             layout="total, sizes, prev, pager, next, jumper"
             :total="totalCount"
         ></el-pagination>
+        </div>
+          
         <el-dialog title="详情" :visible.sync="infoVisible" width="300" :before-close="handleClose">
-            <el-form :label-position="'left'" label-width="100px">
+            <el-form :label-position="'right'" label-width="100px">
                 <el-form-item label="ID">
                     <el-input type="text" v-model="infoList.id" auto-complete="off" readonly></el-input>
                 </el-form-item>
@@ -262,7 +266,7 @@ export default {
             },
             // 分页
             currentPage: 1, //默认显示第几页
-            pageSize: 10,   //默认每页条数
+            pageSize: 8,   //默认每页条数
             pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             btnLoading:false,

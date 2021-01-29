@@ -123,7 +123,7 @@
 			<span>设置</span>
         </el-menu-item>
     </el-menu> -->
-   <div>
+   <div class="com-aside">
        <!-- <el-menu class='el-menu-vertical-demo' router @select="handleSelect">
            <el-menu-item index="/home/index">
             <i class="el-icon-location"></i>
@@ -181,6 +181,7 @@
             text-color="#333"
             active-text-color="#409eff"
             router
+            :default-active="r"
             >
             <el-menu-item index="/home/index">
                 <i class="el-icon-location"></i>
@@ -198,12 +199,16 @@ export default {
     },
     data(){
             return {
-              menuData:[]
+              menuData:[],
+              r:this.$route.path
             }
         },
+    // beforeCreate() {
+    //     this.r = this.$route.path
+    // },
     created() {
         this.menuData = JSON.parse(sessionStorage.getItem('menuData'))
-    }
+    },
 }
 </script>
 

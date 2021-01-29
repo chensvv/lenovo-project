@@ -30,13 +30,13 @@
           style="width: 100%;"
           value-format="yyyy-MM-dd"></el-date-picker>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="sub-btn">
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
       </el-form-item>
     </el-form>
     <div class="table-box">
-      <el-table :data="list" style="width: 100%" v-loading="listLoading">
+      <el-table :data="list" :class="this.totalCount < 5 ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading">
         <el-table-column type="index" align="center"></el-table-column>
         <el-table-column label="客户端设备ID" prop="did" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="客户端版本" prop="ver" align="center" :show-overflow-tooltip="true"></el-table-column>

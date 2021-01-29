@@ -41,17 +41,18 @@
           style="width: 100%;"
           value-format="yyyy-MM-dd"></el-date-picker>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="sub-btn">
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+        <el-tooltip class="item" effect="dark" content="请在左侧选择起始时间和结束时间或者选择类型导出" placement="top-end">
+          <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="'source:export'">导出数据</el-button>
+        </el-tooltip>
       </el-form-item>
-      <el-tooltip class="item" effect="dark" content="请在左侧选择起始时间和结束时间或者选择类型导出" placement="top-end">
-        <el-button size="mini" @click="exportFile()" :loading="fileBtnLoading" v-has="'source:export'">导出数据</el-button>
-      </el-tooltip>
     </el-form>
     <div class="table-box">
       <el-table
               :data="list"
+              :class="this.totalCount < 5 ? 'limitWidth' :''"
               style="width: 100%"
               v-loading="listLoading">
               <el-table-column type="index" align="center">

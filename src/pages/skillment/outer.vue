@@ -45,6 +45,7 @@
         <div class="table-box">
             <el-table
                 :data="list"
+                :class="this.totalCount < 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="center">
@@ -112,7 +113,7 @@
             ></el-pagination>
         </div>
         <el-dialog title="详情" :visible.sync="infoVisible" width="300" :before-close="infoHandleClose">
-            <el-form :label-position="'left'" label-width="100px">
+            <el-form :label-position="'right'" size="small" label-width="100px">
                 <el-form-item label="用户ID">
                 <el-input type="text" v-model="infoList.uid" auto-complete="off" readonly></el-input>
                 </el-form-item>

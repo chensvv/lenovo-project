@@ -1,15 +1,5 @@
 <template>
     <div class="index">
-        <!-- <el-breadcrumb separator="/">
-            <el-breadcrumb-item >首页</el-breadcrumb-item>
-        </el-breadcrumb> -->
-        <!-- <div class="a_alert">
-            <i class="el-icon-info"></i>
-            <span class="alert_main">应用记录今天更新了<countTo :startVal='startVal' :endVal='endVal' :duration='3000'></countTo> 条</span>
-        </div> -->
-        <!-- <div>
-            <img src="https://wpimg.wallstcn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3" class="img">
-        </div> -->
         <div class="workflow" v-has="'user:user'" v-if="infoShow">
             <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline" size="mini">
                 <el-form-item label="内容" prop="con">
@@ -61,14 +51,13 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
-                :page-sizes="pageSizes"
                 :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
+                layout="total, prev, pager, next, jumper"
                 :total="totalCount"
             ></el-pagination>
         </div>
         <el-dialog title="详情" :visible.sync="infoVisible" width="300" :close-on-press-escape="false" :close-on-click-modal="false" :before-close="handleClose">
-            <el-form :label-position="'left'" label-width="120px">
+            <el-form :label-position="'right'" size="small" label-width="120px">
                 <el-form-item label="用户名称">
                     <el-input type="text" v-model="infoList.username" auto-complete="off" readonly></el-input>
                 </el-form-item>
@@ -105,7 +94,7 @@
         </el-dialog>
 
         <el-dialog title="退回理由" :visible.sync="backVisible" width="300" :before-close="back_handleClose">
-            <el-form :label-position="'left'" label-width="120px">
+            <el-form :label-position="'right'" size="small" label-width="120px">
                 <el-form-item label="退回理由">
                     <el-input type="textarea" v-model="infoList.backres" auto-complete="off"></el-input>
                 </el-form-item>
@@ -116,7 +105,7 @@
         </el-dialog>
         
         <div class="workflow" v-has="'user:data'" v-if="n_infoShow">
-            <el-form :inline="true" ref="n_searchItem" :model="n_searchItem" class="demo-form-inline" size="mini">
+            <el-form :inline="true" ref="n_searchItem"  :model="n_searchItem" class="demo-form-inline" size="small">
                 <el-form-item label="内容" prop="con">
                     <el-input v-model.trim="n_searchItem.con" clearable></el-input>
                 </el-form-item>
@@ -171,14 +160,13 @@
                 @size-change="n_handleSizeChange"
                 @current-change="n_handleCurrentChange"
                 :current-page.sync="n_currentPage"
-                :page-sizes="n_pageSizes"
                 :page-size="n_pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
+                layout="total, prev, pager, next, jumper"
                 :total="n_totalCount"
             ></el-pagination>
         </div>
         <el-dialog title="详情" :visible.sync="n_infoVisible" width="300" :before-close="n_handleClose">
-            <el-form :label-position="'left'" label-width="120px">
+            <el-form :label-position="'right'" size="small" label-width="120px">
                 <el-form-item label="ID">
                     <el-input type="text" v-model="n_infoList.id" auto-complete="off" readonly></el-input>
                 </el-form-item>
@@ -254,7 +242,6 @@ export default {
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
-            pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             btnLoading:false,
             infoVisible:false,
@@ -262,7 +249,6 @@ export default {
             backVisible:false,
             n_currentPage: 1, //默认显示第几页
             n_pageSize: 10,   //默认每页条数
-            n_pageSizes:[10, 20, 30],
             n_totalCount:1,     // 总条数
             n_btnLoading:false,
             n_infoVisible:false,

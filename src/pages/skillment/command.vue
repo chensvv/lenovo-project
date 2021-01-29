@@ -10,17 +10,19 @@
             <el-form-item label="用户query" prop="command">
                 <el-input v-model.trim="searchItem.command" clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item class="sub-btn">
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
+                <el-button size="mini" @click="handleAdd()" v-has="'command:add'">添加</el-button>
+                <el-button size="mini" @click="handleSong()" v-has="'command:norun:list'">指令忽略管理</el-button>
+                <el-button size="mini" @click="handleOriginal()" v-has="'command:mainlist'">原始指令管理</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="'command:add'">添加</el-button>
-            <el-button class="success" size="mini" @click="handleSong()" v-has="'command:norun:list'">指令忽略管理</el-button>
-            <el-button class="success" size="mini" @click="handleOriginal()" v-has="'command:mainlist'">原始指令管理</el-button>
+            
         </el-form>
         <div class="table-box">
             <el-table
                 :data="list"
+                :class="this.totalCount < 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="center">
@@ -72,7 +74,7 @@
             ></el-pagination>
         </div>
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'left'" label-width="130px" :rules="addRules" :model="addList" ref="addList">
+            <el-form :label-position="'right'" label-width="130px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="addList.command" auto-complete="off"></el-input>
                 </el-form-item>

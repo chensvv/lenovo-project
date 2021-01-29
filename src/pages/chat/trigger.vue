@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div class="table trigg">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>闲聊数据</el-breadcrumb-item>
@@ -49,12 +49,13 @@
                 style="width: 100%;"
                 value-format="yyyy-MM-dd"></el-date-picker>
           </el-form-item>
-          <el-form-item class="width140" style="text-align:right">
+          <el-form-item class="sub-btn" >
             <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
             <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+            <el-button size="mini" @click="dataPack" :loading="zipBtnLoading">数据打包</el-button>
+            <el-button size="mini" @click="packResult" :loading="listBtnLoading">打包结果</el-button>
           </el-form-item>
-          <el-button size="mini" @click="dataPack" :loading="zipBtnLoading">数据打包</el-button>
-          <el-button size="mini" @click="packResult" :loading="listBtnLoading">打包结果</el-button>
+          
     </el-form>
 
     
@@ -62,6 +63,7 @@
     <div class="table-box">
       <el-table
             :data="list"
+            :class="this.totalCount < 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column type="index" align="center">

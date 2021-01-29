@@ -13,18 +13,20 @@
       <el-form-item label="所属excel文件" prop="excel">
         <el-input v-model.trim="searchItem.excel" clearable></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="sub-btn">
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
+        <el-button size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'item:pub'">生成AIML</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'item:save'">添加</el-button>
+        <el-button icon="el-icon-upload" size="mini" @click="importExcel()" v-has="'item:excel'">导入Excel文件</el-button>
       </el-form-item>
-      <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'item:pub'">生成AIML</el-button>
-      <el-button class="success" size="mini" @click="handleAdd()" v-has="'item:save'">添加</el-button>
-      <el-button icon="el-icon-upload" class="success" size="mini" @click="importExcel()" v-has="'item:excel'">导入Excel文件</el-button>
+      
     </el-form>
     <div class="table-box">
       <el-table
           :data="list"
           style="width: 100%"
+          :class="this.totalCount < 5 ? 'limitWidth' :''"
           v-loading="listLoading">
           <el-table-column type="index" align="center">
           </el-table-column>
@@ -90,7 +92,7 @@
     </div>
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
-      <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
+      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="问题" prop="question">
           <el-input type="textarea" v-model.trim="currentItem.question" auto-complete="off"></el-input>
         </el-form-item>
@@ -104,7 +106,7 @@
       </span>
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-      <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="问题" prop="question">
           <el-input type="text" v-model.trim="addList.question" auto-complete="off"></el-input>
         </el-form-item>
@@ -136,10 +138,10 @@
               将文件拖到此处，或
               <em>点击上传</em>
             </div>
-            <div class="el-upload__tip" slot="tip">1、只能上传Excel文件，且不超过500kb</div>
-            <div class="el-upload__tip" slot="tip">2、由于需要生成AIML，所以excle文件请使用全英文</div>
-            <div class="el-upload__tip" slot="tip">3、请编辑excel文件时，‘设置单元格格式’->‘文本’</div>
-            <div class="el-upload__tip" slot="tip">4、第一列为‘问题’，第二列为'答案'</div>
+            <!-- <div class="el-upload__tip" slot="tip">1、只能上传Excel文件，且不超过500kb</div> -->
+            <!-- <div class="el-upload__tip" slot="tip">2、由于需要生成AIML，所以excle文件请使用全英文</div> -->
+            <div class="el-upload__tip" slot="tip">1、请编辑excel文件时，‘设置单元格格式’->‘文本’</div>
+            <div class="el-upload__tip" slot="tip">2、第一列为‘问题’，第二列为'答案'</div>
           </el-upload>
         </el-form-item>
       </el-form>
@@ -383,13 +385,20 @@ export default {
     },
     //上传excel表格
     beforeUpload(file) {
-      const isText = file.type === "application/vnd.ms-excel";
-      const isTextComputer =
-        file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      if (!isText && !isTextComputer) {
-        this.$message.error("上传文件必须是Excel格式!");
+      // const isText = file.type === "application/vnd.ms-excel";
+      // const isTextComputer =
+      //   file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      // if (!isText && !isTextComputer) {
+      //   this.$message.error("上传文件必须是Excel格式!");
+      // }
+      // return isText || isTextComputer;
+      const extension = file.name.split('.')[1] === 'xls'
+      const extension2 = file.name.split('.')[1] === 'xlsx'
+      if (!extension && !extension2) {
+          this.$message.warning('上传文件必须是Excel格式!')
+          return false
       }
-      return isText || isTextComputer;
+      return extension || extension2;
     },
     // 上传文件个数超过定义的数量
     handleExceed(files, fileList) {
@@ -399,32 +408,38 @@ export default {
       this.file = item.file;
     },
     postFile() {
-      const fileObj = this.file;
-      var fileData = new FormData();
-      fileData.append("ex", fileObj);
-      this.fileBtnLoading = true;
-      itemUpFile(fileData).then(res => {
-        this.fileBtnLoading = false
-            if(res.data.code == 200){
-                this.$message({
-                    message:res.data.msg,
-                    type:"success",
-                });
-                this.$refs.upload.clearFiles()
-                
-                this.uploadVisible = false
-                this.getList()
-            }else{
-                this.$message({
-                    message:res.data.errorMessage,
-                    type:"error",
-                    duration:1000
-                });
-            }
+      if(this.file == ''){
+        this.$message.warning('请选择要上传的文件！')
+        return false
+      }else{
+        const fileObj = this.file;
+        var fileData = new FormData();
+        fileData.append("ex", fileObj);
+        this.fileBtnLoading = true;
+        itemUpFile(fileData).then(res => {
+          this.fileBtnLoading = false
+              if(res.data.code == 200){
+                  this.$message({
+                      message:res.data.msg,
+                      type:"success",
+                  });
+                  this.$refs.upload.clearFiles()
+                  
+                  this.uploadVisible = false
+                  this.getList()
+              }else{
+                  this.$message({
+                      message:res.data.errorMessage,
+                      type:"error",
+                      duration:1000
+                  });
+              }
 
-      }).catch(err => {
-            this.fileBtnLoading = false
-          })
+        }).catch(err => {
+          this.fileBtnLoading = false
+        })
+      }
+      
     },
     closeFile() {
         this.$refs.upload.clearFiles()

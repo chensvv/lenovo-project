@@ -1,5 +1,5 @@
 <template>
-    <div class="rule">
+    <div class="table">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>应用搜索</el-breadcrumb-item>
@@ -9,13 +9,15 @@
             <el-form-item label="规则" prop="reg">
                 <el-input v-model.trim="searchItem.reg" clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item class="sub-btn">
                 <el-button type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
             </el-form-item>
         </el-form>
+        <div class="table-box">
             <el-table
                 :data="list"
+                :class="this.totalCount < 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="center">
@@ -39,15 +41,17 @@
                     :show-overflow-tooltip="true">
                 </el-table-column>
             </el-table>
-        <el-pagination
+            <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page.sync="currentPage"
-            :page-sizes="pageSizes"
             :page-size="pageSize"
-            layout="total, sizes, prev, pager, next, jumper"
+            layout="total, prev, pager, next, jumper"
             :total="totalCount"
         ></el-pagination>
+        </div>
+            
+        
     </div>
 </template>
 
@@ -63,7 +67,6 @@ export default {
         // 分页
         currentPage: 1, //默认显示第几页
         pageSize: 10,   //默认每页条数
-        pageSizes:[10, 20, 30],
         totalCount:1,     // 总条数
         btnLoading:false,
         listLoading:true,

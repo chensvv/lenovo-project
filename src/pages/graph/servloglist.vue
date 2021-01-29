@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div class="table chart">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>业务报表</el-breadcrumb-item>
@@ -17,7 +17,7 @@
       </el-form-item>
     </el-form> -->
     <div class="table-box" v-loading="loading">
-        <div ref="myChart" :style="{width: '100%', height: '100%', margin:'30px auto 0'}"></div>
+        <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>
     </div>
   </div>
 </template>
@@ -138,8 +138,9 @@ export default {
     width: 100%;
     height: 100%;
 }
-.table-box{
-    width: 100%;
-    height: 90%;
+.chart .table-box{
+    width: 90%;
+    height: 80% !important;
+    margin: 0 auto;
 }
 </style>

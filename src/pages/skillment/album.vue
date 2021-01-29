@@ -10,17 +10,19 @@
             <el-form-item label="专辑名称" prop="name">
                 <el-input v-model.trim="searchItem.name" clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item class="sub-btn">
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
+                <el-button size="mini" @click="handleAdd()" v-has="'skill:music:addalbum'">添加</el-button>
+                <el-button size="mini" @click="handleSong()" v-has="'skill:music:songlist'">歌曲列表</el-button>
+                <el-button size="mini" @click="handleSinger()" v-has="'skill:music:singerlist'">歌手管理</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:music:addalbum'">添加</el-button>
-            <el-button class="success" size="mini" @click="handleSong()" v-has="'skill:music:songlist'">歌曲列表</el-button>
-            <el-button class="success" size="mini" @click="handleSinger()" v-has="'skill:music:singerlist'">歌手管理</el-button>
+            
         </el-form>
         <div class="table-box">
             <el-table
                 :data="list"
+                :class="this.totalCount < 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="center">
@@ -86,7 +88,7 @@
         </div>
 
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
-            <el-form :label-position="'left'" label-width="130px" :rules="editRules" :model="currentItem" ref="currentItem">
+            <el-form :label-position="'right'" label-width="130px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="专辑名称" prop="albumName">
                     <el-input type="text" v-model.trim="currentItem.albumName" auto-complete="off"></el-input>
                 </el-form-item>
@@ -109,7 +111,7 @@
             </span>
         </el-dialog>
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'left'" label-width="130px" :rules="addRules" :model="addList" ref="addList">
+            <el-form :label-position="'right'" label-width="130px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="专辑名称" prop="albumName">
                     <el-input type="text" v-model.trim="addList.albumName" auto-complete="off"></el-input>
                 </el-form-item>

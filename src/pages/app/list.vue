@@ -34,15 +34,17 @@
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
             </el-form-item>
-            <el-form-item>
+            <el-form-item class="sub-btn">
                 <el-button type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
+                <el-button size="mini" @click="handleAdd()" v-has="'app:add'">添加</el-button>
             </el-form-item>
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="'app:add'">添加</el-button>
+            
         </el-form>
         <div class="table-box">
             <el-table
                 :data="list"
+                :class="this.totalCount < 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="center">
@@ -116,14 +118,13 @@
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
-                :page-sizes="pageSizes"
                 :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
+                layout="total, prev, pager, next, jumper"
                 :total="totalCount"
             ></el-pagination>
         </div>
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
-            <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="应用名" prop="name">
                     <el-input type="text" v-model.trim="currentItem.name"  auto-complete="off"></el-input>
                 </el-form-item>
@@ -175,7 +176,7 @@
             </span>
         </el-dialog>
         <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
+            <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="应用名" prop="name">
                     <el-input type="text" v-model.trim="addList.name"  auto-complete="off"></el-input>
                 </el-form-item>
@@ -296,13 +297,13 @@ export default {
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
-            pageSizes:[10, 20, 30],
             totalCount:1,     // 总条数
             btnLoading:false,
             listLoading:true,
             addVisible:false,
             editVisible:false,
-            isshow:true
+            isshow:true,
+            tableHeight: 50,
         };
     },
     created() {

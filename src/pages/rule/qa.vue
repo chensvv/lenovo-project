@@ -13,18 +13,20 @@
       <el-form-item label="所属excel文件" prop="excel">
         <el-input v-model.trim="searchItem.excel" clearable></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="sub-btn">
         <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
+        <el-button size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'qa:pub'">生成AIML</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'qa:save'">添加</el-button>
+        <el-button icon="el-icon-upload" size="mini" @click="importExcel()" v-has="'qa:excel'">导入Excel文件</el-button>
+        <el-button icon="el-icon-upload" size="mini" @click="customExcel()" v-has="'qa:excel'">导入自定义Excel文件</el-button>
       </el-form-item>
-      <el-button class="success" size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'qa:pub'">生成AIML</el-button>
-      <el-button class="success" size="mini" @click="handleAdd()" v-has="'qa:save'">添加</el-button>
-      <el-button icon="el-icon-upload" class="success" size="mini" @click="importExcel()" v-has="'qa:excel'">导入Excel文件</el-button>
-      <el-button icon="el-icon-upload" class="success" size="mini" @click="customExcel()" v-has="'qa:excel'">导入自定义Excel文件</el-button>
+      
     </el-form>
     <div class="table-box">
       <el-table
           :data="list"
+          :class="this.totalCount < 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="center">
@@ -98,7 +100,7 @@
     </div>
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
-      <el-form :label-position="'left'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
+      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="问题" prop="speak">
           <el-input type="textarea" v-model.trim="currentItem.speak" auto-complete="off"></el-input>
         </el-form-item>
@@ -112,7 +114,7 @@
       </span>
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-      <el-form :label-position="'left'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="问题" prop="speak">
           <el-input type="text" v-model.trim="addList.speak" auto-complete="off"></el-input>
         </el-form-item>
@@ -434,22 +436,43 @@ export default {
     },
     //上传excel表格
     beforeUpload(file) {
-      const isText = file.type === "application/vnd.ms-excel";
-      const isTextComputer =
-        file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      if (!isText && !isTextComputer) {
-        this.$message.error("上传文件必须是Excel格式!");
+      const extension = file.name.split('.')[1] === 'xls'
+      const extension2 = file.name.split('.')[1] === 'xlsx'
+      const isLt5KB = file.size / 1024 < 500
+      // const isText = file.type === "application/vnd.ms-excel";
+      // const isTextComputer = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      // if (!isText && !isTextComputer) {
+      //   this.$message.error("上传文件必须是Excel格式!");
+      // }
+      if (!extension && !extension2) {
+          this.$message.warning('上传文件必须是Excel格式!')
+          return false
       }
-      return isText || isTextComputer;
+      if (!isLt5KB) {
+          this.$message.warning('上传文件大小不能超过 500KB!')
+          return false
+      }
+      return extension || extension2 || isLt5KB;
     },
     beforeUpload2(file) {
-      const isText = file.type === "application/vnd.ms-excel";
-      const isTextComputer =
-        file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      if (!isText && !isTextComputer) {
-        this.$message.error("上传文件必须是Excel格式!");
+      // const isText = file.type === "application/vnd.ms-excel";
+      // const isTextComputer = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+      // if (!isText && !isTextComputer) {
+      //   this.$message.error("上传文件必须是Excel格式!");
+      // }
+      // return isText || isTextComputer;
+      const extension = file.name.split('.')[1] === 'xls'
+      const extension2 = file.name.split('.')[1] === 'xlsx'
+      const isLt5KB = file.size / 1024 < 500
+      if (!extension && !extension2) {
+          this.$message.warning('上传文件必须是Excel格式!')
+          return false
       }
-      return isText || isTextComputer;
+      if (!isLt5KB) {
+          this.$message.warning('上传文件大小不能超过 500KB!')
+          return false
+      }
+      return extension || extension2 || isLt5KB;
     },
     // 上传文件个数超过定义的数量
     handleExceed(files, fileList) {
@@ -465,59 +488,71 @@ export default {
       this.file2 = item.file;
     },
     postFile() {
-      const fileObj = this.file;
-      var fileData = new FormData();
-      fileData.append("ex", fileObj);
-      this.fileBtnLoading = true;
-      qaUpFile(fileData).then(res => {
-        this.fileBtnLoading = false
-            if(res.data.code == 200){
-                this.$message({
-                    message:res.data.msg,
-                    type:"success",
-                });
-                this.$refs.upload.clearFiles()
-                this.uploadVisible = false
-                this.getList()
-            }else{
-                this.$message({
-                    message:res.data.errorMessage,
-                    type:"error",
-                    duration:1000
-                });
-            }
+      if(this.file == ''){
+        this.$message.warning('请选择要上传的文件！')
+        return false
+      }else{
+        const fileObj = this.file;
+        var fileData = new FormData();
+        fileData.append("ex", fileObj);
+        this.fileBtnLoading = true;
+        qaUpFile(fileData).then(res => {
+          this.fileBtnLoading = false
+              if(res.data.code == 200){
+                  this.$message({
+                      message:res.data.msg,
+                      type:"success",
+                  });
+                  this.$refs.upload.clearFiles()
+                  this.uploadVisible = false
+                  this.getList()
+              }else{
+                  this.$message({
+                      message:res.data.errorMessage,
+                      type:"error",
+                      duration:1000
+                  });
+              }
 
-      }).catch(err => {
-            this.fileBtnLoading = false
-          })
+        }).catch(err => {
+          this.fileBtnLoading = false
+        })
+      }
+      
     },
     postFile2() {
-      const fileObj = this.file2;
-      var fileData = new FormData();
-      fileData.append("ex", fileObj);
-      this.fileBtnLoading2 = true;
-      qaFile(fileData).then(res => {
-        this.fileBtnLoading2 = false
-            if(res.data.code == 200){
-                this.$message({
-                    message:res.data.msg,
-                    type:"success"
-                });
-                this.$refs.upload2.clearFiles()
-                
-                this.uploadVisible2 = false
-                this.getList()
-            }else{
-                this.$message({
-                    message:res.data.errorMessage,
-                    type:"error",
-                    duration:1000
-                });
-            }
+      if(this.file2 == ''){
+        this.$message.warning('请选择要上传的文件！')
+        return false
+      }else{
+        const fileObj = this.file2;
+        var fileData = new FormData();
+        fileData.append("ex", fileObj);
+        this.fileBtnLoading2 = true;
+        qaFile(fileData).then(res => {
+          this.fileBtnLoading2 = false
+              if(res.data.code == 200){
+                  this.$message({
+                      message:res.data.msg,
+                      type:"success"
+                  });
+                  this.$refs.upload2.clearFiles()
+                  
+                  this.uploadVisible2 = false
+                  this.getList()
+              }else{
+                  this.$message({
+                      message:res.data.errorMessage,
+                      type:"error",
+                      duration:1000
+                  });
+              }
 
-      }).catch(err => {
-            this.fileBtnLoading2 = false
-          })
+        }).catch(err => {
+          this.fileBtnLoading2 = false
+        })
+      }
+      
     },
     closeFile() {
         this.$refs.upload.clearFiles()
