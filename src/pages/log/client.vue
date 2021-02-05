@@ -76,9 +76,8 @@
             @size-change="handleSizeChangeC"
             @current-change="handleCurrentChangeC"
             :current-page.sync="CcurrentPage"
-            :page-sizes="CpageSizes"
             :page-size="CpageSize"
-            layout="total, sizes, prev, pager, next, jumper"
+            layout="total, prev, pager, next, jumper"
             :total="CtotalCount"
           ></el-pagination>
         </el-tab-pane>
@@ -177,9 +176,8 @@
             @size-change="handleSizeChangeS"
             @current-change="handleCurrentChangeS"
             :current-page.sync="ScurrentPage"
-            :page-sizes="SpageSizes"
             :page-size="SpageSize"
-            layout="total, sizes, prev, pager, next, jumper"
+            layout="total, prev, pager, next, jumper"
             :total="StotalCount"
           ></el-pagination>
         </el-tab-pane>
@@ -216,12 +214,10 @@ export default {
       // 分页
       CcurrentPage: 1, //默认显示第几页
       CpageSize: 10, //默认每页条数
-      CpageSizes: [10, 20, 30],
       CtotalCount: 1, // 总条数
 
       ScurrentPage: 1, //默认显示第几页
       SpageSize: 10, //默认每页条数
-      SpageSizes: [10, 20, 30],
       StotalCount: 1, // 总条数
       seaBtnLoading: false,
       ClistLoading:true,

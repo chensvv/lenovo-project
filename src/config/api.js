@@ -1515,3 +1515,19 @@ export function historyDetails (data) {
     data: data
   })
 }
+
+export function allDurList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/allDur/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function errChart (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/error/chart',
+    method: 'post',
+    data: data
+  })
+}

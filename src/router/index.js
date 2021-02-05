@@ -337,6 +337,16 @@ const router = new Router({
           meta: {title: '用户自定义'}
         },
         {
+          path: '/allDur/list',
+          component: () => import('@/pages/log/allDur'),
+          meta: {title: '时间相应统计'}
+        },
+        {
+          path: '/error/chart',
+          component: () => import('@/pages/log/errChart'),
+          meta: {title: '异常率统计'}
+        },
+        {
           path: '/401',
           component: () => import('@/pages/401'),
           meta: {title: '401'}

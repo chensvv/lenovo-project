@@ -69,9 +69,8 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page.sync="currentPage"
-        :page-sizes="pageSizes"
         :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next, jumper"
         :total="totalCount"
       ></el-pagination>
     </div>
@@ -131,7 +130,6 @@ export default {
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
-      pageSizes:[10, 20, 30],
       totalCount:1,     // 总条数
       seaBtnLoading:false,
       addBtnLoading:false,
