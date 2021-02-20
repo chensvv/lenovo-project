@@ -314,6 +314,7 @@
 }
 .workflow .el-pagination{
   padding: 14px 0 0;
+  height: 5%;
 }
 .el-range-editor--mini.el-input__inner{
   height: 30px !important;
@@ -734,4 +735,14 @@
 .cropper-disabled .cropper-line,
 .cropper-disabled .cropper-point {
   cursor: not-allowed;
+}
+.workflow .el-table{
+  height: 86%;
+}
+.index{
+  height: 100%;
+  background: url('../images/index.svg') no-repeat;
+  background-size: 70% 70%;
+  background-position-x: center;
+  background-position-y: center;
 }

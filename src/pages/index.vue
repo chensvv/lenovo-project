@@ -477,15 +477,15 @@ export default {
     padding: 14px 14px 14px 13px;
     border-radius: 8px;
     box-sizing: border-box;
-    border: 1px solid #ebeef5;
+    border: none;
     position: fixed;
     background-color: #fff;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     right: 16px;
     overflow: hidden;
     height: 85%;
-    overflow-y: auto;
-    top: 65px;
+    top: 70px;
 }
+
 </style>
 

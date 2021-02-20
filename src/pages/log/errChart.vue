@@ -79,7 +79,6 @@ export default {
                         text: '暂无数据',//主标题
                         subtext:'',
                         x:'center',//x轴方向对齐方式
-                        y: 'center',
                         textStyle: {
                             color: '#606266',
                             fontweight:400,

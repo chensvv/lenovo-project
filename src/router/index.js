@@ -234,7 +234,7 @@ const router = new Router({
         {
           path: '/userinfo/list',
           component: () => import('@/pages/permission/aksk'),
-          meta: {title: '用户管理'}
+          meta: {title: '官网用户'}
         },
         {
           path: '/home/userinfo',
@@ -329,7 +329,7 @@ const router = new Router({
         {
           path: '/gift/querySql',
           component: () => import('@/pages/statcon/common'),
-          meta: {title: '报表配置'}
+          meta: {title: '用户报表'}
         },
         {
           path: '/item/list',
