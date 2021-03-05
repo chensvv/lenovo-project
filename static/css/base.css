@@ -263,7 +263,10 @@
   float: right;
 }
 .el-tooltip__popper{
-  max-width: 700px;
+  max-width: 1200px;
+  height: auto;
+  max-height: 510px !important;
+  overflow: scroll;
 }
 
 .is404{

@@ -182,6 +182,7 @@
             active-text-color="#409eff"
             router
             :default-active="r"
+            :unique-opened="true"
             >
             <el-menu-item index="/home/index">
                 <i class="el-icon-location"></i>
