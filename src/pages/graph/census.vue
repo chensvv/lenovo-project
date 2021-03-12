@@ -61,7 +61,7 @@ export default {
         })
     },
     getChartsData(){
-        console.log(this.searchItem.lenovoId)
+        // console.log(this.searchItem.lenovoId)
         let userParams = {
           lenovoid:this.searchItem.lenovoId
         }

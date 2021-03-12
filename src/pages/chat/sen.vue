@@ -170,11 +170,11 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       this.listLoading = true
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
       this.getList();
     },
     handleEdit(index, row) {
-      console.log(index, row);
+      // console.log(index, row);
       this.editVisible = true;
       this.currentItem = {
         id:row.id,

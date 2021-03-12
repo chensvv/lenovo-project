@@ -190,7 +190,7 @@ export default {
         },
         handleCurrentChange(val) {
             this.currentPage = val
-            console.log(`当前页: ${val}`);
+            // console.log(`当前页: ${val}`);
             this.getList();
         },
         handleEdit(index, row) {
@@ -201,7 +201,7 @@ export default {
             };
         },
         handleDel(index, row) {
-            console.log(row)
+            // console.log(row)
             let delParams = {
                 functionId:row.id
             }

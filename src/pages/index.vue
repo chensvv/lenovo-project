@@ -335,7 +335,7 @@ export default {
                 id:row.id
             }
             activitiStatus(n_stauts).then(res=>{
-                console.log(res)
+                // console.log(res)
             })
         },
         handleSizeChange(val) {
@@ -345,7 +345,7 @@ export default {
         },
         handleCurrentChange(val) {
             this.currentPage = val
-            console.log(`当前页: ${val}`);
+            // console.log(`当前页: ${val}`);
             this.getList();
         },
         handleClose(){
@@ -364,7 +364,7 @@ export default {
         },
         n_handleCurrentChange(val) {
             this.n_currentPage = val
-            console.log(`当前页: ${val}`);
+            // console.log(`当前页: ${val}`);
             this.getNList();
         },
         n_handleClose(){

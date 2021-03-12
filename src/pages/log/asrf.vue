@@ -123,7 +123,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
       this.getList();
     },
     getList() {

@@ -266,7 +266,7 @@
   max-width: 1200px;
   height: auto;
   max-height: 510px !important;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .is404{

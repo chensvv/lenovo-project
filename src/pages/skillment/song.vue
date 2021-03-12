@@ -229,7 +229,7 @@ export default {
         },
         handleCurrentChange(val) {
             this.currentPage = val
-            console.log(`当前页: ${val}`);
+            // console.log(`当前页: ${val}`);
             this.getList();
         },
         handleEdit(index, row) {
@@ -340,7 +340,6 @@ export default {
             this.addVisible = true
             songSelect().then(res=>{
                 this.sourceList = res.data
-                console.log(res.data)
             })
         },
         addHandleConfirm(addList) {

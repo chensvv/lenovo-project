@@ -266,12 +266,12 @@ export default {
     },
     handleCurrentChangeC(val) {
       this.CcurrentPage = val;
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
       this.getList();
     },
     handleCurrentChangeS(val) {
       this.ScurrentPage = val;
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
       this.getList();
     },
     getList() {

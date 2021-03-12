@@ -225,7 +225,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentPage = val
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
       this.getList();
     },
     handleEdit(index, row) {
@@ -294,7 +294,7 @@ export default {
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
-          console.log(this.currentItem)
+          // console.log(this.currentItem)
           this.editBtnLoading = true
           devAddUpd(updParams).then(res=>{
             this.editBtnLoading = false

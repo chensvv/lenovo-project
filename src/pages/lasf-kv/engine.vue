@@ -69,7 +69,7 @@ export default {
         pwd:this.currentItem.asrpsd,
         val:this.currentItem.asr
       }
-      console.log(updParams)
+      // console.log(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true

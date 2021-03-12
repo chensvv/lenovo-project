@@ -233,7 +233,7 @@ export default {
         },
         handleCurrentChange(val) {
             this.currentPage = val
-            console.log(`当前页: ${val}`);
+            // console.log(`当前页: ${val}`);
             this.getList();
         },
         handleInfo(index, row) {
@@ -244,7 +244,7 @@ export default {
             }
             outerInfo(infoParams).then(res=>{
                 this.infoList = res.data
-                console.log(this.infoList)
+                // console.log(this.infoList)
             })
         },
         infoHandleConfirm() {

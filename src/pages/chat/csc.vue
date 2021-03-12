@@ -154,7 +154,7 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       this.listLoading = true
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
       this.getList();
     },
     handleDel(index, row) {
