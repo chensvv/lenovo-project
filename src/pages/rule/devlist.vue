@@ -6,7 +6,7 @@
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" size="small" :model="searchItem" class="demo-form-inline search_box" size="mini">
+    <el-form :inline="true" ref="searchItem" size="small" :model="searchItem" class="demo-form-inline search_box">
       <el-form-item label="机型名称" prop="name">
         <el-input v-model="searchItem.name" clearable></el-input>
       </el-form-item>
