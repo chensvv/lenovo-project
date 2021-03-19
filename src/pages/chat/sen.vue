@@ -15,6 +15,7 @@
             <el-button @click="resetForm('searchItem')">重置</el-button>
             <el-button class="success" size="mini" @click="handleAdd('addList')" v-has="'sen:add'">添加</el-button>
             <el-button class="success" size="mini" @click="handlePub" :loading="PubBtnLoading" v-has="'sen:pub'">发布</el-button>
+            <el-button size="mini" @click="exportFile()" v-has="'source:export'">导出数据</el-button>
         </el-form-item >
         
     </el-form>
@@ -94,6 +95,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {senList, senAddUpd, senDel, senPub} from '@/config/api'
+import downUrl from '@/config/http'
 export default {
   data() {
     return {
@@ -321,6 +323,10 @@ export default {
       }).catch(err=>{
         this.PubBtnLoading = false
       })
+    },
+    exportFile(){
+        let openUrl = downUrl.proURL + '/lasf-mgr/sen/export'
+        window.open(openUrl)
     },
     getList() {
       this.listLoading = true
