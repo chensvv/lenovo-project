@@ -1420,6 +1420,14 @@ export function showModeUpd (data) {
   })
 }
 
+export function showModeDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/delete',
+    method: 'post',
+    data: data
+  })
+}
+
 export function showModeRele (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/toBeReleased',
@@ -1511,6 +1519,14 @@ export function historyList (data) {
 export function historyDetails (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/versionDetails',
+    method: 'post',
+    data: data
+  })
+}
+
+export function historyDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/deleteHistory',
     method: 'post',
     data: data
   })

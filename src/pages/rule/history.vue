@@ -46,6 +46,11 @@
                   size="mini"
                   @click="handleInfo(scope.$index, scope.row)"
                   v-has="'history:details'">详情</el-button>
+                  <el-button
+                  size="mini"
+                  type="danger"
+                  @click="handleDel(scope.$index, scope.row)"
+                  v-has="'history:delete'">删除</el-button>
               </template>
           </el-table-column>
       </el-table>
@@ -68,9 +73,9 @@
           <el-select v-model="currentItem.gray" multiple placeholder="请选择">
                 <el-option
                 v-for="item in grayList"
-                :key="item.id"
+                :key="item.grayId"
                 :label="item.name"
-                :value="item.id">
+                :value="item.grayId">
                 </el-option>
             </el-select>
         </el-form-item>
@@ -83,6 +88,7 @@
     <el-dialog title="详情" :visible.sync="infoVisible" width="70%" :before-close="infoHandleClose">
        <el-table
           :data="infoList"
+          :class="this.totalCount < 5 ? 'limitWidth' :''"
           style="width: 100%"
           height="400"
           v-loading="infoListLoading">
@@ -154,7 +160,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {historyList, historyDetails, configList, grayList, grayUpd} from '@/config/api'
+import {historyList, historyDetails, configList, grayList, grayUpd, historyDel} from '@/config/api'
 export default {
   data() {
     return {
@@ -169,7 +175,7 @@ export default {
         version:''
       },
       editRules:{
-        gray:[{ required: true, message: '请选择灰度', trigger: 'blur' }], 
+        
       },
       editVisible: false,
       infoVisible:false,
@@ -240,6 +246,35 @@ export default {
     },
     infoHandleClose(){
       this.infoVisible = false
+    },
+    handleDel(index, row) {
+      let delParams = {
+        id:row.id
+      }
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+          historyDel(delParams).then(res=>{
+            if(res.data.code == 200){
+                this.$message({
+                    message:'删除成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.getList();
+            }else{
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            }
+          })
+        }).catch((err) => {
+          console.log(err);
+        });
     },
     editHandleConfirm(currentItem) {
       let updParams = {
@@ -317,7 +352,8 @@ export default {
     },
     getGrayList(){
         let grayParams = {
-
+          pgstr:this.pageSize,
+          pcstr:this.currentPage,
         }
       grayList(grayParams).then(res=>{
         this.grayList = res.data.data

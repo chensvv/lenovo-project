@@ -519,7 +519,9 @@ export default {
                   this.getChannelList()
                   this.getTypeList()
                   this.getPhoneTypeList()
-                  this.addVisible = false
+                  this.$router.push({
+                      path:'/showmode/list'
+                  })
               }else{
                   
                   this.$message({

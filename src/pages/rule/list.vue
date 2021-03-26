@@ -97,12 +97,17 @@
                   v-has="'showmode:toBeReleased'">{{scope.row.publishStatus == 0 ? '添加' : '撤回'}}</el-button>
               </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" v-if="isshow">
+          <el-table-column label="操作" min-width="130" align="center" v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
                   v-has="'showmode:update'">详情</el-button>
+                  <el-button
+                  size="mini"
+                  type="danger"
+                  @click="handleDel(scope.$index, scope.row)"
+                  v-has="'showmode:delete'">删除</el-button>
               </template>
           </el-table-column>
       </el-table>
@@ -142,7 +147,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import Cropper from "@/components/cropper";
-import {showModeList, showModeRele, configList, configAdd, showModeImport} from '@/config/api'
+import {showModeList, showModeRele, configList, configAdd, showModeImport,showModeDel} from '@/config/api'
 export default {
   data() {
     return {
@@ -178,7 +183,7 @@ export default {
       addResVisible: false,
       // 分页
       currentPage: 1, //默认显示第几页
-      pageSize: 5,   //默认每页条数
+      pageSize: 7,   //默认每页条数
       totalCount:1,     // 总条数
     //   图片上传裁剪参数
       seaBtnLoading:false,
@@ -253,6 +258,35 @@ export default {
                 data: JSON.stringify(row)
             }
         })
+    },
+    handleDel(index, row) {
+      let delParams = {
+        id:row.id
+      }
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+          showModeDel(delParams).then(res=>{
+            if(res.data.code == 200){
+                this.$message({
+                    message:'删除成功',
+                    type:"success",
+                    duration:1000
+                });
+                this.getList();
+            }else{
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1000
+                });
+            }
+          })
+        }).catch((err) => {
+          console.log(err);
+        });
     },
     handleIssue(index, row) {
         let issueParams = {

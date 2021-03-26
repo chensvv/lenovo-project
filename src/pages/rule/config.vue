@@ -40,9 +40,9 @@
             <el-select v-model="addList.gray" multiple placeholder="不选为不灰度">
                 <el-option
                 v-for="item in grayList"
-                :key="item.id"
+                :key="item.grayId"
                 :label="item.name"
-                :value="item.id">
+                :value="item.grayId">
                 </el-option>
             </el-select>
           </el-form-item>
