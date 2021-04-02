@@ -1492,6 +1492,22 @@ export function grayList (data) {
   })
 }
 
+export function updGray (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/updGray',
+    method: 'post',
+    data: data
+  })
+}
+
+export function deleteGray (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/deleteGray',
+    method: 'post',
+    data: data
+  })
+}
+
 export function grayAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/addGray',
@@ -1527,6 +1543,14 @@ export function historyDetails (data) {
 export function historyDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/deleteHistory',
+    method: 'post',
+    data: data
+  })
+}
+
+export function listGrays (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/showmode/listGrays',
     method: 'post',
     data: data
   })

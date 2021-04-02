@@ -167,6 +167,11 @@ const router = new Router({
           meta: {title: '历史版本'}
         },
         {
+          path: '/showmode/gray',
+          component: () => import('@/pages/rule/gray'),
+          meta: {title: '灰度配置'}
+        },
+        {
           path: '/kv/list',
           component: () => import('@/pages/lasf-kv/kv'),
           meta: {title: 'KV列表'}

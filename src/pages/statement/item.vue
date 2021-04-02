@@ -26,7 +26,7 @@
       <el-table
           :data="list"
           style="width: 100%"
-          :class="this.totalCount < 5 ? 'limitWidth' :''"
+          :class="this.totalCount <= 5 ? 'limitWidth' :''"
           v-loading="listLoading">
           <el-table-column type="index" align="center">
           </el-table-column>

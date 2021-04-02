@@ -35,7 +35,7 @@
     <div class="table-box">
       <el-table
               :data="list"
-              :class="this.totalCount < 5 ? 'limitWidth' :''"
+              :class="this.totalCount <= 5 ? 'limitWidth' :''"
               style="width: 100%"
               v-loading="listLoading">
               <el-table-column type="index" align="center">

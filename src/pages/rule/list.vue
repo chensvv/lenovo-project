@@ -46,7 +46,7 @@
     <div class="table-box">
       <el-table
           :data="list"
-          :class="this.totalCount < 5 ? 'limitWidth' :''"
+          :class="this.totalCount <= 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="center">
@@ -123,7 +123,7 @@
     <el-dialog title="添加资源渠道类型" :visible.sync="addResVisible" width="300" :before-close="addResHandleClose" @open="openResFun('addResList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addResRules" :model="addResList" ref="addResList">
         <el-form-item label="资源类型" prop="resType">
-            <el-select v-model="addResList.resType" placeholder="请选择">
+            <el-select v-model="addResList.resType" placeholder="请选择" @change="selectChanged">
                 <el-option
                 v-for="item in resTypeList"
                 :key="item.id"
@@ -134,6 +134,9 @@
         </el-form-item>
         <el-form-item label="资源渠道" prop="resChannel">
           <el-input type="text" v-model.trim="addResList.resChannel" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="应用包名" prop="appname" v-if="appname">
+          <el-input type="text" v-model.trim="addResList.appname" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -169,7 +172,8 @@ export default {
         ],
       addResList: {
         resType:"",
-        resChannel:""
+        resChannel:"",
+        appname:""
       },
       searchItem:{//搜索数据组
         putTime:"",
@@ -179,6 +183,7 @@ export default {
       addResRules:{
         resType:[{ required: true, message: '请选择资源类型', trigger: 'blur' }],
         resChannel:[{ required: true, message: '请输入资源渠道', trigger: 'blur' }],
+        appname:[{ required: true, message: '请输入应用包名', trigger: 'blur' }],
       },
       addResVisible: false,
       // 分页
@@ -190,7 +195,8 @@ export default {
       addResBtnLoading:false,
       listLoading:true,
       isshow:true,
-      issueshow:true
+      issueshow:true,
+      appname:false
     };
   },
   components: {
@@ -250,6 +256,14 @@ export default {
       this.currentPage = val
       // console.log(`当前页: ${val}`);
       this.getList();
+    },
+    selectChanged(value) {
+      console.log(value)
+      if(value == 1){
+        this.appname = true
+      }else{
+        this.appname = false
+      }
     },
     handleEdit(index, row) {
         this.$router.push({
@@ -350,7 +364,8 @@ export default {
     addResHandleConfirm(addResList){
         let addResParams = {
         parentCode:this.addResList.resType,
-        context:this.addResList.resChannel
+        context:this.addResList.resChannel,
+        appPackageName:this.addResList.appname
       }
       this.$refs[addResList].validate((valid) => {
           if (valid) {
@@ -429,7 +444,7 @@ export default {
           this.resTypeList = res.data.data
       })
     }
-  }
+  },
 };
 </script>
 

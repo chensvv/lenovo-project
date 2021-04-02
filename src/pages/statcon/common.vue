@@ -8,7 +8,7 @@
     <div class="table-box">
         <el-table
             :data="list"
-            :class="this.totalCount < 5 ? 'limitWidth' :''"
+            :class="this.totalCount <= 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column :label="head" v-for="(head, key) in header" :key="head" align="center" :show-overflow-tooltip="true">

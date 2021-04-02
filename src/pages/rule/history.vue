@@ -9,7 +9,7 @@
     <div class="table-box">
       <el-table
           :data="list"
-          :class="this.totalCount < 5 ? 'limitWidth' :''"
+          :class="this.totalCount <= 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="center">
@@ -88,7 +88,7 @@
     <el-dialog title="详情" :visible.sync="infoVisible" width="70%" :before-close="infoHandleClose">
        <el-table
           :data="infoList"
-          :class="this.totalCount < 5 ? 'limitWidth' :''"
+          :class="this.totalCount <= 5 ? 'limitWidth' :''"
           style="width: 100%"
           height="400"
           v-loading="infoListLoading">

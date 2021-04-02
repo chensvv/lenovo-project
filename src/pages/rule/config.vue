@@ -6,7 +6,7 @@
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="search_box add-widths">
-      <el-button class="success" size="mini" v-has="'gray:add'" @click="handleAddGray()">新增灰度</el-button>
+      <el-button class="success" size="mini"  @click="handleGray()">灰度配置</el-button>
       <el-button class="success" size="mini" @click="handleHistory()">历史版本</el-button>
     </div>
     
@@ -52,26 +52,12 @@
         </span>
       </div>
     </div>
-    <el-dialog title="新增灰度" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="openFun('currentItem')">
-      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="名称" prop="name">
-          <el-input type="text" v-model.trim="currentItem.name" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="内容" prop="context">
-          <el-input type="text" v-model.trim="currentItem.context" auto-complete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="editHandleClose">取 消</el-button>
-        <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
-      </span>
-    </el-dialog>
     
   </div>
 </template>
 
 <script>
-import { showModeAll, showModeSave, carouselListEnable, grayList, grayAdd} from '@/config/api'
+import { showModeAll, showModeSave, carouselListEnable, grayList,} from '@/config/api'
 export default {
   data() {
     return {
@@ -96,8 +82,6 @@ export default {
         context:[{ required: true, message: '请输入内容', trigger: 'blur' }], 
       },
       addBtnLoading:false,
-      editVisible:false,
-      editBtnLoading:false
     };
   },
   created() {
@@ -105,13 +89,6 @@ export default {
       this.getGrayList()
   },
   methods: {
-    openFun(currentItem){
-      this.$nextTick(() => {
-        if(this.$refs[currentItem]){
-          this.$refs[currentItem].resetFields();
-        }
-      })
-    },
     leftCheckChange(e){
         if(e.length >1){
           e.pop()
@@ -200,44 +177,10 @@ export default {
         })
       }
     },
-    handleAddGray(){
-      this.editVisible = true
-    },
-    editHandleClose(){
-      this.editVisible = false
-    },
-    editHandleConfirm(currentItem) {
-      let updParams = {
-        name:this.currentItem.name,
-        currentContext:this.currentItem.context
-      }
-      this.$refs[currentItem].validate((valid) => {
-        if (valid) {
-          this.editBtnLoading = true
-          grayAdd(updParams).then(res=>{
-                this.editBtnLoading = false
-            if(res.data.code == 200){
-                this.$message({
-                    message:'新增成功',
-                    type:"success",
-                    duration:1000
-                });
-                this.getGrayList()
-                this.editVisible = false
-            }else{
-                this.$message({
-                    message:res.data.errorMessage,
-                    type:"error",
-                    duration:1000
-                });
-            }
-          }).catch(err => {
-            this.editBtnLoading = false
-          })
-        } else {
-          return false;
-        }
-      });
+    handleGray(){
+      this.$router.push({
+        path:'/showmode/gray'
+      })
     },
     handleHistory(){
       this.$router.push({

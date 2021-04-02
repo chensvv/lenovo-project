@@ -695,6 +695,9 @@
 .limitWidth{
   height: auto;
 }
+.limitWidth.el-table td{
+  padding: 12px 0;
+}
 @media (min-width: 768px) {
   .cropper-point.point-se {
     width: 15px;
