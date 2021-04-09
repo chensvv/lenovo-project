@@ -1,5 +1,5 @@
 <template>
-    <div class="table">
+    <div class="table norun">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>技能管理</el-breadcrumb-item>

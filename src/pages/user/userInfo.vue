@@ -1,5 +1,5 @@
 <template>
-    <div class="table">
+    <div class="table userinfo">
         <div class="pass-title">
             <span>修改密码</span>
             <div class="content">

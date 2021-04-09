@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div class="table csc">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>闲聊数据</el-breadcrumb-item>

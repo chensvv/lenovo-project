@@ -1,5 +1,5 @@
 <template>
-    <div class="table">
+    <div class="table sen">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>闲聊数据</el-breadcrumb-item>
@@ -15,6 +15,7 @@
             <el-button @click="resetForm('searchItem')">重置</el-button>
             <el-button class="success" size="mini" @click="handleAdd('addList')" v-has="'sen:add'">添加</el-button>
             <el-button class="success" size="mini" @click="handlePub" :loading="PubBtnLoading" v-has="'sen:pub'">发布</el-button>
+            <el-button icon="el-icon-upload" size="mini" @click="importExcel()" v-has="'sen:excel'">导入数据</el-button>
             <el-button size="mini" @click="exportFile()" v-has="'source:export'">导出数据</el-button>
         </el-form-item >
         
@@ -89,12 +90,40 @@
                 <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
+        <el-dialog title="上传文件" :visible.sync="uploadVisible" width="200" class="eldialog" :before-close="closeFile">
+          <el-form class="eldialogForm">
+            <el-form-item label >
+              <el-upload
+                class="upload-demo"
+                drag
+                :before-upload="beforeUpload"
+                :on-exceed="handleExceed"
+                :limit="1"
+                :http-request="uploadFile"
+                multiple
+                ref="upload"
+                action
+              >
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">
+                  将文件拖到此处，或
+                  <em>点击上传</em>
+                </div>
+                <div class="el-upload__tip" slot="tip">只能上传Excel文件，且每次只能上传一个文件</div>
+              </el-upload>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="closeFile()">取 消</el-button>
+            <el-button type="primary" @click="postFile()" :loading="fileBtnLoading">确 定</el-button>
+          </div>
+        </el-dialog>
     </div>
 </template>
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {senList, senAddUpd, senDel, senPub} from '@/config/api'
+import {senList, senAddUpd, senDel, senPub, senExcel} from '@/config/api'
 import downUrl from '@/config/http'
 export default {
   data() {
@@ -128,6 +157,9 @@ export default {
       editBtnLoading:false,
       PubBtnLoading:false,
       listLoading:true,
+      uploadVisible: false,
+      fileBtnLoading: false,
+      file: [],//文件上传
       isshow:true
     };
   },
@@ -328,6 +360,60 @@ export default {
         let openUrl = downUrl.proURL + '/lasf-mgr/sen/export'
         window.open(openUrl)
     },
+    importExcel(){
+            this.uploadVisible = true
+        },
+        beforeUpload(file) {
+            const extension = file.name.split('.')[1] === 'xls'
+            const extension2 = file.name.split('.')[1] === 'xlsx'
+            if (!extension && !extension2) {
+                this.$message.warning('上传文件必须是Excel格式!')
+                return false
+            }
+            return extension || extension2;
+        },
+        // 上传文件个数超过定义的数量
+        handleExceed(files, fileList) {
+            this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`);
+        },
+        uploadFile(item) {
+            this.file = item.file;
+        },
+        postFile() {
+            if(this.file == ''){
+                this.$message.warning('请选择要上传的文件！')
+                return false
+            }else{
+                const fileObj = this.file;
+                var fileData = new FormData();
+                fileData.append("file", fileObj);
+                this.fileBtnLoading = true;
+                senExcel(fileData).then(res => {
+                    this.fileBtnLoading = false
+                    if(res.data.code == 200){
+                        this.$message({
+                            message:res.data.msg,
+                            type:"success",
+                        });
+                        this.$refs.upload.clearFiles()
+                        this.uploadVisible = false
+                        this.getList()
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1000
+                        });
+                    }
+                }).catch(err => {
+                    this.fileBtnLoading = false
+                })
+            }
+        },
+        closeFile() {
+            this.$refs.upload.clearFiles()
+            this.uploadVisible = false;
+        },
     getList() {
       this.listLoading = true
       let params = {

@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div class="table ruleqa">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>规则定义</el-breadcrumb-item>
@@ -235,7 +235,6 @@ export default {
       seaBtnLoading:false,
       addBtnLoading:false,
       editBtnLoading:false,
-      fileBtnLoading:false,
       AIMLBtnLoading:false,
       listLoading:true,
       isshow:true,

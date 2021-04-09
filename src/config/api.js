@@ -1571,3 +1571,19 @@ export function errChart (data) {
     data: data
   })
 }
+
+export function dictExcel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/dict/excel',
+    method: 'post',
+    data: data
+  })
+}
+
+export function senExcel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/sen/excel',
+    method: 'post',
+    data: data
+  })
+}

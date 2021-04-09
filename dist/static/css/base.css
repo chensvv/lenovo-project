@@ -656,10 +656,10 @@
 .table .table-box{
   height: calc(100% - 80px);
 }
-.mainlog .cache, .trigg .trigger{
+.mainlog .cache, .trigg .trigger, .height80{
   height: 80px;
 }
-.mainlog .table-box, .trigg .table-box{
+.mainlog .table-box, .trigg .table-box, .dict .table-box{
   height: calc(100% - 100px);
 }
 .el-table td, .el-table th{
