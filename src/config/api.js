@@ -1587,3 +1587,27 @@ export function senExcel (data) {
     data: data
   })
 }
+
+export function forumList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/forum/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function forumDetele (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/forum/delete',
+    method: 'post',
+    data: data
+  })
+}
+
+export function forumDetails (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/forum/details',
+    method: 'post',
+    data: data
+  })
+}

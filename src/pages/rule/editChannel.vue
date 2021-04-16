@@ -162,6 +162,9 @@
                 </el-option>
             </el-select>
         </el-form-item>
+        <el-form-item label="说法配置" prop="recommends">
+          <el-input type="text" placeholder="多个语句用英文 , 隔开" v-model.trim="currentItem.recommends" auto-complete="off"></el-input>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-add-footer">
         <el-button @click="addHandleClose">取 消</el-button>
@@ -199,7 +202,8 @@ export default {
             resTypeCon:[],
             resSinger:'',
             resAlbum:'',
-            resLabel:''
+            resLabel:'',
+            recommends:''
         },
         selectList:[
             {typeLabel:"是",typeVal:1},
@@ -267,7 +271,8 @@ export default {
         resTypeCon:JSON.parse("[" + this.datas.modelConfig + "]"),
         resSinger:this.datas.singer,
         resAlbum:this.datas.album,
-        resLabel:this.datas.label
+        resLabel:this.datas.label,
+        recommends:this.datas.recommends
       }
       if(this.datas.type == 9){
             this.singerShow = true
@@ -554,6 +559,8 @@ export default {
           updParams.append('singer',this.currentItem.resSinger)
           updParams.append('album',this.currentItem.resAlbum)
           updParams.append('label',this.currentItem.resLabel)
+          updParams.append('label',this.currentItem.resLabel)
+          updParams.append('recommends',this.currentItem.recommends)
           this.$refs[currentItem].validate((valid) => {
             if (valid) {
               this.editBtnLoading = true

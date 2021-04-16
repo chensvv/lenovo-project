@@ -38,17 +38,17 @@
                 </el-table-column>
                 <el-table-column
                     label="说法数量"
-                    prop="inc"
+                    prop="speakCount"
                     align="center">
                 </el-table-column>
                 <el-table-column
                     label="答案数量"
-                    prop="inc"
+                    prop="versionCount"
                     align="center">
                 </el-table-column>
                 <el-table-column
                     label="调用次数"
-                    prop="inc"
+                    prop="funCallCount"
                     align="center">
                 </el-table-column>
                 <el-table-column
@@ -58,7 +58,7 @@
                 </el-table-column>
                 <el-table-column
                     label="失败次数"
-                    prop="inc"
+                    prop="funFailCount"
                     align="center">
                 </el-table-column>
                 <el-table-column

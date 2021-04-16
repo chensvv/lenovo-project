@@ -43,7 +43,7 @@
             </el-table-column>
             <el-table-column
                 label="调用次数"
-                prop="inc"
+                prop="versionCallCount"
                 align="center">
             </el-table-column>
             <el-table-column

@@ -164,6 +164,9 @@
                 </el-option>
             </el-select>
         </el-form-item>
+        <el-form-item label="说法配置" prop="recommends">
+          <el-input type="text" placeholder="多个语句用英文 , 隔开" v-model.trim="addList.recommends" auto-complete="off"></el-input>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-add-footer">
         <el-button @click="addHandleClose">取 消</el-button>
@@ -200,7 +203,8 @@ export default {
             resTypeCon:[100],
             resSinger:'',
             resAlbum:'',
-            resLabel:''
+            resLabel:'',
+            recommends:''
         },
         addRules:{
             resTypeVal:[{ required: true, message: '请选择资源类型', trigger: 'change' }],
@@ -505,6 +509,7 @@ export default {
         addParams.append('singer',this.addList.resSinger)
         addParams.append('album',this.addList.resAlbum)
         addParams.append('label',this.addList.resLabel)
+        addParams.append('recommends',this.addList.recommends)
         this.$refs[addList].validate((valid) => {
           if (valid) {
             this.addBtnLoading = true

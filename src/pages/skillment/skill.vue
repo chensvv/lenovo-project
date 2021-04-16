@@ -33,12 +33,12 @@
                 </el-table-column>
                 <el-table-column
                     label="技能数"
-                    prop="inc"
+                    prop="funCount"
                     align="center">
                 </el-table-column>
                 <el-table-column
                     label="调用次数"
-                    prop="inc"
+                    prop="appCallCount"
                     align="center">
                 </el-table-column>
                 <el-table-column
@@ -48,7 +48,7 @@
                 </el-table-column>
                 <el-table-column
                     label="失败次数"
-                    prop="inc"
+                    prop="appFailCount"
                     align="center">
                 </el-table-column>
                 <el-table-column

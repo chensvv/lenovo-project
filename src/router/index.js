@@ -342,6 +342,16 @@ const router = new Router({
           meta: {title: '用户自定义'}
         },
         {
+          path: '/forum/list',
+          component: () => import('@/pages/statement/forum'),
+          meta: {title: '论坛管理'}
+        },
+        {
+          path: '/forum/detail',
+          component: () => import('@/pages/statement/forumDetail'),
+          meta: {title: '论坛详情'}
+        },
+        {
           path: '/allDur/list',
           component: () => import('@/pages/log/allDur'),
           meta: {title: '时间相应统计'}
