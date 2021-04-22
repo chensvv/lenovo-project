@@ -135,7 +135,9 @@ export default {
     getList() {
       this.listLoading = true
       let params = {
-        articleId:this.articleId
+        articleId:this.articleId,
+        pgstr:this.currentPage,
+        pcstr:this.pageSize,
       }
       forumDetails(params).then(res => {
         this.listLoading = false

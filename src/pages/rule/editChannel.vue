@@ -560,7 +560,13 @@ export default {
           updParams.append('album',this.currentItem.resAlbum)
           updParams.append('label',this.currentItem.resLabel)
           updParams.append('label',this.currentItem.resLabel)
-          updParams.append('recommends',this.currentItem.recommends)
+          // console.log(this.currentItem.recommends)
+          // console.log(typeof(this.currentItem.recommends))
+          if(this.currentItem.recommends == null){
+            updParams.append('recommends', '')
+          }else{
+            updParams.append('recommends', this.currentItem.recommends)
+          }
           this.$refs[currentItem].validate((valid) => {
             if (valid) {
               this.editBtnLoading = true

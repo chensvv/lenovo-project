@@ -72,6 +72,11 @@ const router = new Router({
           meta: {title: '热词列表'}
         },
         {
+          path: '/engineDict/list',
+          component: () => import('@/pages/chat/engineDict'),
+          meta: {title: '引擎表热词'}
+        },
+        {
           path: '/csc/csc',
           component: () => import('@/pages/chat/csc'),
           meta: {title: '常用服务电话'}

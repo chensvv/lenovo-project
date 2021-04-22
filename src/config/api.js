@@ -1611,3 +1611,35 @@ export function forumDetails (data) {
     data: data
   })
 }
+
+export function engineDictList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/engineDict/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function engineDictAddUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/engineDict/addandUpdate',
+    method: 'post',
+    data: data
+  })
+}
+
+export function engineDictDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/engineDict/del',
+    method: 'post',
+    data: data
+  })
+}
+
+export function engineDictExcel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/engineDict/excel',
+    method: 'post',
+    data: data
+  })
+}

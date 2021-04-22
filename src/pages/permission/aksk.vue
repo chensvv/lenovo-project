@@ -58,6 +58,10 @@
                         size="mini"
                         @click="rowClick(scope.$index, scope.row)"
                         v-has="'userinfo:detail'">详情</el-button>
+                        <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)"
+                        v-has="'userinfo:update'">编辑</el-button>
                     </template>
                 </el-table-column>
         </el-table>
@@ -97,12 +101,23 @@
                 <el-button type="primary" @click="handleConfirm()">关闭</el-button>
             </span>
         </el-dialog>
+        <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+                <el-form-item label="访问次数" prop="dailyCount">
+                <el-input type="text" v-model.trim="currentItem.dailyCount" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="editHandleClose">取 消</el-button>
+                <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {akskList,akskDetail,modinfy} from '@/config/adminApi'
+import {akskList,akskDetail,modinfy, userinfoUpdate} from '@/config/adminApi'
 export default {
     data(){
         return{
@@ -118,12 +133,21 @@ export default {
                 ak:'',
                 sk:''
             },
+            currentItem: {//编辑数据组
+                id:"",
+                dailyCount:""
+            },
+            editRules:{
+                dailyCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
+            },
             user:'',
             id:'',
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            editVisible: false,
+            editBtnLoading:false,
             btnLoading:false,
             infoVisible:false,
             listLoading:true,
@@ -138,7 +162,7 @@ export default {
         this.getList();
     },
     mounted(){
-        if(this.perList.indexOf('userinfo:detail') == -1){
+        if(this.perList.indexOf('userinfo:detail') == -1 && this.perList.indexOf('userinfo:update') == -1){
             this.isshow = false
         }
     },
@@ -165,6 +189,56 @@ export default {
             this.$refs[formName].resetFields();
             this.currentPage = 1
             this.getList()
+        },
+        closeFun(currentItem){
+            this.$nextTick(() => {
+                if(this.$refs[currentItem]){
+                this.$refs[currentItem].clearValidate();
+                }
+            })
+        },
+        handleEdit(index, row){
+            this.editVisible = true;
+            this.currentItem = {
+                id:row.id,
+                dailyCount: row.userDailyCount,
+            };
+        },
+        editHandleClose() {
+            this.editVisible = false;
+        },
+        editHandleConfirm(currentItem) {
+            let updParams = {
+                id:this.currentItem.id,
+                userDailyCount:this.currentItem.dailyCount
+            }
+            this.$refs[currentItem].validate((valid) => {
+                if (valid) {
+                this.editBtnLoading = true
+                userinfoUpdate(updParams).then(res=>{
+                        this.editBtnLoading = false
+                    if(res.data.code == 200){
+                        this.$message({
+                            message:'编辑成功',
+                            type:"success",
+                            duration:1000
+                        });
+                        this.getList()
+                        this.editVisible = false
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1000
+                        });
+                    }
+                }).catch(err => {
+                    this.editBtnLoading = false
+                })
+                } else {
+                return false;
+                }
+            });
         },
         getAkSk(){
             let detailParams = {

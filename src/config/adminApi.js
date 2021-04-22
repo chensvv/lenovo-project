@@ -167,3 +167,11 @@ export function activitiStatus (data) {
     data: data
   })
 }
+
+export function userinfoUpdate (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/userinfo/update',
+    method: 'post',
+    data: data
+  })
+}
