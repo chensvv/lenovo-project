@@ -41,7 +41,7 @@
         <el-table-column label="客户端设备类型" prop="dtp" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="客户端设备ID" prop="did" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="描述" prop="dsc" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="插入时间" prop="it" align="center" sortable :formatter="formTime" min-width="140"></el-table-column>
+        <el-table-column label="插入时间" prop="it" align="center" :formatter="formTime" min-width="140"></el-table-column>
       </el-table>
       <el-pagination
         @size-change="handleSizeChange"

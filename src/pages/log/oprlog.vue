@@ -44,7 +44,7 @@
         <el-table-column label="应用包名" prop="app" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="操作" prop="oper" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="描述" prop="desc" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="插入时间" prop="it" align="center" sortable :formatter="formTime" min-width="120"></el-table-column>
+        <el-table-column label="插入时间" prop="it" align="center" :formatter="formTime" min-width="120"></el-table-column>
       </el-table>
       <el-pagination
         @size-change="handleSizeChange"

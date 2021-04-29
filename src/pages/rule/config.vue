@@ -12,19 +12,22 @@
     
     <div class="table-box">
       <el-carousel :autoplay="false"  height="250px">
-        <el-carousel-item v-for="item in newData" :key="item">
+        <el-carousel-item v-for="(item, index) in newData" :key="index">
           <img :src="item.padImg" class="carousel-img">
         </el-carousel-item>
       </el-carousel>
       <div class="transfer">
         <el-transfer 
-        filterable
-        v-model="value" 
-        :data="data" 
-        :titles="['待发布资源', '预发布资源']" 
-        target-order="push"
-        @left-check-change="leftCheckChange($event)"
-        @change="handleChange">
+          filterable
+          v-model="value" 
+          :data="data" 
+          :titles="['待发布资源', '预发布资源']"
+          target-order="push"
+          @left-check-change="leftCheckChange($event)"
+          @right-check-change="rightCheckChange"
+          @change="handleChange">
+            <el-button class="transfer-footer" slot="right-footer" size="mini"  @click="handleUp(index)">上移</el-button>
+            <el-button class="transfer-footer" slot="right-footer" size="mini"  @click="handleDown(index)">下移</el-button>
         </el-transfer>
       </div>
       <div class="btn-box">
@@ -82,6 +85,9 @@ export default {
         context:[{ required: true, message: '请输入内容', trigger: 'blur' }], 
       },
       addBtnLoading:false,
+      sort:'',
+      item:'',
+      index:''
     };
   },
   created() {
@@ -109,6 +115,56 @@ export default {
           })
         }
     },
+    rightCheckChange(value){
+      let that = this
+      that.item = value
+    },
+    handleUp(item, index) {
+      //   item为选中的项    index为对应的index
+      let self = this;
+      item = self.item;   //选中值
+      if (item.length == 1) {  //  因为右侧的选项是可以多选，但这里的上下移动事件，我做的是单项上移，每次上移一个空间，所以判断，当我的选中值只有一个选项时，进行上移操作
+      //选中值的下标   【这里我不知道如何直接获取选中值的下标，所以用find()方法，在右侧值的数组里value中找选中项对应的下标】
+      self.value.find((val, indexs, arr) => { // find()方法 val-项，indexs-下标，arr数组
+          if (val == item) { //  value数组的项val等于我选中的项item
+            index = indexs;  // 数组项的下标就是我当前选中项的下标
+          }
+        });
+        if (index == 0) { //当选择的项的下标为0，即第一个，则提醒没有上移的空间，选择其他项进行上移
+          self.$message.warning("没有上移的空间了");
+          return;
+        }
+        // 上移-改变的数组（项和下标同时改变）
+        let changeItem = JSON.parse(JSON.stringify(self.value[index - 1]));
+        self.value.splice(index - 1, 1);
+        self.value.splice(index, 0, changeItem);
+      } else {
+        self.$message.warning("只能选择一条数据进行上下移动");
+        return;
+      }
+    },
+    handleDown(item, index) {
+      let self = this;
+      item = self.item;
+      if (item.length == 1) {
+          //选中值的下标
+        self.value.find((val, indexs, arr) => {
+          if (val == item) {
+            index = indexs;
+          }
+        });
+        if (index == self.value.length-1) {   // 这里是length-1,因为下标值从0开始
+          self.$message.warning("没有下移的空间了");
+          return;
+        }
+        let changeItem = JSON.parse(JSON.stringify(self.value[index]));
+        self.value.splice(index,1);
+        self.value.splice(index + 1, 0, changeItem);
+      } else {
+        self.$message.warning("只能选择一条数据进行上下移动");
+        return;
+      }
+    },
     // onSubmit(){
     //   showModeSave(this.value).then(res=>{
     //     if(res.data.code == 200){
@@ -127,13 +183,12 @@ export default {
     //   })
     // },
     preview(){
-      this.newData = []
-      for(var i = 0;i<this.value.length;i++){
-        var obj = this.allData.find((j)=>{
+      this.newData.splice(0, this.newData.length)
+      for(let i = 0;i<this.value.length;i++){
+        let obj = this.allData.find((j)=>{
           return j.id === this.value[i]
         })
         this.newData.push(obj)
-        // console.log(this.newData)
       }
     },
     addHandleConfirm(addList){
@@ -232,6 +287,6 @@ export default {
 }
 .add-widths{
   width: 800px;
-  margin: 15px auto;
+  margin: 0 auto;
 }
 </style>

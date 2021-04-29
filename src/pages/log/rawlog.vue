@@ -54,7 +54,7 @@
         <el-table-column label="客户端IP" prop="uip" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="客户端ID" prop="did" align="center" :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="客户端版本" prop="ver" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="插入时间" prop="it" align="center" sortable :formatter="formTime" min-width="120"></el-table-column>
+        <el-table-column label="插入时间" prop="it" align="center" :formatter="formTime" min-width="120"></el-table-column>
         <el-table-column label="原始日志" align="center" v-if="isshow">
           <template slot-scope="scope">
             <span slot @click="handleInfo(scope.$index, scope.row)" class="cur-info" v-has="'asr:rawview'">

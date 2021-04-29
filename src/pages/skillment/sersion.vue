@@ -115,9 +115,9 @@
                     <el-input type="text" v-model.trim="strList.maxVer" placeholder="最大版本" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="型号"  class="ver_text2">
-                    <el-input type="text" v-model.trim="strList.serIn" placeholder="in" auto-complete="off"></el-input>
                     <el-input type="text" v-model.trim="strList.serCon" placeholder="contains" auto-complete="off"></el-input>
                     <el-input type="text" v-model.trim="strList.serNot" placeholder="not" auto-complete="off"></el-input>
+                    <span style="font-size:12px; display:block;">多个字段请用英文 , 隔开</span>
                 </el-form-item>
             </el-form>
             
@@ -154,7 +154,6 @@ export default {
       strList:{
         minVer:"",
         maxVer:"",
-        serIn:"",
         serCon:"",
         serNot:""
       },
@@ -224,7 +223,9 @@ export default {
         this.strList = {
           id:row.id,
           minVer:row.versionMinCode,
-          maxVer:row.versionMaxCode
+          maxVer:row.versionMaxCode,
+          serCon:row.containsModel,
+          serNot:row.notModel
         }
     },
     handleDel(index, row) {
@@ -355,7 +356,9 @@ export default {
         let strParams = {
           versionId:this.strList.id,
           minVersion:this.strList.minVer,
-          maxVersion:this.strList.maxVer
+          maxVersion:this.strList.maxVer,
+          containsModel:this.strList.serCon,
+          notModel:this.strList.serNot
         }
         this.strBtnLoading = true
         versionStr(strParams).then(res=>{

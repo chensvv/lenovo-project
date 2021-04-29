@@ -33,8 +33,14 @@
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
-                label="访问次数"
-                prop="userDailyCount"
+                label="ASR访问次数"
+                prop="userDailyCloudasrCount"
+                align="center"
+                :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column
+                label="TTS访问次数"
+                prop="userDailyCloudttsCount"
                 align="center"
                 :show-overflow-tooltip="true">
             </el-table-column>
@@ -84,8 +90,11 @@
                 <el-form-item label="用户名">
                     <el-input type="text" v-model="infoList.userName" auto-complete="off" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="访问次数">
-                    <el-input type="text" v-model="infoList.userDailyCount" auto-complete="off" readonly></el-input>
+                <el-form-item label="ASR访问次数">
+                    <el-input type="text" v-model="infoList.userDailyCloudasrCount" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="TTS访问次数">
+                    <el-input type="text" v-model="infoList.userDailyCloudttsCount" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="AK">
                     <el-input type="text" v-model="infoList.ak" auto-complete="off" readonly></el-input>
@@ -103,8 +112,11 @@
         </el-dialog>
         <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
-                <el-form-item label="访问次数" prop="dailyCount">
-                <el-input type="text" v-model.trim="currentItem.dailyCount" auto-complete="off"></el-input>
+                <el-form-item label="ASR访问次数" prop="userDailyCloudasrCount">
+                    <el-input type="text" v-model.trim="currentItem.userDailyCloudasrCount" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="TTS访问次数" prop="userDailyCloudttsCount">
+                    <el-input type="text" v-model.trim="currentItem.userDailyCloudttsCount" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -129,16 +141,19 @@ export default {
             infoList:{
                 lenovoId:'',
                 userName:'',
-                userDailyCount:'',
+                userDailyCloudasrCount:'',
+                userDailyCloudttsCount:'',
                 ak:'',
                 sk:''
             },
             currentItem: {//编辑数据组
                 id:"",
-                dailyCount:""
+                userDailyCloudasrCount:"",
+                userDailyCloudttsCount:""
             },
             editRules:{
-                dailyCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
+                userDailyCloudasrCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
+                userDailyCloudttsCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
             },
             user:'',
             id:'',
@@ -201,7 +216,8 @@ export default {
             this.editVisible = true;
             this.currentItem = {
                 id:row.id,
-                dailyCount: row.userDailyCount,
+                userDailyCloudasrCount: row.userDailyCloudasrCount,
+                userDailyCloudttsCount: row.userDailyCloudttsCount
             };
         },
         editHandleClose() {
@@ -210,7 +226,8 @@ export default {
         editHandleConfirm(currentItem) {
             let updParams = {
                 id:this.currentItem.id,
-                userDailyCount:this.currentItem.dailyCount
+                userDailyCloudasrCount:this.currentItem.userDailyCloudasrCount,
+                userDailyCloudttsCount:this.currentItem.userDailyCloudttsCount
             }
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
@@ -292,7 +309,8 @@ export default {
                 this.infoList = {
                     lenovoId:res.data.lenovoId,
                     userName:res.data.userName,
-                    userDailyCount:res.data.userDailyCount,
+                    userDailyCloudasrCount:res.data.userDailyCloudasrCount,
+                    userDailyCloudttsCount:res.data.userDailyCloudttsCount,
                     ak:res.data.lenovoKey,
                     sk:res.data.secretKey
                 }
