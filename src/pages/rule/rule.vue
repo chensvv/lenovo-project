@@ -24,24 +24,27 @@
             :class="this.totalCount <= 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column type="index" align="center">
+            <el-table-column type="index" align="left" >
             </el-table-column>
             <el-table-column
                 label="规则名称"
                 prop="speak"
-                align="center"
+                align="left" 
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="规则配置"
                 prop="answer"
-                align="center"
+                align="left" 
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="状态"
                 prop="status"
-                align="center"
+                align="left" 
+                
                 v-if="isshow">
                 <template slot-scope="scope">
                     <span  v-has="'user:data'">{{scope.row.status == 0 ? '已审批' : 
@@ -52,18 +55,20 @@
             <el-table-column
               label="添加时间"
               prop="createTime"
-              align="center"
+              align="left" 
+              
               :formatter="formTime"
               min-width="120">
           </el-table-column>
           <el-table-column
               label="更新时间"
               prop="updateTime"
-              align="center"
+              align="left" 
+              
               :formatter="formTime2"
               min-width="120">
           </el-table-column>
-            <el-table-column label="操作" align="center" v-if="btnshow">
+            <el-table-column label="操作" align="center"  v-if="btnshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"

@@ -49,17 +49,19 @@
           :class="this.totalCount <= 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
-          <el-table-column type="index" align="center">
+          <el-table-column type="index" align="left" >
           </el-table-column>
           <el-table-column
               label="渠道"
               prop="channelStr"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
             label="资源图片"
-            align="center">
+            align="left" 
+            >
             <template slot-scope="scope">
                 <img :src="scope.row.phoneImg" class="thum" />
             </template>
@@ -67,29 +69,33 @@
           <el-table-column
               label="资源说明"
               prop="description"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="名称"
               prop="name"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="类型"
               prop="typeStr"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="创建时间"
               prop="createTime"
-              align="center"
+              align="left" 
+              
               :formatter="formTime"
               min-width="120">
           </el-table-column>
-          <el-table-column label="添加到待发布" align="center" v-if="issueshow">
+          <el-table-column label="添加到待发布" align="left"  v-if="issueshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
@@ -97,7 +103,7 @@
                   v-has="'showmode:toBeReleased'">{{scope.row.publishStatus == 0 ? '添加' : '撤回'}}</el-button>
               </template>
           </el-table-column>
-          <el-table-column label="操作" min-width="130" align="center" v-if="isshow">
+          <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"

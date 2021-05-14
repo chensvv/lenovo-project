@@ -55,21 +55,21 @@
               :class="this.totalCount <= 5 ? 'limitWidth' :''"
               style="width: 100%"
               v-loading="listLoading">
-              <el-table-column type="index" align="center">
+              <el-table-column type="index" align="left" >
               </el-table-column>
-              <el-table-column label="ID" prop="id" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="ID" prop="id" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="说法" prop="speak" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="说法" prop="speak" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="领域" prop="vdm" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="领域" prop="vdm" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="结果" prop="nlpResult" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="结果" prop="nlpResult" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="类型" prop="sourceType" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="类型" prop="sourceType" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="创建时间" prop="createTime" align="center" :formatter="formTime" min-width="120">
+              <el-table-column label="创建时间" prop="createTime" align="left"  :formatter="formTime" min-width="120">
               </el-table-column>
-              <el-table-column label="修改时间" prop="updateTime" align="center" :formatter="formTime2" min-width="120">
+              <el-table-column label="修改时间" prop="updateTime" align="left"  :formatter="formTime2" min-width="120">
               </el-table-column>
           </el-table>
       <!-- <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table> -->

@@ -61,15 +61,15 @@
             :class="this.totalCount <= 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column label="ID" prop="id" align="center">
+            <el-table-column label="ID" prop="id" align="left" >
             </el-table-column>
-            <el-table-column label="IT" prop="it" align="center" :formatter="formTime" min-width="120">
+            <el-table-column label="IT" prop="it" align="left"  :formatter="formTime" min-width="120">
             </el-table-column>
-            <el-table-column label="IXID" prop="ixid" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="IXID" prop="ixid" align="left"  :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="DID" prop="did" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="DID" prop="did" align="left"  :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="CODEC" prop="codec" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="CODEC" prop="codec" align="left"  :show-overflow-tooltip="true">
                 <template slot-scope="scope">
                     <span>{{scope.row.codec == '7' ? 'Speex 16k' : 
                             scope.row.codec == '3' ? 'Speex 8k' : 
@@ -79,29 +79,30 @@
                             scope.row.codec == '0' ? 'Bv32 8k' : '未知'}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="UID" prop="uid" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="UID" prop="uid" align="left"  :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="DTP" prop="dtp" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="DTP" prop="dtp" align="left"  :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="VER" prop="ver" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="VER" prop="ver" align="left"  :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="VDM" prop="vdm" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="VDM" prop="vdm" align="left"  :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="APP" prop="app" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="APP" prop="app" align="left"  :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="STAT"
                 prop="stat"
-                align="center">
+                align="left" 
+                >
                 <template slot-scope="scope">
                     <el-tag
                     :type="scope.row.stat === 'success' ? 'success' :'danger'"
                     disable-transitions>{{scope.row.stat == 'success'? 'S': 'F'}}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column label="L1C" prop="l1c" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="L1C" prop="l1c" align="left"  :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="操作" align="center" width="130" v-if="isshow">
+            <el-table-column label="操作" align="center"  width="130" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

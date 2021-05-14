@@ -56,27 +56,30 @@
             :class="this.totalCount <= 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column type="index" align="center">
+            <el-table-column type="index" align="left" >
             </el-table-column>
             <el-table-column
                 label="VDM"
                 prop="vdm"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="热词"
                 prop="name"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="发音"
                 prop="pronounceName"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column label="数据类型" prop="dataType" align="center">
+            <el-table-column label="数据类型" prop="dataType" align="left" >
                 <template slot-scope="scope">
                     <span>{{scope.row.dataType == '1' ? '纠正数据' : '新增数据'}}</span>
                 </template>
@@ -84,17 +87,19 @@
             <el-table-column
                 label="匹配模式"
                 prop="matcherPattern"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="更新时间"
                 prop="upTime"
-                 align="center"
+                 align="left"
+                 
                 :formatter="formTime"
                 min-width="120">
             </el-table-column>
-            <el-table-column label="操作" align="center" v-if="isshow">
+            <el-table-column label="操作" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

@@ -66,62 +66,71 @@
             :class="this.totalCount <= 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column type="index" align="center">
+            <el-table-column type="index" align="left" >
             </el-table-column>
             <el-table-column
                 label="设备类型"
                 prop="dtp"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="用户ID"
                 prop="uid"
-                align="center">
+                align="left"
+                >
             </el-table-column>
             <el-table-column
                 label="客户端版本"
                 prop="clientVersion"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="引擎版本"
                 prop="engineVersion"
-                 align="center"
+                 align="left"
+                 
                  :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="开发者"
                 prop="developer"
-                 align="center"
+                 align="left"
+                 
                  :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="唤醒词类型"
                 prop="keywordType"
-                 align="center"
+                 align="left"
+                 
                  :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="唤醒词"
                 prop="keywordPhrase"
-                 align="center"
+                 align="left"
+                 
                  :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="数据来源"
                 prop="origin"
-                 align="center"
+                 align="left"
+                 
                  :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="数据日期"
                 prop="displayDate"
-                align="center"
+                align="left"
+                
                 min-width="120">
             </el-table-column>
-            <el-table-column label="操作" align="center" v-if="btnshow">
+            <el-table-column label="操作" align="center"  v-if="btnshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"

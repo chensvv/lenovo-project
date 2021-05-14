@@ -47,60 +47,68 @@
                 :class="this.totalCount <= 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
-                <el-table-column type="index" align="center">
+                <el-table-column type="index" align="left" >
                 </el-table-column>
-                <el-table-column label="应用名" prop="name" align="center" :show-overflow-tooltip="true">
+                <el-table-column label="应用名" prop="name" align="left"  :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="类别"
                     prop="cat"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="平台"
                     prop="platform"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="费用"
                     prop="fee"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="评分"
                     prop="score"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="下载次数"
                     prop="dnum"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="来自"
                     prop="source"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="更新时间"
                     prop="updateTime"
-                    align="center"
+                    align="left"
+                    
                     min-width="120">
                 </el-table-column>
                 <el-table-column
                     label="入库时间"
                     prop="createTime"
-                    align="center"
+                    align="left"
+                    
                     :formatter="formTime"
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" min-width="130" align="center" v-if="isshow">
+                <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

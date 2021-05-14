@@ -37,14 +37,14 @@
     </el-form>
     <div class="table-box">
       <el-table :data="list" :class="this.totalCount <= 5 ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading">
-        <el-table-column type="index" align="center"></el-table-column>
-        <el-table-column label="客户端设备ID" prop="did" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="客户端版本" prop="ver" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="操作时间" prop="opts" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="应用包名" prop="app" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="操作" prop="oper" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="描述" prop="desc" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="插入时间" prop="it" align="center" :formatter="formTime" min-width="120"></el-table-column>
+        <el-table-column type="index" align="left" ></el-table-column>
+        <el-table-column label="客户端设备ID" prop="did" align="left"  :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="客户端版本" prop="ver" align="left"  :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="操作时间" prop="opts" align="left"  :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="应用包名" prop="app" align="left"  :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="操作" prop="oper" align="left"  :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="描述" prop="desc" align="left"  :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="插入时间" prop="it" align="left"  :formatter="formTime" min-width="120"></el-table-column>
       </el-table>
       <el-pagination
         @size-change="handleSizeChange"

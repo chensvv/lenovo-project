@@ -15,22 +15,24 @@
           :class="this.totalCount <= 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
-          <el-table-column type="index" align="center">
+          <el-table-column type="index" align="left" >
           </el-table-column>
           <el-table-column
               label="content"
               prop="content"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="创建时间"
               prop="createTime"
-              align="center"
+              align="left" 
+              
               :formatter="formTime"
               min-wdth="140">
           </el-table-column>
-          <el-table-column label="操作" align="center" v-if="btnshow">
+          <el-table-column label="操作" align="center"  v-if="btnshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"

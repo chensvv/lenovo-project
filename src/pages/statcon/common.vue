@@ -11,7 +11,7 @@
             :class="this.totalCount <= 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column :label="head" v-for="(head, key) in header" :key="head" align="center" :show-overflow-tooltip="true">
+            <el-table-column :label="head" v-for="(head, key) in header" :key="head" align="left"  :show-overflow-tooltip="true">
                 <template slot-scope="scope">
                     {{list[scope.$index][key]}}
                 </template>

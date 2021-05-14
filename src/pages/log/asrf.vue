@@ -37,11 +37,11 @@
     </el-form>
     <div class="table-box">
       <el-table :data="list" :class="this.totalCount <= 5 ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading">
-        <el-table-column type="index" align="center"></el-table-column>
-        <el-table-column label="客户端设备类型" prop="dtp" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="客户端设备ID" prop="did" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="描述" prop="dsc" align="center" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="插入时间" prop="it" align="center" :formatter="formTime" min-width="140"></el-table-column>
+        <el-table-column type="index" align="left" ></el-table-column>
+        <el-table-column label="客户端设备类型" prop="dtp" align="left"  :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="客户端设备ID" prop="did" align="left"  :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="描述" prop="dsc" align="left"  :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="插入时间" prop="it" align="left"  :formatter="formTime" min-width="140"></el-table-column>
       </el-table>
       <el-pagination
         @size-change="handleSizeChange"

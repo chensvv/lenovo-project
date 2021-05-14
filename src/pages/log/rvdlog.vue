@@ -29,23 +29,23 @@
               :class="this.totalCount <= 5 ? 'limitWidth' :''"
               style="width: 100%"
               v-loading="listLoading">
-              <el-table-column type="index" align="center">
+              <el-table-column type="index" align="left" >
               </el-table-column>
-              <el-table-column label="客户端设备类型" prop="dtp" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="客户端设备类型" prop="dtp" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="版本" prop="ver" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="版本" prop="ver" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端ip" prop="uip" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="客户端ip" prop="uip" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端设备ID" prop="did" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="客户端设备ID" prop="did" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="开发者ID" prop="dev" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="开发者ID" prop="dev" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="应用ID" prop="zhi" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="应用ID" prop="zhi" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="设备文本" prop="tai" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="设备文本" prop="tai" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="音频文件" align="center" v-if="isshow">
+              <el-table-column label="音频文件" align="center"  v-if="isshow">
                 <template slot-scope="scope">
                     <span 
                     slot 

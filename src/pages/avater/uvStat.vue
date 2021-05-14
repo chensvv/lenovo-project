@@ -198,16 +198,16 @@ export default {
                     }
                   }
               }],
-              dataZoom: [
-                    {
-                        type: 'slider',
-                        show: true,
-                        handleSize: 2,
-                        height: '15px',
-                        start:0 ,
-                        end: this.computedPosition(1,xArraylength)
-                    }
-                ]
+              // dataZoom: [
+              //       {
+              //           type: 'slider',
+              //           show: true,
+              //           handleSize: 2,
+              //           height: '15px',
+              //           start:0 ,
+              //           end: this.computedPosition(1,xArraylength)
+              //       }
+              //   ]
             })
         })
     },

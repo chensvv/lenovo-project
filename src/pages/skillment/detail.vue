@@ -28,46 +28,53 @@
                 :class="this.totalCount <= 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
-                <el-table-column type="index" align="center">
+                <el-table-column type="index" align="left" >
                 </el-table-column>
                 <el-table-column
                     label="技能描述"
                     prop="functionName"
-                    align="center"
+                    align="left" 
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="说法数量"
                     prop="speakCount"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="答案数量"
                     prop="versionCount"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="调用次数"
                     prop="funCallCount"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="用户数"
                     prop="inc"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="失败次数"
                     prop="funFailCount"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="更新时间"
                     prop="displayUpdateTime"
-                    align="center"
+                    align="left" 
+                    
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" align="center" width="200" v-if="isshow">
+                <el-table-column label="操作" align="center"  width="200" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

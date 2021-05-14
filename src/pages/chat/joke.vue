@@ -28,29 +28,31 @@
             :class="this.totalCount <= 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column type="index" align="center">
+            <el-table-column type="index" align="left" >
             </el-table-column>
             <el-table-column
                 label="内容"
                 prop="con"
-                align="center"
-                header-align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="状态"
                 prop="sta"
-                align="center"
+                align="left"
+                
                 :formatter="formState">
             </el-table-column>
             <el-table-column
                 label="更新/入库时间"
                 prop="it"
-                align="center"
+                align="left"
+                
                 min-width="120"
                 :formatter="formTime">
             </el-table-column>
-            <el-table-column label="操作" align="center" v-if="isshow">
+            <el-table-column label="操作" align="center"  v-if="isshow">
                 <template slot-scope="scope">
                   <el-button
                     size="mini"

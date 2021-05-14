@@ -23,20 +23,22 @@
             :class="this.totalCount <= 5 ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column type="index" align="center">
+            <el-table-column type="index" align="left" >
             </el-table-column>
             <el-table-column
                 label="Role Code"
                 prop="roleCode"
-                align="center">
+                align="left" 
+                >
             </el-table-column>
             <el-table-column
                 label="Role Name"
                 prop="roleName"
-                align="center"
+                align="left" 
+                
                 :formatter="formState">
             </el-table-column>
-            <el-table-column label="操作" align="center" v-if="isshow">
+            <el-table-column label="操作" align="center"  v-if="isshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"

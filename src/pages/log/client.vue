@@ -47,14 +47,14 @@
       <el-tabs type="card" v-model="activeName">
         <el-tab-pane label="客户端信息" name="client">
           <el-table :data="clientList" :class="this.totalCount <= 5 ? 'limitWidth' :''" style="width: 100%" v-loading="ClistLoading">
-            <el-table-column type="index" align="center"></el-table-column>
-            <el-table-column label="UID" prop="uid" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column label="客户端类型" prop="dtp" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column label="客户端ip" prop="uip" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column label="客户端位置" prop="upos" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column label="客户端版本" prop="ver" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column label="服务端地址" prop="svr" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column label="执行状态" prop="stat" align="center" :show-overflow-tooltip="true">
+            <el-table-column type="index" align="left"  ></el-table-column>
+            <el-table-column label="UID" prop="uid" align="left"  :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column label="客户端类型" prop="dtp" align="left"  :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column label="客户端ip" prop="uip" align="left"  :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column label="客户端位置" prop="upos" align="left"  :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column label="客户端版本" prop="ver" align="left"  :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column label="服务端地址" prop="svr" align="left"  :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column label="执行状态" prop="stat" align="left"  :show-overflow-tooltip="true">
               <template slot-scope="scope">
                 <el-tag
                   :type="scope.row.stat === 'success' ? 'success' : scope.row.stat === 'failed' ? 'danger' :'info'"
@@ -62,15 +62,15 @@
                 >{{scope.row.stat}}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="延时" prop="cltd" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="延时" prop="cltd" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="从结束录音到返回结果" placement="top">
                   <span slot>延时</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="内容" prop="rcn" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column label="插入时间" prop="it" align="center" :formatter="formTime" min-width="140"></el-table-column>
+            <el-table-column label="内容" prop="rcn" align="left"  :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column label="插入时间" prop="it" align="left"  :formatter="formTime" min-width="140"></el-table-column>
           </el-table>
           <el-pagination
             @size-change="handleSizeChangeC"
@@ -83,78 +83,78 @@
         </el-tab-pane>
         <el-tab-pane label="服务器信息" name="server">
           <el-table :data="serverList" :class="this.totalCount <= 5 ? 'limitWidth' :''" style="width: 100%" v-loading="SlistLoading">
-            <el-table-column type="index" align="center"></el-table-column>
-            <el-table-column label="总耗时..." prop="ixcd" align="center" :show-overflow-tooltip="true">
+            <el-table-column type="index" align="left" ></el-table-column>
+            <el-table-column label="总耗时..." prop="ixcd" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="客户端总耗时" placement="top">
                   <span slot>总耗时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="总耗时..." prop="ixsd" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="总耗时..." prop="ixsd" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="服务端总耗时" placement="top">
                   <span slot>总耗时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="总延时..." prop="ixnd" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="总延时..." prop="ixnd" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="网络总延时" placement="top">
                   <span slot>总延时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="识别耗时..." prop="ixad" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="识别耗时..." prop="ixad" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="服务端语音识别耗时" placement="top">
                   <span slot>识别耗时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="总延时..." prop="ixod" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="总延时..." prop="ixod" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="服务端其他总延时" placement="top">
                   <span slot>总延时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="耗时..." prop="lpcd" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="耗时..." prop="lpcd" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="最后一个包的客户端耗时" placement="top">
                   <span slot>耗时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="耗时..." prop="lpsd" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="耗时..." prop="lpsd" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="最后一个包的服务端耗时" placement="top">
                   <span slot>耗时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="网络延时..." prop="lpnd" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="网络延时..." prop="lpnd" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="最后一个包的网络延时" placement="top">
                   <span slot>网络延时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="识别耗时..." prop="lpad" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="识别耗时..." prop="lpad" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="最后一个包的服务端语音识别耗时" placement="top">
                   <span slot>识别耗时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="其他总延时..." prop="lpod" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="其他总延时..." prop="lpod" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="最后一个包的服务端其他总延时" placement="top">
                   <span slot>总延时...</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="执行状态" prop="stat" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="执行状态" prop="stat" align="left"  :show-overflow-tooltip="true">
               <template slot-scope="scope">
                 <el-tag
                   :type="scope.row.stat === 'success' ? 'success' : scope.row.stat === 'failed' ? 'danger' :'info'"
@@ -162,15 +162,15 @@
                 >{{scope.row.stat}}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="延时" prop="cltd" align="center" :show-overflow-tooltip="true">
+            <el-table-column label="延时" prop="cltd" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
                 <el-tooltip effect="dark" content="从结束录音到返回结果" placement="top">
                   <span slot>延时</span>
                 </el-tooltip>
               </template>
             </el-table-column>
-            <el-table-column label="内容" prop="rcn" align="center" :show-overflow-tooltip="true"></el-table-column>
-            <el-table-column label="插入时间" prop="it" align="center" :formatter="formTime" min-width="140"></el-table-column>
+            <el-table-column label="内容" prop="rcn" align="left"  :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column label="插入时间" prop="it" align="left"  :formatter="formTime" min-width="140"></el-table-column>
           </el-table>
           <el-pagination
             @size-change="handleSizeChangeS"

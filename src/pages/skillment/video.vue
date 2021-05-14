@@ -23,43 +23,49 @@
                 :class="this.totalCount <= 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
-                <el-table-column type="index" align="center">
+                <el-table-column type="index" align="left" >
                 </el-table-column>
                 <el-table-column
                     label="名称"
                     prop="programName"
-                    align="center"
+                    align="left" 
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="类型"
                     prop="programDisplayType"
-                    align="center"
+                    align="left" 
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="导演"
                     prop="programDirector"
-                    align="center"
+                    align="left" 
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="集数"
                     prop="programChildNumber"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="链接"
                     prop="programUrl"
-                    align="center"
+                    align="left" 
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="来源"
                     prop="programDisplaySource"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
-                <el-table-column label="操作" align="center" v-if="isshow">
+                <el-table-column label="操作" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

@@ -44,47 +44,53 @@
                 :class="this.totalCount <= 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
-                <el-table-column type="index" align="center">
+                <el-table-column type="index" align="left" >
                 </el-table-column>
                 <el-table-column
                     label="原始名"
                     prop="name"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="标准名"
                     prop="stname"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="别名"
                     prop="alias"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="来源"
                     prop="source"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="查询时间"
                     prop="searchDate"
-                    align="center"
+                    align="left"
+                    
                     :formatter="formTime"
                     min-width="120">
                 </el-table-column>
                 <el-table-column
                     label="入库时间"
                     prop="createTime"
-                    align="center"
+                    align="left"
+                    
                     :formatter="formTime2"
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" min-width="130" align="center" v-if="isshow">
+                <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

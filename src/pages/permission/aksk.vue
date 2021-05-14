@@ -23,42 +23,48 @@
             <el-table-column
                 label="lenovoId"
                 prop="lenovoId"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="用户名"
                 prop="userName"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="ASR访问次数"
                 prop="userDailyCloudasrCount"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="TTS访问次数"
                 prop="userDailyCloudttsCount"
-                align="center"
+                align="left"
+                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="添加时间"
                 prop="createTime"
-                align="center"
+                align="left"
+                
                 :formatter="formTime"
                 min-width="120">
             </el-table-column>
             <el-table-column
                 label="更新时间"
                 prop="updateTime"
-                align="center"
+                align="left"
+                
                 :formatter="formTime2"
                 min-width="120">
             </el-table-column>
-            <el-table-column label="操作" align="center" width="130" v-if="isshow">
+            <el-table-column label="操作" align="center"  width="130" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

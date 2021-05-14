@@ -24,27 +24,30 @@
           :class="this.totalCount <= 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
-          <el-table-column type="index" align="center">
+          <el-table-column type="index" align="left" >
           </el-table-column>
           <el-table-column
               label="unit"
               prop="unit"
-              align="center">
+              align="left" 
+              >
           </el-table-column>
           <el-table-column
               label="创建时间"
               prop="createTime"
-              align="center"
+              align="left" 
+              
               :formatter="formTime2">
           </el-table-column>
           <el-table-column
               label="更新时间"
               prop="updateTime"
-              align="center"
+              align="left" 
+              
               :formatter="formTime"
               min-width="120">
           </el-table-column>
-          <el-table-column label="操作" align="center" v-if="isshow">
+          <el-table-column label="操作" align="center"  v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"

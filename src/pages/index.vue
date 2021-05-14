@@ -21,25 +21,29 @@
                     label="ID"
                     prop="id"
                     width='50'
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="发起人"
                     prop="username"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="简要内容"
                     prop="speak"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="创建时间"
                     prop="createTime"
-                    align="center"
+                    align="left" 
+                    
                     :formatter="formTime">
                 </el-table-column>
-                <el-table-column label="操作" align="center">
+                <el-table-column label="操作" align="center" >
                         <template slot-scope="scope">
                             <el-button
                             size="mini"
@@ -122,22 +126,26 @@
                     label="ID"
                     prop="id"
                     width='50'
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="类型"
                     prop="type"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="简要内容"
                     prop="speak"
-                    align="center">
+                    align="left" 
+                    >
                 </el-table-column>
                 <el-table-column
                     label="状态"
                     prop="ver"
-                    align="center">
+                    align="left" 
+                    >
                     <template slot-scope="scope">
                         <span>{{scope.row.ver == 1 ? '审核中' : '审核拒接'}}</span>
                     </template>
@@ -145,10 +153,11 @@
                 <el-table-column
                     label="创建时间"
                     prop="createTime"
-                    align="center"
+                    align="left" 
+                    
                     :formatter="formTime">
                 </el-table-column>
-                <el-table-column label="操作" align="center">
+                <el-table-column label="操作" align="center" >
                         <template slot-scope="scope">
                             <el-button
                             size="mini"

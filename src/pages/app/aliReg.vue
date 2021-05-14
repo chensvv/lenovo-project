@@ -20,24 +20,27 @@
                 :class="this.totalCount <= 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
-                <el-table-column type="index" align="center">
+                <el-table-column type="index" align="left" >
                 </el-table-column>
                 <el-table-column
                     label="匹配规则"
                     prop="reg"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="输出形式"
                     prop="result"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="规则描述"
                     prop="dsc"
-                    align="center"
+                    align="left"
+                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
             </el-table>

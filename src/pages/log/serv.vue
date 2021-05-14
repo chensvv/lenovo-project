@@ -38,27 +38,27 @@
               :class="this.totalCount <= 5 ? 'limitWidth' :''"
               style="width: 100%"
               v-loading="listLoading">
-              <el-table-column type="index" align="center">
+              <el-table-column type="index" align="left" >
               </el-table-column>
-              <el-table-column label="ID" prop="id" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="ID" prop="id" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端ip" prop="ip" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="客户端ip" prop="ip" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端地址" prop="address" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="客户端地址" prop="address" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端设备" prop="devid" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="客户端设备" prop="devid" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端id" prop="appid" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="客户端id" prop="appid" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="客户端类型" prop="model" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="客户端类型" prop="model" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="接口输入" prop="cinput" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="接口输入" prop="cinput" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="接口返回" prop="result" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="接口返回" prop="result" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="计算时间" prop="dur" align="center" :show-overflow-tooltip="true">
+              <el-table-column label="计算时间" prop="dur" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime" min-width="120">
+              <el-table-column label="入库时间" prop="createTime" align="left"  :formatter="formTime" min-width="120">
               </el-table-column>
           </el-table>
       <!-- <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table> -->

@@ -23,27 +23,30 @@
                 :class="this.totalCount <= 5 ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLading">
-                <el-table-column type="index" align="center">
+                <el-table-column type="index" align="left" >
                 </el-table-column>
                 <el-table-column
                     label="用户名"
                     prop="userName"
-                    align="center">
+                    align="left"  
+                    >
                 </el-table-column>
                 <el-table-column
                     label="密码"
                     prop="password"
-                    align="center">
+                    align="left"  
+                    >
                 </el-table-column>
                 <el-table-column
                     label="状态"
                     prop="status"
-                    align="center">
+                    align="left"  
+                    >
                     <template slot-scope="scope">
                         <span>{{scope.row.status == 0 ? '未审核': '已审核'}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="操作" align="center" width="230" v-if="isshow">
+                <el-table-column label="操作" align="center"  width="230" v-if="isshow">
                     <template slot-scope="scope">
                       <el-button
                         size="mini"

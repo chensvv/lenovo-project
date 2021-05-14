@@ -12,22 +12,24 @@
           :class="this.totalCount <= 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
-          <el-table-column type="index" align="center">
+          <el-table-column type="index" align="left" >
           </el-table-column>
           <el-table-column
               label="版本号"
               prop="version"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="发布时间"
               prop="createTime"
-              align="center"
+              align="left" 
+              
               :formatter="formTime"
               min-width="120">
           </el-table-column>
-          <el-table-column label="灰度" align="center" v-if="isshow">
+          <el-table-column label="灰度" align="left"  v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
@@ -35,12 +37,12 @@
                   v-has="'history:updateGray'">编辑</el-button>
               </template>
           </el-table-column>
-          <el-table-column label="是否灰度" prop="isGray" align="center" :show-overflow-tooltip="true">
+          <el-table-column label="是否灰度" prop="isGray" align="left"  :show-overflow-tooltip="true">
             <template slot-scope="scope">
                 <span>{{scope.row.isGray == '0' ? '不灰度' : '灰度'}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" v-if="issueshow">
+          <el-table-column label="操作" align="left"  v-if="issueshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
@@ -92,17 +94,19 @@
           style="width: 100%"
           height="400"
           v-loading="infoListLoading">
-          <el-table-column type="index" align="center">
+          <el-table-column type="index" align="left" >
           </el-table-column>
           <el-table-column
               label="渠道"
               prop="channelStr"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
             label="资源图片"
-            align="center">
+            align="left" 
+            >
             <template slot-scope="scope">
                 <img :src="scope.row.phoneImg" class="thum" />
             </template>
@@ -110,34 +114,38 @@
             <el-table-column
               label="资源说明"
               prop="description"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="名称"
               prop="name"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="类型"
               prop="typeStr"
-              align="center"
+              align="left" 
+              
               :show-overflow-tooltip="true">
           </el-table-column>
-          <el-table-column label="VIP" prop="vip" align="center" :show-overflow-tooltip="true">
+          <el-table-column label="VIP" prop="vip" align="left"  :show-overflow-tooltip="true">
             <template slot-scope="scope">
                 <span>{{scope.row.vip == '0' ? '否' : '是'}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="付费" prop="paid" align="center" :show-overflow-tooltip="true">
+          <el-table-column label="付费" prop="paid" align="left"  :show-overflow-tooltip="true">
             <template slot-scope="scope">
                 <span>{{scope.row.paid == '0' ? '否' : '是'}}</span>
             </template>
           </el-table-column>
           <el-table-column
             label="机型"
-            align="center"
+            align="left" 
+            
             width="180">
             <template slot-scope="scope">
                 <el-select v-model="scope.row.modelConfigList" multiple disabled placeholder="请选择">

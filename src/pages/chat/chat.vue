@@ -41,31 +41,35 @@
           :class="this.totalCount <= 5 ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
-          <el-table-column type="index" align="center">
+          <el-table-column type="index" align="left" >
           </el-table-column>
           <el-table-column
               label="问题"
               prop="ques"
-              align="center"
+              align="left"
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="答案"
               prop="answ"
-              align="center"
+              align="left"
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="引擎"
               prop="engi"
-              align="center"
+              align="left"
+              
               :show-overflow-tooltip="true">
           </el-table-column>
           <el-table-column
               label="入库时间"
               prop="it"
-              align="center"
+              align="left"
               min-width="120"
+              
               :formatter="formTime">
           </el-table-column>
       </el-table>
