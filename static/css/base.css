@@ -657,7 +657,7 @@
 .table .table-box{
   height: calc(100% - 80px);
 }
-.mainlog .cache.demo-form-inline, .trigg .trigger, .height80,.cache .cache.demo-form-inline{
+.mainlog .cache.demo-form-inline, .trigg .trigger, .height80,.cache .cache.demo-form-inline, .outers .outer{
   height: 80px;
 }
 .mainlog .table-box, .trigg .table-box, .dict .table-box, .cache .table-box{

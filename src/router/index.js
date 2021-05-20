@@ -367,6 +367,11 @@ const router = new Router({
           meta: {title: '异常率统计'}
         },
         {
+          path: '/ttsregular/list',
+          component: () => import('@/pages/statement/ttsregular'),
+          meta: {title: 'TTS规则配置'}
+        },
+        {
           path: '/401',
           component: () => import('@/pages/401'),
           meta: {title: '401'}

@@ -1,5 +1,5 @@
 <template>
-    <div class="table outer">
+    <div class="table outers">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>技能管理</el-breadcrumb-item>

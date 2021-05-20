@@ -1643,3 +1643,35 @@ export function engineDictExcel (data) {
     data: data
   })
 }
+
+export function ttsregularList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ttsregular/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function selRegular (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ttsregular/selRegular',
+    method: 'post',
+    data: data
+  })
+}
+
+export function ttsAddAndUpdate (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ttsregular/addAndUpdate',
+    method: 'post',
+    data: data
+  })
+}
+
+export function delRegular (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ttsregular/delRegular',
+    method: 'post',
+    data: data
+  })
+}

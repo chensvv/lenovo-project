@@ -7,14 +7,8 @@
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="unit" prop="unit">
-        <el-input v-model.trim="searchItem.unit" clearable></el-input>
-      </el-form-item>
       <el-form-item class="sub-btn">
-        <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button @click="resetForm('searchItem')">重置</el-button>
-        <el-button size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'unit:pub'">生成AIML</el-button>
-        <el-button size="mini" @click="handleAdd()" v-has="'unit:add'">添加</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'ttsregular:add'">添加</el-button>
       </el-form-item>
       
     </el-form>
@@ -27,37 +21,33 @@
           <el-table-column type="index" align="left" >
           </el-table-column>
           <el-table-column
-              label="unit"
-              prop="unit"
+              label="匹配规则"
+              prop="regular"
               align="left" 
               >
           </el-table-column>
           <el-table-column
-              label="创建时间"
-              prop="createTime"
-              align="left" 
-              
-              :formatter="formTime2">
+              label="替换后内容"
+              prop="replaceResult"
+              align="left" >
           </el-table-column>
           <el-table-column
-              label="更新时间"
-              prop="updateTime"
-              align="left" 
-              
-              :formatter="formTime"
-              min-width="120">
+              label="是否生效"
+              prop="isFlag"
+              align="left"
+              :formatter="formState">
           </el-table-column>
           <el-table-column label="操作" align="center"  v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="'unit:update'">编辑</el-button>
+                  v-has="'ttsregular:add'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="'unit:del'">删除</el-button>
+                  v-has="'ttsregular:delete'">删除</el-button>
               </template>
           </el-table-column>
       </el-table>
@@ -73,8 +63,23 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="unit" prop="unit">
-          <el-input type="text" v-model.trim="currentItem.unit" auto-complete="off"></el-input>
+        <el-form-item label="匹配规则" prop="regular">
+          <el-autocomplete
+            class="inline-input"
+            v-model="currentItem.regular"
+            :fetch-suggestions="querySearch"
+            :trigger-on-focus="false"
+            :debounce=0
+            @select="handleSelect"
+            ></el-autocomplete>
+        </el-form-item>
+        <el-form-item label="替换后内容" prop="replaceResult">
+          <el-input type="text" v-model.trim="currentItem.replaceResult" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="是否生效" prop="isFlag">
+            <el-checkbox-group v-model="currentItem.isFlag">
+                <el-checkbox></el-checkbox>
+            </el-checkbox-group>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -84,8 +89,23 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="unit" prop="unit">
-          <el-input type="text" v-model.trim="addList.unit" auto-complete="off"></el-input>
+        <el-form-item label="匹配规则" prop="regular">
+          <el-autocomplete
+            class="inline-input"
+            v-model="addList.regular"
+            :fetch-suggestions="querySearch"
+            :trigger-on-focus="false"
+            :debounce=0
+            @select="handleSelect"
+            ></el-autocomplete>
+        </el-form-item>
+        <el-form-item label="替换后内容" prop="replaceResult">
+          <el-input type="text" v-model.trim="addList.replaceResult" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="是否生效" prop="isFlag">
+            <el-checkbox-group v-model="addList.isFlag">
+                <el-checkbox></el-checkbox>
+            </el-checkbox-group>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -98,27 +118,36 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {unitList, unitDel, unitUpd, unitAdd, unitPub} from '@/config/api'
+import {ttsregularList, selRegular, ttsAddAndUpdate, delRegular} from '@/config/api'
 export default {
   data() {
     return {
       list: [],
       perList:[],
+      restaurants: [],
       currentItem: {//编辑数据组
         id:"",
-        unit: "",
+        regular: "",
+        replaceResult:"",
+        isFlag:null
       },
       addList: {//添加数据组
-        unit: ""
+        regular: "",
+        replaceResult:"",
+        isFlag:false
       },
       searchItem:{//搜索数据组
-        unit:"",
+        
       },
       addRules:{
-        unit:[{ required: true, message: '请输入要求名称', trigger: 'change' }]
+        regular:[{ required: true, message: '请输入匹配规则', trigger: 'change' }],
+        replaceResult:[{ required: true, message: '请输入替换后内容', trigger: 'change' }],
+        isFlag:[{ required: true, message: '请选择是否生效', trigger: 'change' }],
       },
       editRules:{
-        unit:[{ required: true, message: '请输入要求名称', trigger: 'blur' }]
+        regular:[{ required: true, message: '请输入匹配规则', trigger: 'change' }],
+        replaceResult:[{ required: true, message: '请输入替换后内容', trigger: 'change' }],
+        isFlag:[{ required: true, message: '请选择是否生效', trigger: 'change' }],
       },
       editVisible: false,
       addVisible: false,
@@ -142,39 +171,13 @@ export default {
         this.getList();
     },
     mounted(){
-        if(this.perList.indexOf('unit:update') == -1 && this.perList.indexOf('unit:del') == -1){
+        if(this.perList.indexOf('ttsregular:add') == -1 && this.perList.indexOf('ttsregular:delete') == -1){
             this.isshow = false
         }
     },
   methods: {
-    formTime(row, column){
-      var timer = row.updateTime
-      var date = new Date(timer)
-      return date.getFullYear()+'-'+
-        checkTime(date.getMonth()+1)+'-'+
-        checkTime(date.getDate())+' '+
-        checkTime(date.getHours())+':'+
-        checkTime(date.getMinutes())
-    },
-    formTime2(row, column){
-      var timer = row.createTime
-      var date = new Date(timer)
-      return date.getFullYear()+'-'+
-        checkTime(date.getMonth()+1)+'-'+
-        checkTime(date.getDate())+' '+
-        checkTime(date.getHours())+':'+
-        checkTime(date.getMinutes())
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      this.currentPage = 1
-      this.getList()
-    },
-    onSubmit(){
-      this.seaBtnLoading = true
-      this.currentPage = 1
-      this.getList()
-      this.seaBtnLoading = false
+    formState(row, column){
+      return row.isFlag == 'true' ? "是" : "否"
     },
     handleSizeChange(val) {
       this.pageSize = val;
@@ -190,7 +193,9 @@ export default {
       this.editVisible = true;
       this.currentItem = {
         id:row.id,
-        unit: row.unit,
+        regular: row.regular,
+        replaceResult:row.replaceResult,
+        isFlag:row.isFlag == 'true' ? true : false
       };
     },
     handleDel(index, row) {
@@ -202,7 +207,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-          unitDel(delParams).then(res=>{
+          delRegular(delParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
                     message:'删除成功',
@@ -246,12 +251,14 @@ export default {
     editHandleConfirm(currentItem) {
       let updParams = {
         id:this.currentItem.id,
-        ask:this.currentItem.unit,
+        regular:this.currentItem.regular,
+        replaceResult:this.currentItem.replaceResult,
+        isFlag:this.currentItem.isFlag
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
-          unitUpd(updParams).then(res=>{
+          ttsAddAndUpdate(updParams).then(res=>{
                 this.editBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
@@ -281,13 +288,15 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        ask:this.addList.unit
+        regular:this.addList.regular,
+        replaceResult:this.addList.replaceResult,
+        isFlag:this.addList.isFlag
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
-          unitAdd(addParams).then(res=>{
-                this.addBtnLoading = false
+          ttsAddAndUpdate(addParams).then(res=>{
+            this.addBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
                     message:'添加成功',
@@ -311,38 +320,34 @@ export default {
         }
       });
     },
-    buildAIML(){
-      this.AIMLBtnLoading = true
-      unitPub().then(res=>{
-        this.AIMLBtnLoading = false
-        if(res.data.code == 200){
-            this.$message({
-                message:res.data.msg,
-                type:"success",
-                duration:1000
-            });
-        }else{
-            this.$message({
-                message:res.data.errorMessage,
-                type:"error",
-                duration:1000
-            });
-        }
-      }).catch(err => {
-            this.AIMLBtnLoading = false
-          })
+    querySearch(queryString, cb) {
+        var restaurants = this.restaurants;
+        var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+        // 调用 callback 返回建议列表的数据
+        cb(results);
     },
+    createFilter(queryString) {
+        return (restaurant) => {
+            return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
+        };
+    },
+    // loadAll(){
+    //     this.list
+    // },
     getList() {
       this.listLoading = true
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        ask:this.searchItem.unit,
       }
-      unitList(params).then(res => {
+      ttsregularList(params).then(res => {
         this.listLoading = false
         this.list = res.data.data
         this.totalCount = res.data.count
+        this.restaurants = [];
+        for (let item of this.list) {
+            this.restaurants.push({"value": item.regular})
+        }
       });
     }
   }
