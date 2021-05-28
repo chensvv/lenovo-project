@@ -372,6 +372,11 @@ const router = new Router({
           meta: {title: 'TTS规则配置'}
         },
         {
+          path: '/news/list',
+          component: () => import('@/pages/statement/news'),
+          meta: {title: '官网新闻资讯'}
+        },
+        {
           path: '/401',
           component: () => import('@/pages/401'),
           meta: {title: '401'}

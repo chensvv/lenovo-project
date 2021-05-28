@@ -24,35 +24,37 @@
                 label="lenovoId"
                 prop="lenovoId"
                 align="left"
-                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="用户名"
                 prop="userName"
                 align="left"
-                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="ASR访问次数"
                 prop="userDailyCloudasrCount"
                 align="left"
-                
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="TTS访问次数"
                 prop="userDailyCloudttsCount"
                 align="left"
-                
+                :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column
+                label="会议监控权限"
+                prop="meetingService"
+                align="left"
+                :formatter="meeting"
                 :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column
                 label="添加时间"
                 prop="createTime"
                 align="left"
-                
                 :formatter="formTime"
                 min-width="120">
             </el-table-column>
@@ -60,7 +62,6 @@
                 label="更新时间"
                 prop="updateTime"
                 align="left"
-                
                 :formatter="formTime2"
                 min-width="120">
             </el-table-column>
@@ -124,6 +125,11 @@
                 <el-form-item label="TTS访问次数" prop="userDailyCloudttsCount">
                     <el-input type="text" v-model.trim="currentItem.userDailyCloudttsCount" auto-complete="off"></el-input>
                 </el-form-item>
+                <el-form-item label="会议监控权限" prop="meetingService">
+                    <el-checkbox-group v-model="currentItem.meetingService">
+                        <el-checkbox></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editHandleClose">取 消</el-button>
@@ -155,11 +161,13 @@ export default {
             currentItem: {//编辑数据组
                 id:"",
                 userDailyCloudasrCount:"",
-                userDailyCloudttsCount:""
+                userDailyCloudttsCount:"",
+                meetingService:null
             },
             editRules:{
                 userDailyCloudasrCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
                 userDailyCloudttsCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
+                meetingService:[{ required: true, message: '请选择是否允许访问会议监控', trigger: 'blur' }], 
             },
             user:'',
             id:'',
@@ -206,6 +214,9 @@ export default {
             checkTime(date.getHours())+':'+
             checkTime(date.getMinutes())
         },
+        meeting(row, column){
+            return row.meetingService == '1' ? "是" : "否"
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1
@@ -223,7 +234,8 @@ export default {
             this.currentItem = {
                 id:row.id,
                 userDailyCloudasrCount: row.userDailyCloudasrCount,
-                userDailyCloudttsCount: row.userDailyCloudttsCount
+                userDailyCloudttsCount: row.userDailyCloudttsCount,
+                meetingService:row.meetingService == '1' ? true : false
             };
         },
         editHandleClose() {
@@ -233,7 +245,8 @@ export default {
             let updParams = {
                 id:this.currentItem.id,
                 userDailyCloudasrCount:this.currentItem.userDailyCloudasrCount,
-                userDailyCloudttsCount:this.currentItem.userDailyCloudttsCount
+                userDailyCloudttsCount:this.currentItem.userDailyCloudttsCount,
+                meetingService:this.currentItem.meetingService == true ? 1 : 0
             }
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {

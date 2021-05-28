@@ -1,5 +1,5 @@
 <template>
-  <div class="table unit">
+  <div class="table tts">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>说法配置</el-breadcrumb-item>
@@ -36,6 +36,20 @@
               prop="isFlag"
               align="left"
               :formatter="formState">
+          </el-table-column>
+          <el-table-column
+              label="创建时间"
+              prop="createTime"
+              align="left" 
+              :formatter="formTime2"
+              min-wdth="140">
+          </el-table-column>
+          <el-table-column
+              label="更新时间"
+              prop="updateTime"
+              align="left" 
+              :formatter="formTime"
+              min-width="120">
           </el-table-column>
           <el-table-column label="操作" align="center"  v-if="isshow">
               <template slot-scope="scope">
@@ -176,6 +190,24 @@ export default {
         }
     },
   methods: {
+      formTime(row, column){
+      var timer = row.updateTime
+      var date = new Date(timer)
+      return date.getFullYear()+'-'+
+        checkTime(date.getMonth()+1)+'-'+
+        checkTime(date.getDate())+' '+
+        checkTime(date.getHours())+':'+
+        checkTime(date.getMinutes())
+    },
+    formTime2(row, column){
+      var timer = row.createTime
+      var date = new Date(timer)
+      return date.getFullYear()+'-'+
+        checkTime(date.getMonth()+1)+'-'+
+        checkTime(date.getDate())+' '+
+        checkTime(date.getHours())+':'+
+        checkTime(date.getMinutes())
+    },
     formState(row, column){
       return row.isFlag == 'true' ? "是" : "否"
     },

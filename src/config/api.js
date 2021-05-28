@@ -1675,3 +1675,27 @@ export function delRegular (data) {
     data: data
   })
 }
+
+export function newsList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/news/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function newsAddUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/news/addAndUpdate',
+    method: 'post',
+    data: data
+  })
+}
+
+export function newsDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/news/delNews',
+    method: 'post',
+    data: data
+  })
+}
