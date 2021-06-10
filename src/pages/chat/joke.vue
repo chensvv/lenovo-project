@@ -19,6 +19,8 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
                 <el-button class="success" size="mini" @click="handleAdd()" v-has="'joke:save'">添加</el-button>
+                <el-button class="success" size="mini" @click="handleBatchDel()">批量删除</el-button>
+                <el-button class="success" size="mini" @click="handleBatchState()">批量审核</el-button>
             </el-form-item>
             
         </el-form>
@@ -27,7 +29,12 @@
             :data="list"
             :class="this.totalCount <= 5 ? 'limitWidth' :''"
             style="width: 100%"
-            v-loading="listLoading">
+            v-loading="listLoading"
+            @selection-change="handleSelectionChange">
+            <el-table-column
+              type="selection"
+              width="55">
+            </el-table-column>
             <el-table-column type="index" align="left" >
             </el-table-column>
             <el-table-column
@@ -110,7 +117,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {jokeList, jokeAddUpd, jokeDel, jokeVeri} from '@/config/api'
+import {jokeList, jokeAddUpd, jokeDel, jokeVeri, jokeDelBatch, jokeVeriBatch} from '@/config/api'
 export default {
   data(){
     return{
@@ -126,6 +133,7 @@ export default {
       addList:{
         con:""
       },
+      sels:[],
       list:[],
       perList:[],
       editRules:{
@@ -223,6 +231,65 @@ export default {
       // console.log(`当前页: ${val}`);
       this.getList();
     },
+    handleSelectionChange(val){
+      this.sels = val
+      
+    },
+    handleBatchDel(){
+      let ids = this.sels.map(item => item.id)
+      let delParams = {
+        ids:ids
+      }
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+      }).then(() => {
+          jokeDelBatch(delParams).then(res=>{
+            if(res.data.code == 200){
+              this.$message({
+                message:'删除成功',
+                type:"success",
+                duration:1000
+              });
+              this.getList();
+            }else{
+              this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1000
+              });
+            }
+          })
+      }).catch(err => {
+          console.log(err);
+      });
+    },
+    handleBatchState(){
+      let ids = this.sels.map(item => item.id)
+      let veriParams = {
+        ids:ids
+      }
+      jokeVeriBatch(veriParams).then(res=>{
+        
+        if(res.data.code == 200){
+            this.$message({
+                message:'审核成功',
+                type:"success",
+                duration:1000
+            });
+            this.getList()
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1000
+            });
+        }
+      }).catch(err => {
+        
+      })
+    },
     checkState(index,row){
       this.checkLoading = true
       let veriParams = {
@@ -245,8 +312,8 @@ export default {
             });
         }
       }).catch(err => {
-            this.checkLoading = false
-          })
+        this.checkLoading = false
+      })
     },
     handleClose() {
       this.editVisible = false;

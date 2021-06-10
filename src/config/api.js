@@ -570,6 +570,22 @@ export function jokeVeri (data) {
   })
 }
 
+export function jokeDelBatch (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/joke/delBatch',
+    method: 'post',
+    data: data
+  })
+}
+
+export function jokeVeriBatch (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/joke/veriBatch',
+    method: 'post',
+    data: data
+  })
+}
+
 // 笑话领域说法
 export function jokePList (data) {
   return fetch.service_head({
