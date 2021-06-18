@@ -12,7 +12,7 @@
     <div class="table-box">
       <el-table
           :data="list"
-          :class="this.totalCount <= 5 ? 'limitWidth' :''"
+          :class="this.totalClass <= '5' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="left" >
@@ -63,6 +63,7 @@ export default {
       list: [],
       perList:[],
       articleId:"",
+      totalClass:'',
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
@@ -145,6 +146,7 @@ export default {
         this.listLoading = false
         this.list = res.data.data
         this.totalCount = res.data.count
+        this.totalClass = res.data.data.length
       });
     }
   }

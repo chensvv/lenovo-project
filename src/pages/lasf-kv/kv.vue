@@ -16,7 +16,7 @@
     <div class="table-box">
         <el-table
                 :data="list"
-                :class="this.totalCount <= 5 ? 'limitWidth' :''"
+                :class="this.totalClass <= '5' ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="left" >
@@ -155,7 +155,8 @@ export default {
             addBtnLoading:false,
             editBtnLoading:false,
             listLoading:true,
-            isshow:true
+            isshow:true,
+            totalClass:''
         };
     },
     created() {
@@ -180,6 +181,9 @@ export default {
             this.currentPage = val
             // console.log(`当前页: ${val}`);
             this.getList();
+            // setTimeout(()=>{
+            //     console.log(this.list.length)
+            // })
         },
         addHandleClose(){
             this.addVisible = false
@@ -380,6 +384,7 @@ export default {
                 this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
+                this.totalClass = res.data.data.length
             });
         },
         handleState(){

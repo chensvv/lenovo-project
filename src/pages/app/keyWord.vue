@@ -41,7 +41,7 @@
         <div class="table-box">
         <el-table
                 :data="list"
-                :class="this.totalCount <= 5 ? 'limitWidth' :''"
+                :class="this.totalClass <= '5' ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="left" >
@@ -50,35 +50,30 @@
                     label="原始名"
                     prop="name"
                     align="left"
-                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="标准名"
                     prop="stname"
                     align="left"
-                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="别名"
                     prop="alias"
                     align="left"
-                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="来源"
                     prop="source"
                     align="left"
-                    
                     :show-overflow-tooltip="true">
                 </el-table-column>
                 <el-table-column
                     label="查询时间"
                     prop="searchDate"
                     align="left"
-                    
                     :formatter="formTime"
                     min-width="120">
                 </el-table-column>
@@ -86,7 +81,6 @@
                     label="入库时间"
                     prop="createTime"
                     align="left"
-                    
                     :formatter="formTime2"
                     min-width="120">
                 </el-table-column>
@@ -164,6 +158,7 @@ export default {
         },
         list: [],
         perList:[],
+        totalClass:'',
         addList:{
             name:"",
             stname:"",
@@ -402,6 +397,7 @@ export default {
             this.listLoading = false
             this.list = res.data.data;
             this.totalCount = res.data.count
+            this.totalClass = res.data.data.length
         });
     }
   }

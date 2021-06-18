@@ -26,7 +26,7 @@
     <div class="table-box">
       <el-table
               :data="list"
-              :class="this.totalCount <= 5 ? 'limitWidth' :''"
+              :class="this.totalClass <= '5' ? 'limitWidth' :''"
               style="width: 100%"
               v-loading="listLoading">
               <el-table-column type="index" align="left" >
@@ -78,6 +78,7 @@ export default {
     return {
       list: [],
       perList:[],
+      totalClass:'',
       searchItem:{//搜索数据组
         dtp:"",
         uip:"",
@@ -183,6 +184,7 @@ export default {
         this.list = res.data.data.data
         this.totalCount = res.data.data.total
         this.endVal = res.data.count
+        this.totalClass = res.data.data.data.length
       })
     }
   }

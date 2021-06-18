@@ -36,7 +36,7 @@
       </el-form-item>
     </el-form>
     <div class="table-box">
-      <el-table :data="list" :class="this.totalCount <= 5 ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading">
+      <el-table :data="list" :class="this.totalClass <= '5' ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading">
         <el-table-column type="index" align="left" ></el-table-column>
         <el-table-column label="客户端设备类型" prop="dtp" align="left"  :show-overflow-tooltip="true"></el-table-column>
         <el-table-column label="客户端设备ID" prop="did" align="left"  :show-overflow-tooltip="true"></el-table-column>
@@ -71,6 +71,7 @@ export default {
           },
       },
       list: [],
+      totalClass:'',
       searchItem:{//搜索数据组
         uid:"",
         dtp:"",
@@ -140,6 +141,7 @@ export default {
         this.listLoading = false
         this.list = res.data.data.data
         this.totalCount = res.data.data.total
+        this.totalClass = res.data.data.data.length
       })
     }
   }

@@ -46,7 +46,7 @@
     <div class="table-box">
       <el-tabs type="card" v-model="activeName">
         <el-tab-pane label="客户端信息" name="client">
-          <el-table :data="clientList" :class="this.totalCount <= 5 ? 'limitWidth' :''" style="width: 100%" v-loading="ClistLoading">
+          <el-table :data="clientList" :class="this.ctotalClass <= '5' ? 'limitWidth' :''" style="width: 100%" v-loading="ClistLoading">
             <el-table-column type="index" align="left"  ></el-table-column>
             <el-table-column label="UID" prop="uid" align="left"  :show-overflow-tooltip="true"></el-table-column>
             <el-table-column label="客户端类型" prop="dtp" align="left"  :show-overflow-tooltip="true"></el-table-column>
@@ -82,7 +82,7 @@
           ></el-pagination>
         </el-tab-pane>
         <el-tab-pane label="服务器信息" name="server">
-          <el-table :data="serverList" :class="this.totalCount <= 5 ? 'limitWidth' :''" style="width: 100%" v-loading="SlistLoading">
+          <el-table :data="serverList" :class="this.totalClass <= '5' ? 'limitWidth' :''" style="width: 100%" v-loading="SlistLoading">
             <el-table-column type="index" align="left" ></el-table-column>
             <el-table-column label="总耗时..." prop="ixcd" align="left"  :show-overflow-tooltip="true">
               <template slot="header" slot-scope="scope">
@@ -211,6 +211,8 @@ export default {
         putTime: ""
       },
       activeName: "client",
+      ctotalClass:'',
+      totalClass:'',
       // 分页
       CcurrentPage: 1, //默认显示第几页
       CpageSize: 10, //默认每页条数
@@ -291,11 +293,13 @@ export default {
         this.ClistLoading = false
         this.clientList = res.data.data.data;
         this.CtotalCount = res.data.data.total;
+        this.ctotalClass = res.data.data.data.length
       });
       clientList(Sparams).then(res => {
         this.SlistLoading = false
         this.serverList = res.data.data.data;
         this.StotalCount = res.data.data.total;
+        this.totalClass = res.data.data.data.length
       });
     }
   }

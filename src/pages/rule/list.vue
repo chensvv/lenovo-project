@@ -46,7 +46,7 @@
     <div class="table-box">
       <el-table
           :data="list"
-          :class="this.totalCount <= 5 ? 'limitWidth' :''"
+          :class="this.totalClass <= '5' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="left" >
@@ -172,6 +172,7 @@ export default {
       typeList:[],//类型
       phoneTypeList:[],//机型
       resTypeList:[],
+      totalClass:'',
       selectList:[
             {typeLabel:"是",typeVal:"1"},
             {typeLabel:"否",typeVal:"0"}
@@ -416,6 +417,7 @@ export default {
         this.listLoading = false
         this.list = res.data.data;
         this.totalCount = res.data.count
+        this.totalClass = res.data.data.length
       });
     },
     getChannelList(){

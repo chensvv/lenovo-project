@@ -8,7 +8,7 @@
     <div class="table-box">
         <el-table
             :data="list"
-            :class="this.totalCount <= 5 ? 'limitWidth' :''"
+            :class="this.totalClass <= '5' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column :label="head" v-for="(head, key) in header" :key="head" align="left"  :show-overflow-tooltip="true">
@@ -36,6 +36,7 @@ export default {
     return {
       list: [],
       header:[],
+      totalClass:'',
       editVisible: false,
       addVisible: false,
       // 分页
@@ -94,6 +95,7 @@ export default {
         querySql(params).then(res => {
             this.listLoading = false
             this.totalCount = res.data.data.total
+            this.totalClass = res.data.data.data.length
             for(let i in res.data.data.data[0]) {
                 this.header.push(i)
             }

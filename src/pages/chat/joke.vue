@@ -27,7 +27,7 @@
         <div class="table-box">
           <el-table
             :data="list"
-            :class="this.totalCount <= 5 ? 'limitWidth' :''"
+            :class="this.totalClass <= '5' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading"
             @selection-change="handleSelectionChange">
@@ -136,6 +136,7 @@ export default {
       sels:[],
       list:[],
       perList:[],
+      totalClass:'',
       editRules:{
         con:[{ required: true, message: '请输入内容', trigger: 'blur' }]
       },
@@ -193,6 +194,7 @@ export default {
         this.listLoading = false
         this.list = res.data.data;
         this.totalCount = res.data.count
+        this.totalClass = res.data.data.length
       });
     },
     resetForm(formName) {

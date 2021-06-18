@@ -44,7 +44,7 @@
         <div class="table-box">
             <el-table
                 :data="list"
-                :class="this.totalCount <= 5 ? 'limitWidth' :''"
+                :class="this.totalClass <= '5' ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="left" >
@@ -253,6 +253,7 @@ export default {
             },
             list: [],
             perList:[],
+            totalClass:'',
             searchItem:{//搜索数据组
                 appName:"",
                 source:"",
@@ -535,6 +536,7 @@ export default {
                 this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
+                this.totalClass = res.data.data.length
             });
         }
     }

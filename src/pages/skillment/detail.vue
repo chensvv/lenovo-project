@@ -25,7 +25,7 @@
         <div class="table-box">
             <el-table
                 :data="list"
-                :class="this.totalCount <= 5 ? 'limitWidth' :''"
+                :class="this.totalClass <= '5' ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="left" >
@@ -136,6 +136,7 @@ export default {
             list: [],
             perList:[],
             skillDetail:[],
+            totalClass:'',
             currentItem: {//编辑数据组
                 functionId:"",
                 functionName:""
@@ -340,6 +341,7 @@ export default {
                 this.skillDetail = res.data.data
                 this.list = res.data.data.functions;
                 this.totalCount = res.data.count
+                this.totalClass = res.data.data.length
             });
         },
         handleInfo(index, row) {

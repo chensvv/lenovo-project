@@ -21,7 +21,7 @@
     <div class="table-box">
       <el-table
           :data="list"
-          :class="this.totalCount <= 5 ? 'limitWidth' :''"
+          :class="this.totalClass <= '5' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="left" >
@@ -139,6 +139,7 @@ export default {
     return {
       list: [],
       perList:[],
+      totalClass:'',
       currentItem: {//编辑数据组
         id:"",
         speak: "",
@@ -179,14 +180,14 @@ export default {
       listLoading:true,
       isshow:true,
       btnshow:true
-    };
+    }
   },
   created() {
     let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
     perArr.map(t=>{
       this.perList.push(Object.values(t).join())
     })
-    this.getList();
+    this.getList()
   },
   mounted(){
     if(this.perList.indexOf('user:data') == -1){
@@ -216,7 +217,7 @@ export default {
         checkTime(date.getMinutes())
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
       this.currentPage = 1
       this.getList()
     },
@@ -227,23 +228,23 @@ export default {
       this.seaBtnLoading = false
     },
     handleSizeChange(val) {
-      this.pageSize = val;
+      this.pageSize = val
       this.currentPage = 1
-      this.getList();
+      this.getList()
     },
     handleCurrentChange(val) {
       this.currentPage = val
-      // console.log(`当前页: ${val}`);
-      this.getList();
+      // console.log(`当前页: ${val}`)
+      this.getList()
     },
     handleEdit(index, row) {
-      this.editVisible = true;
+      this.editVisible = true
       this.currentItem = {
         id:row.id,
         speak: row.speak,
         answer:row.answer,
         excel:row.excel
-      };
+      }
     },
     handleDel(index, row) {
       let delParams = {
@@ -260,36 +261,36 @@ export default {
                     message:'删除成功',
                     type:"success",
                     duration:1000
-                });
-                this.getList();
+                })
+                this.getList()
             }else{
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
                     duration:1000
-                });
+                })
             }
           })
         }).catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     openFun(addList){
       this.$nextTick(() => {
         if(this.$refs[addList]){
-          this.$refs[addList].resetFields();
+          this.$refs[addList].resetFields()
         }
       })
     },
     closeFun(currentItem){
       this.$nextTick(() => {
         if(this.$refs[currentItem]){
-          this.$refs[currentItem].clearValidate();
+          this.$refs[currentItem].clearValidate()
         }
       })
     },
     editHandleClose() {
-      this.editVisible = false;
+      this.editVisible = false
       
     },
     addHandleClose(){
@@ -312,7 +313,7 @@ export default {
                     message:'编辑成功',
                     type:"success",
                     duration:1000
-                });
+                })
                 this.getList()
                 this.editVisible = false
             }else{
@@ -320,15 +321,15 @@ export default {
                     message:res.data.errorMessage,
                     type:"error",
                     duration:1000
-                });
+                })
             }
           }).catch(err => {
             this.editBtnLoading = false
           })
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     handleAdd(){
       this.addVisible = true
@@ -349,7 +350,7 @@ export default {
                     message:'添加成功',
                     type:"success",
                     duration:1000
-                });
+                })
                 this.getList()
                 this.addVisible = false
             }else{
@@ -357,15 +358,15 @@ export default {
                     message:res.data.errorMessage,
                     type:"error",
                     duration:1000
-                });
+                })
             }
           }).catch(err => {
             this.addBtnLoading = false
           })
         } else {
-          return false;
+          return false
         }
-      });
+      })
     },
     buildAIML(){
       this.AIMLBtnLoading = true
@@ -376,13 +377,13 @@ export default {
                 message:res.data.msg,
                 type:"success",
                 duration:1000
-            });
+            })
         }else{
             this.$message({
                 message:res.data.errorMessage,
                 type:"error",
                 duration:1000
-            });
+            })
         }
       }).catch(err => {
           this.AIMLBtnLoading = false
@@ -399,10 +400,11 @@ export default {
         this.listLoading = false
         this.list = res.data.data
         this.totalCount = res.data.count
-      });
+        this.totalClass = res.data.data.length
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>

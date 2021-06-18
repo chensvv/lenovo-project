@@ -43,7 +43,7 @@
         <div class="table-box">
              <el-table
             :data="list"
-            :class="this.totalCount <= 5 ? 'limitWidth' :''"
+            :class="this.totalClass <= '5' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column type="index" align="left" >
@@ -169,6 +169,7 @@ export default {
             },
             list:[],
             perList:[],
+            totalClass:'',
             addRules:{
                 name:[{ required: true, message: '请输入应用名', trigger: 'change' }],
                 alias:[{ required: true, message: '请输入别名', trigger: 'change' }],
@@ -212,6 +213,7 @@ export default {
                 this.listLoading = false
                 this.list = res.data.data;
                 this.totalCount = res.data.count
+                this.totalClass = res.data.data.length
             });
         },
         formTime(row, column){

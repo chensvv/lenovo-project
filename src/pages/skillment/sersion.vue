@@ -23,7 +23,7 @@
     <div class="table-box">
         <el-table
             :data="list"
-            :class="this.totalCount <= 5 ? 'limitWidth' :''"
+            :class="this.totalClass <= '5' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column type="index" align="left" >
@@ -142,6 +142,7 @@ export default {
       perList:[],
       appId:"",
       functionId:"",
+      totalClass:"",
       skillDetail:{
         appName:"",
         functionName:""
@@ -400,6 +401,7 @@ export default {
         this.skillDetail.functionName = res.data.lasfControlFunction.functionName
         this.list = res.data.lasfControlVersionPage.data;
         this.totalCount = res.data.lasfControlVersionPage.total
+        this.totalClass = res.data.lasfControlVersionPage.data.length
       });
       let lastParams = {
           id:this.appId
