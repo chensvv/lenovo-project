@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel">
+  <div class="table carousel">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>规则定义</el-breadcrumb-item>
@@ -26,8 +26,8 @@
           @left-check-change="leftCheckChange($event)"
           @right-check-change="rightCheckChange"
           @change="handleChange">
-            <el-button class="transfer-footer" slot="right-footer" size="mini"  @click="handleUp(index)">上移</el-button>
-            <el-button class="transfer-footer" slot="right-footer" size="mini"  @click="handleDown(index)">下移</el-button>
+            <el-button class="transfer-footer" slot="right-footer" size="mini" type="primary" icon="el-icon-top" @click="handleUp(index)">上移</el-button>
+            <el-button class="transfer-footer" slot="right-footer" size="mini" type="primary" icon="el-icon-bottom" @click="handleDown(index)">下移</el-button>
         </el-transfer>
       </div>
       <div class="btn-box">
@@ -54,6 +54,7 @@
           <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading" v-has="'showmode:savePublish'">发 布</el-button>
         </span>
       </div>
+      <div class="perch-box"></div>
     </div>
     
   </div>
@@ -124,7 +125,7 @@ export default {
       let self = this;
       item = self.item;   //选中值
       if (item.length == 1) {  //  因为右侧的选项是可以多选，但这里的上下移动事件，我做的是单项上移，每次上移一个空间，所以判断，当我的选中值只有一个选项时，进行上移操作
-      //选中值的下标   【这里我不知道如何直接获取选中值的下标，所以用find()方法，在右侧值的数组里value中找选中项对应的下标】
+      //选中值的下标 
       self.value.find((val, indexs, arr) => { // find()方法 val-项，indexs-下标，arr数组
           if (val == item) { //  value数组的项val等于我选中的项item
             index = indexs;  // 数组项的下标就是我当前选中项的下标

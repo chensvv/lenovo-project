@@ -151,7 +151,9 @@
     </div>
     <el-dialog title="数据压缩包下载" :visible.sync="zipVisible" width="300" :before-close="zipHandleClose">
         <div class="zip_box">
-          <el-link type="primary" icon="el-icon-download" v-for="(item,index) in zipLists" :key="index" @click="zipFileDownload(item.filename)">{{item.filename}}({{item.lasttime}})</el-link>
+          <div v-for="(item,index) in zipLists" :key="index">
+            <el-link type="primary" icon="el-icon-download" :href="downURLs+'/lasf-mgr/trigger/download?fileName='+item.filename+'&fileType=zip'" target="_blank">{{item.lasttime}}</el-link>
+          </div>
           <div v-if="isshow" style="text-align:center;">暂无数据</div>
         </div>
         <span slot="footer" class="dialog-footer">
@@ -179,6 +181,7 @@ export default {
       perList:[],
       zipLists:[],
       totalClass:'',
+      downURLs:downUrl.proURL,
       searchItem:{//搜索数据组
         dtp:"",
         uid:"",
@@ -301,10 +304,11 @@ export default {
     zipFileDownload(d){
       var openURL = downUrl.proURL+'/lasf-mgr/trigger/download?fileName='+d+'&fileType=zip'
       let a = document.createElement('a');
+      // let url = window.URL.createObjectURL(blobUrl);
         a.href = openURL;
         a.download = d;
         a.click();
-        window.URL.revokeObjectURL(url);
+        // window.URL.revokeObjectURL(url);
       // this.loadShow = true
       // this.total = readablizeBytes(s)
       // let downParams = {

@@ -4,11 +4,6 @@
             <img src="../../static/images/login1.png" alt="">
         </div>
             <div class="login-box">
-                <transition name = "custom-classes-transition"
-                enter-active-class="animated flipInX"
-                leave-active-class="animated flipOutX"
-                mode="out-in"
-                key="login">
                     <div class="loginn" v-if="loginShow">
                         <span class="form-title">联想语音管理系统</span>
                         <el-form :label-position="'left'" :model="loginForm" :rules="loginRules" ref="loginForm" @submit.native.prevent>
@@ -41,8 +36,6 @@
                             </el-form-item>
                         </el-form>
                     </div>
-                </transition>
-                
         </div>
         
     </div>
@@ -200,7 +193,7 @@ export default {
     cursor: pointer;
 }
 .fadeOutLeft-enter-active, .fadeOutLeft-leave-active {
-  transition: opacity .5s;
+  transition: opacity .1s;
 }
 .fadeOutLeft-enter, .fadeOutLeft-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;

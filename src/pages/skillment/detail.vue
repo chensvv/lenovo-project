@@ -341,7 +341,7 @@ export default {
                 this.skillDetail = res.data.data
                 this.list = res.data.data.functions;
                 this.totalCount = res.data.count
-                this.totalClass = res.data.data.length
+                this.totalClass = res.data.data.functions.length
             });
         },
         handleInfo(index, row) {
