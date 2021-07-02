@@ -7,7 +7,7 @@
         </el-breadcrumb>
     
     <el-form :inline="true" class="demo-form-inline search_box" size="mini">
-        <el-form-item>
+        <el-form-item class="sub-btn">
             <el-button class="success" size="mini" @click="handleState()">报表配置</el-button>
             <el-button class="success" size="mini" @click="handleAdd()" v-has="'kv:editsave'">添加</el-button>
         </el-form-item>

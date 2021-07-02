@@ -6,9 +6,6 @@
       <el-breadcrumb-item :to="{ path: '/forum/list'}">论坛管理</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      
-    </el-form>
     <div class="table-box">
       <el-table
           :data="list"

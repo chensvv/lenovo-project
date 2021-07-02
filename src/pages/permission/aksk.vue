@@ -9,7 +9,7 @@
             <el-form-item label="用户名" prop="userName">
                 <el-input v-model.trim="searchItem.userName" clearable></el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item class="sub-btn">
                 <el-button type="primary" @click="onSubmit" size="mini" :loading="btnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')" size="mini">重置</el-button>
             </el-form-item>
@@ -130,6 +130,16 @@
                         <el-checkbox></el-checkbox>
                     </el-checkbox-group>
                 </el-form-item>
+                <el-form-item label="ASR权限">
+                    <el-checkbox-group v-model="currentItem.asrService">
+                        <el-checkbox></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="TTS权限">
+                    <el-checkbox-group v-model="currentItem.ttsService">
+                        <el-checkbox></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editHandleClose">取 消</el-button>
@@ -151,6 +161,7 @@ export default {
             list:[],
             perList:[],
             totalClass:'',
+            checkList:[],
             infoList:{
                 lenovoId:'',
                 userName:'',
@@ -161,14 +172,17 @@ export default {
             },
             currentItem: {//编辑数据组
                 id:"",
+                lid:'',
                 userDailyCloudasrCount:"",
                 userDailyCloudttsCount:"",
-                meetingService:null
+                meetingService:null,
+                asrService:null,
+                ttsService:null
             },
+            checkArr:'',
             editRules:{
                 userDailyCloudasrCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
                 userDailyCloudttsCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
-                meetingService:[{ required: true, message: '请选择是否允许访问会议监控', trigger: 'blur' }], 
             },
             user:'',
             id:'',
@@ -234,20 +248,36 @@ export default {
             this.editVisible = true;
             this.currentItem = {
                 id:row.id,
+                lid:row.lenovoId,
                 userDailyCloudasrCount: row.userDailyCloudasrCount,
                 userDailyCloudttsCount: row.userDailyCloudttsCount,
-                meetingService:row.meetingService == '1' ? true : false
+                meetingService:row.meetingService == '1' ? true : false,
+                asrService:row.userService == '1' || row.userService == '3'? true : false,
+                ttsService:row.userService == '2' || row.userService == '3'? true : false
             };
+            
         },
         editHandleClose() {
             this.editVisible = false;
         },
         editHandleConfirm(currentItem) {
+            let setService = null
+            if(this.currentItem.asrService == true && this.currentItem.ttsService == true){
+                setService = '3'
+            }else if(this.currentItem.asrService == true && this.currentItem.ttsService == false){
+                setService = '1'
+            }else if(this.currentItem.asrService == false && this.currentItem.ttsService == true){
+                setService = '2'
+            }else if(this.currentItem.asrService == false && this.currentItem.ttsService == false){
+                setService = '0'
+            }
             let updParams = {
                 id:this.currentItem.id,
                 userDailyCloudasrCount:this.currentItem.userDailyCloudasrCount,
                 userDailyCloudttsCount:this.currentItem.userDailyCloudttsCount,
-                meetingService:this.currentItem.meetingService == true ? 1 : 0
+                meetingService:this.currentItem.meetingService == true ? 1 : 0,
+                userService:setService,
+                lenovoId:this.currentItem.lid
             }
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
@@ -336,6 +366,10 @@ export default {
                     sk:res.data.secretKey
                 }
             })
+        },
+        handleCheck(val){
+            console.log(val)
+            this.checkList = val
         },
         handleClose(){
             this.infoVisible = false

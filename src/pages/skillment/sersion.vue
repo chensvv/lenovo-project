@@ -12,7 +12,7 @@
         <div class="d_t">
             <span class="d_title">{{skillDetail.appName}}  >></span><span>{{skillDetail.functionName}}</span>
         </div>
-        <el-form-item>
+        <el-form-item class="sub-btn">
             <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:versionadd'">添加</el-button>
             <router-link :to="{ path: '/lasf-kv/skill/detail/speak',query:{functionId:this.functionId, appId:this.appId}}">
                 <el-button class="success" size="mini">说法列表</el-button>

@@ -86,13 +86,17 @@
 .outer,
 .no_width,
 .trigger {
-  text-align: right;
+  /* text-align: right; */
   height: 50px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .search_box .el-form-item .el-form-item__label,
 .outer .el-form-item .el-form-item__label,
-.trigger .el-form-item .el-form-item__label {
+.trigger .el-form-item .el-form-item__label,
+.cache .el-form-item .el-form-item__label{
   font-size: 12px;
   padding: 0 5px 0 0;
 }
@@ -136,6 +140,10 @@
 
 .outer .sub-btn .el-form-item__content {
   width: auto;
+}
+
+.sub-btn .el-form-item__content {
+  line-height: unset;
 }
 
 .el-form-item__content .el-button+.el-button {

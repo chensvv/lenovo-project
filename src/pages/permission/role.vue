@@ -12,7 +12,7 @@
           <el-form-item class="sub-btn">
             <el-button type="primary" size="mini" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
             <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-            <el-button type="primary" class="success btn_role" size="mini" @click="handleAdd()" v-has="'role:add'">添加角色</el-button>
+            <el-button type="primary" class="success" size="mini" @click="handleAdd()" v-has="'role:add'">添加角色</el-button>
           </el-form-item>
           
         </el-form>

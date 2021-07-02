@@ -19,7 +19,7 @@
                     value-format="yyyy-MM-dd"
                     @change="dateChangebirthday">
                 </el-date-picker>
-            <el-form-item>
+            <el-form-item class="sub-btn">
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm()">重置</el-button>
             </el-form-item>
