@@ -46,13 +46,18 @@
                         type="danger"
                         v-if="scope.row.sta == 1"
                         @click="handleDel(scope.$index, scope.row)"
-                        v-has="'gift:status'">删除</el-button>
+                        v-has="'gift:status'">删除报表</el-button>
                         <el-button
                         size="mini"
                         type="warning"
                         v-if="scope.row.sta == 2"
                         @click="handleRecall(scope.$index, scope.row)"
                         v-has="'gift:status'">撤回</el-button>
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)"
+                        v-has="'kv:delete'">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table> 
@@ -105,7 +110,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {kvList,kvAdd,kvUpd, giftDel} from '@/config/api'
+import {kvList,kvAdd,kvUpd, giftDel,kvDel} from '@/config/api'
 import {login} from '@/config/adminApi'
 export default {
     inject:['reload'],
@@ -284,6 +289,35 @@ export default {
                 } else {
                     return false;
                 }
+            });
+        },
+        handleDelete(index, row) {
+            let delParams = {
+                key:row.key,
+            }
+            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            }).then(() => {
+                kvDel(delParams).then(res=>{
+                    if(res.data.code == 200){
+                        this.$message({
+                            message:'删除成功',
+                            type:"success",
+                            duration:1000
+                        })
+                        this.getList();
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1000
+                        });
+                    }
+                })
+            }).catch(err => {
+                console.log(err);
             });
         },
         handleDel(index, row) {

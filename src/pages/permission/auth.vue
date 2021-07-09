@@ -34,8 +34,11 @@
                 <el-table-column
                     label="密码"
                     prop="password"
-                    align="left"  
+                    align="left"
                     >
+                    <template slot-scope="scope">
+                        <span>{{scope.row.password | hideStar}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="状态"
@@ -436,6 +439,12 @@ export default {
         
         
     },
+    filters:{
+        hideStar(str){
+            return str.substring(0,4) + new Array(str.length).join('*')
+            // return str.substring(0,4) + new Array(str.length-3).join('*')
+        }
+    }
 };
 </script>
 

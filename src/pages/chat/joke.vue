@@ -19,8 +19,8 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
                 <el-button class="success" size="mini" @click="handleAdd()" v-has="'joke:save'">添加</el-button>
-                <el-button class="success" size="mini" @click="handleBatchDel()">批量删除</el-button>
-                <el-button class="success" size="mini" @click="handleBatchState()">批量审核</el-button>
+                <el-button class="danger" size="mini" @click="handleBatchDel()" v-has="'joke:del'">批量删除</el-button>
+                <el-button class="danger" size="mini" @click="handleBatchState()" v-has="'joke:veri'">批量审核</el-button>
             </el-form-item>
             
         </el-form>
@@ -235,62 +235,78 @@ export default {
     },
     handleSelectionChange(val){
       this.sels = val
-      
     },
     handleBatchDel(){
       let ids = this.sels.map(item => item.id)
-      let delParams = {
-        ids:ids
+      if(ids.length == 0 || ids == [] || ids == null){
+        this.$message({
+            message:'请选择要删除的数据',
+            type:"warning",
+            duration:1000
+        });
+      }else{
+        let delParams = {
+          ids:ids
+        }
+        this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+        }).then(() => {
+            jokeDelBatch(delParams).then(res=>{
+              if(res.data.code == 200){
+                this.$message({
+                  message:'删除成功',
+                  type:"success",
+                  duration:1000
+                });
+                this.getList();
+              }else{
+                this.$message({
+                  message:res.data.errorMessage,
+                  type:"error",
+                  duration:1000
+                });
+              }
+            })
+        }).catch(err => {
+            console.log(err);
+        });
       }
-      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-      }).then(() => {
-          jokeDelBatch(delParams).then(res=>{
-            if(res.data.code == 200){
-              this.$message({
-                message:'删除成功',
-                type:"success",
-                duration:1000
-              });
-              this.getList();
-            }else{
-              this.$message({
-                message:res.data.errorMessage,
-                type:"error",
-                duration:1000
-              });
-            }
-          })
-      }).catch(err => {
-          console.log(err);
-      });
+      
     },
     handleBatchState(){
       let ids = this.sels.map(item => item.id)
-      let veriParams = {
-        ids:ids
-      }
-      jokeVeriBatch(veriParams).then(res=>{
-        
-        if(res.data.code == 200){
-            this.$message({
-                message:'审核成功',
-                type:"success",
-                duration:1000
-            });
-            this.getList()
-        }else{
-            this.$message({
-                message:res.data.errorMessage,
-                type:"error",
-                duration:1000
-            });
+      if(ids.length == 0 || ids == [] || ids == null){
+        this.$message({
+            message:'请选择要审核的数据',
+            type:"warning",
+            duration:1000
+        });
+      }else{
+        let veriParams = {
+          ids:ids
         }
-      }).catch(err => {
-        
-      })
+        jokeVeriBatch(veriParams).then(res=>{
+          if(res.data.code == 200){
+              this.$message({
+                  message:'审核成功',
+                  type:"success",
+                  duration:1000
+              });
+              this.getList()
+          }else{
+              this.$message({
+                  message:res.data.errorMessage,
+                  type:"error",
+                  duration:1000
+              });
+          }
+        }).catch(err => {
+          
+        })
+      }
+      
     },
     checkState(index,row){
       this.checkLoading = true

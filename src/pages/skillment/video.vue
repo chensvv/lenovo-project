@@ -14,6 +14,7 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
                 <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:videoadd'">添加</el-button>
+                <el-button class="danger" size="mini" @click="handleBatchDel()" v-has="'skill:videodelete'">批量删除</el-button>
             </el-form-item>
             
         </el-form>
@@ -22,7 +23,12 @@
                 :data="list"
                 :class="this.totalClass <= '5' ? 'limitWidth' :''"
                 style="width: 100%"
+                @selection-change="handleSelectionChange"
                 v-loading="listLoading">
+                <el-table-column
+                    type="selection"
+                    width="55">
+                </el-table-column>
                 <el-table-column type="index" align="left" >
                 </el-table-column>
                 <el-table-column
@@ -216,12 +222,13 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {videoList, videoDel, videoUpd, videoAdd, videoSelect} from '@/config/api'
+import {videoList, videoDel, videoUpd, videoAdd, videoSelect, videoDelBatch} from '@/config/api'
 export default {
     data() {
         return {
             list: [],
             perList:[],
+            sels:[],
             totalClass:'',
             currentItem: {//编辑数据组
                 id:"",
@@ -351,6 +358,9 @@ export default {
             // console.log(`当前页: ${val}`);
             this.getList();
         },
+        handleSelectionChange(val){
+            this.sels = val
+        },
         handleEdit(index, row) {
             this.editVisible = true;
             videoSelect().then(res=>{
@@ -406,6 +416,45 @@ export default {
             }).catch((err) => {
                 console.log(err);
             });
+        },
+        handleBatchDel(){
+            let ids = this.sels.map(item => item.id)
+            if(ids.length == 0 || ids == [] || ids == null){
+                this.$message({
+                    message:'请选择要删除的数据',
+                    type:"warning",
+                    duration:1000
+                });
+            }else{
+                let delParams = {
+                    ids:ids
+                }
+                this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                }).then(() => {
+                    videoDelBatch(delParams).then(res=>{
+                        if(res.data.code == 200){
+                            this.$message({
+                                message:'删除成功',
+                                type:"success",
+                                duration:1000
+                            });
+                        this.getList();
+                        }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
+                        }
+                    })
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
+            
         },
         openFun(addList){
             this.$nextTick(() => {

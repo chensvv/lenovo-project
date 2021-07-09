@@ -757,6 +757,14 @@ export function kvUpd (data) {
   })
 }
 
+export function kvDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/kv/delete',
+    method: 'post',
+    data: data
+  })
+}
+
 export function giftDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/gift/status',
@@ -979,6 +987,14 @@ export function videoUpd (data) {
 export function videoDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/videodelete',
+    method: 'post',
+    data: data
+  })
+}
+
+export function videoDelBatch (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/skill/videoDelBatch',
     method: 'post',
     data: data
   })
