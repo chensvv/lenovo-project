@@ -826,6 +826,9 @@
 .outers .table-box {
   height: calc(100% - 100px);
 }
+.audio .el-table{
+  height: 100%;
+}
 
 .el-table td,
 .el-table th {
@@ -867,11 +870,15 @@
 }
 
 .limitWidth {
-  height: auto;
+  height: auto !important;
 }
 
 .limitWidth.el-table td {
   padding: 12px 0;
+}
+
+.height50{
+  height: 50px;
 }
 
 @media (min-width: 768px) {

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+	<meta charset="UTF-8">
+	<title i18n="i18n.title">联想语音开放平台</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+	<link rel="icon" href="https://voice.lenovomm.com/voicePlatform/welcome/images/favicon.ico" type="image/x-icon" />
+	<link href="https://voice.lenovomm.com/voicePlatform/welcome/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://voice.lenovomm.com/voicePlatform/welcome/css/all.css" rel="stylesheet" />
+	<link href="https://voice.lenovomm.com/voicePlatform/welcome/css/head.css" rel="stylesheet" type="text/css" />
+	<link href="https://voice.lenovomm.com/voicePlatform/welcome/css/index.css" rel="stylesheet" />
+	<link href="https://voice.lenovomm.com/voicePlatform/welcome/css/animate.min.css" rel="stylesheet">
+	<link href="https://voice.lenovomm.com/voicePlatform/welcome/css/swiper.min.css" rel="stylesheet">
+	<script src="https://voice.lenovomm.com/voicePlatform/welcome/js/swiper.animate.js"></script>
+	<script src="https://voice.lenovomm.com/voicePlatform/welcome/js/jquery-3.2.1.min.js"></script>
+	<script src="https://voice.lenovomm.com/voicePlatform/welcome/js/bootstrap.min.js"></script>
+	<script src="https://voice.lenovomm.com/voicePlatform/welcome/js/swiper.min.js"></script>
+	<script src="https://voice.lenovomm.com/voicePlatform/welcome/js/index.js"></script>
+	<script src="https://voice.lenovomm.com/voicePlatform/welcome/js/jquery.i18n.js"></script>
+	<script src="https://voice.lenovomm.com/voicePlatform/welcome/js/com.js"></script>
+</head>
+<style>
+	.rows {
+		margin-bottom: 100px;
+	}
+
+	body,
+	html {
+		height: 100%;
+	}
+
+	.nav-swiper {
+		height: 100%;
+		background: linear-gradient(to right, #36a5ca, #51dcd7);
+		text-align: center;
+	}
+
+
+	html,
+	body {
+		position: relative;
+		height: 100%;
+		font-weight: 500;
+		background: #eee;
+		font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+		font-size: 14px;
+		color: #000;
+		margin: 0;
+		padding: 0;
+	}
+	.swiper-container {
+		width: 100%;
+		height: 100%;
+		margin-left: auto;
+		margin-right: auto;
+		z-index: 2;
+	}
+
+	#eui-main-footer {
+		position: fixed;
+		bottom: 0;
+	}
+	.container{
+		padding: 0 20px;
+	}
+	.pro-li{
+		height: 100%;
+	}
+	.product{
+		display: flex !important;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+	}
+	
+	.lenovo-user-name2:hover{
+		text-decoration: unset;
+	}
+</style>
+
+<body>
+	<div class="nav-swiper">
+		<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+			<div class='container'>
+				<div class='navbar-header'>
+					<button type='button' onclick='open_nav()' class='navbar-toggle collapsed'>
+						<span class='sr-only'>Toggle navigation</span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+						<span class='icon-bar'></span>
+					</button>
+					<div class='navbar-icon'>
+						<img src='https://voice.lenovomm.com/voicePlatform/welcome/images/logo_img.png' alt=''>
+						<span class='logo_text_left' i18n='i18n.writ'>联想语音</span>
+					</div>
+					<ul class='nav navbar-nav navbar-right mobile_nav_right' id='right_mobile'>
+						<li id='login1'>
+							<div id="munull">
+								<a href="javascript:void(0);" onclick='user_login()' target='_self' id='lenovo-user-name_m'
+									i18n='i18n.signIn'>登录</a>
+							</div>
+							<div id="muyes">
+								<a href="javascript:void(0);" target='_self' class='mobile_top_username'><span class='user_name mo'
+										id="musername"></span><span class='open_user'></span></a>
+								<ul class=' open_style' style='display:none'>
+									<li><a href="javascript:void(0);" onclick='user_info()' i18n='i18n.devInfo'>服务信息</a></li>
+									<li class='mobile_border2'><a href="javascript:void(0);" onclick='set_pwd()'
+											i18n='i18n.changePass'>修改密码</a></li>
+									<li><a href="javascript:void(0);" onclick='user_logout()' i18n='i18n.signOut'>退出</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div id='navbar' class='collapse navbar-collapse animated'>
+					<div class='is_mobile_close'>
+						<span onclick='close_mobile_nav()' class='close_btn'></span>
+					</div>
+					<ul class='nav navbar-nav nav-left hover-menu'>
+						<li>
+							<a href="javascript:void(0);" onclick='menu_first_page()' target='_self'><span
+									i18n='i18n.homepage'>首页</span><span class='mobile_jt'></span></a>
+						</li>
+						<li class="pro-li">
+							<a href="javascript:void(0);" target='_self' id='pro-control' class='product'><span
+									i18n='i18n.product'>产品服务</span><span class="caret"></span></a>
+							<ul class='product-menu' id='pro-ul'>
+								<li class='mobile_border'><a href="javascript:void(0);" onclick='menu_voice_recognise()' id='second'
+										i18n='i18n.shortSpeech'>短语音识别</a></li>
+								<li class='mobile_border'><a href="javascript:void(0);" onclick='menu_voice_longrecognise()' id=''
+										i18n='i18n.realtime'>长语音识别</a></li>
+								<li class='mobile_border'><a href="javascript:void(0);" onclick='menu_voice_tts()' id=''
+										i18n='i18n.synthesis'>语音合成 </a></li>
+								<li class='mobile_border'><a href="javascript:void(0);" onclick='menu_voice_assess()' id=''
+										i18n='i18n.assess'>英语评测 </a></li>
+							</ul>
+						</li>
+						<li class=''>
+							<a href="javascript:void(0);" onclick='menu_product_document()' id='third' target='_self'><span
+									i18n='i18n.document'>开发资源</span> <span class='mobile_jt'></span></a>
+						</li>
+						<li class=''>
+							<a href="javascript:void(0);" onclick='menu_new_data()' id='' target='_self'><span
+									i18n='i18n.infor'>新闻资讯</span> <span class='mobile_jt'></span></a>
+						</li>
+						<li class=''>
+							<a href="javascript:void(0);" onclick='menu_forum_list()' id='' target='_self'><span
+									i18n='i18n.message'>给我留言</span> <span class='mobile_jt'></span></a>
+						</li>
+					</ul>
+					
+					<ul class='nav navbar-nav navbar-right hover-menu'>
+						<li id='login1' class='mobile_style'>
+							<div id="unull" style="display:none;">
+								<a href="javascript:void(0);" onclick='user_login()' target='_self' id='lenovo-user-name_m'
+									i18n='i18n.signIn'>登录</a>
+								<span class='shu'>|</span>
+								<a href="javascript:void(0);" onclick='user_reg()' target='_self' id='lenovo-user-register'
+									i18n='i18n.signUp'>注册</a>
+							</div>
+							<div id="uyes" style="display:none;">
+								<a href="javascript:void(0);" target='_self' class='lenovo-user-name2' id='lenovo-user-name'><span
+										class='user_name ua' id="username"></span><span class='caret'></span></a>
+								<ul class='user-menu' id='user-ul'>
+									<li class='mobile_border2'><a href="javascript:void(0);" onclick='user_info()'
+											i18n='i18n.devInfo'>服务信息</a></li>
+									<li class='mobile_border2'><a href="javascript:void(0);" onclick='set_pwd()'
+											i18n='i18n.changePass'>修改密码</a></li>
+									<li class='mobile_border2'><a href="javascript:void(0);" onclick='user_logout()'
+											i18n='i18n.signOut'>退出</a></li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+					<div class='drop-down'>
+							<div id='box'>
+								<div id='b-m' class='b-m'>
+									<img src='https://voice.lenovomm.com/voicePlatform/welcome/images/china.png' class='opimg' id='op-img'>
+								</div>
+							</div>
+							<div id='down'>
+								<ul class='phones'>
+									<li><img src='https://voice.lenovomm.com/voicePlatform/welcome/images/china.png' class='opimg' id='op-img'> <span class='optxt' style="display:none;">简体中文</span></li>
+									<li><img src='https://voice.lenovomm.com/voicePlatform/welcome/images/usa.png' class='opimg' id='op-img'> <span class='optxt' style="display:none;">English</span></li>
+								</ul>
+							</div>
+						</div>
+				</div>
+			</div>
+		</nav>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="sile slide0 box_anim0"
+						style="background:linear-gradient(-90deg,rgba(139,240,208,1) 0%,rgba(45,186,203,1) 100%); ">
+						<div class="anim0_center">
+							<div class="center_div">
+								<p class="le_title">乐语音</p>
+								<div class="le_in">
+									<span class="span_left">告别指尖束缚</span>
+									<span class="span_right">轻松保持联系</span>
+								</div>
+								<p class="le_callORnote"><span class="le_call">电话</span><span class="le_shu"></span>
+									<span class="le_note">短信</span></p>
+								<p class="le_info">无论你是在开车途中，还是在拥挤的地铁，我们可以给你打电话和发短信，同时语音接听来电和播报短信内容，让你毫不费力的保持联系</p>
+							</div>
+						</div>
+						<div class="left_img_div">
+							<div style="transform: rotate(15deg); height: 100%;">
+								<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/Callmum.png" class="anim0_posi_left ani"
+									swiper-animate-effect="fadeInLeft" swiper-animate-duration="1s"
+									swiper-animate-delay="0.3s"></div>
+						</div>
+						<div class="right_img_div">
+							<div style="transform: rotate(15deg); height: 100%;">
+								<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/video.png" class="anim0_posi_right ani"
+									swiper-animate-effect="fadeInRight" swiper-animate-duration="1s"
+									swiper-animate-delay="0.3s"></div>
+						</div>
+
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="sile slide1 box_anim1"
+						style="background: linear-gradient(to right, #65d8dd, #c9f095); ">
+						<div class="anim1_center">
+							<div class="center_div">
+								<p class="le_title">智能家居</p>
+								<div class="le_in">
+									<span class="span_top">无需动手就可管理</span>
+									<span class="span_bottom">你的智能家居设备</span>
+								</div>
+							</div>
+						</div>
+						<div class="left_img_div">
+							<span class="left_img_title ani" swiper-animate-effect="fadeInLeft"
+								swiper-animate-duration="0.5s" swiper-animate-delay="0.3s">“调大空气净化器风速”</span>
+							<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/smarthome-air.png" class="left_img2 ani" swiper-animate-effect="fadeInUp"
+								swiper-animate-duration="0.5s" swiper-animate-delay="0.3s">
+						</div>
+						<div class="right_img_div">
+							<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/smarthome-light.png" class="right_img2 ani"
+								swiper-animate-effect="fadeInDown" swiper-animate-duration="0.5s"
+								swiper-animate-delay="0.3s">
+							<span class="right_img_title ani" swiper-animate-effect="fadeInRight"
+								swiper-animate-duration="0.5s" swiper-animate-delay="0.3s">“打开餐厅的灯”</span>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="sile slide2 box_anim2"
+						style="background: linear-gradient(to right, #8bbf50, #ced03e); ">
+						<div class="anim2_center">
+							<div class="center_div">
+								<p class="le_title">日常事务</p>
+								<p class="p_p1">“今天有什么安排”</p>
+								<p class="p_p2">“搜索附近的咖啡厅”</p>
+								<p class="p_p3">“定一个早上8点的闹钟”</p>
+							</div>
+							<div class="bottom_img_div">
+								<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/tasks.png" class="ani" swiper-animate-effect="fadeInUp"
+									swiper-animate-duration="0.5s" swiper-animate-delay="0.3s">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="sile slide3 box_anim3"
+						style="background: linear-gradient(to right, #dcd268, #d59eb0); ">
+						<div class="anim3_center">
+							<p class="le_title">音乐</p>
+							<p class="anim3_p1">无论你在旅途路上还是在散步途中,尽管开口对我说，我会找到你要听的歌曲，只管享受这段路途就好。</p>
+
+							<p class="anim3_p3">“播放本周热歌榜”</p>
+							<div class="center_img_div">
+								<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/music.png" class="center_img">
+								<div class="left_img_div ani" swiper-animate-effect="fadeInUp"
+									swiper-animate-duration="0.5s" swiper-animate-delay="0.3s"><img
+										src="https://voice.lenovomm.com/voicePlatform/welcome/images/earphone-left.png" alt=""></div>
+								<div class="right_img_div ani" swiper-animate-effect="fadeInUp"
+									swiper-animate-duration="0.5s" swiper-animate-delay="0.3s"><img
+										src="https://voice.lenovomm.com/voicePlatform/welcome/images/earphone-right.png" alt=""></div>
+							</div>
+							<p class="anim3_p2">“播放张杰的少年中国说”</p>
+							<p class="anim3_p4">“来首音乐吧”</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Add Pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+
+	<div id="eui-main-body">
+		<!-- <div class="row"> -->
+		<h4 style="padding:3rem 0 3rem 0; font-size:32px;" class="text-center" i18n="i18n.stories">成功案例</h4>
+		<!-- <div class="lenovo_yuyin"> -->
+		<div class="row w50">
+			<div class="top_img">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/lenovo.png" alt="">
+			</div>
+			<div class="top_img">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/yy.png" alt="">
+			</div>
+			<div class="top_img">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/sp.png" alt="">
+			</div>
+			<div class="top_img">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/cl.png" alt="">
+			</div>
+			<div class="top_img">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/clf.png" alt="">
+			</div>
+		</div>
+		<h4 style="padding:3rem 0 3rem 0; font-size:32px;" class="text-center" i18n="i18n.partner">合作伙伴</h4>
+		<div class="row bot_div">
+			<div class="bottom_img col-xs-6 col-sm-6 col-md-4 col-lg-4">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/bl.png" alt="">
+			</div>
+			<div class="bottom_img col-xs-6 col-sm-6 col-md-4 col-lg-4">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/zhjy.png" alt="">
+			</div>
+			<div class="bottom_img col-xs-6 col-sm-6 col-md-4 col-lg-4">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/madp.png" alt="">
+			</div>
+			<div class="bottom_img col-xs-6 col-sm-6 col-md-4 col-lg-4">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/daysr.png" alt="">
+			</div>
+			<div class="bottom_img col-xs-6 col-sm-6 col-md-4 col-lg-4">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/xcyj.png" alt="">
+			</div>
+			<div class="bottom_img col-xs-6 col-sm-6 col-md-4 col-lg-4">
+				<img src="https://voice.lenovomm.com/voicePlatform/welcome/images/more.png" alt="">
+			</div>
+		</div>
+	</div>
+	<div id="eui-main-footer" class="footer-bgcolor">
+		联想语音&nbsp;&nbsp;&nbsp;©&nbsp;&nbsp;版权所有&nbsp;&nbsp;1998－2015&nbsp;&nbsp;联想集团有限公司人工智能实验室&nbsp;&nbsp;京ICP备05000462
+		<a href="javascript:void(0);" class='about' i18n="i18n.contact" onclick='contact()'>联系我们</a>
+	</div>
+
+
+
+</body>
+<script>
+	var user = navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)
+	var username = localStorage.getItem('un')
+	var swiper = new Swiper('.swiper-container', {
+		onInit: function (swiper) { //Swiper2.x的初始化是onFirstInit
+			swiperAnimateCache(swiper); //隐藏动画元素 
+			swiperAnimate(swiper); //初始化完成开始动画
+		},
+		onSlideChangeStart: function (swiper) {
+			swiperAnimate(swiper); //每个slide切换前时也运行当前slide动画
+
+		},
+		autoplay: 4000,
+		effect: 'fade',
+		pagination: '.swiper-pagination',
+		slidesPerView: 1,
+		paginationClickable: true,
+		loop: true,
+		autoplayDisableOnInteraction: false,
+
+	});
+	window.onresize = function(){
+        if(document.body.clientWidth <=850) {
+            $('#navbar').addClass('mobile-nav')
+		}else{
+            $('#navbar').removeClass('mobile-nav')
+		}
+}
+	$(document).ready(function(){
+		if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) || document.body.clientWidth <=850) {
+			$('.nav').removeClass('hover-menu')
+			$('#pro-control').attr('data-toggle','dropdown')
+			$('#pro-ul').removeClass('product-menu')
+			$('#pro-ul').addClass('dropdown-menu')
+			$('#user-ul').removeClass('user-menu')
+			$('#user-ul').addClass('dropdown-menu')
+			$('#lenovo-user-name').attr('data-toggle','dropdown')
+			$('#navbar').addClass('mobile-nav')
+		}else{
+			$('.nav').addClass('hover-menu')
+			$('#pro-control').removeAttr('data-toggle')
+			$('#pro-ul').addClass('product-menu')
+			$('#pro-ul').removeClass('dropdown-menu')
+			$('#user-ul').addClass('user-menu')
+			$('#user-ul').removeClass('dropdown-menu')
+			$('#lenovo-user-name').removeAttr('data-toggle')
+			$('#navbar').removeClass('mobile-nav')
+		}
+	})
+	// var scriptNode = document.createElement("script");
+	// scriptNode.setAttribute("type", "text/javascript");
+	// 	if(!user) {
+	// 		console.log(123)
+	// 		$('body').css({"min-width":"1200px"})
+	// 		$('body').css({"min-height":"685px"})
+	// 		scriptNode.setAttribute("src", "https://voice.lenovomm.com/voicePlatform/welcome/js/pc_index.js");
+	// 	}else{
+	// 		scriptNode.setAttribute("src", "https://voice.lenovomm.com/voicePlatform/welcome/js/mobile_index.js");
+	// 	}
+
+	$('#username').html(hideStar(username))
+	$('#musername').html(hideStar(username))
+	if (username == '' || username == null || username == undefined) {
+		$('#uyes').css('display', 'none')
+		$('#unull').css('display', 'block')
+		$('#muyes').css('display', 'none')
+		$('#munull').css('display', 'block')
+	} else {
+		$('#uyes').css('display', 'block')
+		$('#unull').css('display', 'none')
+		$('#muyes').css('display', 'block')
+		$('#munull').css('display', 'none')
+	}
+
+	function open_nav() {
+		$('#navbar').css({
+			"display": "block"
+		})
+		$('#navbar').removeClass('mobile-nav')
+		$('#navbar').removeClass("fadeOutUp")
+		$('#navbar').addClass("fadeInDown")
+		document.getElementById('navbar').addEventListener('touchmove', function (event) {
+			event.preventDefault();
+		})
+	}
+
+	function close_mobile_nav() {
+		$('#navbar').removeClass("fadeInDown")
+		$('#navbar').addClass("fadeOutUp")
+		setTimeout(function () {
+			$('#navbar').css({
+				"display": "none"
+			})
+		}, 200)
+	}
+
+	function hideStar(str) {
+		var phone = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/
+		var mail =
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+		if (mail.test(str)) {
+			let index = localStorage.getItem('un').split("@")
+			if (index[0].length < 4) {
+				return str.substring(0, 1) + "****" + str.substring(str.indexOf('@'));
+			} else {
+				return str.substring(0, 3) + "****" + str.substring(str.indexOf('@'));
+			}
+		}
+		if (phone.test(str)) {
+			return str.substring(0, 4) + "****" + str.substr(str.length - 3);
+		}
+		if (!mail.test(str) || !phone.test(str)) {
+			return str
+		}
+	}
+
+	function menu_first_page() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/welcome/index.html";
+	}
+
+	function menu_voice_recognise() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/product/recognise.html";
+	}
+
+	function menu_voice_longrecognise() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/product/long_recognise.html";
+	}
+
+	function menu_voice_tts() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/product/tts.html";
+	}
+
+	function menu_voice_assess() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/product/assess.html";
+	}
+
+	function menu_voice_file() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/product/voicefile.html";
+	}
+
+	function menu_voice_synthesis() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/product/synthesis.html";
+	}
+
+	function menu_sdk_download() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/sdk/sdklist.html";
+	}
+
+	function menu_product_document() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/document/userDocument.html";
+	}
+
+	function menu_developer_question() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/forum/questionlist.html";
+	}
+
+	function menu_application_manager() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/application/applist.html";
+	}
+
+	function menu_user_register() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/user/userRegister.html";
+	}
+
+	function user_info() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/product/userinfo.html";
+	}
+
+	function set_pwd() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/login/setpwd.html";
+	}
+
+	function user_logout() {
+		window.localStorage.clear();
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/login/login.html";
+	}
+
+	function user_login() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/login/login.html";
+	}
+
+	function user_reg() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/login/login.html?status=reg";
+	}
+
+	function menu_forum_list() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/forum/questionlist.html";
+	}
+
+	function menu_new_data() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/new/newlist.html";
+	}
+
+	function contact() {
+		window.location.href = "https://voice.lenovomm.com/voicePlatform/product/contact.html";
+	}
+</script>
+
+</html>

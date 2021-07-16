@@ -1,0 +1,164 @@
+html,body{
+    width:100%;
+    font-weight: unset;
+}
+.drop-down{
+	float: right;
+	position: static;
+}
+.drop-down #box{
+	height: 60px;
+    line-height: 60px;
+}
+.tri-down {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #fff;
+    display: inline-block;
+    vertical-align: middle;
+}
+.optxt{
+	color: #fff;
+}
+#down,#down li{
+	border-radius: 0;
+	background: rgba(0,0,0,.3);
+}
+#down li:hover{
+	background: rgba(0,0,0,.3);
+}
+
+
+p{
+	margin: 0;
+}
+.nav-title{
+	height:200px;
+	background: linear-gradient(to right, #00B2D5, #54DCFF);
+	position: relative;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.recognise_title{
+	color: #fff;
+	font-size: 34px;
+    letter-spacing: 2px;
+    line-height: 200px;
+}
+.bg_div{
+	background: url("https://voice.lenovomm.com/voicePlatform/forum/images/bight.png") no-repeat;
+	width: 100%;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    background-size: 100% 41px;
+}
+.eui-main-body{
+    width: 70%;
+    margin: 0 auto;
+}
+.con-main{
+    display: flex;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+.key-box{
+    width: 60px;
+    margin-left: 10px;
+    position: relative;
+}
+.asrcheck +label, .ttscheck +label{
+    vertical-align: top;
+    padding-left: 5px;
+}
+.key-box span{
+    display: inline-block;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.key-box .span1{
+    position: absolute;
+    top: 1px;
+}
+.key-box .span2{
+    position: absolute;
+    top: 40px;
+}
+.content-body{
+    width: 70%;
+    height: 300px;
+    padding: 3.25rem 4.25rem 0;
+    margin: 0 auto;
+}
+.con-title{
+    position: relative;
+    width: 350px;
+    height: 50px;
+    padding: 0 7px;
+    font-size: 20px;
+    line-height: 50px;
+    color: #00B2D5;
+    opacity: .8;
+}
+.con-title:before {
+    content: " ";
+    position: absolute;
+    height: 2px;
+    width: 250px;
+    background: #00B2D5;
+    bottom: -1px;
+    left: 0;
+}
+.sub-btn {
+    width: 120px;
+    height: 40px;
+    border: none;
+    background: linear-gradient(to right, #7dd6fd, #5ccbff);
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: .2em;
+    text-indent: .2em;
+    padding: 0;
+    margin: 20px 40px;
+    display: block;
+}
+button[disabled], html input[disabled] {
+    cursor: not-allowed;
+}
+.modal-dialog{
+}
+.num{
+    padding-top: 10px;
+    padding-left: 20px;
+}
+.conf{
+    background: linear-gradient(to right, #7dd6fd, #5ccbff);
+    border: none;
+    border-radius: 1px;
+    color: #fff;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+}
+@media screen and (max-width:850px){
+    .content-body {
+        width: 100%;
+        height: 300px;
+        padding: 0;
+        margin: 0 auto;
+    }
+}

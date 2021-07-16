@@ -1731,3 +1731,27 @@ export function newsDel (data) {
     data: data
   })
 }
+
+export function audiokeeperList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/audiokeeper/list',
+    method: 'post',
+    data: data
+  })
+}
+
+export function audiokeeperAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/audiokeeper/add',
+    method: 'post',
+    data: data
+  })
+}
+
+export function audiokeeperExpire (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/audiokeeper/expire',
+    method: 'post',
+    data: data
+  })
+}

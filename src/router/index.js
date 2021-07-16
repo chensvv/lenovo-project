@@ -377,6 +377,11 @@ const router = new Router({
           meta: {title: '官网新闻资讯'}
         },
         {
+          path: '/audiokeeper/list',
+          component: () => import('@/pages/serviceManagement/audiokeeper'),
+          meta: {title: '官网新闻资讯'}
+        },
+        {
           path: '/401',
           component: () => import('@/pages/401'),
           meta: {title: '401'}
