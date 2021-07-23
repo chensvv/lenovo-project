@@ -19,7 +19,7 @@
               回首页
             </router-link>
           </li>
-          <li><a href="#" @click.prevent="dialogVisible=true">点我看图</a></li>
+          <!-- <li><a href="#" @click.prevent="dialogVisible=true">点我看图</a></li> -->
         </ul>
       </el-col>
       <el-col :span="12">

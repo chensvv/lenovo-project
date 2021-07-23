@@ -379,7 +379,12 @@ const router = new Router({
         {
           path: '/audiokeeper/list',
           component: () => import('@/pages/serviceManagement/audiokeeper'),
-          meta: {title: '官网新闻资讯'}
+          meta: {title: 'audiokeeper'}
+        },
+        {
+          path: '/audiokeeperMigrate/socketTotal',
+          component: () => import('@/pages/serviceManagement/audiokeeperMigrate'),
+          meta: {title: '服务迁移'}
         },
         {
           path: '/401',

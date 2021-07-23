@@ -1755,3 +1755,19 @@ export function audiokeeperExpire (data) {
     data: data
   })
 }
+
+export function socketTotal (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/audiokeeperMigrate/socketTotal',
+    method: 'post',
+    data: data
+  })
+}
+
+export function migrate (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/audiokeeperMigrate/migrate',
+    method: 'post',
+    data: data
+  })
+}

@@ -846,6 +846,8 @@
 
 .el-form--inline .el-form-item {
   margin-right: 5px;
+  margin-left: 10px;
+  margin-bottom: 0;
 }
 
 .el-dialog__wrapper .el-dialog__body .el-form-item {
