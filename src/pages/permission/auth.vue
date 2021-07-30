@@ -131,6 +131,7 @@
 
 <script>
 import {userList, userDel, userUpd, userAdd, userEcho, userRole, userRoleEcho, userRoleSave, login} from '@/config/adminApi'
+let Base64 = require('js-base64').Base64
 export default {
     inject:['reload'],
     data() {
@@ -379,7 +380,7 @@ export default {
             }
             let logParams = {
                 userName:sessionStorage.getItem('username'),
-                password:sessionStorage.getItem('log')
+                password:Base64.decode(sessionStorage.getItem('log'))
             }
             this.roleBtnLoading = true
             userRoleSave(Saveparams).then(res=>{

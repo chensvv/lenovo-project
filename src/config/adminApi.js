@@ -175,3 +175,27 @@ export function userinfoUpdate (data) {
     data: data
   })
 }
+
+export function authAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/Rule/add',
+    method: 'post',
+    data: data
+  })
+}
+
+export function authDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/Rule/delete',
+    method: 'post',
+    data: data
+  })
+}
+
+export function authUpdate (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/Rule/update',
+    method: 'post',
+    data: data
+  })
+}

@@ -42,6 +42,7 @@
 </template>
 
 <script>
+let Base64 = require('js-base64').Base64
 import {login,userAdd} from '@/config/adminApi'
 import qs from 'qs' 
 import axios from 'axios'
@@ -84,7 +85,7 @@ export default {
                     login(params).then((res)=>{
                         if(res.data.code == 200){
                             sessionStorage.setItem('username',this.loginForm.username)
-                            sessionStorage.setItem('log',this.loginForm.password)
+                            sessionStorage.setItem('log',Base64.encode(this.loginForm.password))
                             sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                             
                             this.$router.push('/home')

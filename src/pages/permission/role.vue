@@ -121,6 +121,7 @@
 
 <script>
 import {roleList, authList, roleAdd, roleEcho, roleUpd, roleDel, login} from '@/config/adminApi'
+let Base64 = require('js-base64').Base64
 export default {
   inject:['reload'],
   data() {
@@ -278,7 +279,7 @@ export default {
       }
       let logParams = {
           userName:sessionStorage.getItem('username'),
-          password:sessionStorage.getItem('log')
+          password:Base64.decode(sessionStorage.getItem('log'))
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {

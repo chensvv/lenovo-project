@@ -163,7 +163,7 @@ export default {
       }
       this.fileBtnLoading = true
       chatExport(exprotParams).then(res=>{
-        let blobUrl = new Blob([res.data])
+        let blobUrl = new Blob([res.data],{type:'application/vnd.ms-excel'})
         let a = document.createElement('a');
         let url = window.URL.createObjectURL(blobUrl);
         let filename = this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.xlsx';

@@ -247,6 +247,11 @@ const router = new Router({
           meta: {title: '官网用户'}
         },
         {
+          path: '/permission/rule',
+          component: () => import('@/pages/permission/rule'),
+          meta: {title: '权限管理'}
+        },
+        {
           path: '/home/userinfo',
           component: () => import('@/pages/user/userInfo'),
           meta: {title: '详细信息'}
@@ -385,6 +390,11 @@ const router = new Router({
           path: '/audiokeeperMigrate/socketTotal',
           component: () => import('@/pages/serviceManagement/audiokeeperMigrate'),
           meta: {title: '服务迁移'}
+        },
+        {
+          path: '/audiokeeper/statistics/voicebytes',
+          component: () => import('@/pages/serviceManagement/voicebytes'),
+          meta: {title: '语音字节数统计'}
         },
         {
           path: '/401',

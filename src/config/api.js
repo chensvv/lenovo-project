@@ -530,7 +530,7 @@ export function chatList (data) {
 }
 
 export function chatExport (data) {
-  return fetch.service_head({
+  return fetch.ExcelDownload({
     url: '/lasf-mgr/chat/export',
     method: 'post',
     data: data
@@ -1767,6 +1767,14 @@ export function socketTotal (data) {
 export function migrate (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeperMigrate/migrate',
+    method: 'post',
+    data: data
+  })
+}
+
+export function voicebytes (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/audiokeeper/statistics/voicebytes',
     method: 'post',
     data: data
   })
