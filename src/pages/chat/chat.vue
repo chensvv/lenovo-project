@@ -163,10 +163,15 @@ export default {
       }
       this.fileBtnLoading = true
       chatExport(exprotParams).then(res=>{
-        let blobUrl = new Blob([res.data],{type:'application/vnd.ms-excel'})
+        let blobUrl = new Blob([res.data])
         let a = document.createElement('a');
         let url = window.URL.createObjectURL(blobUrl);
-        let filename = this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.xlsx';
+        if(this.searchItem.refreshTime == '' && this.searchItem.putTime == '' && this.searchItem.question != ''){
+          let filename = this.searchItem.question+'.csv'
+        }else{
+          let filename = this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.csv';
+        }
+        
         a.href = url;
         a.download = filename;
         a.click();

@@ -130,7 +130,7 @@ export default {
       editVisible:false,
       listLoading:true,
       isshow:true,
-      bigId:1
+      // bigId:1
     };
   },
   created() {
@@ -186,7 +186,7 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val
       // console.log(`当前页: ${val}`);
-      this.bigId = this.comId.id
+      // this.bigId = this.comId.id
       this.getList();
     },
     handleInfo(index,row){
@@ -208,14 +208,14 @@ export default {
         uid:this.searchItem.uid,
         dtp:this.searchItem.dtp,
         uip:this.searchItem.uip,
-        id:this.bigId
+        // id:this.bigId
       }
       rawList(params).then(res=>{
         this.listLoading = false
         this.list = res.data.data.data
-        this.comId = this.list.pop()
+        // this.comId = this.list.pop()
         this.totalCount = res.data.data.total
-        this.endVal = res.data.count
+        // this.endVal = res.data.count
         this.totalClass = res.data.data.data.length
       })
     }

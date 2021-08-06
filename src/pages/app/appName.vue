@@ -392,7 +392,7 @@ export default {
                   this.$message({
                       message:res.data.msg,
                       type:"success",
-                      duration:1000
+                      duration:2500
                   });
                   this.$refs.upload.clearFiles()
                   this.uploadVisible = false

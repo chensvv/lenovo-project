@@ -392,6 +392,11 @@ const router = new Router({
           meta: {title: '服务迁移'}
         },
         {
+          path: '/engine/client/total',
+          component: () => import('@/pages/serviceManagement/clientTotal'),
+          meta: {title: '引擎下线'}
+        },
+        {
           path: '/audiokeeper/statistics/voicebytes',
           component: () => import('@/pages/serviceManagement/voicebytes'),
           meta: {title: '语音字节数统计'}

@@ -196,10 +196,11 @@ export default {
                 });
                 this.fileBtnLoading = false
               }else{
-                let blobUrl = new Blob([res.data],{type:'application/vnd.ms-excel'})
+                // let blobUrl = new Blob([res.data],{type:'application/vnd.ms-excel'})
+                let blobUrl = new Blob([res.data])
                 let a = document.createElement('a');
                 let url = window.URL.createObjectURL(blobUrl);
-                let filename = this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.xlsx';
+                let filename = this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.csv';
                 a.href = url;
                 a.download = filename;
                 a.click();

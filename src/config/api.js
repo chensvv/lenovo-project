@@ -1764,6 +1764,22 @@ export function socketTotal (data) {
   })
 }
 
+export function clientTotal (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/engine/client/total',
+    method: 'post',
+    data: data
+  })
+}
+
+export function engineOffline (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/engine/offline',
+    method: 'post',
+    data: data
+  })
+}
+
 export function migrate (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeperMigrate/migrate',
