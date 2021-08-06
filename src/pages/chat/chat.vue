@@ -166,12 +166,8 @@ export default {
         let blobUrl = new Blob([res.data])
         let a = document.createElement('a');
         let url = window.URL.createObjectURL(blobUrl);
-        if(this.searchItem.refreshTime == '' && this.searchItem.putTime == '' && this.searchItem.question != ''){
-          let filename = this.searchItem.question+'.csv'
-        }else{
-          let filename = this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.csv';
-        }
-        
+        let filename = this.searchItem.refreshTime == '' && this.searchItem.putTime == '' && this.searchItem.question != '' ? 
+        this.searchItem.question+'.csv' : this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.csv'
         a.href = url;
         a.download = filename;
         a.click();
