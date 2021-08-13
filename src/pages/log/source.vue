@@ -190,7 +190,7 @@ export default {
             sourceExport(exprotParams).then(res=>{
               if(res.data.size == 0){
                 this.$message({
-                    message:'请选择起始时间和结束时间！',
+                    message:'您选择当前时间的数据为空！',
                     type:"error",
                     duration:1000
                 });

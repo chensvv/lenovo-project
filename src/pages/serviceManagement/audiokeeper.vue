@@ -72,14 +72,14 @@
                 </template>
             </el-table-column>
         </el-table>
-        <!-- <el-pagination
+        <el-pagination
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :current-page.sync="currentPage"
             :page-size="pageSize"
             layout="total, prev, pager, next, jumper"
             :total="totalCount"
-        ></el-pagination> -->
+        ></el-pagination>
         </div>
          
         
@@ -130,6 +130,7 @@ export default {
                 channel:""
             },
             list:[],
+            data:[],
             perList:[],
             totalClass:'',
             addRules:{
@@ -157,7 +158,7 @@ export default {
         perArr.map(t=>{
             this.perList.push(Object.values(t).join())
         })
-        this.getList();
+        this.pageList();
     },
     mounted(){
         if(this.perList.indexOf('app:cachedel') == -1){
@@ -165,15 +166,24 @@ export default {
         }
     },
     methods:{
-        getList() {
+        pageList() {
             this.listLoading = true
             let params = {
             }
             audiokeeperList(params).then(res => {
                 this.listLoading = false
-                this.list = JSON.parse(res.data.data)
-                this.totalClass = JSON.parse(res.data.data).length
+                this.data = JSON.parse(res.data.data)
+                // this.totalClass = JSON.parse(res.data.data).length
+                this.getList()
             });
+        },
+        getList() {
+            this.listLoading = false
+            this.list = this.data.filter((item, index) =>
+                index < this.currentPage * this.pageSize && index >= this.pageSize * (this.currentPage - 1)
+            )
+            this.totalCount = this.data.length
+            this.totalClass = this.list.length
         },
         handleSizeChange(val) {
             this.pageSize = val;
@@ -199,7 +209,7 @@ export default {
                             type:"success",
                             duration:1000
                         });
-                        this.getList();
+                        this.pageList();
                 }else{
                     this.$message.error('错误')
                 }
@@ -239,7 +249,7 @@ export default {
                             type:"success",
                             duration:1000
                         });
-                        this.getList()
+                        this.pageList()
                         this.addVisible = false
                     }else{
                         this.$message({

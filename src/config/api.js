@@ -1780,6 +1780,14 @@ export function engineOffline (data) {
   })
 }
 
+export function engineOnline (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/engine/online',
+    method: 'post',
+    data: data
+  })
+}
+
 export function migrate (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeperMigrate/migrate',
@@ -1791,6 +1799,14 @@ export function migrate (data) {
 export function voicebytes (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeper/statistics/voicebytes',
+    method: 'post',
+    data: data
+  })
+}
+
+export function useLog (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/colud/uselog/list',
     method: 'post',
     data: data
   })

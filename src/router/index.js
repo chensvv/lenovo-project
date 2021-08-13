@@ -312,6 +312,11 @@ const router = new Router({
           meta: {title: 'NLP日志分析'}
         },
         {
+          path: '/colud/uselog/list',
+          component: () => import('@/pages/log/uselog'),
+          meta: {title: '官网调用日志'}
+        },
+        {
           path: '/census/list',
           component: () => import('@/pages/graph/census'),
           meta: {title: '访问量统计'}
