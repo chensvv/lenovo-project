@@ -174,14 +174,7 @@ export default {
     },
     exportFile(){
         this.fileBtnLoading = true
-        if(this.searchItem.refreshTime == '' || this.searchItem.putTime == ''){
-            this.$message({
-                message:'请选择起始时间和结束时间！',
-                type:"error",
-                duration:1000
-            });
-            this.fileBtnLoading = false
-        }else{
+        if(this.searchItem.refreshTime != '' && this.searchItem.putTime != '' || this.searchItem.channel != ''){
             let exprotParams = {
                 startStr:this.searchItem.refreshTime,
                 endStr:this.searchItem.putTime,
@@ -210,6 +203,13 @@ export default {
             }).catch(err => {
                 this.fileBtnLoading = false
             })
+        }else{
+            this.$message({
+                message:'请选择起始时间和结束时间或者类型导出！',
+                type:"error",
+                duration:1000
+            });
+            this.fileBtnLoading = false
         }
     },
     getList() {
