@@ -291,16 +291,24 @@ export default {
       };
       clientList(Cparams).then(res => {
         this.ClistLoading = false
-        this.clientList = res.data.data.data;
-        this.CtotalCount = res.data.data.total;
-        this.ctotalClass = res.data.data.data.length
-      });
+        if(res.data.code == 200){
+          this.clientList = res.data.data.data;
+          this.CtotalCount = res.data.data.total;
+          this.ctotalClass = res.data.data.data.length
+        }
+      }).catch(()=>{
+        this.ClistLoading = false
+      })
       clientList(Sparams).then(res => {
         this.SlistLoading = false
-        this.serverList = res.data.data.data;
-        this.StotalCount = res.data.data.total;
-        this.totalClass = res.data.data.data.length
-      });
+        if(res.data.code == 200){
+          this.serverList = res.data.data.data;
+          this.StotalCount = res.data.data.total;
+          this.totalClass = res.data.data.data.length
+        }
+      }).catch(()=>{
+        this.SlistLoading = false
+      })
     }
   }
 };

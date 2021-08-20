@@ -431,10 +431,14 @@ export default {
       }
       ruleList(params).then(res => {
         this.listLoading = false
-        this.list = res.data.data;
-        this.totalCount = res.data.count
-        this.totalClass = res.data.data.length
-      });
+        if(res.data.code == 200){
+          this.list = res.data.data;
+          this.totalCount = res.data.count
+          this.totalClass = res.data.data.length
+        }
+      }).catch(()=>{
+        this.listLoading = false
+      })
     }
   }
 };

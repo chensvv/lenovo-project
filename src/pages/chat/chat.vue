@@ -163,11 +163,13 @@ export default {
       }
       this.fileBtnLoading = true
       chatExport(exprotParams).then(res=>{
-        let blobUrl = new Blob([res.data])
+        // let bom = '\uFEFF'
+        let blobUrl = new Blob([res.data], {type: 'text/csv,charset=UTF-8'})
+        // let blobUrl = new Blob('\uFEFF' +[res.data], {type: 'text/csv,charset=UTF-8'})
         let a = document.createElement('a');
         let url = window.URL.createObjectURL(blobUrl);
-        let filename = this.searchItem.refreshTime == '' && this.searchItem.putTime == '' && this.searchItem.question != '' ? 
-        this.searchItem.question+'.csv' : this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.csv'
+        let filename = this.searchItem.refreshTime == '' && this.searchItem.putTime == '' && this.searchItem.question == '' ? 'chat.csv' 
+        : this.searchItem.refreshTime == '' && this.searchItem.putTime == '' && this.searchItem.question !='' ? `${this.searchItem.question}.csv` : this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.csv'
         a.href = url;
         a.download = filename;
         a.click();
@@ -189,10 +191,14 @@ export default {
       }
       chatList(params).then(res => {
         this.listLoading = false
-        this.list = res.data.data;
-        this.totalCount = res.data.count
-        this.totalClass = res.data.data.length
-      });
+        if(res.data.code == 200){
+          this.list = res.data.data;
+          this.totalCount = res.data.count
+          this.totalClass = res.data.data.length
+        }
+      }).catch(()=>{
+        this.listLoading = false
+      })
     }
   }
 };

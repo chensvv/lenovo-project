@@ -190,7 +190,8 @@ export default {
                 this.fileBtnLoading = false
               }else{
                 // let blobUrl = new Blob([res.data],{type:'application/vnd.ms-excel'})
-                let blobUrl = new Blob([res.data])
+                // let bom = '\uFEFF'
+                let blobUrl = new Blob([res.data], {type: 'text/csv,charset=UTF-8'})
                 let a = document.createElement('a');
                 let url = window.URL.createObjectURL(blobUrl);
                 let filename = this.searchItem.refreshTime+'-'+this.searchItem.putTime+'.csv';
@@ -224,9 +225,13 @@ export default {
       }
       sourceList(params).then(res=>{
         this.listLoading = false
-        this.list = res.data.data.data
-        this.totalCount = res.data.data.total
-        this.totalClass = res.data.data.data.length
+        if(res.data.code == 200){
+          this.list = res.data.data.data
+          this.totalCount = res.data.data.total
+          this.totalClass = res.data.data.data.length
+        }
+      }).catch(()=>{
+        this.listLoading = false
       })
     },
     getUsernameList(){

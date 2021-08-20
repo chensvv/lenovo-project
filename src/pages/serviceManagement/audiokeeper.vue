@@ -1,5 +1,5 @@
 <template>
-    <div class="table audio">
+    <div class="table audiokeeper">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>服务管理</el-breadcrumb-item>
@@ -168,14 +168,16 @@ export default {
     methods:{
         pageList() {
             this.listLoading = true
-            let params = {
-            }
+            let params = {}
             audiokeeperList(params).then(res => {
                 this.listLoading = false
-                this.data = JSON.parse(res.data.data)
-                // this.totalClass = JSON.parse(res.data.data).length
-                this.getList()
-            });
+                if(res.data.code == 200){
+                    this.data = JSON.parse(res.data.data)
+                    this.getList()
+                }
+            }).catch(()=>{
+                this.listLoading = false
+            })
         },
         getList() {
             this.listLoading = false

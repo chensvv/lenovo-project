@@ -254,6 +254,7 @@ export default {
       this.editVisible = false;
     },
     infoHandleClose(){
+      this.infoList = []
       this.infoVisible = false
     },
     handleDel(index, row) {
@@ -319,14 +320,15 @@ export default {
       });
     },
     handleInfo(index,row){
-      this.infoVisible = true
       this.getPhoneTypeList()
+      
       let addParams = {
         resources:row.resources
       }
       this.infoListLoading =true
         historyDetails(addParams).then(res=>{
         if(res.data.code == 200){
+            this.infoVisible = true
             this.infoListLoading = false
             this.infoList = res.data.data
         }else{
@@ -347,10 +349,14 @@ export default {
       }
       historyList(listParams).then(res => {
         this.listLoading = false
-        this.list = res.data.data;
-        this.totalCount = res.data.count
-        this.totalClass = res.data.data.length
-      });
+        if(res.data.code == 200){
+          this.list = res.data.data;
+          this.totalCount = res.data.count
+          this.totalClass = res.data.data.length
+        }
+      }).catch(()=>{
+        this.listLoading = false
+      })
     },
     getPhoneTypeList(){
         let configParams = {

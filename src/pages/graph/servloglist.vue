@@ -5,17 +5,6 @@
       <el-breadcrumb-item>业务报表</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <!-- <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline no_width" size="mini">
-      <el-form-item label="用户" prop="lenovoId">
-            <el-select v-model.trim="searchItem.lenovoId" placeholder="--" clearable>
-                <el-option v-for="(item,index) in userList" :key="index" :label="item.userName" :value="item.lenovoId"></el-option>
-            </el-select>
-        </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-      </el-form-item>
-    </el-form> -->
     <div class="table-box" v-loading="loading">
         <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>
     </div>

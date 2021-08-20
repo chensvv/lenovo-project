@@ -211,18 +211,20 @@ export default {
     //   }
       clientTotal().then(res => {
         this.listLoading = false
-        this.data = res.data.data
-        // this.totalCount = res.data.count
-        // this.totalClass = res.data.data.length
-        this.getList()
-      });
+        if(res.data.code == 200){
+          this.data = res.data.data
+          this.getList()
+        }
+        
+      }).catch(()=>{
+        this.listLoading = false
+      })
     },
     getList() {
         this.listLoading = false
         this.list = this.data.filter((item, index) =>
             index < this.currentPage * this.pageSize && index >= this.pageSize * (this.currentPage - 1)
         )
-        console.log(this.list)
         this.totalCount = this.data.length
         this.totalClass = this.list.length
     },

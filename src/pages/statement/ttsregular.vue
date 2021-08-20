@@ -375,14 +375,18 @@ export default {
       }
       ttsregularList(params).then(res => {
         this.listLoading = false
-        this.list = res.data.data
-        this.totalCount = res.data.count
-        this.totalClass = res.data.data.length
-        this.restaurants = [];
-        for (let item of this.list) {
-            this.restaurants.push({"value": item.regular})
+        if(res.data.code == 200){
+          this.list = res.data.data
+          this.totalCount = res.data.count
+          this.totalClass = res.data.data.length
+          this.restaurants = [];
+          for (let item of this.list) {
+              this.restaurants.push({"value": item.regular})
+          }
         }
-      });
+      }).catch(()=>{
+        this.listLoading = false
+      })
     }
   }
 };

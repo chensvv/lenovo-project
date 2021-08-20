@@ -356,10 +356,11 @@ export default {
         getList() {
             this.listLoading = true
             authList().then(res => {
-                console.log(res)
                 this.listLoading = false
-                this.list = res.data;
-            });
+                this.list = res.data
+            }).catch(()=>{
+                this.listLoading = false
+            })
         },
     }
 };

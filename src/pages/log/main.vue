@@ -318,9 +318,13 @@ export default {
             }
             logList(params).then(res=>{
                 this.listLoading = false
-                this.list = res.data.data.data
-                this.totalCount = res.data.data.total
-                this.totalClass = res.data.data.data.length
+                if(res.data.code == 200){
+                    this.list = res.data.data.data
+                    this.totalCount = res.data.data.total
+                    this.totalClass = res.data.data.data.length
+                }
+            }).catch(()=>{
+                this.listLoading = false
             })
         },
         rowClick(index,row){

@@ -108,8 +108,10 @@ export default {
     },
     getList() {
       engineView().then(res => {
-        this.list = res.data;
-      });
+        if(res.data.code == 200){
+          this.list = res.data;
+        }
+      })
     }
   }
 };

@@ -6,7 +6,7 @@
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" size="small" :model="searchItem" class="demo-form-inline search_box">
+    <el-form :inline="true" ref="searchItem" size="mini" :model="searchItem" class="demo-form-inline search_box">
       <el-form-item label="机型名称" prop="name">
         <el-input v-model="searchItem.name" clearable></el-input>
       </el-form-item>
@@ -14,9 +14,9 @@
         <el-input v-model="searchItem.inc" clearable></el-input>
       </el-form-item>
       <el-form-item class="sub-btn">
-        <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        <el-button type="primary" size="mini" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button @click="resetForm('searchItem')">重置</el-button>
-        <el-button class="success" size="m ini" @click="handleAdd()" v-has="'grey:devadd'">添加</el-button>
+        <el-button class="success" size="mini" @click="handleAdd()" v-has="'grey:devadd'">添加</el-button>
         <router-link :to="{ path: '/grey/funlist'}">
             <el-button class="success" size="mini" v-has="'grey:funlist'">功能列表</el-button>
         </router-link>
@@ -430,10 +430,14 @@ export default {
       }
       devList(params).then(res => {
         this.listLoading = false
-        this.list = res.data.data;
-        this.totalCount = res.data.count
-        this.totalClass = res.data.data.length
-      });
+        if(res.data.code == 200){
+          this.list = res.data.data
+          this.totalCount = res.data.count
+          this.totalClass = res.data.data.length
+        }
+      }).catch(()=>{
+        this.listLoading = false
+      })
     }
   }
 };

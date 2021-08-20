@@ -812,19 +812,25 @@
 }
 
 .mainlog .cache.demo-form-inline,
-.trigg .trigger,
 .height80,
 .cache .cache.demo-form-inline,
 .outers .outer {
   height: 80px;
 }
 
+.trigg .trigger{
+  height: 100px;
+}
+
 .mainlog .table-box,
-.trigg .table-box,
 .dict .table-box,
 .cache .table-box,
 .outers .table-box {
   height: calc(100% - 100px);
+}
+
+.trigg .table-box{
+  height: calc(100% - 120px);
 }
 .audio .el-table{
   height: 100%;

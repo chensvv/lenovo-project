@@ -338,11 +338,15 @@ export default {
             }
             skillInfo(params).then(res => {
                 this.listLoading = false
-                this.skillDetail = res.data.data
-                this.list = res.data.data.functions;
-                this.totalCount = res.data.count
-                this.totalClass = res.data.data.functions.length
-            });
+                if(res.data.code == 200){
+                    this.skillDetail = res.data.data
+                    this.list = res.data.data.functions;
+                    this.totalCount = res.data.count
+                    this.totalClass = res.data.data.functions.length
+                }
+            }).catch(()=>{
+                this.listLoading = false
+            })
         },
         handleInfo(index, row) {
             this.$router.push({

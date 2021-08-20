@@ -94,19 +94,23 @@ export default {
         }
         querySql(params).then(res => {
             this.listLoading = false
-            this.totalCount = res.data.data.total
-            this.totalClass = res.data.data.data.length
-            for(let i in res.data.data.data[0]) {
-                this.header.push(i)
+            if(res.data.code == 200){
+              this.totalCount = res.data.data.total
+              this.totalClass = res.data.data.data.length
+              for(let i in res.data.data.data[0]) {
+                  this.header.push(i)
+              }
+              for(let i in res.data.data.data) {
+                  let arr = [];
+                  for(let j in res.data.data.data[i]) {
+                      arr.push(res.data.data.data[i][j])
+                  }
+                  this.list.push(arr)
+              }
             }
-            for(let i in res.data.data.data) {
-                let arr = [];
-                for(let j in res.data.data.data[i]) {
-                    arr.push(res.data.data.data[i][j])
-                }
-                this.list.push(arr)
-            }
-        });
+        }).catch(()=>{
+          this.listLoading = false
+        })
     }
   }
 };
