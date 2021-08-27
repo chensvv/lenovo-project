@@ -19,8 +19,8 @@
                 <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button @click="resetForm('searchItem')">重置</el-button>
                 <el-button class="success" size="mini" @click="handleAdd()" v-has="'joke:save'">添加</el-button>
-                <el-button class="danger" size="mini" @click="handleBatchDel()" v-has="'joke:del'">批量删除</el-button>
-                <el-button class="danger" size="mini" @click="handleBatchState()" v-has="'joke:veri'">批量审核</el-button>
+                <el-button class="danger" size="mini" @click="handleBatchDel()" v-has="'joke:delBatch'">批量删除</el-button>
+                <el-button class="danger" size="mini" @click="handleBatchState()" v-has="'joke:veriBatch'">批量审核</el-button>
             </el-form-item>
             
         </el-form>

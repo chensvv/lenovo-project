@@ -1644,6 +1644,14 @@ export function forumDetails (data) {
   })
 }
 
+export function forumDelbatch (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/forum/delbatch',
+    method: 'post',
+    data: data
+  })
+}
+
 export function engineDictList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/engineDict/list',
