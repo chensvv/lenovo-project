@@ -1,49 +1,52 @@
 <template>
-    <div class="table cache">
+    <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>应用搜索</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline cache" size="mini">
-            <el-form-item label="名字" prop="name">
-                <el-input v-model.trim="searchItem.name" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="类型" prop="type">
-                <el-input v-model.trim="searchItem.type" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="类别" prop="cn">
-                <el-input v-model.trim="searchItem.cn" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="起始时间" prop="refreshTime" class="width140">
-                <el-date-picker 
-                    type="date" 
-                    placeholder="选择日期" 
-                    v-model="searchItem.refreshTime" 
-                    :picker-options="pickerOptions"
-                    style="width: 100%;"
-                    value-format="yyyy-MM-dd"></el-date-picker>
-            </el-form-item>
-            <el-form-item label="结束时间" prop="putTime" class="width140">
-                <el-date-picker 
-                    type="date" 
-                    placeholder="选择日期" 
-                    v-model="searchItem.putTime" 
-                    :picker-options="pickerOptions"
-                    style="width: 100%;"
-                    value-format="yyyy-MM-dd"></el-date-picker>
-            </el-form-item>
-            <el-form-item class="sub-btn">
-                <el-button type="primary" @click="onSubmit" size="mini" :loading="btnLoading">查询</el-button>
-                <el-button @click="resetForm('searchItem')" size="mini">重置</el-button>
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+            <div class="form-input height70">
+                <el-form-item label="名字" prop="name">
+                    <el-input v-model.trim="searchItem.name" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="类型" prop="type">
+                    <el-input v-model.trim="searchItem.type" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="类别" prop="cn">
+                    <el-input v-model.trim="searchItem.cn" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="起始时间" prop="refreshTime" class="width140">
+                    <el-date-picker 
+                        type="date" 
+                        placeholder="选择日期" 
+                        v-model="searchItem.refreshTime" 
+                        :picker-options="pickerOptions"
+                        style="width: 100%;"
+                        value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="结束时间" prop="putTime" class="width140">
+                    <el-date-picker 
+                        type="date" 
+                        placeholder="选择日期" 
+                        v-model="searchItem.putTime" 
+                        :picker-options="pickerOptions"
+                        style="width: 100%;"
+                        value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
+            </div>
+            
+            <div class="form-btn">
+                <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
+                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
                 <el-button size="mini" @click="handleAdd()" v-has="'app:cacheadd'">添加</el-button>
-            </el-form-item>
+            </div>
             
         </el-form>
         <div class="table-box">
              <el-table
             :data="list"
-            :class="this.totalClass <= '5' ? 'limitWidth' :''"
+            :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column type="index" align="left" >

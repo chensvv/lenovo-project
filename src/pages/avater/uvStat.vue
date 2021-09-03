@@ -1,38 +1,41 @@
 <template>
-    <div class="table chart">
+    <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>avatar</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-          <el-form-item label="渠道" prop="channelVal">
-            <el-select v-model="searchItem.channelVal" placeholder="请选择">
-              <el-option
-                v-for="item in channelList"
-                :key="item"
-                :label="item"
-                :value="item">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <span class="label-time">选择日期</span>
-          <el-date-picker
-            v-model="pickerVal"
-            type="daterange"
-            align="right"
-            size="mini"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            :picker-options="pickerOptions"
-            value-format="yyyy-MM-dd"
-            @change="dateChangebirthday">
-          </el-date-picker>
-          <el-form-item>
-              <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-              <el-button @click="resetForm()">重置</el-button>
-          </el-form-item>
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
+          <div class="form-input height50">
+            <el-form-item label="渠道" prop="channelVal">
+              <el-select v-model="searchItem.channelVal" placeholder="请选择">
+                <el-option
+                  v-for="item in channelList"
+                  :key="item"
+                  :label="item"
+                  :value="item">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <span class="label-time">选择日期</span>
+            <el-date-picker
+              v-model="pickerVal"
+              type="daterange"
+              align="right"
+              size="mini"
+              range-separator="至"
+              start-placeholder="开始日期"
+              end-placeholder="结束日期"
+              :picker-options="pickerOptions"
+              value-format="yyyy-MM-dd"
+              @change="dateChangebirthday">
+            </el-date-picker>
+          </div>
+          
+          <div class="form-btn">
+              <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+              <el-button size="mini" @click="resetForm()">重置</el-button>
+          </div>
         </el-form>
         <div class="table-box" v-loading="loading">
             <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>
@@ -231,8 +234,14 @@ export default {
     margin: 0 auto;
 }
 .label-time{
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 14px;
     color: #606266;
-    font-size: 12px;
-    padding: 0 2px 0 0;
+    padding: 0 12px 0 0;
+    box-sizing: border-box;
+    width: 90px;
+    margin-left: 10px;
 }
 </style>

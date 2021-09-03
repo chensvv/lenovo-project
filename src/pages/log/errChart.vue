@@ -1,12 +1,13 @@
 <template>
-    <div class="table chart">
+    <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>日志管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-            <el-form-item label="选择日期" prop="startTime">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
+            <div class="form-input height50">
+                <el-form-item label="选择日期" prop="startTime">
                 <el-date-picker 
                     type="date" 
                     placeholder="选择日期" 
@@ -14,11 +15,12 @@
                     :picker-options="pickerOptions"
                     style="width: 100%;"
                     value-format="yyyy-MM-dd"></el-date-picker>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button @click="resetForm()">重置</el-button>
-            </el-form-item>
+                </el-form-item>
+            </div>
+            <div class="form-btn">
+                <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+                <el-button size="mini" @click="resetForm()">重置</el-button>
+            </div>
         </el-form>
         <div class="table-box" v-loading="loading">
             <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>
@@ -165,10 +167,5 @@ export default {
     width: 90%;
     height: 80% !important;
     margin: 0 auto;
-}
-.label-time{
-    color: #606266;
-    font-size: 12px;
-    padding: 0 2px 0 0;
 }
 </style>

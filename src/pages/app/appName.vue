@@ -1,27 +1,28 @@
 <template>
-  <div class="table appname">
+  <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>应用搜索</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="应用名称" prop="appName">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" label-width="90px" size="mini">
+      <div class="form-input height50">
+        <el-form-item label="应用名称" prop="appName">
         <el-input v-model.trim="searchItem.appName" clearable></el-input>
       </el-form-item>
-      <el-form-item class="sub-btn">
-        <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button @click="resetForm('searchItem')">重置</el-button>
+      </div>
+      <div class="form-btn">
+        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'app:appadd'">添加</el-button>
-        <el-button icon="el-icon-upload" size="mini" @click="importExcel()" v-has="'app:excel'">导入Excel文件</el-button>
-      </el-form-item>
-      
+        <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'app:excel'">导入Excel文件</el-button>
+      </div>
     </el-form>
     <div class="table-box">
       <el-table
           :data="list"
-          :class="this.totalClass <= '5' ? 'limitWidth' :''"
+          :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="left" >

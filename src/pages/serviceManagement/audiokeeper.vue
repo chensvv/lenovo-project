@@ -1,14 +1,14 @@
 <template>
-    <div class="table audiokeeper">
+    <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>服务管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" class="demo-form-inline cache height50" size="mini">
-            <el-form-item class="sub-btn">
+        <el-form :inline="true" label-width="90px" class="demo-form-inline height50 width130" size="mini" style="padding-left:10px;">
+            <div class="form-btn">
                 <el-button size="mini" @click="handleAdd()" v-has="'audiokeeper:add'">添加</el-button>
-            </el-form-item>
+            </div>
             
         </el-form>
         <div class="table-box">

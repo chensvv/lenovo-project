@@ -1,26 +1,29 @@
 <template>
-  <div class="table grey">
+  <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>规则定义</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="机型名称" prop="name">
-        <el-input v-model="searchItem.name" clearable></el-input>
-      </el-form-item>
-      <el-form-item label="机型" prop="inc">
-        <el-input v-model="searchItem.inc" clearable></el-input>
-      </el-form-item>
-      <el-form-item class="sub-btn">
-        <el-button type="primary" size="mini" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
+      <div class="form-input height50">
+        <el-form-item label="机型名称" prop="name">
+          <el-input v-model="searchItem.name" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="机型" prop="inc">
+          <el-input v-model="searchItem.inc" clearable></el-input>
+        </el-form-item>
+      </div>
+      
+      <div class="form-btn">
+        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-        <el-button class="success" size="mini"  @click="handleAdd()" v-has="'grey:funadd'">添加</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'grey:funadd'">添加</el-button>
         <router-link :to="{ path: '/rule/devlist'}">
-            <el-button class="success" size="mini" v-has="'grey:devlist'">机型列表</el-button>
+            <el-button size="mini" v-has="'grey:devlist'">机型列表</el-button>
         </router-link>
-      </el-form-item>
+      </div>
       
       
     </el-form>

@@ -81,71 +81,70 @@
 }
 
 /* 修改input宽度 */
-.search_box,
-.cache.demo-form-inline,
-.outer,
-.no_width,
-.trigger {
-  /* text-align: right; */
+.height50{
   height: 50px;
+}
+.height70{
+  height: 70px;
+}
+.height80 {
+  height: 80px;
+}
+.height100{
+  height: 100px;
+}
+.height120{
+  height: 120px;
+}
+.width130{
   display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
   align-items: center;
-  flex-wrap: wrap;
 }
-
-.search_box .el-form-item .el-form-item__label,
-.outer .el-form-item .el-form-item__label,
-.trigger .el-form-item .el-form-item__label,
-.cache .el-form-item .el-form-item__label{
-  font-size: 12px;
-  padding: 0 5px 0 0;
-}
-
-.search_box .el-form-item__content {
-  width: 140px;
-}
-
-.search_box .sub-btn .el-form-item__content {
-  width: auto;
-}
-
-.cache.demo-form-inline .el-form-item__content,
-.trigger .el-form-item__content {
+.width130 .el-form-item__content {
   width: 130px;
 }
-
-.trigger .el-form-item__content {
-  width: 82px;
+.form-input{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
-
-.cache.demo-form-inline .sub-btn .el-form-item__content {
-  width: 155px;
-}
-
-.trigger .sub-btn .el-form-item__content {
-  width: auto;
-}
-
-.width140 .el-form-item__content {
-  width: 140px !important;
-}
-
-.trigger .width140 .el-form-item__content {
-  width: 125px !important;
-}
-
-.outer .el-form-item__content {
-  width: 110px;
-}
-
-.outer .sub-btn .el-form-item__content {
-  width: auto;
+.form-btn{
+  display: flex;
 }
 
 .sub-btn .el-form-item__content {
   line-height: unset;
 }
 
+.height-85 .table-box {
+  font-size: 12px;
+  height: calc(100% - 85px);
+}
+.height-105 .table-box {
+  font-size: 12px;
+  height: calc(100% - 105px);
+}
+.height-135 .table-box {
+  font-size: 12px;
+  height: calc(100% - 135px);
+}
+.height-155 .table-box {
+  font-size: 12px;
+  height: calc(100% - 155px);
+}
+.el-table {
+  font-size: 12px;
+  height: calc(100% - 50px);
+}
+/* ---------------------------------- */
+.el-button+.el-button, a .el-button {
+  margin-left: 10px;
+}
+.el-table .cell{
+  line-height: 28px;
+}
 .el-form-item__content .el-button+.el-button {
   margin-left: 3px;
 }
@@ -157,11 +156,13 @@
 
 .el-table__header-wrapper {
   overflow: hidden;
-  height: 25px;
+  height: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .el-table__body-wrapper {
-  height: calc(100% - 25px);
+  height: calc(100% - 30px);
 }
 
 .el-table__body {
@@ -173,14 +174,10 @@
 }
 
 .el-breadcrumb {
-  height: 4%;
+  height: 30px;
   display: flex;
   align-items: center;
-}
-
-.el-table {
-  font-size: 12px;
-  height: 90%;
+  padding: 0 10px;
 }
 
 .el-table thead {
@@ -424,7 +421,7 @@
 
 .workflow .el-pagination {
   padding: 14px 0 0;
-  height: 5%;
+  height: 50px;
 }
 
 .el-range-editor--mini.el-input__inner {
@@ -799,38 +796,12 @@
 }
 
 .el-main {
-  padding: 10px;
+  padding: 5px 5px 0;
   height: 100%;
 }
 
 .el-main .table {
   height: 100%;
-}
-
-.table .table-box {
-  height: calc(100% - 80px);
-}
-
-.mainlog .cache.demo-form-inline,
-.height80,
-.cache .cache.demo-form-inline,
-.outers .outer {
-  height: 80px;
-}
-
-.trigg .trigger{
-  height: 100px;
-}
-
-.mainlog .table-box,
-.dict .table-box,
-.cache .table-box,
-.outers .table-box {
-  height: calc(100% - 100px);
-}
-
-.trigg .table-box{
-  height: calc(100% - 120px);
 }
 .audio .el-table{
   height: 100%;
@@ -885,9 +856,7 @@
   padding: 12px 0;
 }
 
-.height50{
-  height: 50px;
-}
+
 
 @media (min-width: 768px) {
   .cropper-point.point-se {
@@ -957,10 +926,6 @@
   cursor: not-allowed;
 }
 
-.workflow .el-table {
-  height: calc(100% - 50px);
-}
-
 .index {
   height: 100%;
   background: url('../images/index.svg') no-repeat;
@@ -1025,7 +990,8 @@
   height: 178px;
   display: block;
 }
-.tree .cache,.tree .el-tree{
+
+.table .el-tree{
   width: 500px;
   margin-left: 50px;
 }

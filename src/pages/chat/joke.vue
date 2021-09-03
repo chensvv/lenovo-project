@@ -1,11 +1,12 @@
 <template>
-    <div class="table joke">
+    <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>闲聊数据</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
+          <div class="form-input height50">
             <el-form-item label="内容" prop="con">
                 <el-input v-model.trim="searchItem.con" clearable></el-input>
             </el-form-item>
@@ -15,19 +16,21 @@
                     <el-option label="未审核" value="2"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item class="sub-btn">
-                <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button @click="resetForm('searchItem')">重置</el-button>
-                <el-button class="success" size="mini" @click="handleAdd()" v-has="'joke:save'">添加</el-button>
-                <el-button class="danger" size="mini" @click="handleBatchDel()" v-has="'joke:delBatch'">批量删除</el-button>
-                <el-button class="danger" size="mini" @click="handleBatchState()" v-has="'joke:veriBatch'">批量审核</el-button>
-            </el-form-item>
+          </div>
+            
+            <div class="form-btn">
+                <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+                <el-button size="mini" @click="handleAdd()" v-has="'joke:save'">添加</el-button>
+                <el-button size="mini" @click="handleBatchDel()" v-has="'joke:delBatch'">批量删除</el-button>
+                <el-button size="mini" @click="handleBatchState()" v-has="'joke:veriBatch'">批量审核</el-button>
+            </div>
             
         </el-form>
         <div class="table-box">
           <el-table
             :data="list"
-            :class="this.totalClass <= '5' ? 'limitWidth' :''"
+            :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading"
             @selection-change="handleSelectionChange">

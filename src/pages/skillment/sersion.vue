@@ -1,5 +1,5 @@
 <template>
-    <div class="table sersion">
+    <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>技能管理</el-breadcrumb-item>
@@ -8,22 +8,22 @@
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
     
-    <el-form :inline="true" class="demo-form-inline" size="mini" style="text-align:right;">
+    <el-form :inline="true" class="demo-form-inline height50 width130" size="mini">
         <div class="d_t">
             <span class="d_title">{{skillDetail.appName}}  >></span><span>{{skillDetail.functionName}}</span>
         </div>
-        <el-form-item class="sub-btn">
-            <el-button class="success" size="mini" @click="handleAdd()" v-has="'skill:versionadd'">添加</el-button>
+        <div class="form-btn">
+            <el-button size="mini" @click="handleAdd()" v-has="'skill:versionadd'">添加</el-button>
             <router-link :to="{ path: '/lasf-kv/skill/detail/speak',query:{functionId:this.functionId, appId:this.appId}}">
-                <el-button class="success" size="mini">说法列表</el-button>
+                <el-button size="mini">说法列表</el-button>
             </router-link>
-        </el-form-item>
+        </div>
         
     </el-form>
     <div class="table-box">
         <el-table
             :data="list"
-            :class="this.totalClass <= '5' ? 'limitWidth' :''"
+            :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column type="index" align="left" >

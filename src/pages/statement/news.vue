@@ -1,15 +1,15 @@
 <template>
-  <div class="table news">
+  <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>规则定义</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item class="sub-btn">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" size="mini" style="padding-left:10px;">
+      <div class="form-btn">
         <el-button size="mini" @click="handleAdd()" v-has="'news:add'">添加</el-button>
-      </el-form-item>
+      </div>
     </el-form>
     <div class="table-box">
       <el-table

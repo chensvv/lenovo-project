@@ -1,22 +1,22 @@
 <template>
-    <div class="table">
+    <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>服务管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-          <el-form-item>
+        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" size="mini" style="padding-left:10px;">
+          <div class="form-btn">
               
               <el-button size="mini" @click="refresh()" v-if="refsh">定时刷新</el-button>
               <el-button size="mini" @click="refreshNo()" v-else>关闭刷新</el-button>
-              <el-button class="success" size="mini" @click="handleAdd('addList')">上线</el-button>
-          </el-form-item>
+              <el-button size="mini" @click="handleAdd('addList')">上线</el-button>
+          </div>
         </el-form>
         <div class="table-box">
             <el-table
                     :data="list"
-                    :class="this.totalClass <= '5' ? 'limitWidth' :''"
+                    :class="this.totalClass <= '7' ? 'limitWidth' :''"
                     style="width: 100%"
                     v-loading="listLoading">
                     <el-table-column type="index" align="left" >
@@ -33,7 +33,12 @@
                         align="left"
                         :show-overflow-tooltip="true">
                     </el-table-column>
-                    
+                    <el-table-column
+                        label="sce"
+                        prop="sce"
+                        align="left"
+                        :show-overflow-tooltip="true">
+                    </el-table-column>
                     <el-table-column label="操作" align="center"  v-if="isshow">
                         <template slot-scope="scope">
                             <el-button
@@ -56,7 +61,12 @@
         <el-dialog title="上线" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="ip地址" prop="name">
-                <el-input type="text" v-model.trim="addList.name" auto-complete="off" placeholder="输入多个ip地址请用英文,隔开"></el-input>
+                  <el-input type="text" v-model.trim="addList.name" auto-complete="off" placeholder="输入多个ip地址请用英文,隔开"></el-input>
+                </el-form-item>
+                <el-form-item label="长短语音" prop="sce">
+                    <el-select v-model="addList.sce" placeholder="--">
+                        <el-option v-for="(item,index) in sceList" :key="index" :label="item.typeLabel" :value="item.typeVal"></el-option>
+                    </el-select>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -78,11 +88,17 @@ export default {
         perList:[],
         totalClass:'',
         addList: {//添加数据组
-            name:""
+            name:"",
+            sce:''
         },
         addRules:{
             name:[{ required: true, message: '请输入ip地址', trigger: 'change' }],
+            sce:[{ required: true, message: '请选择语音类型', trigger: 'change' }],
         },
+        sceList:[
+            {typeLabel:"短语音",typeVal:"cmd"},
+            {typeLabel:"长语音",typeVal:"long"}
+        ],
         currentPage: 1, //默认显示第几页
         pageSize: 10,   //默认每页条数
         totalCount:1,     // 总条数
@@ -152,7 +168,8 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        serverAddr:this.addList.name
+        serverAddr:this.addList.name,
+        sce:this.addList.sce
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
@@ -184,7 +201,8 @@ export default {
     },
     handleDel(index, row) {
         let delParams = {
-            serverAddr:row.name
+            serverAddr:row.name,
+            sce:row.sce
         }
         engineOffline(delParams).then(res=>{
         if(res.data.code == 200){

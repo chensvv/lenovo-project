@@ -1,27 +1,29 @@
 <template>
-  <div class="table rvdlog">
+  <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>日志管理</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="客户端设备类型" prop="dtp">
-        <el-input v-model.trim="searchItem.dtp" clearable></el-input>
-      </el-form-item>
-      <el-form-item label="客户端IP" prop="uip">
-        <el-input v-model.trim="searchItem.uip" clearable></el-input>
-      </el-form-item>
-      <el-form-item label="开发者ID" prop="app">
-        <el-input v-model.trim="searchItem.app" clearable></el-input>
-      </el-form-item>
-      <el-form-item label="识别文本" prop="desc">
-        <el-input v-model.trim="searchItem.desc" clearable></el-input>
-      </el-form-item>
-      <el-form-item class="sub-btn">
-        <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+      <div class="form-input height70">
+        <el-form-item label="客户端设备类型" prop="dtp">
+          <el-input v-model.trim="searchItem.dtp" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="客户端IP" prop="uip">
+          <el-input v-model.trim="searchItem.uip" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="开发者ID" prop="app">
+          <el-input v-model.trim="searchItem.app" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="识别文本" prop="desc">
+          <el-input v-model.trim="searchItem.desc" clearable></el-input>
+        </el-form-item>
+      </div>
+      <div class="form-btn">
+        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-      </el-form-item>
+      </div>
     </el-form>
     <div class="table-box">
       <el-table

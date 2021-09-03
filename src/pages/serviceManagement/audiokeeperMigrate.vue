@@ -1,16 +1,16 @@
 <template>
-    <div class="table chart">
+    <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>服务管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-          <el-form-item>
+        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" size="mini" style="padding-left:10px;">
+          <div class="form-btn">
               <el-button size="mini" @click="refresh()" v-if="refsh">定时刷新</el-button>
               <el-button size="mini" @click="refreshNo()" v-else>关闭刷新</el-button>
               <el-button size="mini" @click="handleAdd()" v-has="'audiokeeperMigrate:migrate'">迁移</el-button>
-          </el-form-item>
+          </div>
         </el-form>
         <div class="table-box" v-loading="loading">
             <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>

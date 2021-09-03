@@ -1,5 +1,5 @@
 <template>
-  <div class="table history">
+  <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>规则定义</el-breadcrumb-item>
@@ -9,7 +9,7 @@
     <div class="table-box">
       <el-table
           :data="list"
-          :class="this.totalClass <= '5' ? 'limitWidth' :''"
+          :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="left" >

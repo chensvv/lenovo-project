@@ -1,28 +1,31 @@
 <template>
-    <div class="table song">
+    <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>技能管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-            <el-form-item label="歌手名称" prop="name">
-                <el-input v-model.trim="searchItem.name" clearable></el-input>
-            </el-form-item>
-            <el-form-item class="sub-btn">
-                <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button @click="resetForm('searchItem')">重置</el-button>
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
+            <div class="form-input height50">
+                <el-form-item label="歌手名称" prop="name">
+                    <el-input v-model.trim="searchItem.name" clearable></el-input>
+                </el-form-item>
+            </div>
+            
+            <div class="form-btn">
+                <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
                 <el-button size="mini" @click="handleAdd()" v-has="'skill:music:addsong'">添加</el-button>
                 <el-button size="mini" @click="handleAlbum()" v-has="'skill:music:albumlist'">专辑列表</el-button>
                 <el-button size="mini" @click="handleSinger()" v-has="'skill:music:singerlist'">歌手管理</el-button>
-            </el-form-item>
+            </div>
             
         </el-form>
         <div class="table-box">
             <el-table
                 :data="list"
-                :class="this.totalClass <= '5' ? 'limitWidth' :''"
+                :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column type="index" align="left" >

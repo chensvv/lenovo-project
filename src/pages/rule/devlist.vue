@@ -1,26 +1,29 @@
 <template>
-  <div class="table devlist">
+  <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>规则定义</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" size="mini" :model="searchItem" class="demo-form-inline search_box">
-      <el-form-item label="机型名称" prop="name">
-        <el-input v-model="searchItem.name" clearable></el-input>
-      </el-form-item>
-      <el-form-item label="机型" prop="inc">
-        <el-input v-model="searchItem.inc" clearable></el-input>
-      </el-form-item>
-      <el-form-item class="sub-btn">
-        <el-button type="primary" size="mini" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button @click="resetForm('searchItem')">重置</el-button>
-        <el-button class="success" size="mini" @click="handleAdd()" v-has="'grey:devadd'">添加</el-button>
+    <el-form :inline="true" ref="searchItem" size="mini" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130">
+      <div class="form-input height50">
+        <el-form-item label="机型名称" prop="name">
+          <el-input v-model="searchItem.name" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="机型" prop="inc">
+          <el-input v-model="searchItem.inc" clearable></el-input>
+        </el-form-item>
+      </div>
+      
+      <div class="form-btn">
+        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'grey:devadd'">添加</el-button>
         <router-link :to="{ path: '/grey/funlist'}">
-            <el-button class="success" size="mini" v-has="'grey:funlist'">功能列表</el-button>
+            <el-button size="mini" v-has="'grey:funlist'">功能列表</el-button>
         </router-link>
-      </el-form-item>
+      </div>
       
       
     </el-form>

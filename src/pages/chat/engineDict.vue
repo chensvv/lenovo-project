@@ -1,59 +1,62 @@
 <template>
-  <div class="table dict">
+  <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>闲聊数据</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
         
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height80 search_box" size="mini">
-            <el-form-item label="热词" prop="hotName">
-                <el-input v-model.trim="searchItem.hotName" clearable></el-input>
-            </el-form-item>
-        <el-form-item label="VDM" prop="vdm">
-            <el-select v-model="searchItem.vdm" placeholder="--" clearable>
-                <el-option label="all" value="all"></el-option>
-                <el-option label="les" value="les"></el-option>
-                <el-option label="app" value="app"></el-option>
-                <el-option label="vod" value="vod"></el-option>
-            </el-select>
-        </el-form-item>
-        <el-form-item label="数据类型" prop="dataType">
-                <el-select v-model.trim="searchItem.dataType" placeholder="--" clearable>
-                    <el-option label="纠正数据" value="1"></el-option>
-                    <el-option label="新增数据" value="2"></el-option>
-                </el-select>
-            </el-form-item>
-        <el-form-item label="起始时间" prop="refreshTime">
-            <el-date-picker 
-                type="date" 
-                placeholder="选择日期"
-                v-model="searchItem.refreshTime" 
-                :picker-options="pickerOptions"
-                style="width: 100%;"
-                value-format="yyyy-MM-dd"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="结束时间" prop="putTime">
-            <el-date-picker 
-                type="date" 
-                placeholder="选择日期" 
-                v-model="searchItem.putTime" 
-                :picker-options="pickerOptions"
-                style="width: 100%;"
-                value-format="yyyy-MM-dd"></el-date-picker>
-        </el-form-item>
-        <el-form-item class="sub-btn">
-            <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-            <el-button @click="resetForm('searchItem')">重置</el-button>
-            <el-button size="mini" @click="handleAdd()" v-has="'enginedict:add'">添加</el-button>
-            <el-button icon="el-icon-upload" size="mini" @click="importExcel()" v-has="'enginedict:excel'">导入数据</el-button>
-        </el-form-item>
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+            <div class="form-input height70">
+                <el-form-item label="热词" prop="hotName">
+                    <el-input v-model.trim="searchItem.hotName" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="VDM" prop="vdm">
+                    <el-select v-model="searchItem.vdm" placeholder="--" clearable>
+                        <el-option label="all" value="all"></el-option>
+                        <el-option label="les" value="les"></el-option>
+                        <el-option label="app" value="app"></el-option>
+                        <el-option label="vod" value="vod"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="数据类型" prop="dataType">
+                        <el-select v-model.trim="searchItem.dataType" placeholder="--" clearable>
+                            <el-option label="纠正数据" value="1"></el-option>
+                            <el-option label="新增数据" value="2"></el-option>
+                        </el-select>
+                    </el-form-item>
+                <el-form-item label="起始时间" prop="refreshTime">
+                    <el-date-picker 
+                        type="date" 
+                        placeholder="选择日期"
+                        v-model="searchItem.refreshTime" 
+                        :picker-options="pickerOptions"
+                        style="width: 100%;"
+                        value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="结束时间" prop="putTime">
+                    <el-date-picker 
+                        type="date" 
+                        placeholder="选择日期" 
+                        v-model="searchItem.putTime" 
+                        :picker-options="pickerOptions"
+                        style="width: 100%;"
+                        value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
+            </div>
+            <div class="form-btn">
+                <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+                <el-button size="mini" @click="handleAdd()" v-has="'enginedict:add'">添加</el-button>
+                <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'enginedict:excel'">导入数据</el-button>
+            </div>
+        
         
         </el-form>
         <div class="table-box">
         <el-table
             :data="list"
-            :class="this.totalClass <= '5' ? 'limitWidth' :''"
+            :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column type="index" align="left" >

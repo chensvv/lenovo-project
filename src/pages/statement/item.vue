@@ -1,32 +1,35 @@
 <template>
-  <div class="table item">
+  <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>说法配置</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item label="问题" prop="question">
-        <el-input v-model.trim="searchItem.question" clearable></el-input>
-      </el-form-item>
-      <el-form-item label="所属excel文件" prop="excel">
-        <el-input v-model.trim="searchItem.excel" clearable></el-input>
-      </el-form-item>
-      <el-form-item class="sub-btn">
-        <el-button type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button @click="resetForm('searchItem')">重置</el-button>
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="101px" class="demo-form-inline height50 width130" size="mini">
+      <div class="form-input height50">
+        <el-form-item label="问题" prop="question">
+          <el-input v-model.trim="searchItem.question" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="所属excel文件" prop="excel">
+          <el-input v-model.trim="searchItem.excel" clearable></el-input>
+        </el-form-item>
+      </div>
+      
+      <div class="form-btn">
+        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'item:pub'">生成AIML</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'item:save'">添加</el-button>
-        <el-button icon="el-icon-upload" size="mini" @click="importExcel()" v-has="'item:excel'">导入Excel文件</el-button>
-      </el-form-item>
+        <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'item:excel'">导入Excel文件</el-button>
+      </div>
       
     </el-form>
     <div class="table-box">
       <el-table
           :data="list"
           style="width: 100%"
-          :class="this.totalClass <= '5' ? 'limitWidth' :''"
+          :class="this.totalClass <= '7' ? 'limitWidth' :''"
           v-loading="listLoading">
           <el-table-column type="index" align="left" >
           </el-table-column>

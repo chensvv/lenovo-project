@@ -1,64 +1,67 @@
 <template>
-    <div class="table mainlog">
+    <div class="table height-135">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>日志管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline cache" size="mini">
-            <el-form-item label="客户端类型" prop="dtp">
-                <el-input v-model.trim="searchItem.dtp" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="设备ID" prop="uip">
-                <el-input v-model.trim="searchItem.uip" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="用户UID" prop="uid">
-                <el-input v-model.trim="searchItem.uid" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="开发者ID" prop="app">
-                <el-input v-model.trim="searchItem.app" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="VDM" prop="vdm">
-                <el-select v-model="searchItem.vdm" placeholder="--" clearable>
-                    <el-option label="all" value="all"></el-option>
-                    <el-option label="les" value="les"></el-option>
-                    <el-option label="app" value="app"></el-option>
-                    <el-option label="vod" value="vod"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="状态" prop="stat">
-                <el-select v-model.trim="searchItem.stat" placeholder="--" clearable>
-                <el-option label="成功" value="success"></el-option>
-                <el-option label="失败" value="failed"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="起始时间" prop="refreshTime" class="width140">
-                <el-date-picker 
-                    type="date" 
-                    placeholder="选择日期" 
-                    v-model="searchItem.refreshTime" 
-                    :picker-options="pickerOptions"
-                    style="width: 100%;"
-                    value-format="yyyy-MM-dd"></el-date-picker>
-            </el-form-item>
-            <el-form-item label="结束时间" prop="putTime" class="width140">
-                <el-date-picker 
-                    type="date" 
-                    placeholder="选择日期" 
-                    v-model="searchItem.putTime" 
-                    :picker-options="pickerOptions"
-                    style="width: 100%;"
-                    value-format="yyyy-MM-dd"></el-date-picker>
-            </el-form-item>
-            <el-form-item class="sub-btn">
-                <el-button type="primary" @click="onSubmit" size="mini" :loading="btnLoading">查询</el-button>
-                <el-button @click="resetForm('searchItem')" size="mini">重置</el-button>
-            </el-form-item>
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height100 width130" size="mini">
+            <div class="form-input height100">
+                <el-form-item label="客户端类型" prop="dtp">
+                    <el-input v-model.trim="searchItem.dtp" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="设备ID" prop="uip">
+                    <el-input v-model.trim="searchItem.uip" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="用户UID" prop="uid">
+                    <el-input v-model.trim="searchItem.uid" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="开发者ID" prop="app">
+                    <el-input v-model.trim="searchItem.app" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="VDM" prop="vdm">
+                    <el-select v-model="searchItem.vdm" placeholder="--" clearable>
+                        <el-option label="all" value="all"></el-option>
+                        <el-option label="les" value="les"></el-option>
+                        <el-option label="app" value="app"></el-option>
+                        <el-option label="vod" value="vod"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="状态" prop="stat">
+                    <el-select v-model.trim="searchItem.stat" placeholder="--" clearable>
+                    <el-option label="成功" value="success"></el-option>
+                    <el-option label="失败" value="failed"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="起始时间" prop="refreshTime" class="width140">
+                    <el-date-picker 
+                        type="date" 
+                        placeholder="选择日期" 
+                        v-model="searchItem.refreshTime" 
+                        :picker-options="pickerOptions"
+                        style="width: 100%;"
+                        value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="结束时间" prop="putTime" class="width140">
+                    <el-date-picker 
+                        type="date" 
+                        placeholder="选择日期" 
+                        v-model="searchItem.putTime" 
+                        :picker-options="pickerOptions"
+                        style="width: 100%;"
+                        value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
+            </div>
+            
+            <div class="form-btn">
+                <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
+                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+            </div>
         </el-form>
         <div  class="table-box">
             <el-table
             :data="list"
-            :class="this.totalClass <= '5' ? 'limitWidth' :''"
+            :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column label="ID" prop="id" align="left" >

@@ -1,21 +1,20 @@
 <template>
-  <div class="table gray">
+  <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>规则定义</el-breadcrumb-item>
       <el-breadcrumb-item :to="{path:'/showmode/conf'}">资源发布</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline search_box" size="mini">
-      <el-form-item class="sub-btn">
-        <el-button class="success" size="mini" v-has="'gray:add'" @click="handleAddGray()">新增灰度</el-button>
-      </el-form-item>
-      
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini" style="float:right;">
+      <div class="form-btn">
+        <el-button size="mini" v-has="'gray:add'" @click="handleAddGray()">新增灰度</el-button>
+      </div>
     </el-form>
     <div class="table-box">
       <el-table
           :data="list"
-          :class="this.totalClass <= '5' ? 'limitWidth' :''"
+          :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
           <el-table-column type="index" align="left" >

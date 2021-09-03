@@ -1,11 +1,11 @@
 <template>
-    <div class="table tree">
+    <div class="table">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>权限管理</el-breadcrumb-item>
             <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline cache" size="mini">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" size="mini" style="padding-left:50px;">
             <el-form-item class="sub-btn">
                 <el-button type="primary" @click="handleAdd(0)" size="mini" :loading="btnLoading" v-has="'Rule:add'">增加一级权限</el-button>
             </el-form-item>
