@@ -56,6 +56,11 @@
                 label="ASR可访问次数"
                 prop="userDailyCloudasrCount"
                 align="center">
+                <template slot="header" slot-scope="scope">
+                    <el-tooltip effect="dark" content="ASR可访问次数" placement="top">
+                    <span slot class="headlips">ASR可访问次数</span>
+                    </el-tooltip>
+                </template>
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -71,6 +76,11 @@
                 label="TTS可访问次数"
                 prop="userDailyCloudttsCount"
                 align="center">
+                <template slot="header" slot-scope="scope">
+                    <el-tooltip effect="dark" content="TTS可访问次数" placement="top">
+                    <span slot class="headlips">TTS可访问次数</span>
+                    </el-tooltip>
+                </template>
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -86,14 +96,19 @@
                 label="ASR当日使用次数"
                 prop="dailyUseAsr"
                 align="center">
+                <template slot="header" slot-scope="scope">
+                    <el-tooltip effect="dark" content="ASR当日使用次数" placement="top">
+                    <span slot class="headlips">ASR当日使用次数</span>
+                    </el-tooltip>
+                </template>
                 <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dailyUseAsr" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.userDailyCloudasrCount }}
+                        {{ scope.row.dailyUseAsr }}
                         </div>
                     </el-tooltip>
                     <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.userDailyCloudasrCount }}
+                        {{ scope.row.dailyUseAsr }}
                     </div>
                 </template>
             </el-table-column>
@@ -101,14 +116,19 @@
                 label="TTS当日使用次数"
                 prop="dailyUseTts"
                 align="center">
+                <template slot="header" slot-scope="scope">
+                    <el-tooltip effect="dark" content="TTS当日使用次数" placement="top">
+                    <span slot class="headlips">TTS当日使用次数</span>
+                    </el-tooltip>
+                </template>
                 <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dailyUseTts" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.userDailyCloudttsCount }}
+                        {{ scope.row.dailyUseTts }}
                         </div>
                     </el-tooltip>
                     <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.userDailyCloudttsCount }}
+                        {{ scope.row.dailyUseTts }}
                     </div>
                 </template>
             </el-table-column>
@@ -116,14 +136,19 @@
                 label="ASR历史使用次数"
                 prop="historyUseAsr"
                 align="center">
+                <template slot="header" slot-scope="scope">
+                    <el-tooltip effect="dark" content="ASR历史使用次数" placement="top">
+                    <span slot class="headlips">ASR历史使用次数</span>
+                    </el-tooltip>
+                </template>
                 <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.historyUseAsr" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.userDailyCloudasrCount }}
+                        {{ scope.row.historyUseAsr }}
                         </div>
                     </el-tooltip>
                     <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.userDailyCloudasrCount }}
+                        {{ scope.row.historyUseAsr }}
                     </div>
                 </template>
             </el-table-column>
@@ -131,14 +156,19 @@
                 label="TTS历史使用次数"
                 prop="historyUseTts"
                 align="center">
+                <template slot="header" slot-scope="scope">
+                    <el-tooltip effect="dark" content="TTS历史使用次数" placement="top">
+                    <span slot class="headlips">TTS历史使用次数</span>
+                    </el-tooltip>
+                </template>
                 <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.historyUseTts" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.userDailyCloudttsCount }}
+                        {{ scope.row.historyUseTts }}
                         </div>
                     </el-tooltip>
                     <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.userDailyCloudttsCount }}
+                        {{ scope.row.historyUseTts }}
                     </div>
                 </template>
             </el-table-column>
@@ -147,6 +177,11 @@
                 prop="meetingService"
                 align="center"
                 :formatter="meeting">
+                <template slot="header" slot-scope="scope">
+                    <el-tooltip effect="dark" content="会议监控权限" placement="top">
+                    <span slot class="headlips">会议监控权限</span>
+                    </el-tooltip>
+                </template>
             </el-table-column>
             <el-table-column
                 label="添加时间"
