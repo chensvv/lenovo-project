@@ -83,6 +83,66 @@
                 </template>
             </el-table-column>
             <el-table-column
+                label="ASR当日使用次数"
+                prop="dailyUseAsr"
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.userDailyCloudasrCount }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.userDailyCloudasrCount }}
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="TTS当日使用次数"
+                prop="dailyUseTts"
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.userDailyCloudttsCount }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.userDailyCloudttsCount }}
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="ASR历史使用次数"
+                prop="historyUseAsr"
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.userDailyCloudasrCount }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.userDailyCloudasrCount }}
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="TTS历史使用次数"
+                prop="historyUseTts"
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.userDailyCloudttsCount }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.userDailyCloudttsCount }}
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column
                 label="会议监控权限"
                 prop="meetingService"
                 align="center"
@@ -141,10 +201,10 @@
                     <el-input type="text" v-model="infoList.userDailyCloudttsCount" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="ASR历史使用次数">
-                    <el-input type="text" v-model="infoList.historyAsrCount" auto-complete="off" readonly></el-input>
+                    <el-input type="text" v-model="infoList.historyUseAsr" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="TTS历史使用次数">
-                    <el-input type="text" v-model="infoList.historyTTSCount" auto-complete="off" readonly></el-input>
+                    <el-input type="text" v-model="infoList.historyUseTts" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="ASR当日使用次数">
                     <el-input type="text" v-model="infoList.usedAsrCount" auto-complete="off" readonly></el-input>
@@ -224,8 +284,8 @@ export default {
                 userDailyCloudttsCount:'',
                 ak:'',
                 sk:'',
-                historyAsrCount:'',
-                historyTTSCount:'',
+                historyUseAsr:'',
+                historyUseTts:'',
                 usedAsrCount:'',
                 usedTTSCount:'',
                 remainAsrCount:'',
@@ -441,8 +501,8 @@ export default {
                     userDailyCloudttsCount:res.data.userDailyCloudttsCount,
                     ak:res.data.lenovoKey,
                     sk:res.data.secretKey,
-                    historyAsrCount:res.data.historyAsrCount,
-                    historyTTSCount:res.data.historyTTSCount,
+                    historyUseAsr:res.data.historyUseAsr,
+                    historyUseTts:res.data.historyUseTts,
                     usedAsrCount:res.data.usedAsrCount,
                     usedTTSCount:res.data.usedTTSCount,
                     remainAsrCount:res.data.remainAsrCount,
