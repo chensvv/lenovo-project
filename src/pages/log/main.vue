@@ -64,15 +64,43 @@
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column label="ID" prop="id" align="left" >
+            <el-table-column label="ID" prop="id" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.id" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.id }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.id }}
+                    </div>
+                </template>
             </el-table-column>
-            <el-table-column label="IT" prop="it" align="left"  :formatter="formTime" min-width="120">
+            <el-table-column label="IXID" prop="ixid" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixid" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.ixid }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.ixid }}
+                    </div>
+                </template>
             </el-table-column>
-            <el-table-column label="IXID" prop="ixid" align="left"  :show-overflow-tooltip="true">
+            <el-table-column label="DID" prop="did" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.did" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.did }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.did }}
+                    </div>
+                </template>
             </el-table-column>
-            <el-table-column label="DID" prop="did" align="left"  :show-overflow-tooltip="true">
-            </el-table-column>
-            <el-table-column label="CODEC" prop="codec" align="left"  :show-overflow-tooltip="true">
+            <el-table-column label="CODEC" prop="codec" align="center">
                 <template slot-scope="scope">
                     <span>{{scope.row.codec == '7' ? 'Speex 16k' : 
                             scope.row.codec == '3' ? 'Speex 8k' : 
@@ -82,20 +110,60 @@
                             scope.row.codec == '0' ? 'Bv32 8k' : '未知'}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="UID" prop="uid" align="left"  :show-overflow-tooltip="true">
+            <el-table-column label="UID" prop="uid" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.uid" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.uid }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.uid }}
+                    </div>
+                </template>
             </el-table-column>
-            <el-table-column label="DTP" prop="dtp" align="left"  :show-overflow-tooltip="true">
+            <el-table-column label="DTP" prop="dtp" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.dtp }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.dtp }}
+                    </div>
+                </template>
             </el-table-column>
-            <el-table-column label="VER" prop="ver" align="left"  :show-overflow-tooltip="true">
+            <el-table-column label="VER" prop="ver" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.ver }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.ver }}
+                    </div>
+                </template>
             </el-table-column>
-            <el-table-column label="VDM" prop="vdm" align="left"  :show-overflow-tooltip="true">
+            <el-table-column label="VDM" prop="vdm" align="center">
             </el-table-column>
-            <el-table-column label="APP" prop="app" align="left"  :show-overflow-tooltip="true">
+            <el-table-column label="APP" prop="app" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.app" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.app }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.app }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="STAT"
                 prop="stat"
-                align="left" 
+                align="center" 
                 >
                 <template slot-scope="scope">
                     <el-tag
@@ -103,7 +171,19 @@
                     disable-transitions>{{scope.row.stat == 'success'? 'S': 'F'}}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column label="L1C" prop="l1c" align="left"  :show-overflow-tooltip="true">
+            <el-table-column label="L1C" prop="l1c" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.l1c" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.l1c }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.l1c }}
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column label="IT" prop="it" align="center"  :formatter="formTime" min-width="120">
             </el-table-column>
             <el-table-column label="操作" align="center"  width="130" v-if="isshow">
                     <template slot-scope="scope">
@@ -272,6 +352,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 8,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             btnLoading:false,
             infoVisible:false,
             listLoading:true,
@@ -291,6 +372,17 @@ export default {
         }
     },
     methods:{
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         formTime(row, column){
             var timer = row.it
             var date = new Date(timer)

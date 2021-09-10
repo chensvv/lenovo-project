@@ -64,25 +64,49 @@
             <el-table-column
                 label="VDM"
                 prop="vdm"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.vdm" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.vdm }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.vdm }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="热词"
                 prop="name"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="left">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.name }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.name }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="发音"
                 prop="pronounceName"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="left">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.pronounceName" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.pronounceName }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.pronounceName }}
+                    </div>
+                </template>
             </el-table-column>
-            <el-table-column label="数据类型" prop="dataType" align="left" >
+            <el-table-column label="数据类型" prop="dataType" align="center" min-width="80">
                 <template slot-scope="scope">
                     <span>{{scope.row.dataType == '1' ? '纠正数据' : '新增数据'}}</span>
                 </template>
@@ -90,19 +114,26 @@
             <el-table-column
                 label="匹配模式"
                 prop="matcherPattern"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.matcherPattern" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.matcherPattern }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.matcherPattern }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="更新时间"
                 prop="upTime"
-                 align="left"
-                 
+                align="center"
                 :formatter="formTime"
                 min-width="120">
             </el-table-column>
-            <el-table-column label="操作" align="center"  v-if="isshow">
+            <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -276,6 +307,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             seaBtnLoading:false,
             addBtnLoading:false,
             editBtnLoading:false,
@@ -299,6 +331,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         formTime(row, column){
             var timer = row.upTime
             var date = new Date(timer)

@@ -33,34 +33,48 @@
                 <el-table-column
                     label="用户query"
                     prop="command"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.command" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.command }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.command }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="预设指令"
                     prop="commandInterface"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.commandInterface" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.commandInterface }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.commandInterface }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="添加时间"
                     prop="createTime"
-                    align="left" 
-                    
+                    align="center"
                     :formatter="formTime"
                     min-with="140">
                 </el-table-column>
                 <el-table-column
                     label="修改时间"
                     prop="updateTime"
-                    align="left" 
-                    
+                    align="center"
                     :formatter="formTime2"
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" align="center"  v-if="isshow">
+                <el-table-column label="操作" align="center" min-width="!30" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -146,6 +160,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
       totalCount:1,     // 总条数
+      showTitle:true,
       addVisible:false,
       seabtnLoading:false,
       addBtnLoading:false,
@@ -168,6 +183,17 @@ export default {
         }
     },
   methods: {
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
+    },
     formTime(row, column){
       var timer = row.createTime
       var date = new Date(timer)

@@ -30,17 +30,15 @@
             <el-table-column
                 label="Role Code"
                 prop="roleCode"
-                align="left" 
+                align="center" 
                 >
             </el-table-column>
             <el-table-column
                 label="Role Name"
                 prop="roleName"
-                align="left" 
-                
-                :formatter="formState">
+                align="center">
             </el-table-column>
-            <el-table-column label="操作" align="center"  v-if="isshow">
+            <el-table-column label="操作" align="center" min-width="130" v-if="isshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"

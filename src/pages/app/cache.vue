@@ -49,62 +49,96 @@
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column type="index" align="left" >
+            <el-table-column type="index" align="left">
             </el-table-column>
-            <el-table-column
-                label="名称"
-                prop="name"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+            <el-table-column label="名称" prop="name" align="left">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.name }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.name }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="拼音"
                 prop="pinyin"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="left">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.pinyin" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.pinyin }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.pinyin }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="类型"
                 prop="atype"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.atype" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.atype }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.atype }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="类别"
                 prop="cname"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.cname" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.cname }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.cname }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="是否别名"
                 prop="isAlias"
-                 align="left"
-                 
+                 align="center"
                 :formatter="aliasVal">
             </el-table-column>
             <el-table-column
                 label="原名"
                 prop="sname"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="left">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sname" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.sname }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.sname }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="是否索引"
                 prop="isIndex"
-                align="left"
-                
+                align="center"
                 :formatter="indexVal">
             </el-table-column>
             <el-table-column
                 label="更新时间"
                 prop="upTime"
-                align="left"
-                
+                align="center"
                 :formatter="formTime"
                 min-width="120">
             </el-table-column>
@@ -181,6 +215,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             btnLoading:false,
             addVisible:false,
             addBtnLoading:false,
@@ -201,6 +236,17 @@ export default {
         }
     },
     methods:{
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         getList() {
             this.listLoading = true
             let params = {

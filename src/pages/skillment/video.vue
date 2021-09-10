@@ -37,44 +37,76 @@
                 <el-table-column
                     label="名称"
                     prop="programName"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.programName" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.programName }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.programName }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="类型"
                     prop="programDisplayType"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.programDisplayType" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.programDisplayType }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.programDisplayType }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="导演"
                     prop="programDirector"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.programDirector" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.programDirector }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.programDirector }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="集数"
                     prop="programChildNumber"
-                    align="left" 
+                    align="center" 
                     >
                 </el-table-column>
                 <el-table-column
                     label="链接"
                     prop="programUrl"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.programUrl" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.programUrl }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.programUrl }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="来源"
                     prop="programDisplaySource"
-                    align="left" 
+                    align="center" 
                     >
                 </el-table-column>
-                <el-table-column label="操作" align="center"  v-if="isshow">
+                <el-table-column label="操作" align="center" min-width="130" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -320,6 +352,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             seaBtnLoading:false,
             addBtnLoading:false,
             editBtnLoading:false,
@@ -340,6 +373,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1

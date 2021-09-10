@@ -13,8 +13,8 @@
                 </el-form-item>
                 <el-form-item label="来自于" prop="source">
                     <el-select v-model.trim="searchItem.source" placeholder="--" clearable>
-                    <el-option label="联想" value="lenovo"></el-option>
-                    <el-option label="百度" value="baidu"></el-option>
+                        <el-option label="联想" value="lenovo"></el-option>
+                        <el-option label="百度" value="baidu"></el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item label="起始时间" prop="refreshTime">
@@ -50,67 +50,60 @@
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
-                <el-table-column type="index" align="left" >
+                <el-table-column type="index" align="center"></el-table-column>
+                <el-table-column label="应用名" prop="name" align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.name }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.name }}
+                        </div>
+                    </template>
                 </el-table-column>
-                <el-table-column label="应用名" prop="name" align="left"  :show-overflow-tooltip="true">
+                <el-table-column label="类别" prop="cat" align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.cat" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.cat }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.cat }}
+                        </div>
+                    </template>
                 </el-table-column>
-                <el-table-column
-                    label="类别"
-                    prop="cat"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
+                <el-table-column label="平台" prop="platform" align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.platform" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.platform }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.platform }}
+                        </div>
+                    </template>
                 </el-table-column>
-                <el-table-column
-                    label="平台"
-                    prop="platform"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
+                <el-table-column label="费用" prop="fee" align="center"></el-table-column>
+                <el-table-column label="评分" prop="score" align="center"></el-table-column>
+                <el-table-column label="下载次数" prop="dnum" align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dnum" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.dnum }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.dnum }}
+                        </div>
+                    </template>
                 </el-table-column>
-                <el-table-column
-                    label="费用"
-                    prop="fee"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
-                </el-table-column>
-                <el-table-column
-                    label="评分"
-                    prop="score"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
-                </el-table-column>
-                <el-table-column
-                    label="下载次数"
-                    prop="dnum"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
-                </el-table-column>
-                <el-table-column
-                    label="来自"
-                    prop="source"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
-                </el-table-column>
-                <el-table-column
-                    label="更新时间"
-                    prop="updateTime"
-                    align="left"
-                    
-                    min-width="120">
-                </el-table-column>
-                <el-table-column
-                    label="入库时间"
-                    prop="createTime"
-                    align="left"
-                    
-                    :formatter="formTime"
-                    min-width="120">
-                </el-table-column>
+                <el-table-column label="来自" prop="source" align="center"></el-table-column>
+                <el-table-column label="更新时间" prop="updateTime" align="center" min-width="120"></el-table-column>
+                <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime" min-width="120"></el-table-column>
                 <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
@@ -310,6 +303,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             btnLoading:false,
             listLoading:true,
             addVisible:false,
@@ -331,6 +325,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         formTime(row, column){
             var timer = row.createTime
             var date = new Date(timer)

@@ -43,26 +43,32 @@
             <el-table-column
                 label="内容"
                 prop="con"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="left">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.con" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.con }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.con }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="状态"
                 prop="sta"
-                align="left"
-                
+                align="center"
                 :formatter="formState">
             </el-table-column>
             <el-table-column
                 label="更新/入库时间"
                 prop="it"
-                align="left"
-                
+                align="center"
                 min-width="120"
                 :formatter="formTime">
             </el-table-column>
-            <el-table-column label="操作" align="center"  v-if="isshow">
+            <el-table-column label="操作" align="center" min-width="190" v-if="isshow">
                 <template slot-scope="scope">
                   <el-button
                     size="mini"
@@ -152,6 +158,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
       totalCount:1,     // 总条数
+      showTitle:true,
       seaBtnLoading:false,
       editBtnLoading:false,
       addBtnLoading:false,
@@ -173,6 +180,17 @@ export default {
         }
     },
   methods:{
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
+    },
     formTime(row, column){
       var timer = row.it
       var date = new Date(timer)

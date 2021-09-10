@@ -31,42 +31,49 @@
                 <el-table-column
                     label="应用名称"
                     prop="appName"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.appName" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.appName }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.appName }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="技能数"
                     prop="funCount"
-                    align="left" 
+                    align="center" 
                     >
                 </el-table-column>
                 <el-table-column
                     label="调用次数"
                     prop="appCallCount"
-                    align="left" 
+                    align="center" 
                     >
                 </el-table-column>
                 <el-table-column
                     label="调用用户数"
                     prop="inc"
-                    align="left" 
+                    align="center" 
                     >
                 </el-table-column>
                 <el-table-column
                     label="失败次数"
                     prop="appFailCount"
-                    align="left" 
+                    align="center" 
                     >
                 </el-table-column>
                 <el-table-column
                     label="更新时间"
                     prop="displayUpdateTime"
-                    align="left" 
-                    
+                    align="center"
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" align="center"  width="200" v-if="isshow">
+                <el-table-column label="操作" align="center" width="200" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -160,6 +167,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             seaBtnLoading:false,
             addBtnLoading:false,
             editBtnLoading:false,
@@ -180,6 +188,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         resetForm(searchItem) {
             this.$refs[searchItem].resetFields();
             this.currentPage = 1

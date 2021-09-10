@@ -1,5 +1,5 @@
 <template>
-  <div class="table common">
+  <div class="table height-35">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>报表系统</el-breadcrumb-item>
@@ -11,10 +11,17 @@
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
-            <el-table-column :label="head" v-for="(head, key) in header" :key="head" align="left"  :show-overflow-tooltip="true">
+            <el-table-column :label="head" v-for="(head, key) in header" :key="head" align="left">
                 <template slot-scope="scope">
-                    {{list[scope.$index][key]}}
-                </template>
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="list[scope.$index][key]" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{list[scope.$index][key]}}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{list[scope.$index][key]}}
+                  </div>
+              </template>
             </el-table-column>
         </el-table>
       <el-pagination
@@ -43,6 +50,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
       totalCount:1,     // 总条数
+      showTitle:true,
       seaBtnLoading:false,
       fileBtnLoading:false,
       listLoading:true
@@ -57,16 +65,16 @@ export default {
     }
 },
   methods: {
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      this.currentPage = 1
-      this.getList()
-    },
-    onSubmit(){
-      this.seaBtnLoading = true
-      this.currentPage = 1
-      this.getList()
-      this.seaBtnLoading = false
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
     },
     handleSizeChange(val) {
       this.pageSize = val;

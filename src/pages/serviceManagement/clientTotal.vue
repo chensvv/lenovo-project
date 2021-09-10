@@ -24,20 +24,47 @@
                     <el-table-column
                         label="地址"
                         prop="name"
-                        align="left"
-                        :show-overflow-tooltip="true">
+                        align="center">
+                        <template slot-scope="scope">
+                            <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
+                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                                {{ scope.row.name }}
+                                </div>
+                            </el-tooltip>
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                                {{ scope.row.name }}
+                            </div>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         label="值"
                         prop="value"
-                        align="left"
-                        :show-overflow-tooltip="true">
+                        align="center">
+                        <template slot-scope="scope">
+                            <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.value" placement="top">
+                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                                {{ scope.row.value }}
+                                </div>
+                            </el-tooltip>
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                                {{ scope.row.value }}
+                            </div>
+                        </template>
                     </el-table-column>
                     <el-table-column
                         label="sce"
                         prop="sce"
-                        align="left"
-                        :show-overflow-tooltip="true">
+                        align="center">
+                        <template slot-scope="scope">
+                            <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sce" placement="top">
+                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                                {{ scope.row.sce }}
+                                </div>
+                            </el-tooltip>
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                                {{ scope.row.sce }}
+                            </div>
+                        </template>
                     </el-table-column>
                     <el-table-column label="操作" align="center"  v-if="isshow">
                         <template slot-scope="scope">
@@ -102,6 +129,7 @@ export default {
         currentPage: 1, //默认显示第几页
         pageSize: 10,   //默认每页条数
         totalCount:1,     // 总条数
+        showTitle:true,
         addBtnLoading:false,
         listLoading:true,
         addVisible:false,
@@ -123,6 +151,17 @@ export default {
     }
   },
   methods: {
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
+    },
     openFun(addList){
       this.$nextTick(() => {
         if(this.$refs[addList]){

@@ -33,39 +33,70 @@
                 <el-table-column
                     label="歌曲名称"
                     prop="songName"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.songName" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.songName }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.songName }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="歌曲ID"
                     prop="songId"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.songId" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.songId }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.songId }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="专辑ID"
                     prop="id"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.id" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.id }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.id }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="QQ音乐MID"
                     prop="songMid"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.songMid" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.songMid }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.songMid }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="更新时间"
                     prop="displayUpdateTime"
-                    align="left" 
-                    
+                    align="center"
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" align="center"  v-if="isshow">
+                <el-table-column label="操作" align="center" min-width="130" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -200,6 +231,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             seaBtnLoading:false,
             addBtnLoading:false,
             editBtnLoading:false,
@@ -220,6 +252,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1

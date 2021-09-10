@@ -52,47 +52,86 @@
                 <el-table-column
                     label="网站名称"
                     prop="name"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.name }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.name }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="别名"
                     prop="alias"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.alias" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.alias }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.alias }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="手机网址"
                     prop="wapUrl"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.wapUrl" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.wapUrl }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.wapUrl }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="WEB网址"
                     prop="url"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.url" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.url }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.url }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="来源"
                     prop="source"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.source" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.source }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.source }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="更新时间"
                     prop="createTime"
-                    align="left"
-                    
+                    align="center"
                     :formatter="formTime"
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" align="center"  v-if="isshow">
+                <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -202,6 +241,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             seaBtnLoading:false,
             addBtnLoading:false,
             editBtnLoading:false,
@@ -222,6 +262,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         formTime(row, column){
             var timer = row.createTime
             var date = new Date(timer)

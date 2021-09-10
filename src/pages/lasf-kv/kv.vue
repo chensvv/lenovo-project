@@ -24,18 +24,34 @@
                 <el-table-column
                     label="KEY"
                     prop="key"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip popper-class="kv-tooltip" effect="dark" v-if="!showTitle" :content="scope.row.key" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.key }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.key }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="VAL"
                     prop="val"
-                    align="left"
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip popper-class="kv-tooltip" effect="dark" v-if="!showTitle" :content="scope.row.val" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.val }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.val }}
+                        </div>
+                    </template>
                 </el-table-column>
-                <el-table-column label="操作" align="center"  width="200" v-if="isshow">
+                <el-table-column label="操作" align="center"  min-width="200" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -157,6 +173,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             addBtnLoading:false,
             editBtnLoading:false,
             listLoading:true,
@@ -177,6 +194,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         handleSizeChange(val) {
             this.pageSize = val;
             this.currentPage = 1
@@ -435,4 +463,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

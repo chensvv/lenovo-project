@@ -30,13 +30,13 @@
                 <el-table-column
                     label="用户名"
                     prop="userName"
-                    align="left"  
+                    align="center"  
                     >
                 </el-table-column>
                 <el-table-column
                     label="密码"
                     prop="password"
-                    align="left"
+                    align="center"
                     >
                     <template slot-scope="scope">
                         <span>{{scope.row.password | hideStar}}</span>
@@ -45,7 +45,7 @@
                 <el-table-column
                     label="状态"
                     prop="status"
-                    align="left"  
+                    align="center"  
                     >
                     <template slot-scope="scope">
                         <span>{{scope.row.status == 0 ? '未审核': '已审核'}}</span>

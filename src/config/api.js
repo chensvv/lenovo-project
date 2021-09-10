@@ -733,6 +733,14 @@ export function zipDownload (data) {
   })
 }
 
+export function topKeyWord (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/trigger/topKeyWord',
+    method: 'post',
+    data: data
+  })
+}
+
 export function kvList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/list',

@@ -1,13 +1,13 @@
 <template>
-  <div class="table height-105">
+  <div class="table height-135">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>服务管理</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- <el-button class="success" size="mini" @click="handleAdd()">添加</el-button> -->
-    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
-      <div class="form-input height70">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height100 width130" size="mini">
+      <div class="form-input height100">
         <el-form-item label="通道" prop="channel">
               <el-select v-model.trim="searchItem.channel" placeholder="--" clearable>
                   <el-option label="单通道" value="1"></el-option>
@@ -70,7 +70,7 @@
             <el-table-column
                 label="通道"
                 prop="channel"
-                align="left"
+                align="center"
                 :show-overflow-tooltip="true">
                 <template slot-scope="scope">
                     <span
@@ -80,52 +80,103 @@
             <el-table-column
                 label="比特率"
                 prop="rate"
-                align="left"
+                align="center"
                 >
             </el-table-column>
             <el-table-column
                 label="会话id"
                 prop="sessionId"
-                align="left"
-                
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sessionId" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.sessionId }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.sessionId }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="lenovoKey"
                 prop="lenovoKey"
-                 align="left"
-                 :show-overflow-tooltip="true">
+                 align="center">
+                 <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.lenovoKey" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.lenovoKey }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.lenovoKey }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="secretKey"
                 prop="secretKey"
-                 align="left"
-                 :show-overflow-tooltip="true">
+                 align="center">
+                 <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.secretKey" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.secretKey }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.secretKey }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="字节数"
                 prop="voiceBytes"
-                 align="left"
-                 :show-overflow-tooltip="true">
+                 align="center">
+                 <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.voiceBytes" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.voiceBytes }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.voiceBytes }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="长短语音"
                 prop="sce"
-                 align="left"
-                 :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sce" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.sce }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.sce }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="语言"
                 prop="language"
-                 align="left"
-                 
-                 :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.language" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.language }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.language }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="是否离线"
                 prop="offline"
-                 align="left"
-                 :show-overflow-tooltip="true">
+                 align="center">
                  <template slot-scope="scope">
                     <span
                     disable-transitions>{{scope.row.offline == 1 ? '是': '否'}}</span>
@@ -134,14 +185,14 @@
             <el-table-column
                 label="添加时间"
                 prop="createTime"
-                align="left"
+                align="center"
                 min-width="120"
                 :formatter="formTime">
             </el-table-column>
             <el-table-column
                 label="修改时间"
                 prop="updateTime"
-                align="left"
+                align="center"
                 min-width="120"
                 :formatter="formTime2">
             </el-table-column>
@@ -182,6 +233,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
       totalCount:1,     // 总条数
+      showTitle:true,
       seaBtnLoading:false,
       listLoading:true,
     };
@@ -190,6 +242,17 @@ export default {
     this.getList();
   },
   methods: {
+      onShowNameTipsMouseenter(e) {
+          var target = e.target;
+          let textLength = target.clientWidth;
+          let containerLength = target.scrollWidth;
+          if (textLength < containerLength) {
+              // 溢出了
+              this.showTitle = false;
+          } else {
+              this.showTitle = true;
+          }
+      },
       formTime(row, column){
       var timer = row.createTime
       var date = new Date(timer)

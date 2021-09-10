@@ -33,15 +33,22 @@
                 <el-table-column
                     label="用户query"
                     prop="command"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.command" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.command }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.command }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="修改时间"
                     prop="updateTime"
-                    align="left" 
-                    
+                    align="center"
                     :formatter="formTime"
                     min-width="120">
                 </el-table-column>
@@ -104,6 +111,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             seaBtnLoading:false,
             addBtnLoading:false,
             listLoading:true,
@@ -123,6 +131,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         formTime(row, column){
             var timer = row.updateTime
             var date = new Date(timer)

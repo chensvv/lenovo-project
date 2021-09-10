@@ -17,19 +17,26 @@
           <el-table-column
               label="版本号"
               prop="version"
-              align="left" 
-              
-              :show-overflow-tooltip="true">
+              align="center">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.version" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.version }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.version }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="发布时间"
               prop="createTime"
-              align="left" 
-              
+              align="center"
               :formatter="formTime"
               min-width="120">
           </el-table-column>
-          <el-table-column label="灰度" align="left"  v-if="isshow">
+          <el-table-column label="灰度" align="center"  v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
@@ -37,12 +44,12 @@
                   v-has="'history:updateGray'">编辑</el-button>
               </template>
           </el-table-column>
-          <el-table-column label="是否灰度" prop="isGray" align="left"  :show-overflow-tooltip="true">
+          <el-table-column label="是否灰度" prop="isGray" align="center" min-width="80" :show-overflow-tooltip="true">
             <template slot-scope="scope">
                 <span>{{scope.row.isGray == '0' ? '不灰度' : '灰度'}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="left"  v-if="issueshow">
+          <el-table-column label="操作" align="center" min-width="130" v-if="issueshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
@@ -192,6 +199,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
       totalCount:1,     // 总条数
+      showTitle:true,
       editBtnLoading:false,
       listLoading:true,
       infoListLoading:true,
@@ -215,6 +223,17 @@ export default {
       }
   },
   methods: {
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
+    },
     formTime(row, column){
       var timer = row.createTime
       var date = new Date(timer)

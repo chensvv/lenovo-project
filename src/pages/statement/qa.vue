@@ -32,15 +32,22 @@
           <el-table-column
               label="说法"
               prop="speak"
-              align="left" 
-              
-              :show-overflow-tooltip="true">
+              align="left">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.speak" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.speak }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.speak }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="状态"
               prop="status"
-              align="left" 
-              
+              align="center"
               v-if="isshow">
               <template slot-scope="scope">
                   <span  v-has="'user:data'">{{scope.row.status == 0 ? '已审批' : 
@@ -51,20 +58,18 @@
           <el-table-column
               label="创建时间"
               prop="createTime"
-              align="left" 
-              
+              align="center"
               :formatter="formTime2"
               min-width="120">
           </el-table-column>
           <el-table-column
               label="更新时间"
               prop="updateTime"
-              align="left" 
-              
+              align="center"
               :formatter="formTime"
               min-width="120">
           </el-table-column>
-          <el-table-column label="操作" align="center"  v-if="btnshow">
+          <el-table-column label="操作" align="center" min-width="130" v-if="btnshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
@@ -144,6 +149,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
       totalCount:1,     // 总条数
+      showTitle:true,
       seaBtnLoading:false,
       addBtnLoading:false,
       editBtnLoading:false,
@@ -169,6 +175,17 @@ export default {
     }
   },
   methods: {
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
+    },
     formTime(row, column){
       var timer = row.updateTime
       var date = new Date(timer)

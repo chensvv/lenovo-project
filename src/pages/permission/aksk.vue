@@ -19,51 +19,86 @@
         <div class="table-box">
             <el-table
             :data="list"
-            :class="this.totalClass <= '5' ? 'limitWidth' :''"
+            :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading">
             <el-table-column
                 label="lenovoId"
                 prop="lenovoId"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.lenovoId" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.lenovoId }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.lenovoId }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="用户名"
                 prop="userName"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="left">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userName" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.userName }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.userName }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
-                label="ASR访问次数"
+                label="ASR可访问次数"
                 prop="userDailyCloudasrCount"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.userDailyCloudasrCount }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.userDailyCloudasrCount }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
-                label="TTS访问次数"
+                label="TTS可访问次数"
                 prop="userDailyCloudttsCount"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.userDailyCloudttsCount }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.userDailyCloudttsCount }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="会议监控权限"
                 prop="meetingService"
-                align="left"
-                :formatter="meeting"
-                :show-overflow-tooltip="true">
+                align="center"
+                :formatter="meeting">
             </el-table-column>
             <el-table-column
                 label="添加时间"
                 prop="createTime"
-                align="left"
+                align="center"
                 :formatter="formTime"
                 min-width="120">
             </el-table-column>
             <el-table-column
                 label="更新时间"
                 prop="updateTime"
-                align="left"
+                align="center"
                 :formatter="formTime2"
                 min-width="120">
             </el-table-column>
@@ -92,18 +127,36 @@
         </div>
           
         <el-dialog title="详情" :visible.sync="infoVisible" width="300" :before-close="handleClose">
-            <el-form :label-position="'right'" label-width="100px" size="small">
+            <el-form :label-position="'right'" label-width="140px" size="small">
                 <el-form-item label="lenovoId">
                     <el-input type="text" v-model="infoList.lenovoId" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="用户名">
                     <el-input type="text" v-model="infoList.userName" auto-complete="off" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="ASR访问次数">
+                <el-form-item label="ASR可访问次数">
                     <el-input type="text" v-model="infoList.userDailyCloudasrCount" auto-complete="off" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="TTS访问次数">
+                <el-form-item label="TTS可访问次数">
                     <el-input type="text" v-model="infoList.userDailyCloudttsCount" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="ASR历史使用次数">
+                    <el-input type="text" v-model="infoList.historyAsrCount" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="TTS历史使用次数">
+                    <el-input type="text" v-model="infoList.historyTTSCount" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="ASR当日使用次数">
+                    <el-input type="text" v-model="infoList.usedAsrCount" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="TTS当日使用次数">
+                    <el-input type="text" v-model="infoList.usedTTSCount" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="ASR剩余可访问次数">
+                    <el-input type="text" v-model="infoList.remainAsrCount" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="TTS剩余可访问次数">
+                    <el-input type="text" v-model="infoList.remainTTSCount" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="AK">
                     <el-input type="text" v-model="infoList.ak" auto-complete="off" readonly></el-input>
@@ -170,7 +223,13 @@ export default {
                 userDailyCloudasrCount:'',
                 userDailyCloudttsCount:'',
                 ak:'',
-                sk:''
+                sk:'',
+                historyAsrCount:'',
+                historyTTSCount:'',
+                usedAsrCount:'',
+                usedTTSCount:'',
+                remainAsrCount:'',
+                remainTTSCount:''
             },
             currentItem: {//编辑数据组
                 id:"",
@@ -192,6 +251,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             editVisible: false,
             editBtnLoading:false,
             btnLoading:false,
@@ -213,6 +273,17 @@ export default {
         }
     },
     methods:{
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         formTime(row, column){
         var timer = row.createTime
         var date = new Date(timer * 1000)
@@ -369,7 +440,13 @@ export default {
                     userDailyCloudasrCount:res.data.userDailyCloudasrCount,
                     userDailyCloudttsCount:res.data.userDailyCloudttsCount,
                     ak:res.data.lenovoKey,
-                    sk:res.data.secretKey
+                    sk:res.data.secretKey,
+                    historyAsrCount:res.data.historyAsrCount,
+                    historyTTSCount:res.data.historyTTSCount,
+                    usedAsrCount:res.data.usedAsrCount,
+                    usedTTSCount:res.data.usedTTSCount,
+                    remainAsrCount:res.data.remainAsrCount,
+                    remainTTSCount:res.data.remainTTSCount
                 }
             })
         },

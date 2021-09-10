@@ -33,46 +33,85 @@
                 <el-table-column
                     label="名称"
                     prop="albumName"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.albumName" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.albumName }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.albumName }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="专辑ID"
                     prop="id"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.id" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.id }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.id }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="QQ音乐ID"
                     prop="albumQqId"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.albumQqId" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.albumQqId }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.albumQqId }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="QQ音乐MID"
                     prop="albumQqMid"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.albumQqMid" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.albumQqMid }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.albumQqMid }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="专辑对应歌手ID"
                     prop="albumQqSingerId"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.albumQqSingerId" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.albumQqSingerId }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.albumQqSingerId }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="更新时间"
                     prop="displayUpdateTime"
-                    align="left" 
-                    
+                    align="center"
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" align="center"  v-if="isshow">
+                <el-table-column label="操作" align="center" min-width="130" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -192,6 +231,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             seaBtnLoading:false,
             addBtnLoading:false,
             editBtnLoading:false,
@@ -212,6 +252,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1

@@ -49,30 +49,53 @@
           <el-table-column
               label="问题"
               prop="ques"
-              align="left"
-              
-              :show-overflow-tooltip="true">
+              align="left">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ques" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.ques }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.ques }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="答案"
               prop="answ"
-              align="left"
-              
-              :show-overflow-tooltip="true">
+              align="left">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.answ" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.answ }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.answ }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="引擎"
               prop="engi"
-              align="left"
-              
-              :show-overflow-tooltip="true">
+              align="left">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.engi" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.engi }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.engi }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="入库时间"
               prop="it"
-              align="left"
+              align="center"
               min-width="120"
-              
               :formatter="formTime">
           </el-table-column>
       </el-table>
@@ -116,6 +139,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
       totalCount:1,     // 总条数
+      showTitle:true,
       seaBtnLoading:false,
       fileBtnLoading:false,
       listLoading:true
@@ -125,15 +149,26 @@ export default {
     this.getList();
   },
   methods: {
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
+    },
     formTime(row, column){
-            var timer = row.it
-            var date = new Date(timer)
-                return date.getFullYear()+'-'+
-                checkTime(date.getMonth()+1)+'-'+
-                checkTime(date.getDate())+' '+
-                checkTime(date.getHours())+':'+
-                checkTime(date.getMinutes())
-        },
+      var timer = row.it
+      var date = new Date(timer)
+          return date.getFullYear()+'-'+
+          checkTime(date.getMonth()+1)+'-'+
+          checkTime(date.getDate())+' '+
+          checkTime(date.getHours())+':'+
+          checkTime(date.getMinutes())
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.currentPage = 1

@@ -22,46 +22,109 @@
             <el-table-column
                 label="ip"
                 prop="ipAddress"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ipAddress" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.ipAddress }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.ipAddress }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="端口"
                 prop="port"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.port" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.port }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.port }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="权重"
                 prop="weight"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.weight" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.weight }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.weight }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="场景"
                 prop="scene"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.scene" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.scene }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.scene }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="语言"
                 prop="language"
-                 align="left"
-                 :show-overflow-tooltip="true">
+                 align="center">
+                 <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.language" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.language }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.language }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="比率"
                 prop="rate"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.rate" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.rate }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.rate }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="来源"
                 prop="channel"
-                align="left"
-                :show-overflow-tooltip="true">
+                align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.channel" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.channel }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.channel }}
+                    </div>
+                </template>
             </el-table-column>
-            <el-table-column label="操作" align="center"  v-if="isshow">
+            <el-table-column label="操作" align="center" v-if="isshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
@@ -146,6 +209,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             btnLoading:false,
             addVisible:false,
             addBtnLoading:false,
@@ -166,6 +230,17 @@ export default {
         }
     },
     methods:{
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         pageList() {
             this.listLoading = true
             let params = {}

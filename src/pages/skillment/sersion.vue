@@ -31,32 +31,38 @@
             <el-table-column
                 label="说明"
                 prop="versionIllustration"
-                align="left" 
-                
-                :show-overflow-tooltip="true">
+                align="left">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.versionIllustration" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.versionIllustration }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.versionIllustration }}
+                    </div>
+                </template>
             </el-table-column>
             <el-table-column
                 label="启用"
                 prop="state"
-                align="left" 
-                
+                align="center"
                 :formatter="formVal"
                 >
             </el-table-column>
             <el-table-column
                 label="调用次数"
                 prop="versionCallCount"
-                align="left" 
+                align="center" 
                 >
             </el-table-column>
             <el-table-column
                 label="更新时间"
                 prop="displayUpdateTime"
-                align="left" 
-                
+                align="center"
                 min-width="120">
             </el-table-column>
-            <el-table-column label="操作" align="center"  width="200" v-if="isshow">
+            <el-table-column label="操作" align="center" width="200" v-if="isshow">
                 <template slot-scope="scope">
                     <el-button
                     size="mini"
@@ -177,6 +183,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
       totalCount:1,     // 总条数
+      showTitle:true,
       addBtnLoading:false,
       editBtnLoading:false,
       relBtnLoading:false,
@@ -200,6 +207,17 @@ export default {
         }
     },
   methods: {
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
+    },
     formVal(row,column){
         return row.state === true ? 'true' : 'false'
     },

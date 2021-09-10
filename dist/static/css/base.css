@@ -113,9 +113,22 @@
 .form-btn{
   display: flex;
 }
+.form-btn-block{
+  min-width: 160px;
+  max-width: 160px;
+  text-align: center;
+  height: 100%;
+  line-height: 40px;
+  display: block;
+}
 
 .sub-btn .el-form-item__content {
   line-height: unset;
+}
+
+.height-35 .table-box{
+  font-size: 12px;
+  height: calc(100% - 35px);
 }
 
 .height-85 .table-box {
@@ -161,8 +174,18 @@
   align-items: center;
 }
 
+.el-table__header-wrapper .cell{
+  white-space: nowrap;
+}
+
 .el-table__body-wrapper {
   height: calc(100% - 30px);
+}
+.rule .el-table__body-wrapper{
+  overflow-y: auto;
+}
+.rule .el-table td{
+  padding: 7px 0;
 }
 
 .el-table__body {
@@ -340,9 +363,17 @@
 .el-tooltip__popper {
   max-width: 500px;
   height: auto;
-  max-height: 410px !important;
-  overflow-y: hidden;
+  max-height: 400px !important;
 }
+
+.kv-tooltip {
+  overflow: auto;
+}
+.kv-tooltip .popper__arrow{
+  display: none;
+}
+
+.kv-tooltip::-webkit-scrollbar { display: none; }
 
 .is404 {
   display: none !important;
@@ -489,11 +520,11 @@
 
 .table-box .el-tabs__header {
   margin: 0;
-  height: 5.5%;
+  height: 32px;
 }
 
 .table-box .el-tabs__content {
-  height: 94.5%;
+  height: calc(100% - 32px);
 }
 
 .table-box .el-tabs__content .el-tab-pane {
@@ -856,6 +887,17 @@
   padding: 12px 0;
 }
 
+.toEllipsis{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.headlips{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
 
 
 @media (min-width: 768px) {
@@ -991,7 +1033,7 @@
   display: block;
 }
 
-.table .el-tree{
+.rule .el-tree{
   width: 500px;
   margin-left: 50px;
 }

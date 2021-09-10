@@ -1,5 +1,5 @@
 <template>
-    <div class="table">
+    <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>权限管理</el-breadcrumb-item>
@@ -7,10 +7,51 @@
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" size="mini" style="padding-left:50px;">
             <el-form-item class="sub-btn">
-                <el-button type="primary" @click="handleAdd(0)" size="mini" :loading="btnLoading" v-has="'Rule:add'">增加一级权限</el-button>
+                <el-button type="primary" @click="handleAdd(1,0)" size="mini" :loading="btnLoading" v-has="'Rule:add'">增加一级权限</el-button>
             </el-form-item>
         </el-form>
-        <el-tree
+        <div class="table-box rule">
+            <el-table
+                :data="list"
+                v-laoding="listLoading"
+                row-key="id"
+                :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
+                <el-table-column
+                    prop="ruleName"
+                    label="一级权限名称">
+                </el-table-column>
+                <el-table-column
+                    prop="ruleCode"
+                    label="权限标识">
+                </el-table-column>
+                <el-table-column
+                    prop="url"
+                    label="url">
+                </el-table-column>
+                <el-table-column label="操作" align="center"  width="200" v-if="isshow">
+                    <template slot-scope="scope">
+                      <el-button
+                            size="mini"
+                            @click.native.stop="handleAdd(scope.$index, scope.row)"
+                            v-has="'Rule:add'"
+                            v-if="scope.row.menutype != 3"
+                        >增加</el-button>
+                        <el-button
+                            size="mini"
+                            @click.native.stop="handleEdit(scope.$index, scope.row)"
+                            v-has="'Rule:update'"
+                        >编辑</el-button>
+                        <el-button 
+                            size="mini" 
+                            type="danger"
+                            @click.native.stop="handleDel(scope.$index, scope.row)"
+                            v-has="'Rule:delete'"
+                        >删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+        <!-- <el-tree
             :props="defaultProps"
             :data="list"
             node-key="id"
@@ -43,7 +84,7 @@
                         >删除</el-button>
                 </span>
             </span>
-        </el-tree>
+        </el-tree> -->
         <el-dialog :title="addTitle" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="权限名称" prop="ruleName">
@@ -89,6 +130,8 @@ export default {
     data() {
         return {
             list:[],
+            expands:[],
+            addl:{},
             defaultProps: {
                 children: "children",
                 label: "ruleName"
@@ -124,6 +167,7 @@ export default {
             editBtnLoading:false,
             ruleCodeAuth:false,
             urlAuth:false,
+            isshow:true,
             addTitle:''
         };
     },
@@ -145,25 +189,32 @@ export default {
                 }
             })
         },
+        /** 表格某行点击事件 */
+        handleRowClick(row, column, event){
+            console.log(row)
+            // 判断当前行是否有子集，若没有则结束处理
+            if(row.children || row.children.length === 0) return
+            this.$refs.menuTable.toggleRowExpansion(row)
+        },
         editHandleClose() {
             this.editVisible = false;
         },
         addHandleClose(){
             this.addVisible = false
         },
-        handleAdd(v){
+        handleAdd(index,row){
             this.addList = {
-                parentCode:v == 0 ? 0 : v.id,
+                parentCode:row == 0 ? 0 : row.id,
                 ruleCode:'',
                 ruleName:'',
                 url:'',
-                icon: v == 0 ? 'el-icon-tickets' : v.menutype == 3 ? ' ' : 'el-icon-document'
+                icon: row == 0 ? 'el-icon-tickets' : row.menutype == 3 ? ' ' : 'el-icon-document'
             }
-            if(v == 0){
+            if(row == 0){
                 this.ruleCodeAuth = false
                 this.urlAuth = false
                 this.addTitle = '新增一级菜单权限'
-            }else if(v.menutype == 1){
+            }else if(row.menutype == 1){
                 this.urlAuth = true
                 this.ruleCodeAuth = true
                 this.addTitle = '新增字菜单权限'
@@ -229,8 +280,7 @@ export default {
                 }
             });
         },
-        handleEdit(row) {
-            console.log(row)
+        handleEdit(index,row) {
             this.currentItem = {
                 id:row.id,
                 ruleCode:row.ruleCode,
@@ -305,9 +355,9 @@ export default {
                 }
             });
         },
-        handleDel(id) {
+        handleDel(index,row) {
             let delParams = {
-                id:id
+                id:row.id
             }
             let logParams = {
                 userName:sessionStorage.getItem('username'),

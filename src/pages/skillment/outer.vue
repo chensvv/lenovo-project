@@ -56,53 +56,100 @@
                 <el-table-column
                     label="用户ID"
                     prop="uid"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.uid" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.uid }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.uid }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="用户指令"
                     prop="userText"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userText" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.userText }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.userText }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="解析领域"
                     prop="nlpDomain"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="left">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.nlpDomain" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.nlpDomain }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.nlpDomain }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="响应状态"
                     prop="responseStatus"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.responseStatus" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.responseStatus }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.responseStatus }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="三方名称"
                     prop="outerType"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.outerType" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.outerType }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.outerType }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="接口名称"
                     prop="interfaceUrl"
-                    align="left" 
-                    
-                    :show-overflow-tooltip="true">
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.interfaceUrl" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.interfaceUrl }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.interfaceUrl }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="时间"
                     prop="displayTime"
-                    align="left" 
-                    
+                    align="center"
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" align="center"  v-if="isshow">
+                <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"
@@ -208,6 +255,7 @@ export default {
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
+            showTitle:true,
             seaBtnLoading:false,
             listLoading:true,
             isshow:true
@@ -226,6 +274,17 @@ export default {
         }
     },
     methods: {
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1

@@ -59,13 +59,21 @@
           <el-table-column
               label="渠道"
               prop="channelStr"
-              align="left" 
-              
-              :show-overflow-tooltip="true">
+              align="left">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.channelStr" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.channelStr }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.channelStr }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
             label="资源图片"
-            align="left" 
+            align="center" 
             >
             <template slot-scope="scope">
                 <img :src="scope.row.phoneImg" class="thum" />
@@ -74,33 +82,56 @@
           <el-table-column
               label="资源说明"
               prop="description"
-              align="left" 
-              
-              :show-overflow-tooltip="true">
+              align="left">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.description" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.description }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.description }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="名称"
               prop="name"
-              align="left" 
-              
-              :show-overflow-tooltip="true">
+              align="left">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.name }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.name }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="类型"
               prop="typeStr"
-              align="left" 
-              
-              :show-overflow-tooltip="true">
+              align="center">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.typeStr" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.typeStr }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.typeStr }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="创建时间"
               prop="createTime"
-              align="left" 
-              
+              align="center"
               :formatter="formTime"
               min-width="120">
           </el-table-column>
-          <el-table-column label="添加到待发布" align="left"  v-if="issueshow">
+          <el-table-column label="添加到待发布" align="center" min-width="80" v-if="issueshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"
@@ -202,6 +233,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 7,   //默认每页条数
       totalCount:1,     // 总条数
+      showTitle:true,
     //   图片上传裁剪参数
       seaBtnLoading:false,
       addResBtnLoading:false,
@@ -239,6 +271,17 @@ export default {
       }
   },
   methods: {
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
+    },
     formTime(row, column){
       var timer = row.createTime
       var date = new Date(timer)

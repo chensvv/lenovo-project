@@ -1,5 +1,5 @@
 <template>
-  <div class="table height-85">
+  <div class="table news height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item>规则定义</el-breadcrumb-item>
@@ -22,8 +22,17 @@
           <el-table-column
               label="标题"
               prop="newsTitle"
-              align="left" 
-              :show-overflow-tooltip="true">
+              align="left">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.newsTitle" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.newsTitle }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.newsTitle }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
             label="图片"
@@ -36,26 +45,44 @@
           <el-table-column
               label="描述"
               prop="newsDetails"
-              align="left"
-              :show-overflow-tooltip="true">
+              align="left">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.newsDetails" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.newsDetails }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.newsDetails }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="路径"
               prop="detailsUrl"
-              align="left"
-              :show-overflow-tooltip="true">
+              align="center">
+              <template slot-scope="scope">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.detailsUrl" placement="top">
+                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                      {{ scope.row.detailsUrl }}
+                      </div>
+                  </el-tooltip>
+                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                      {{ scope.row.detailsUrl }}
+                  </div>
+              </template>
           </el-table-column>
           <el-table-column
               label="创建时间"
               prop="createTime"
-              align="left"
+              align="center"
               :formatter="formTime"
               min-width="120">
           </el-table-column>
           <el-table-column
               label="更新时间"
               prop="updateTime"
-              align="left"
+              align="center"
               :formatter="formTime2"
               min-width="120">
           </el-table-column>
@@ -192,7 +219,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 7,   //默认每页条数
       totalCount:1,     // 总条数
-    //   图片上传裁剪参数
+      showTitle:true,
       listLoading:true,
       isshow:true,
     };
@@ -210,6 +237,17 @@ export default {
     }
   },
   methods: {
+    onShowNameTipsMouseenter(e) {
+        var target = e.target;
+        let textLength = target.clientWidth;
+        let containerLength = target.scrollWidth;
+        if (textLength < containerLength) {
+            // 溢出了
+            this.showTitle = false;
+        } else {
+            this.showTitle = true;
+        }
+    },
     formTime(row, column){
       var timer = row.createTime
       var date = new Date(timer)
