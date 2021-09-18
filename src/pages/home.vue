@@ -104,7 +104,7 @@ export default {
 <style>
 .home {
     height: 100%;
-    min-width: 1200px;
+    min-width: 1300px;
 }
 
 .home .el-container{

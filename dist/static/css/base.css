@@ -897,7 +897,16 @@
   text-overflow: ellipsis;
   display: block;
 }
-
+.flex-align .el-table th.is-sortable>.cell{
+  display: flex;
+  align-items: center;
+}
+.el-table .caret-wrapper{
+  width: 20px;
+}
+.el-table .sort-caret{
+  left: 5px;
+}
 
 
 @media (min-width: 768px) {

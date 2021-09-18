@@ -16,12 +16,13 @@
                 <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
             </div>
         </el-form>
-        <div class="table-box">
+        <div class="table-box flex-align">
             <el-table
             :data="list"
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
-            v-loading="listLoading">
+            v-loading="listLoading"
+            @sort-change="sortChange">
             <el-table-column
                 label="lenovoId"
                 prop="lenovoId"
@@ -56,7 +57,7 @@
                 label="ASR可访问次数"
                 prop="userDailyCloudasrCount"
                 align="center">
-                <template slot="header" slot-scope="scope">
+                <template slot="header">
                     <el-tooltip effect="dark" content="ASR可访问次数" placement="top">
                     <span slot class="headlips">ASR可访问次数</span>
                     </el-tooltip>
@@ -76,7 +77,7 @@
                 label="TTS可访问次数"
                 prop="userDailyCloudttsCount"
                 align="center">
-                <template slot="header" slot-scope="scope">
+                <template slot="header">
                     <el-tooltip effect="dark" content="TTS可访问次数" placement="top">
                     <span slot class="headlips">TTS可访问次数</span>
                     </el-tooltip>
@@ -95,8 +96,9 @@
             <el-table-column
                 label="ASR当日使用次数"
                 prop="dailyUseAsr"
-                align="center">
-                <template slot="header" slot-scope="scope">
+                align="center"
+                sortable="custom">
+                <template slot="header">
                     <el-tooltip effect="dark" content="ASR当日使用次数" placement="top">
                     <span slot class="headlips">ASR当日使用次数</span>
                     </el-tooltip>
@@ -115,8 +117,9 @@
             <el-table-column
                 label="TTS当日使用次数"
                 prop="dailyUseTts"
-                align="center">
-                <template slot="header" slot-scope="scope">
+                align="center"
+                sortable="custom">
+                <template slot="header">
                     <el-tooltip effect="dark" content="TTS当日使用次数" placement="top">
                     <span slot class="headlips">TTS当日使用次数</span>
                     </el-tooltip>
@@ -135,8 +138,9 @@
             <el-table-column
                 label="ASR历史使用次数"
                 prop="historyUseAsr"
-                align="center">
-                <template slot="header" slot-scope="scope">
+                align="center"
+                sortable="custom">
+                <template slot="header">
                     <el-tooltip effect="dark" content="ASR历史使用次数" placement="top">
                     <span slot class="headlips">ASR历史使用次数</span>
                     </el-tooltip>
@@ -155,8 +159,9 @@
             <el-table-column
                 label="TTS历史使用次数"
                 prop="historyUseTts"
-                align="center">
-                <template slot="header" slot-scope="scope">
+                align="center"
+                sortable="custom">
+                <template slot="header">
                     <el-tooltip effect="dark" content="TTS历史使用次数" placement="top">
                     <span slot class="headlips">TTS历史使用次数</span>
                     </el-tooltip>
@@ -177,7 +182,7 @@
                 prop="meetingService"
                 align="center"
                 :formatter="meeting">
-                <template slot="header" slot-scope="scope">
+                <template slot="header">
                     <el-tooltip effect="dark" content="会议监控权限" placement="top">
                     <span slot class="headlips">会议监控权限</span>
                     </el-tooltip>
@@ -340,6 +345,10 @@ export default {
                 userDailyCloudasrCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
                 userDailyCloudttsCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
             },
+            column:{
+                prop:'',
+                order:''
+            },
             user:'',
             id:'',
             // 分页
@@ -499,12 +508,22 @@ export default {
           console.log(err);
         });
         },
+        sortChange(column){
+            this.column = {
+                prop:column.prop,
+                order:column.order
+            }
+            console.log(this.column)
+            this.getList()
+        },
         getList() {
             this.listLoading = true
             let params = {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
                 q:this.searchItem.userName,
+                fieldName: this.column.prop,
+                order:this.column.order == 'ascending' ? '0' : ''
             }
             akskList(params).then(res=>{
                 this.listLoading = false

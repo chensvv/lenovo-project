@@ -58,12 +58,13 @@
                 <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
             </div>
         </el-form>
-        <div  class="table-box">
+        <div class="table-box">
             <el-table
             :data="list"
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
-            v-loading="listLoading">
+            v-loading="listLoading"
+            @sort-change="sortChange">
             <el-table-column label="ID" prop="id" align="center">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.id" placement="top">
@@ -122,7 +123,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="DTP" prop="dtp" align="center">
+            <el-table-column label="DTP" prop="dtp" align="center" sortable="custom">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -134,7 +135,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="VER" prop="ver" align="center">
+            <el-table-column label="VER" prop="ver" align="center" sortable="custom">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -348,6 +349,10 @@ export default {
                 l1c:"",
                 l2c:""
             },
+            column:{
+                prop:'',
+                order:''
+            },
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 8,   //默认每页条数
@@ -397,6 +402,14 @@ export default {
             this.currentPage = 1
             this.getList()
         },
+        sortChange(column){
+            this.column = {
+                prop:column.prop,
+                order:column.order
+            }
+            console.log(this.column)
+            this.getList()
+        },
         getList() {
             this.listLoading = true
             let params = {
@@ -409,7 +422,9 @@ export default {
                 uid:this.searchItem.uid,
                 vdm:this.searchItem.vdm,
                 app:this.searchItem.app,
-                desc:this.searchItem.stat
+                desc:this.searchItem.stat,
+                fieldName: this.column.prop,
+                order:this.column.order == 'ascending' ? '0' : ''
             }
             logList(params).then(res=>{
                 this.listLoading = false

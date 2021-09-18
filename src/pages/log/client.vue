@@ -41,8 +41,8 @@
     </el-form>
     <div class="table-box">
       <el-tabs type="card" v-model="activeName">
-        <el-tab-pane label="客户端信息" name="client">
-          <el-table :data="clientList" :class="this.ctotalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="ClistLoading">
+        <el-tab-pane label="客户端信息" name="client" class="flex-align">
+          <el-table :data="clientList" :class="this.ctotalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="ClistLoading" @sort-change="sortChange">
             <el-table-column type="index" align="left"  ></el-table-column>
             <el-table-column label="UID" prop="uid" align="center">
               <template slot-scope="scope">
@@ -56,7 +56,12 @@
                   </div>
               </template>
             </el-table-column>
-            <el-table-column label="客户端类型" prop="dtp" align="center">
+            <el-table-column label="客户端类型" prop="dtp" align="center" sortable="custom">
+              <template slot="header">
+                <el-tooltip class="item" effect="dark" content="客户端类型" placement="top">
+                  <span slot class="headlips">客户端类型</span>
+                </el-tooltip>
+              </template>
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -92,7 +97,12 @@
                   </div>
               </template>
             </el-table-column>
-            <el-table-column label="客户端版本" prop="ver" align="center">
+            <el-table-column label="客户端版本" prop="ver" align="center" sortable="custom">
+              <template slot="header">
+                <el-tooltip class="item" effect="dark" content="客户端版本" placement="top">
+                  <span slot class="headlips">客户端版本</span>
+                </el-tooltip>
+              </template>
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -125,7 +135,7 @@
               </template>
             </el-table-column>
             <el-table-column label="延时" prop="cltd" align="center" min-width="90">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="从结束录音到返回结果" placement="top">
                   <span slot>延时</span>
                 </el-tooltip>
@@ -168,7 +178,7 @@
           <el-table :data="serverList" :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="SlistLoading">
             <el-table-column type="index" align="left" ></el-table-column>
             <el-table-column label="客户端总耗时" prop="ixcd" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="客户端总耗时" placement="top">
                   <span slot class="headlips">客户端总耗时</span>
                 </el-tooltip>
@@ -185,7 +195,7 @@
               </template>
             </el-table-column>
             <el-table-column label="服务端总耗时" prop="ixsd" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="服务端总耗时" placement="top">
                   <span slot class="headlips">服务端总耗时</span>
                 </el-tooltip>
@@ -202,7 +212,7 @@
               </template>
             </el-table-column>
             <el-table-column label="网络总延时" prop="ixnd" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="网络总延时" placement="top">
                   <span slot class="headlips">网络总延时</span>
                 </el-tooltip>
@@ -219,7 +229,7 @@
               </template>
             </el-table-column>
             <el-table-column label="服务端语音识别耗时" prop="ixad" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="服务端语音识别耗时" placement="top">
                   <span slot class="headlips">服务端语音识别耗时</span>
                 </el-tooltip>
@@ -236,7 +246,7 @@
               </template>
             </el-table-column>
             <el-table-column label="服务端其他总延时" prop="ixod" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="服务端其他总延时" placement="top">
                   <span slot class="headlips">服务端其他总延时</span>
                 </el-tooltip>
@@ -253,7 +263,7 @@
               </template>
             </el-table-column>
             <el-table-column label="最后一个包的客户端耗时" prop="lpcd" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="最后一个包的客户端耗时" placement="top">
                   <span slot class="headlips">最后一个包的客户端耗时</span>
                 </el-tooltip>
@@ -270,7 +280,7 @@
               </template>
             </el-table-column>
             <el-table-column label="最后一个包的服务端耗时" prop="lpsd" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="最后一个包的服务端耗时" placement="top">
                   <span slot class="headlips">最后一个包的服务端耗时</span>
                 </el-tooltip>
@@ -287,7 +297,7 @@
               </template>
             </el-table-column>
             <el-table-column label="最后一个包的网络延时" prop="lpnd" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="最后一个包的网络延时" placement="top">
                   <span slot class="headlips">最后一个包的网络延时</span>
                 </el-tooltip>
@@ -304,7 +314,7 @@
               </template>
             </el-table-column>
             <el-table-column label="最后一个包的服务端语音识别耗时" prop="lpad" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="最后一个包的服务端语音识别耗时" placement="top">
                   <span slot class="headlips">最后一个包的服务端语音识别耗时</span>
                 </el-tooltip>
@@ -321,7 +331,7 @@
               </template>
             </el-table-column>
             <el-table-column label="最后一个包的服务端其他总延时" prop="lpod" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="最后一个包的服务端其他总延时" placement="top">
                   <span slot class="headlips">最后一个包的服务端其他总延时</span>
                 </el-tooltip>
@@ -346,7 +356,7 @@
               </template>
             </el-table-column>
             <el-table-column label="延时" prop="cltd" align="center">
-              <template slot="header" slot-scope="scope">
+              <template slot="header">
                 <el-tooltip effect="dark" content="从结束录音到返回结果" placement="top">
                   <span slot>延时</span>
                 </el-tooltip>
@@ -429,7 +439,11 @@ export default {
       seaBtnLoading: false,
       ClistLoading:true,
       SlistLoading:true,
-    };
+      column:{
+        prop:'',
+        order:''
+      }
+    }
   },
   created() {
     this.getList();
@@ -492,6 +506,14 @@ export default {
       // console.log(`当前页: ${val}`);
       this.getList();
     },
+    sortChange(column){
+      this.column = {
+        prop:column.prop,
+        order:column.order
+      }
+      console.log(this.column)
+      this.getList()
+    },
     getList() {
       let Cparams = {
         pgstr: this.CcurrentPage,
@@ -499,7 +521,9 @@ export default {
         startStr: this.searchItem.refreshTime,
         endStr: this.searchItem.putTime,
         uid: this.searchItem.uid,
-        dtp: this.searchItem.dtp
+        dtp: this.searchItem.dtp,
+        fieldName: this.column.prop,
+        order:this.column.order == 'ascending' ? '0' : ''
       };
       let Sparams = {
         pgstr: this.ScurrentPage,

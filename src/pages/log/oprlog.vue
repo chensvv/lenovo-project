@@ -38,7 +38,7 @@
       </div>
     </el-form>
     <div class="table-box">
-      <el-table :data="list" :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading">
+      <el-table :data="list" :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading" @sort-change="sortChange">
         <el-table-column type="index" align="left" ></el-table-column>
         <el-table-column label="客户端设备ID" prop="did" align="center">
           <template slot-scope="scope">
@@ -52,7 +52,7 @@
               </div>
           </template>
         </el-table-column>
-        <el-table-column label="客户端版本" prop="ver" align="center">
+        <el-table-column label="客户端版本" prop="ver" align="center" sortable="custom">
           <template slot-scope="scope">
               <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -146,6 +146,10 @@ export default {
         refreshTime:"",
         putTime:""
       },
+      column:{
+          prop:'',
+          order:''
+      },
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
@@ -206,6 +210,14 @@ export default {
       // console.log(`当前页: ${val}`);
       this.getList();
     },
+    sortChange(column){
+        this.column = {
+            prop:column.prop,
+            order:column.order
+        }
+        console.log(this.column)
+        this.getList()
+    },
     getList() {
       this.listLoading = true
       let params = {
@@ -214,7 +226,9 @@ export default {
         startStr:this.searchItem.refreshTime,
         endStr:this.searchItem.putTime,
         app:this.searchItem.app,
-        desc:this.searchItem.desc
+        desc:this.searchItem.desc,
+        fieldName: this.column.prop,
+        order:this.column.order == 'ascending' ? '0' : ''
       }
       oprList(params).then(res=>{
         this.listLoading = false

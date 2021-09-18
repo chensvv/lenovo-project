@@ -44,7 +44,7 @@
       </div>
     </el-form>
     <div class="table-box">
-      <el-table :data="list" :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading">
+      <el-table :data="list" :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading" @sort-change="sortChange">
         <el-table-column type="index" align="left" ></el-table-column>
         <el-table-column label="UID" prop="uid" align="center">
           <template slot-scope="scope">
@@ -58,7 +58,7 @@
               </div>
           </template>
         </el-table-column>
-        <el-table-column label="客户端设备类型" prop="dtp" align="center">
+        <el-table-column label="客户端设备类型" prop="dtp" align="center" sortable="custom">
           <template slot-scope="scope">
               <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -94,7 +94,7 @@
               </div>
           </template>
         </el-table-column>
-        <el-table-column label="客户端版本" prop="ver" align="center">
+        <el-table-column label="客户端版本" prop="ver" align="center" sortable="custom">
           <template slot-scope="scope">
               <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -159,21 +159,10 @@ export default {
         refreshTime:"",
         putTime:""
       },
-      columns: [
-      ],
-      options: {
-        stripe: false, // 是否为斑马纹 table
-        loading: false, // 是否添加表格loading加载动画
-        highlightCurrentRow: false, // 是否支持当前行高亮显示
-        mutiSelect: false, // 是否支持列表项选中功能
-        border:false     //是否显示纵向边框
+      column:{
+          prop:'',
+          order:''
       },
-      operates: {
-        width: 120,
-        show: false,
-        list: [
-        ]
-      }, // 列操作按钮
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
@@ -262,6 +251,14 @@ export default {
         this.editVisible = true;
       })
     },
+    sortChange(column){
+        this.column = {
+            prop:column.prop,
+            order:column.order
+        }
+        console.log(this.column)
+        this.getList()
+    },
     getList() {
       this.listLoading = true
       let params = {
@@ -272,6 +269,8 @@ export default {
         uid:this.searchItem.uid,
         dtp:this.searchItem.dtp,
         uip:this.searchItem.uip,
+        fieldName: this.column.prop,
+        order:this.column.order == 'ascending' ? '0' : ''
         // id:this.bigId
       }
       rawList(params).then(res=>{
