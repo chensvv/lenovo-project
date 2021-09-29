@@ -65,13 +65,20 @@
             :data="list"
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
-            v-loading="listLoading">
+            v-loading="listLoading"
+            @sort-change="sortChange">
             <el-table-column type="index" align="left" >
             </el-table-column>
             <el-table-column
                 label="设备类型"
                 prop="dtp"
-                align="center">
+                align="center"
+                sortable="custom">
+                <!-- <template slot="header">
+                  <el-tooltip class="item" effect="dark" content="设备类型" placement="top">
+                    <span slot class="headlips">设备类型</span>
+                  </el-tooltip>
+                </template> -->
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -146,7 +153,13 @@
             <el-table-column
                 label="唤醒词类型"
                 prop="keywordType"
-                align="center">
+                align="center"
+                sortable="custom">
+                <!-- <template slot="header">
+                  <el-tooltip class="item" effect="dark" content="唤醒词类型" placement="top">
+                    <span slot class="headlips">唤醒词类型</span>
+                  </el-tooltip>
+                </template> -->
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.keywordType" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -258,6 +271,10 @@ export default {
         origin:"",
         refreshTime:"",
         putTime:""
+      },
+      column:{
+        prop:'',
+        order:''
       },
       // 分页
       currentPage: 1, //默认显示第几页
@@ -441,6 +458,14 @@ export default {
         this.keywordList = res.data.data
       })
     },
+    sortChange(column){
+      this.column = {
+        prop:column.prop,
+        order:column.order
+      }
+      console.log(this.column)
+      this.getList()
+    },
     getList() {
       this.listLoading = true
       let params = {
@@ -455,7 +480,9 @@ export default {
         developer:this.searchItem.developer,
         keywordType:this.searchItem.keywordType,
         keywordPhrase:this.searchItem.keywordPhrase,
-        origin:this.searchItem.origin
+        origin:this.searchItem.origin,
+        fieldName: this.column.prop,
+        order:this.column.order == 'ascending' ? '0' : ''
       }
       triggerList(params).then(res => {
         this.listLoading = false

@@ -46,7 +46,8 @@
                 :data="list"
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
-                v-loading="listLoading">
+                v-loading="listLoading"
+                @sort-change="sortChange">
                 <el-table-column type="index" align="left" >
                 </el-table-column>
                 <el-table-column
@@ -112,7 +113,8 @@
                 <el-table-column
                     label="来源"
                     prop="source"
-                    align="center">
+                    align="center"
+                    sortable="custom">
                     <template slot-scope="scope">
                         <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.source" placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -234,6 +236,10 @@ export default {
                 name:[{ required: true, message: '请输入网站名称add', trigger: 'blur' }],
                 alias:[{ required: true, message: '请输入说法', trigger: 'blur' }],
                 wapUrl:[{ required: true, message: '请输入手机网址', trigger: 'blur' }],
+            },
+            column:{
+                prop:'',
+                order:''
             },
             editVisible: false,
             addVisible: false,
@@ -438,6 +444,14 @@ export default {
                 }
             });
         },
+        sortChange(column){
+            this.column = {
+                prop:column.prop,
+                order:column.order
+            }
+            console.log(this.column)
+            this.getList()
+        },
         getList() {
             this.listLoading = true
             let params = {
@@ -446,7 +460,9 @@ export default {
                 startStr:this.searchItem.refreshTime,
                 endStr:this.searchItem.putTime,
                 pgstr:this.currentPage,
-                pcstr:this.pageSize
+                pcstr:this.pageSize,
+                fieldName: this.column.prop,
+                order:this.column.order == 'ascending' ? '0' : ''
             }
             wasList(params).then(res => {
                 this.listLoading = false

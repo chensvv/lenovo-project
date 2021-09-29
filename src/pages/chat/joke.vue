@@ -33,7 +33,8 @@
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading"
-            @selection-change="handleSelectionChange">
+            @selection-change="handleSelectionChange"
+            @sort-change="sortChange">
             <el-table-column
               type="selection"
               width="55">
@@ -59,7 +60,8 @@
                 label="状态"
                 prop="sta"
                 align="center"
-                :formatter="formState">
+                :formatter="formState"
+                sortable="custom">
             </el-table-column>
             <el-table-column
                 label="更新/入库时间"
@@ -152,6 +154,10 @@ export default {
       addRules:{
         con:[{ required: true, message: '请输入内容', trigger: 'change' }],
       },
+      column:{
+        prop:'',
+        order:''
+      },
       editVisible: false,
       addVisible: false,
       // 分页
@@ -203,13 +209,23 @@ export default {
     formState(row, column){
       return row.sta == 1 ? "已审核" : "未审核"
     },
+    sortChange(column){
+      this.column = {
+        prop:column.prop,
+        order:column.order
+      }
+      console.log(this.column)
+      this.getList()
+    },
     getList() {
       this.listLoading = true
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
         q:this.searchItem.con,
-        ex:this.searchItem.state
+        ex:this.searchItem.state,
+        fieldName: this.column.prop,
+        order:this.column.order == 'ascending' ? '0' : ''
       }
       jokeList(params).then(res => {
         this.listLoading = false

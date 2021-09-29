@@ -43,7 +43,8 @@
           :data="list"
           :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
-          v-loading="listLoading">
+          v-loading="listLoading"
+          @sort-change="sortChange">
           <el-table-column type="index" align="left" >
           </el-table-column>
           <el-table-column
@@ -79,7 +80,8 @@
           <el-table-column
               label="引擎"
               prop="engi"
-              align="left">
+              align="center"
+              sortable="custom">
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.engi" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -130,8 +132,9 @@ export default {
         refreshTime:"",
         putTime:""
       },
-      exList:{
-
+      column:{
+        prop:'',
+        order:''
       },
       editVisible: false,
       addVisible: false,
@@ -217,6 +220,14 @@ export default {
           this.fileBtnLoading = false
         })
     },
+    sortChange(column){
+      this.column = {
+        prop:column.prop,
+        order:column.order
+      }
+      console.log(this.column)
+      this.getList()
+    },
     getList() {
       this.listLoading = true
       let params = {
@@ -225,7 +236,9 @@ export default {
         q:this.searchItem.question,
         ex:'',
         startStr:this.searchItem.refreshTime,
-        endStr:this.searchItem.putTime
+        endStr:this.searchItem.putTime,
+        fieldName: this.column.prop,
+        order:this.column.order == 'ascending' ? '0' : ''
       }
       chatList(params).then(res => {
         this.listLoading = false

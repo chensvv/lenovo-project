@@ -58,13 +58,15 @@
             :data="list"
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
-            v-loading="listLoading">
+            v-loading="listLoading"
+            @sort-change="sortChange">
             <el-table-column type="index" align="left" >
             </el-table-column>
             <el-table-column
                 label="VDM"
                 prop="vdm"
-                align="center">
+                align="center"
+                sortable="custom">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.vdm" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -301,6 +303,10 @@ export default {
                 {id:1,typeLabel:"纠正数据",typeVal:"1"},
                 {id:2,typeLabel:"新增数据",typeVal:"2"}
             ],
+            column:{
+                prop:'',
+                order:''
+            },
             editVisible: false,
             addVisible: false,
             // 分页
@@ -565,6 +571,14 @@ export default {
             this.$refs.upload.clearFiles()
             this.uploadVisible = false;
         },
+        sortChange(column){
+            this.column = {
+                prop:column.prop,
+                order:column.order
+            }
+            console.log(this.column)
+            this.getList()
+        },
         getList() {
             this.listLoading = true
             let params = {
@@ -574,7 +588,9 @@ export default {
                 endStr:this.searchItem.putTime,
                 name: this.searchItem.hotName,
                 vdm:this.searchItem.vdm,
-                dataType:this.searchItem.dataType
+                dataType:this.searchItem.dataType,
+                fieldName: this.column.prop,
+                order:this.column.order == 'ascending' ? '0' : ''
             }
             dictList(params).then(res => {
                 this.listLoading = false

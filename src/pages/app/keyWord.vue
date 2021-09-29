@@ -45,7 +45,8 @@
                 :data="list"
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
-                v-loading="listLoading">
+                v-loading="listLoading"
+                @sort-change="sortChange">
                 <el-table-column type="index" align="left">
                 </el-table-column>
                 <el-table-column label="原始名" prop="name" align="left">
@@ -84,7 +85,7 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="来源" prop="source" align="left">
+                <el-table-column label="来源" prop="source" align="center" sortable="custom">
                     <template slot-scope="scope">
                         <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.source" placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -198,6 +199,10 @@ export default {
             name:[{ required: true, message: '请输入关键字', trigger: 'change' }],
             stname:[{ required: true, message: '请输入标准名', trigger: 'change' }],
             alias:[{ required: true, message: '请输入别名', trigger: 'change' }],
+        },
+        column:{
+            prop:'',
+            order:''
         },
         // 分页
         currentPage: 1, //默认显示第几页
@@ -409,6 +414,14 @@ methods: {
             console.log(err);
         });
     },
+    sortChange(column){
+        this.column = {
+            prop:column.prop,
+            order:column.order
+        }
+        console.log(this.column)
+        this.getList()
+    },
     getList() {
         this.listLoading = true
         let params = {
@@ -417,7 +430,9 @@ methods: {
             name:this.searchItem.name,
             stname:this.searchItem.stname,
             startStr:this.searchItem.refreshTime,
-            endStr:this.searchItem.putTime
+            endStr:this.searchItem.putTime,
+            fieldName: this.column.prop,
+            order:this.column.order == 'ascending' ? '0' : ''
         }
         wordList(params).then(res => {
             this.listLoading = false

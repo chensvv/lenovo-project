@@ -49,7 +49,8 @@
                 :data="list"
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
-                v-loading="listLoading">
+                v-loading="listLoading"
+                @sort-change="sortChange">
                 <el-table-column type="index" align="center"></el-table-column>
                 <el-table-column label="应用名" prop="name" align="left">
                     <template slot-scope="scope">
@@ -63,7 +64,7 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="类别" prop="cat" align="left">
+                <el-table-column label="类别" prop="cat" align="center" sortable="custom">
                     <template slot-scope="scope">
                         <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.cat" placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -299,6 +300,10 @@ export default {
                 {typeLabel:"百度",typeVal:"baidu"},
                 {typeLabel:"联想",typeVal:"lenovo"}
             ],
+            column:{
+                prop:'',
+                order:''
+            },
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
@@ -530,6 +535,14 @@ export default {
                 console.log(err)
             })
         },
+        sortChange(column){
+            this.column = {
+                prop:column.prop,
+                order:column.order
+            }
+            console.log(this.column)
+            this.getList()
+        },
         getList() {
             this.listLoading = true
             let params = {
@@ -538,7 +551,9 @@ export default {
                 startStr:this.searchItem.refreshTime,
                 endStr:this.searchItem.putTime,
                 appname:this.searchItem.appName,
-                source:this.searchItem.source
+                source:this.searchItem.source,
+                fieldName: this.column.prop,
+                order:this.column.order == 'ascending' ? '0' : ''
             }
             appList(params).then(res => {
                 this.listLoading = false
