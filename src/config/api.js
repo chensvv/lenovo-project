@@ -484,6 +484,22 @@ export function devList (data) {
   })
 }
 
+export function ttsGreyList (data) {
+  return fetch.service_head({
+    url: 'lasf-mgr/ttsgrey/devlist',
+    method: 'post',
+    data: data
+  })
+}
+
+export function ttsGreyDel (data) {
+  return fetch.service_head({
+    url: 'lasf-mgr/ttsgrey/ttsdel',
+    method: 'post',
+    data: data
+  })
+}
+
 // 灰度发布机型列表添加、删除
 export function devAddUpd (data) {
   return fetch.service_head({

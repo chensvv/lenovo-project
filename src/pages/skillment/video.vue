@@ -27,7 +27,8 @@
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
-                v-loading="listLoading">
+                v-loading="listLoading"
+                @sort-change="sortChange">
                 <el-table-column
                     type="selection"
                     width="55">
@@ -37,7 +38,8 @@
                 <el-table-column
                     label="名称"
                     prop="programName"
-                    align="left">
+                    align="left"
+                    sortable="custom">
                     <template slot-scope="scope">
                         <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.programName" placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -104,6 +106,7 @@
                     label="来源"
                     prop="programDisplaySource"
                     align="center" 
+                    sortable="custom"
                     >
                 </el-table-column>
                 <el-table-column label="操作" align="center" min-width="130" v-if="isshow">
@@ -345,6 +348,10 @@ export default {
                 programLevel:[{ required: true, message: '请输入级别', trigger: 'change' }],
                 programSource:[{ required: true, message: '请选择来源', trigger: 'change' }],
                 programPoster:[{ required: true, message: '请输入海报链接', trigger: 'change' }]
+            },
+            column:{
+                prop:'',
+                order:''
             },
             editVisible: false,
             addVisible: false,
@@ -627,12 +634,22 @@ export default {
                 }
             });
         },
+        sortChange(column){
+            this.column = {
+                prop:column.prop,
+                order:column.order
+            }
+            console.log(this.column)
+            this.getList()
+        },
         getList() {
             this.listLoading = true
             let params = {
                 name:this.searchItem.name,
                 pgstr:this.currentPage,
-                pcstr:this.pageSize
+                pcstr:this.pageSize,
+                fieldName: this.column.prop,
+                order:this.column.order == 'ascending' ? '0' : ''
             }
             videoList(params).then(res => {
                 this.listLoading = false

@@ -50,7 +50,8 @@
                 :data="list"
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
-                v-loading="listLoading">
+                v-loading="listLoading"
+                @sort-change="sortChange">
                 <el-table-column type="index" align="left" >
                 </el-table-column>
                 <el-table-column
@@ -71,7 +72,8 @@
                 <el-table-column
                     label="用户指令"
                     prop="userText"
-                    align="center">
+                    align="center"
+                    sortable="custom">
                     <template slot-scope="scope">
                         <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userText" placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -249,6 +251,10 @@ export default {
                 refreshTime:"",
                 putTime:""
             },
+            column:{
+                prop:'',
+                order:''
+            },
             infoList:[],
             infoVisible: false,
             // 分页
@@ -323,6 +329,14 @@ export default {
         infoHandleClose(){
             this.infoVisible = false;
         },
+        sortChange(column){
+            this.column = {
+                prop:column.prop,
+                order:column.order
+            }
+            console.log(this.column)
+            this.getList()
+        },
         getList() {
             this.listLoading = true
             let params = {
@@ -333,7 +347,9 @@ export default {
                 domain:this.searchItem.domain,
                 respstatus:this.searchItem.respstatus,
                 startStr:this.searchItem.refreshTime,
-                endStr:this.searchItem.putTime
+                endStr:this.searchItem.putTime,
+                fieldName: this.column.prop,
+                order:this.column.order == 'ascending' ? '0' : ''
             }
             outerList(params).then(res => {
                 this.listLoading = false
