@@ -451,5 +451,4 @@ router.afterEach(() => {
   NProgress.done()
 })
 
-// eslint-disable-next-line semi
 export default router;
