@@ -23,10 +23,9 @@
     <div class="table-box">
       <el-table
           :data="list"
-          :class="this.totalClass <= '5' ? 'limitWidth' :''"
-          style="width: 100%"
+          :class="this.totalClass <= '5' ? 'limitWidth' :''" style="width: 100%"
           v-loading="listLoading">
-          <el-table-column type="index" align="left" >
+          <el-table-column type="index" align="left">
           </el-table-column>
           <el-table-column
               label="数据名称"

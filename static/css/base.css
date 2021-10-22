@@ -503,6 +503,8 @@
 .thum {
   width: 80px;
   vertical-align: middle;
+  height: 50px;
+  object-fit: cover;
 }
 
 .add-width {
