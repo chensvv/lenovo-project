@@ -209,10 +209,10 @@
 </template>
 <script>
 import {checkTime} from '@/utils/timer.js'
-import countTo from 'vue-count-to';
-import {activitiList,activitiPass,activitinList,activitiStatus} from '@/config/adminApi'
+// import countTo from 'vue-count-to';
+import {activitiList,activitiPass,activitinList,activitiStatus, userMenu} from '@/config/adminApi'
 export default {
-    components: { countTo },
+    inject:['reload'],
     data(){
         return{
             startVal:0,
@@ -267,10 +267,12 @@ export default {
         }
     },
     created() {
+        this.getMenu()
         let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
         perArr.map(t=>{
             this.perList.push(Object.values(t).join())
         })
+        
     },
     mounted(){
        this.execution();
@@ -468,6 +470,15 @@ export default {
                 }
             })
         },
+        getMenu(){
+            let u_params = {
+                 userName:sessionStorage.getItem('username'),
+            }
+            userMenu(u_params).then(res=>{
+                
+            })
+        }
+        
     }
 }
 </script>

@@ -13,7 +13,7 @@ let proURL = 'https://voice.lenovomm.com'
 const service_head = axios.create({
   baseURL: proURL,
   // timeout: 15000, // 请求超时时间
-  withCredentials: false
+  withCredentials: false,
 })
 // let loading
 // function startLoading () { // 使用Element loading-start 方法
@@ -89,7 +89,8 @@ const FileDownload = axios.create({
 const ExcelDownload = axios.create({
   baseURL: proURL,
   // timeout: 15000, // 请求超时时间
-  responseType: 'blob'
+  responseType: 'blob',
+  
 })
 export default service = {
   service_head,

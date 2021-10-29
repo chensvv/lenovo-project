@@ -3,7 +3,7 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-            <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
+            <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
           <div class="form-input height50">
@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import {roleList, authList, roleAdd, roleEcho, roleUpd, roleDel, login} from '@/config/adminApi'
+import {roleList, authList, roleAdd, roleEcho, roleUpd, roleDel, userMenu} from '@/config/adminApi'
 let Base64 = require('js-base64').Base64
 export default {
   inject:['reload'],
@@ -278,8 +278,7 @@ export default {
         ids:this.selectedKeys
       }
       let logParams = {
-          userName:sessionStorage.getItem('username'),
-          password:Base64.decode(sessionStorage.getItem('log'))
+          userName:sessionStorage.getItem('username')
       }
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
@@ -296,7 +295,7 @@ export default {
                 this.editVisible = false
                 sessionStorage.removeItem('menuData');
                 sessionStorage.removeItem('btnpermission')
-                login(logParams).then((res)=>{
+                userMenu(logParams).then((res)=>{
                     if(res.data.code == 200){
                         sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                         this.reload();

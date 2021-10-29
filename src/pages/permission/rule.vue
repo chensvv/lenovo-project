@@ -3,7 +3,7 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-            <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
+            <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" size="mini" style="padding-left:50px;">
             <el-form-item class="sub-btn">
@@ -123,7 +123,7 @@
 </template>
 
 <script>
-import { authList, login, authAdd, authDel, authUpdate} from '@/config/adminApi'
+import { authList, userMenu, authAdd, authDel, authUpdate} from '@/config/adminApi'
 let Base64 = require('js-base64').Base64
 export default {
     inject:['reload'],
@@ -234,8 +234,7 @@ export default {
                 icon:this.addList.icon
             }
             let logParams = {
-                userName:sessionStorage.getItem('username'),
-                password:Base64.decode(sessionStorage.getItem('log'))
+                userName:sessionStorage.getItem('username')
             }
             this.$refs[addList].validate((valid) => {
                 if (valid) {
@@ -252,9 +251,33 @@ export default {
                             this.addVisible = false
                             sessionStorage.removeItem('menuData');
                             sessionStorage.removeItem('btnpermission')
-                            login(logParams).then((res)=>{
+                            userMenu(logParams).then((res)=>{
                                 if(res.data.code == 200){
                                     sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                                    let menuData = res.data.data
+                                    let menuList=[]
+                                    for (let item of menuData) {
+                                        if (item.menutype === 0) {
+                                            menuList.push({
+                                                ruleCode:item.ruleCode
+                                            });
+                                        }
+                                        for (let towMenus of item.children) {
+                                            if (towMenus.menutype === 2) {
+                                                menuList.push({
+                                                    ruleCode:towMenus.ruleCode
+                                                });
+                                            }
+                                            for (let threeMenus of towMenus.children2) {
+                                                if (threeMenus.menutype === 0) {
+                                                    menuList.push({
+                                                        ruleCode:threeMenus.ruleCode
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    }
+                                    sessionStorage.setItem('btnpermission',JSON.stringify(menuList))
                                     this.reload();
                                 }else{
                                     this.$message({
@@ -309,8 +332,7 @@ export default {
                 icon:this.currentItem.icon
             }
             let logParams = {
-                userName:sessionStorage.getItem('username'),
-                password:Base64.decode(sessionStorage.getItem('log'))
+                userName:sessionStorage.getItem('username')
             }
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
@@ -327,9 +349,33 @@ export default {
                             this.editVisible = false
                             sessionStorage.removeItem('menuData');
                             sessionStorage.removeItem('btnpermission')
-                            login(logParams).then((res)=>{
+                            userMenu(logParams).then((res)=>{
                                 if(res.data.code == 200){
                                     sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                                    let menuData = res.data.data
+                                    let menuList=[]
+                                    for (let item of menuData) {
+                                        if (item.menutype === 0) {
+                                            menuList.push({
+                                                ruleCode:item.ruleCode
+                                            });
+                                        }
+                                        for (let towMenus of item.children) {
+                                            if (towMenus.menutype === 2) {
+                                                menuList.push({
+                                                    ruleCode:towMenus.ruleCode
+                                                });
+                                            }
+                                            for (let threeMenus of towMenus.children2) {
+                                                if (threeMenus.menutype === 0) {
+                                                    menuList.push({
+                                                        ruleCode:threeMenus.ruleCode
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    }
+                                    sessionStorage.setItem('btnpermission',JSON.stringify(menuList))
                                     this.reload();
                                 }else{
                                     this.$message({
@@ -360,8 +406,7 @@ export default {
                 id:row.id
             }
             let logParams = {
-                userName:sessionStorage.getItem('username'),
-                password:Base64.decode(sessionStorage.getItem('log'))
+                userName:sessionStorage.getItem('username')
             }
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
@@ -378,7 +423,7 @@ export default {
                         this.getList();
                         sessionStorage.removeItem('menuData');
                         sessionStorage.removeItem('btnpermission')
-                        login(logParams).then((res)=>{
+                        userMenu(logParams).then((res)=>{
                             if(res.data.code == 200){
                                 sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                                 this.reload();

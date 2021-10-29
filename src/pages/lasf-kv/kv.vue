@@ -3,7 +3,7 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item>LASF KV</el-breadcrumb-item>
-            <el-breadcrumb-item v-for="(item,index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
+            <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
     
     <el-form :inline="true" class="demo-form-inline height50 width130" size="mini" style="float:right;">
@@ -127,7 +127,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {kvList,kvAdd,kvUpd, giftDel,kvDel} from '@/config/api'
-import {login} from '@/config/adminApi'
+import {userMenu} from '@/config/adminApi'
 export default {
     inject:['reload'],
     data() {
@@ -354,8 +354,7 @@ export default {
                 name:row.key,
             }
             let logParams = {
-                userName:sessionStorage.getItem('username'),
-                password:sessionStorage.getItem('log')
+                userName:sessionStorage.getItem('username')
             }
             this.$confirm("此操作不会永久删除该数据, 可以随时撤回, 是否继续?", "提示", {
                 confirmButtonText: "确定",
@@ -372,7 +371,7 @@ export default {
                         this.getList();
                         sessionStorage.removeItem('menuData');
                         sessionStorage.removeItem('btnpermission')
-                        login(logParams).then((res)=>{
+                        userMenu(logParams).then((res)=>{
                             if(res.data.code == 200){
                                 sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                                 this.reload();
@@ -402,8 +401,7 @@ export default {
                 name:row.key,
             }
             let logParams = {
-                userName:sessionStorage.getItem('username'),
-                password:sessionStorage.getItem('log')
+                userName:sessionStorage.getItem('username')
             }
             giftDel(delParams).then(res=>{
                 if(res.data.code == 200){
@@ -415,9 +413,33 @@ export default {
                     this.getList();
                     sessionStorage.removeItem('menuData');
                     sessionStorage.removeItem('btnpermission')
-                    login(logParams).then((res)=>{
+                    userMenu(logParams).then((res)=>{
                         if(res.data.code == 200){
                             sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                            let menuData = res.data.data
+                            let menuList=[]
+                            for (let item of menuData) {
+                                if (item.menutype === 0) {
+                                    menuList.push({
+                                        ruleCode:item.ruleCode
+                                    });
+                                }
+                                for (let towMenus of item.children) {
+                                    if (towMenus.menutype === 2) {
+                                        menuList.push({
+                                            ruleCode:towMenus.ruleCode
+                                        });
+                                    }
+                                    for (let threeMenus of towMenus.children2) {
+                                        if (threeMenus.menutype === 0) {
+                                            menuList.push({
+                                                ruleCode:threeMenus.ruleCode
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                            sessionStorage.setItem('btnpermission',JSON.stringify(menuList))
                             this.reload();
                         }else{
                             this.$message({

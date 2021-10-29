@@ -43,7 +43,7 @@
 
 <script>
 let Base64 = require('js-base64').Base64
-import {login,userAdd} from '@/config/adminApi'
+import {login,userAdd,userMenu} from '@/config/adminApi'
 import qs from 'qs' 
 import axios from 'axios'
 export default {
@@ -74,9 +74,12 @@ export default {
     methods:{
         loginSubmit(loginForm){
 
-            var params = {
+            let params = {
                 userName:this.loginForm.username,
                 password:this.loginForm.password
+            }
+            let u_params = {
+                 userName:this.loginForm.username,
             }
             // params = qs.stringify(params);
             this.$refs[loginForm].validate((valid) => {
@@ -85,10 +88,14 @@ export default {
                     login(params).then((res)=>{
                         if(res.data.code == 200){
                             sessionStorage.setItem('username',this.loginForm.username)
+                            let paramss = {'t': res.data.data};
+                            var datas = Object.assign(paramss, { startTime: new Date().getTime() });
+                            sessionStorage.setItem("token", JSON.stringify(datas));
                             sessionStorage.setItem('log',Base64.encode(this.loginForm.password))
-                            sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
-                            
-                            this.$router.push('/home')
+                            userMenu(u_params).then(res=>{
+                                sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                                this.$router.push('/')
+                            })
                             this.loginLoading = false
                         }else{
                             this.$message({

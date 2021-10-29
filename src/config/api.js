@@ -15,7 +15,10 @@ export function appList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -23,7 +26,10 @@ export function appAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -31,7 +37,10 @@ export function appUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/update',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -39,7 +48,10 @@ export function appDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -47,7 +59,10 @@ export function wordList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/keyword',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -55,7 +70,10 @@ export function keyAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/keywordadd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -63,7 +81,10 @@ export function keyUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/keywordupdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -71,7 +92,10 @@ export function keyDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/keyworddel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -79,7 +103,10 @@ export function regList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/alireg',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -87,7 +114,10 @@ export function cacheList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/cache',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -95,7 +125,10 @@ export function cacheDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/cachedel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -103,7 +136,10 @@ export function cacheAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/cacheadd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -111,7 +147,10 @@ export function appNameList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/applist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -119,7 +158,10 @@ export function appNameAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/appadd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -127,7 +169,10 @@ export function appNameUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/appupdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -135,7 +180,10 @@ export function appNameDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/app/appdel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -143,7 +191,10 @@ export function appNameUpFile (data) {
   return fetch.UPFile({
     url: '/lasf-mgr/app/excel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -151,7 +202,10 @@ export function movieList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/movie/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -159,7 +213,10 @@ export function movieAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/movie/save',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -167,7 +224,10 @@ export function movieUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/movie/update',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -175,7 +235,10 @@ export function movieDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/movie/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -183,7 +246,10 @@ export function moviePub (data) {
   return fetch.service_head({
     url: '/lasf-mgr/movie/pub',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -191,7 +257,10 @@ export function askList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/ask/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -199,7 +268,10 @@ export function askAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/ask/save',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -207,7 +279,10 @@ export function askUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/ask/update',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -215,7 +290,10 @@ export function askDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/ask/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -223,7 +301,10 @@ export function askPub (data) {
   return fetch.service_head({
     url: '/lasf-mgr/ask/pub',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -231,7 +312,10 @@ export function wasList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/was/weblist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -239,7 +323,10 @@ export function wasAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/was/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -247,7 +334,10 @@ export function wasUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/was/update',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -255,7 +345,10 @@ export function wasDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/was/delete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -263,7 +356,10 @@ export function dictList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/dict/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -271,7 +367,10 @@ export function dictAddUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/dict/addandUpdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -279,7 +378,10 @@ export function dictDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/dict/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -287,7 +389,10 @@ export function cscList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/csc/csc',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -295,7 +400,10 @@ export function cscAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/csc/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -303,7 +411,10 @@ export function cscDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/csc/delete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -312,7 +423,10 @@ export function channelList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/qa/channelList',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -320,7 +434,10 @@ export function channelAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/qa/channelAdd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -328,7 +445,10 @@ export function channelUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/qa/channelUpdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -336,7 +456,10 @@ export function channelDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/qa/channelDel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -345,7 +468,10 @@ export function qaList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/qa/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -353,7 +479,10 @@ export function qaSave (data) {
   return fetch.service_head({
     url: '/lasf-mgr/qa/save',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -361,7 +490,10 @@ export function qaDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/qa/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -369,7 +501,10 @@ export function qaUpFile (data) {
   return fetch.UPFile({
     url: '/lasf-mgr/qa/excel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -377,7 +512,10 @@ export function qaFile (data) {
   return fetch.UPFile({
     url: '/lasf-mgr/qa/hand',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -385,7 +523,10 @@ export function qaPub (data) {
   return fetch.UPFile({
     url: '/lasf-mgr/qa/pub',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -394,7 +535,10 @@ export function ruleList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/rule/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -402,7 +546,10 @@ export function ruleAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/rule/save',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -410,7 +557,10 @@ export function ruleUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/rule/updatedata',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -418,7 +568,10 @@ export function ruleDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/rule/delete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -426,7 +579,10 @@ export function rulePub (data) {
   return fetch.service_head({
     url: '/lasf-mgr/rule/pub',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -435,7 +591,10 @@ export function greyList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/grey/funlist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -444,7 +603,10 @@ export function greyAddUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/grey/funaddandUpdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -453,7 +615,10 @@ export function greyDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/grey/fundel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -462,7 +627,10 @@ export function greyOpt (data) {
   return fetch.service_head({
     url: '/lasf-mgr/grey/opt',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -471,7 +639,10 @@ export function greyOptSave (data) {
   return fetch.service_head({
     url: '/lasf-mgr/grey/optsave',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -480,7 +651,10 @@ export function devList (data) {
   return fetch.service_head({
     url: 'lasf-mgr/grey/devlist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -488,7 +662,10 @@ export function ttsGreyList (data) {
   return fetch.service_head({
     url: 'lasf-mgr/ttsgrey/devlist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -496,7 +673,10 @@ export function ttsGreyDel (data) {
   return fetch.service_head({
     url: 'lasf-mgr/ttsgrey/ttsdel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -505,7 +685,10 @@ export function devAddUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/grey/devaddandUpdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -514,7 +697,10 @@ export function devDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/grey/devdel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -523,7 +709,10 @@ export function devOpt (data) {
   return fetch.service_head({
     url: '/lasf-mgr/grey/optd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -532,7 +721,10 @@ export function devOptSave (data) {
   return fetch.service_head({
     url: '/lasf-mgr/grey/optdsave',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -541,7 +733,10 @@ export function chatList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/chat/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -549,7 +744,10 @@ export function chatExport (data) {
   return fetch.ExcelDownload({
     url: '/lasf-mgr/chat/export',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -558,7 +756,10 @@ export function jokeList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -566,7 +767,10 @@ export function jokeAddUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/save',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -574,7 +778,10 @@ export function jokeDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -582,7 +789,10 @@ export function jokeVeri (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/veri',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -590,7 +800,10 @@ export function jokeDelBatch (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/delBatch',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -598,7 +811,10 @@ export function jokeVeriBatch (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/veriBatch',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -607,7 +823,10 @@ export function jokePList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/speakList',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -615,7 +834,10 @@ export function jokePAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/speakAdd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -623,7 +845,10 @@ export function jokePUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/speakUpdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -631,7 +856,10 @@ export function jokePDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/speakDel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -639,7 +867,10 @@ export function jokePAIML (data) {
   return fetch.service_head({
     url: '/lasf-mgr/joke/speakAiml',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -647,7 +878,10 @@ export function unitList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/unit/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -655,7 +889,10 @@ export function unitAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/unit/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -663,7 +900,10 @@ export function unitUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/unit/update',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -671,7 +911,10 @@ export function unitDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/unit/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -679,7 +922,10 @@ export function unitPub (data) {
   return fetch.service_head({
     url: '/lasf-mgr/unit/pub',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -688,7 +934,10 @@ export function senList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/sen/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -696,7 +945,10 @@ export function senAddUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/sen/save',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -704,7 +956,10 @@ export function senDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/sen/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -713,7 +968,10 @@ export function senPub (data) {
   return fetch.service_head({
     url: '/lasf-mgr/sen/pub',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -721,7 +979,10 @@ export function triggerList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/trigger/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -729,7 +990,10 @@ export function triggerZip (data) {
   return fetch.service_head({
     url: '/lasf-mgr/trigger/zip',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -737,7 +1001,10 @@ export function zipList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/trigger/zip/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -745,7 +1012,10 @@ export function zipDownload (data) {
   return fetch.FileDownload({
     url: '/lasf-mgr/trigger/download',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -753,7 +1023,10 @@ export function topKeyWord (data) {
   return fetch.service_head({
     url: '/lasf-mgr/trigger/topKeyWord',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -761,7 +1034,10 @@ export function kvList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -769,7 +1045,10 @@ export function kvAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/editsave',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -777,7 +1056,10 @@ export function kvUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/update',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -785,7 +1067,10 @@ export function kvDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/delete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -793,7 +1078,10 @@ export function giftDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/gift/status',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -801,7 +1089,10 @@ export function engineView (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/engine/view',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -809,7 +1100,10 @@ export function engineUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/kv/engine/edit',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -817,7 +1111,10 @@ export function outerList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/outer/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -825,7 +1122,10 @@ export function outerInfo (data) {
   return fetch.service_head({
     url: '/lasf-mgr/outer/detail',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -833,7 +1133,10 @@ export function skillList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/applist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -841,7 +1144,10 @@ export function skillAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/appadd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -849,7 +1155,10 @@ export function skillUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/appupdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -857,7 +1166,10 @@ export function skillDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/appdelete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -865,7 +1177,10 @@ export function skillInfo (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/appdetail',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -873,7 +1188,10 @@ export function skillDetailAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/functionadd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -881,7 +1199,10 @@ export function skillDetailDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/functiondelete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -889,7 +1210,10 @@ export function skillDetailUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/functionupdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -898,7 +1222,10 @@ export function speakList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/speaklist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -906,7 +1233,10 @@ export function speakAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/speakadd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -914,7 +1244,10 @@ export function speakUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/speakupdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -922,7 +1255,10 @@ export function speakDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/speakdelete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -930,7 +1266,10 @@ export function speakPub (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/speakpublish',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -939,7 +1278,10 @@ export function versionList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/versionlist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -947,7 +1289,10 @@ export function versionAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/versionadd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -955,7 +1300,10 @@ export function versionUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/versionupdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -963,7 +1311,10 @@ export function versionDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/versiondelete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -971,7 +1322,10 @@ export function versionStr (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/versionstrategy',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -980,7 +1334,10 @@ export function videoList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/videolist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -988,7 +1345,10 @@ export function videoSelect (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/videoaddpage',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -996,7 +1356,10 @@ export function videoAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/videoadd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1004,7 +1367,10 @@ export function videoUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/videoupdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1012,7 +1378,10 @@ export function videoDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/videodelete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1020,7 +1389,10 @@ export function videoDelBatch (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/videoDelBatch',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1029,7 +1401,10 @@ export function singerList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/singerlist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1037,7 +1412,10 @@ export function singerAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/addsinger',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1045,7 +1423,10 @@ export function singerUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/updatesinger',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1053,7 +1434,10 @@ export function singerDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/deletesinger',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1061,7 +1445,10 @@ export function singerPub (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/singerpublish',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1070,7 +1457,10 @@ export function albumList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/albumlist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1078,7 +1468,10 @@ export function albumAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/addalbum',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1086,7 +1479,10 @@ export function albumUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/updatealbum',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1094,7 +1490,10 @@ export function albumDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/deletealbum',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1103,7 +1502,10 @@ export function songList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/songlist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1111,7 +1513,10 @@ export function songSelect (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/songaddpage',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1119,7 +1524,10 @@ export function songAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/addsong',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1127,7 +1535,10 @@ export function songUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/updatesong',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1135,7 +1546,10 @@ export function songDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/skill/music/deletesong',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1143,7 +1557,10 @@ export function commandList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1151,7 +1568,10 @@ export function commandDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/delete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1159,7 +1579,10 @@ export function commandEcho (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/main/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1167,7 +1590,10 @@ export function commandAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1175,7 +1601,10 @@ export function norunList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/norun/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1183,7 +1612,10 @@ export function norunAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/norun/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1191,7 +1623,10 @@ export function norunDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/norun/delete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1199,7 +1634,10 @@ export function originalList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/mainlist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1207,7 +1645,10 @@ export function originalAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/mainadd',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1215,7 +1656,10 @@ export function originalUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/mainupdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1223,7 +1667,10 @@ export function originalDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/command/maindelete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1231,7 +1678,10 @@ export function clientList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/asr/log/client',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1239,7 +1689,10 @@ export function rawList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/asr/log/rawlog',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1247,7 +1700,10 @@ export function rawView (data) {
   return fetch.service_head({
     url: '/lasf-mgr/asr/dialog/rawview',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1255,7 +1711,10 @@ export function oprList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/asr/log/oprlog',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1263,7 +1722,10 @@ export function rvdList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/asr/log/rvdlog',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1271,7 +1733,10 @@ export function logList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/servlog/loglist',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1279,7 +1744,10 @@ export function logInfo (data) {
   return fetch.service_head({
     url: '/lasf-mgr/servlog/detail',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1287,7 +1755,10 @@ export function asrfList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/asr/log/asrf',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1295,7 +1766,10 @@ export function asrChat (data) {
   return fetch.service_head({
     url: '/lasf-mgr/asr/log/asrcharts',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1303,7 +1777,10 @@ export function servList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/vse/log/serv',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1311,7 +1788,10 @@ export function durChat (data) {
   return fetch.service_head({
     url: '/lasf-mgr/stat/duration',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1320,7 +1800,10 @@ export function censusList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/census/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1328,7 +1811,10 @@ export function censusUserList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/census/userList',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1336,7 +1822,10 @@ export function servlogList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/servlog/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1344,7 +1833,10 @@ export function avaterList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/avater/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1352,7 +1844,10 @@ export function lenKeyList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/lenovokey/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1360,7 +1855,10 @@ export function stateAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/gift/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1368,7 +1866,10 @@ export function querySql (data) {
   return fetch.service_head({
     url: '/lasf-mgr/gift/querySql',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1376,7 +1877,10 @@ export function itemList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/item/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1384,7 +1888,10 @@ export function itemSave (data) {
   return fetch.service_head({
     url: '/lasf-mgr/item/save',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1392,7 +1899,10 @@ export function itemDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/item/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1400,7 +1910,10 @@ export function itemUpFile (data) {
   return fetch.service_head({
     url: '/lasf-mgr/item/excel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1408,7 +1921,10 @@ export function itemPub (data) {
   return fetch.service_head({
     url: '/lasf-mgr/item/pub',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1416,7 +1932,10 @@ export function avaterChannel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/avater/channelList',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1424,7 +1943,10 @@ export function sourceList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/source/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1432,7 +1954,10 @@ export function sourceExport (data) {
   return fetch.ExcelDownload({
     url: '/lasf-mgr/source/export',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1440,7 +1965,10 @@ export function usernameList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/lenovokey/userNameList',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1448,7 +1976,10 @@ export function sourceUserNameList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/source/userNameList',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1456,7 +1987,10 @@ export function showModeList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1464,7 +1998,10 @@ export function showModeAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1472,7 +2009,10 @@ export function showModeUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/update',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1480,7 +2020,10 @@ export function showModeDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/delete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1488,7 +2031,10 @@ export function showModeRele (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/toBeReleased',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1496,7 +2042,10 @@ export function configList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/resources/config/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1504,7 +2053,10 @@ export function configAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/resources/config/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1512,7 +2064,10 @@ export function showModeAll (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/queryRelease',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1520,7 +2075,10 @@ export function showModeSave (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/savePublish',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1528,7 +2086,10 @@ export function showModeImport (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/xmlyImport',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1536,7 +2097,10 @@ export function carouselListEnable (data) {
   return fetch.service_head({
     url: '/lasf-mgr/carousel/listEnable',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1544,7 +2108,10 @@ export function grayList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/listGray',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1552,7 +2119,10 @@ export function updGray (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/updGray',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1560,7 +2130,10 @@ export function deleteGray (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/deleteGray',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1568,7 +2141,10 @@ export function grayAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/addGray',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1576,7 +2152,10 @@ export function grayUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/updateGray',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1584,7 +2163,10 @@ export function historyList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/history',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1592,7 +2174,10 @@ export function historyDetails (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/versionDetails',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1600,7 +2185,10 @@ export function historyDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/deleteHistory',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1608,7 +2196,10 @@ export function listGrays (data) {
   return fetch.service_head({
     url: '/lasf-mgr/showmode/listGrays',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1616,7 +2207,10 @@ export function allDurList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/allDur/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1624,7 +2218,10 @@ export function errChart (data) {
   return fetch.service_head({
     url: '/lasf-mgr/error/chart',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1632,7 +2229,10 @@ export function dictExcel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/dict/excel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1640,7 +2240,10 @@ export function senExcel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/sen/excel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1648,7 +2251,10 @@ export function forumList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/forum/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1656,7 +2262,10 @@ export function forumDetele (data) {
   return fetch.service_head({
     url: '/lasf-mgr/forum/delete',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1664,7 +2273,10 @@ export function forumDetails (data) {
   return fetch.service_head({
     url: '/lasf-mgr/forum/details',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1672,7 +2284,10 @@ export function forumDelbatch (data) {
   return fetch.service_head({
     url: '/lasf-mgr/forum/delbatch',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1680,7 +2295,10 @@ export function engineDictList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/engineDict/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1688,7 +2306,10 @@ export function engineDictAddUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/engineDict/addandUpdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1696,7 +2317,10 @@ export function engineDictDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/engineDict/del',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1704,7 +2328,10 @@ export function engineDictExcel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/engineDict/excel',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1712,7 +2339,10 @@ export function ttsregularList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/ttsregular/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1720,7 +2350,10 @@ export function selRegular (data) {
   return fetch.service_head({
     url: '/lasf-mgr/ttsregular/selRegular',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1728,7 +2361,10 @@ export function ttsAddAndUpdate (data) {
   return fetch.service_head({
     url: '/lasf-mgr/ttsregular/addAndUpdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1736,7 +2372,10 @@ export function delRegular (data) {
   return fetch.service_head({
     url: '/lasf-mgr/ttsregular/delRegular',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1744,7 +2383,10 @@ export function newsList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/news/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1752,7 +2394,10 @@ export function newsAddUpd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/news/addAndUpdate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1760,7 +2405,10 @@ export function newsDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/news/delNews',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1768,7 +2416,10 @@ export function audiokeeperList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeper/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1776,7 +2427,10 @@ export function audiokeeperAdd (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeper/add',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1784,7 +2438,10 @@ export function audiokeeperExpire (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeper/expire',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1792,7 +2449,10 @@ export function socketTotal (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeperMigrate/socketTotal',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1800,7 +2460,10 @@ export function clientTotal (data) {
   return fetch.service_head({
     url: '/lasf-mgr/engine/client/total',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1808,7 +2471,10 @@ export function engineOffline (data) {
   return fetch.service_head({
     url: '/lasf-mgr/engine/offline',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1816,7 +2482,10 @@ export function engineOnline (data) {
   return fetch.service_head({
     url: '/lasf-mgr/engine/online',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1824,7 +2493,10 @@ export function migrate (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeperMigrate/migrate',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1832,7 +2504,10 @@ export function voicebytes (data) {
   return fetch.service_head({
     url: '/lasf-mgr/audiokeeper/statistics/voicebytes',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }
 
@@ -1840,6 +2515,9 @@ export function useLog (data) {
   return fetch.service_head({
     url: '/lasf-mgr/colud/uselog/list',
     method: 'post',
-    data: data
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t
+    }
   })
 }

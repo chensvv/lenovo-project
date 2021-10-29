@@ -38,12 +38,13 @@
 <script>
 
 import Aside from '@/components/Aside'
-
+import { userMenu} from '@/config/adminApi'
 export default {
     data(){
         return {
             username:"",
-            is404:false
+            is404:false,
+            menuData:[]
         }
     },
     created(){
@@ -89,9 +90,7 @@ export default {
     methods:{
         handleDropdown(v){
             if(v == "logout"){
-                sessionStorage.removeItem('username');
-                sessionStorage.removeItem('menuData');
-                sessionStorage.removeItem('btnpermission')
+                sessionStorage.clear();
                 this.$router.push('/login')
             }else{
                 this.$router.push('/home/userinfo')
