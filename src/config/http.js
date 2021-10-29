@@ -51,6 +51,7 @@ service_head.interceptors.response.use(response => {
       router.replace('/401')
       break
     case 888:
+      Message.closeAll()
       Message({
         message: '登录超时，请重新登录',
         type: 'error',
