@@ -17,7 +17,8 @@ export function appList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -28,7 +29,8 @@ export function appAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -39,7 +41,8 @@ export function appUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -50,7 +53,8 @@ export function appDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -61,7 +65,8 @@ export function wordList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -72,7 +77,8 @@ export function keyAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -83,7 +89,8 @@ export function keyUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -94,7 +101,8 @@ export function keyDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -105,7 +113,8 @@ export function regList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -116,7 +125,8 @@ export function cacheList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -127,7 +137,8 @@ export function cacheDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -138,7 +149,8 @@ export function cacheAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -149,7 +161,8 @@ export function appNameList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -160,7 +173,8 @@ export function appNameAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -171,7 +185,8 @@ export function appNameUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -182,7 +197,8 @@ export function appNameDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -193,7 +209,8 @@ export function appNameUpFile (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -204,7 +221,8 @@ export function movieList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -215,7 +233,8 @@ export function movieAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -226,7 +245,8 @@ export function movieUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -237,7 +257,8 @@ export function movieDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -248,7 +269,8 @@ export function moviePub (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -259,7 +281,8 @@ export function askList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -270,7 +293,8 @@ export function askAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -281,7 +305,8 @@ export function askUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -292,7 +317,8 @@ export function askDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -303,7 +329,8 @@ export function askPub (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -314,7 +341,8 @@ export function wasList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -325,7 +353,8 @@ export function wasAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -336,7 +365,8 @@ export function wasUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -347,7 +377,8 @@ export function wasDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -358,7 +389,8 @@ export function dictList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -369,7 +401,8 @@ export function dictAddUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -380,7 +413,8 @@ export function dictDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -391,7 +425,8 @@ export function cscList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -402,7 +437,8 @@ export function cscAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -413,7 +449,8 @@ export function cscDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -425,7 +462,8 @@ export function channelList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -436,7 +474,8 @@ export function channelAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -447,7 +486,8 @@ export function channelUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -458,7 +498,8 @@ export function channelDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -470,7 +511,8 @@ export function qaList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -481,7 +523,8 @@ export function qaSave (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -492,7 +535,8 @@ export function qaDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -503,7 +547,8 @@ export function qaUpFile (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -514,7 +559,8 @@ export function qaFile (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -525,7 +571,8 @@ export function qaPub (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -537,7 +584,8 @@ export function ruleList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -548,7 +596,8 @@ export function ruleAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -559,7 +608,8 @@ export function ruleUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -570,7 +620,8 @@ export function ruleDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -581,7 +632,8 @@ export function rulePub (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -593,7 +645,8 @@ export function greyList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -605,7 +658,8 @@ export function greyAddUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -617,7 +671,8 @@ export function greyDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -629,7 +684,8 @@ export function greyOpt (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -641,7 +697,8 @@ export function greyOptSave (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -653,7 +710,8 @@ export function devList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -664,7 +722,8 @@ export function ttsGreyList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -675,7 +734,8 @@ export function ttsGreyDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -687,7 +747,8 @@ export function devAddUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -699,7 +760,8 @@ export function devDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -711,7 +773,8 @@ export function devOpt (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -723,7 +786,8 @@ export function devOptSave (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -735,7 +799,8 @@ export function chatList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -746,7 +811,8 @@ export function chatExport (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -758,7 +824,8 @@ export function jokeList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -769,7 +836,8 @@ export function jokeAddUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -780,7 +848,8 @@ export function jokeDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -791,7 +860,8 @@ export function jokeVeri (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -802,7 +872,8 @@ export function jokeDelBatch (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -813,7 +884,8 @@ export function jokeVeriBatch (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -825,7 +897,8 @@ export function jokePList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -836,7 +909,8 @@ export function jokePAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -847,7 +921,8 @@ export function jokePUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -858,7 +933,8 @@ export function jokePDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -869,7 +945,8 @@ export function jokePAIML (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -880,7 +957,8 @@ export function unitList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -891,7 +969,8 @@ export function unitAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -902,7 +981,8 @@ export function unitUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -913,7 +993,8 @@ export function unitDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -924,7 +1005,8 @@ export function unitPub (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -936,7 +1018,8 @@ export function senList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -947,7 +1030,8 @@ export function senAddUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -958,7 +1042,8 @@ export function senDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -970,7 +1055,8 @@ export function senPub (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -981,7 +1067,8 @@ export function triggerList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -992,7 +1079,8 @@ export function triggerZip (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1003,7 +1091,8 @@ export function zipList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1014,7 +1103,8 @@ export function zipDownload (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1025,7 +1115,8 @@ export function topKeyWord (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1036,7 +1127,8 @@ export function kvList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1047,7 +1139,8 @@ export function kvAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1058,7 +1151,8 @@ export function kvUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1069,7 +1163,8 @@ export function kvDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1080,7 +1175,8 @@ export function giftDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1091,7 +1187,8 @@ export function engineView (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1102,7 +1199,8 @@ export function engineUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1113,7 +1211,8 @@ export function outerList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1124,7 +1223,8 @@ export function outerInfo (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1135,7 +1235,8 @@ export function skillList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1146,7 +1247,8 @@ export function skillAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1157,7 +1259,8 @@ export function skillUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1168,7 +1271,8 @@ export function skillDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1179,7 +1283,8 @@ export function skillInfo (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1190,7 +1295,8 @@ export function skillDetailAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1201,7 +1307,8 @@ export function skillDetailDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1212,7 +1319,8 @@ export function skillDetailUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1224,7 +1332,8 @@ export function speakList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1235,7 +1344,8 @@ export function speakAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1246,7 +1356,8 @@ export function speakUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1257,7 +1368,8 @@ export function speakDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1268,7 +1380,8 @@ export function speakPub (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1280,7 +1393,8 @@ export function versionList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1291,7 +1405,8 @@ export function versionAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1302,7 +1417,8 @@ export function versionUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1313,7 +1429,8 @@ export function versionDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1324,7 +1441,8 @@ export function versionStr (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1336,7 +1454,8 @@ export function videoList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1347,7 +1466,8 @@ export function videoSelect (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1358,7 +1478,8 @@ export function videoAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1369,7 +1490,8 @@ export function videoUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1380,7 +1502,8 @@ export function videoDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1391,7 +1514,8 @@ export function videoDelBatch (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1403,7 +1527,8 @@ export function singerList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1414,7 +1539,8 @@ export function singerAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1425,7 +1551,8 @@ export function singerUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1436,7 +1563,8 @@ export function singerDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1447,7 +1575,8 @@ export function singerPub (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1459,7 +1588,8 @@ export function albumList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1470,7 +1600,8 @@ export function albumAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1481,7 +1612,8 @@ export function albumUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1492,7 +1624,8 @@ export function albumDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1504,7 +1637,8 @@ export function songList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1515,7 +1649,8 @@ export function songSelect (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1526,7 +1661,8 @@ export function songAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1537,7 +1673,8 @@ export function songUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1548,7 +1685,8 @@ export function songDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1559,7 +1697,8 @@ export function commandList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1570,7 +1709,8 @@ export function commandDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1581,7 +1721,8 @@ export function commandEcho (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1592,7 +1733,8 @@ export function commandAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1603,7 +1745,8 @@ export function norunList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1614,7 +1757,8 @@ export function norunAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1625,7 +1769,8 @@ export function norunDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1636,7 +1781,8 @@ export function originalList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1647,7 +1793,8 @@ export function originalAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1658,7 +1805,8 @@ export function originalUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1669,7 +1817,8 @@ export function originalDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1680,7 +1829,8 @@ export function clientList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1691,7 +1841,8 @@ export function rawList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1702,7 +1853,8 @@ export function rawView (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1713,7 +1865,8 @@ export function oprList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1724,7 +1877,8 @@ export function rvdList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1735,7 +1889,8 @@ export function logList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1746,7 +1901,8 @@ export function logInfo (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1757,7 +1913,8 @@ export function asrfList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1768,7 +1925,8 @@ export function asrChat (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1779,7 +1937,8 @@ export function servList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1790,7 +1949,8 @@ export function durChat (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1802,7 +1962,8 @@ export function censusList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1813,7 +1974,8 @@ export function censusUserList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1824,7 +1986,8 @@ export function servlogList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1835,7 +1998,8 @@ export function avaterList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1846,7 +2010,8 @@ export function lenKeyList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1857,7 +2022,8 @@ export function stateAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1868,7 +2034,8 @@ export function querySql (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1879,7 +2046,8 @@ export function itemList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1890,7 +2058,8 @@ export function itemSave (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1901,7 +2070,8 @@ export function itemDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1912,7 +2082,8 @@ export function itemUpFile (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1923,7 +2094,8 @@ export function itemPub (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1934,7 +2106,8 @@ export function avaterChannel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1945,7 +2118,8 @@ export function sourceList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1956,7 +2130,8 @@ export function sourceExport (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1967,7 +2142,8 @@ export function usernameList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1978,7 +2154,8 @@ export function sourceUserNameList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -1989,7 +2166,8 @@ export function showModeList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2000,7 +2178,8 @@ export function showModeAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2011,7 +2190,8 @@ export function showModeUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2022,7 +2202,8 @@ export function showModeDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2033,7 +2214,8 @@ export function showModeRele (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2044,7 +2226,8 @@ export function configList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2055,7 +2238,8 @@ export function configAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2066,7 +2250,8 @@ export function showModeAll (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2077,7 +2262,8 @@ export function showModeSave (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2088,7 +2274,8 @@ export function showModeImport (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2099,7 +2286,8 @@ export function carouselListEnable (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2110,7 +2298,8 @@ export function grayList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2121,7 +2310,8 @@ export function updGray (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2132,7 +2322,8 @@ export function deleteGray (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2143,7 +2334,8 @@ export function grayAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2154,7 +2346,8 @@ export function grayUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2165,7 +2358,8 @@ export function historyList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2176,7 +2370,8 @@ export function historyDetails (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2187,7 +2382,8 @@ export function historyDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2198,7 +2394,8 @@ export function listGrays (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2209,7 +2406,8 @@ export function allDurList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2220,7 +2418,8 @@ export function errChart (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2231,7 +2430,8 @@ export function dictExcel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2242,7 +2442,8 @@ export function senExcel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2253,7 +2454,8 @@ export function forumList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2264,7 +2466,8 @@ export function forumDetele (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2275,7 +2478,8 @@ export function forumDetails (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2286,7 +2490,8 @@ export function forumDelbatch (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2297,7 +2502,8 @@ export function engineDictList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2308,7 +2514,8 @@ export function engineDictAddUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2319,7 +2526,8 @@ export function engineDictDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2330,7 +2538,8 @@ export function engineDictExcel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2341,7 +2550,8 @@ export function ttsregularList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2352,7 +2562,8 @@ export function selRegular (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2363,7 +2574,8 @@ export function ttsAddAndUpdate (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2374,7 +2586,8 @@ export function delRegular (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2385,7 +2598,8 @@ export function newsList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2396,7 +2610,8 @@ export function newsAddUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2407,7 +2622,8 @@ export function newsDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2418,7 +2634,8 @@ export function audiokeeperList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2429,7 +2646,8 @@ export function audiokeeperAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2440,7 +2658,8 @@ export function audiokeeperExpire (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2451,7 +2670,8 @@ export function socketTotal (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2462,7 +2682,8 @@ export function clientTotal (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2473,7 +2694,8 @@ export function engineOffline (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2484,7 +2706,8 @@ export function engineOnline (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2495,7 +2718,8 @@ export function migrate (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2506,7 +2730,8 @@ export function voicebytes (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -2517,7 +2742,8 @@ export function useLog (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }

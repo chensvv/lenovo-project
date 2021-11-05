@@ -2,6 +2,7 @@
 /* eslint-disable camelcase */
 import Vue from 'vue'
 import Router from 'vue-router'
+import { Message } from 'element-ui'
 // 使用loading
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
@@ -445,8 +446,13 @@ router.beforeEach((to, from, next) => {
       let date = new Date().getTime();
       // 如果大于就是过期了，如果小于或等于就还没过期
       if (date - item.startTime > EXPIRESTIME) {
-        console.log(data - item.startTime)
-          sessionStorage.removeItem('token');
+        // console.log(date - item.startTime)
+          Message({
+            message: '登录超时，请重新登录',
+            type: 'error',
+            duration: 1500
+          })
+          sessionStorage.clear();
           next('/login')
           NProgress.done()
       } else {

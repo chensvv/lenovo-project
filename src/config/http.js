@@ -43,6 +43,7 @@ service_head.interceptors.response.use(response => {
   // endLoading()
   switch (response.data) {
     case 123:
+      Message.closeAll()
       Message({
         message: '没有权限',
         type: 'warning',
@@ -55,8 +56,9 @@ service_head.interceptors.response.use(response => {
       Message({
         message: '登录超时，请重新登录',
         type: 'error',
-        duration: 1000
+        duration: 1500
       })
+      sessionStorage.clear()
       router.replace('/login')
       break
     default:
@@ -64,10 +66,30 @@ service_head.interceptors.response.use(response => {
   }
   return response
 }, error => {
+  // console.log(error.response)
   // endLoading()
-  Message.error({
-    message: '服务器错误'
-  })
+  switch (error.response.status){
+    case 403:
+      Message.closeAll()
+      Message({
+        message: '登录超时，请重新登录',
+        type: 'error',
+        duration: 1500
+      })
+      sessionStorage.clear()
+      router.replace('/login')
+      break
+    case 500:
+      Message.closeAll()
+      Message.error({
+        message: '服务器错误'
+      })
+      // sessionStorage.clear()
+      break
+    default:
+      return error
+  }
+  
   return Promise.reject(error)
 })
 

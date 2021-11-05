@@ -87,11 +87,11 @@ export default {
                     this.loginLoading=true
                     login(params).then((res)=>{
                         if(res.data.code == 200){
-                            sessionStorage.setItem('username',this.loginForm.username)
+                            sessionStorage.setItem('username',Base64.encode(this.loginForm.username))
                             let paramss = {'t': res.data.data};
                             var datas = Object.assign(paramss, { startTime: new Date().getTime() });
                             sessionStorage.setItem("token", JSON.stringify(datas));
-                            sessionStorage.setItem('log',Base64.encode(this.loginForm.password))
+                            // sessionStorage.setItem('log',Base64.encode(this.loginForm.password))
                             userMenu(u_params).then(res=>{
                                 sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                                 this.$router.push('/')

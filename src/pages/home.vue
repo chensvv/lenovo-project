@@ -38,7 +38,8 @@
 <script>
 
 import Aside from '@/components/Aside'
-import { userMenu} from '@/config/adminApi'
+import { logout} from '@/config/adminApi'
+let Base64 = require('js-base64').Base64
 export default {
     data(){
         return {
@@ -48,7 +49,7 @@ export default {
         }
     },
     created(){
-        this.username = sessionStorage.getItem('username')
+        this.username = Base64.decode(sessionStorage.getItem('username'))
         this.menuData = JSON.parse(sessionStorage.getItem('menuData'))
         let menuList=[]
         for (let item of this.menuData) {
@@ -90,11 +91,15 @@ export default {
     methods:{
         handleDropdown(v){
             if(v == "logout"){
+                this.logoutMethod()
                 sessionStorage.clear();
                 this.$router.push('/login')
-            }else{
-                this.$router.push('/home/userinfo')
             }
+        },
+        logoutMethod(){
+            logout().then(res=>{
+                
+            })
         }
     }
 }

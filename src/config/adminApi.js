@@ -1,3 +1,4 @@
+
 import fetch from './http'
 
 export function login (data) {
@@ -8,13 +9,26 @@ export function login (data) {
   })
 }
 
+export function logout (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/user/logout',
+    method: 'post',
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
 export function userMenu (data) {
   return fetch.service_head({
     url: '/lasf-mgr/user/getMenu',
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -25,7 +39,8 @@ export function userList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -36,7 +51,8 @@ export function userAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -47,7 +63,8 @@ export function userUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -58,7 +75,8 @@ export function userDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -69,7 +87,8 @@ export function userRole (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -80,7 +99,8 @@ export function userRoleEcho (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -91,7 +111,8 @@ export function userRoleSave (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -102,7 +123,8 @@ export function roleList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -113,7 +135,8 @@ export function roleAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -124,7 +147,8 @@ export function roleDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -135,7 +159,8 @@ export function roleEcho (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -146,7 +171,8 @@ export function roleUpd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -157,7 +183,8 @@ export function authList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -168,7 +195,8 @@ export function akskList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -179,7 +207,8 @@ export function akskDetail (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -190,7 +219,8 @@ export function modinfy (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -201,7 +231,8 @@ export function activitiList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -212,7 +243,8 @@ export function activitiPass (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -223,7 +255,8 @@ export function activitinList (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -234,7 +267,8 @@ export function activitiStatus (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -245,7 +279,8 @@ export function userinfoUpdate (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -256,7 +291,8 @@ export function authAdd (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -267,7 +303,8 @@ export function authDel (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
@@ -278,7 +315,8 @@ export function authUpdate (data) {
     method: 'post',
     data: data,
     headers: {
-      't': JSON.parse(sessionStorage.getItem('token')).t
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
     }
   })
 }
