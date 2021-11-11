@@ -97,7 +97,7 @@
             :total="totalCount"
         ></el-pagination>
         </div>
-        <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
+        <el-dialog title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="addList.command" auto-complete="off"></el-input>
@@ -111,7 +111,7 @@
                 <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
+        <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="currentItem.command" auto-complete="off"></el-input>
@@ -134,41 +134,41 @@ import {originalList,originalAdd,originalUpd,originalDel} from '@/config/api'
 export default {
   data() {
     return {
-      list: [],
-      perList:[],
-      totalClass:'',
-      addList:{
-        command:"",
-        interface:""
-      },
-      currentItem:{
-          command:"",
-          interface:""
-      },
-      searchItem:{//搜索数据组
-        command:"",
-      },
-      addRules:{
-          command:[{ required: true, message: '请输入用户query', trigger: 'change' }],
-          interface:[{ required: true, message: '请输入预设指令', trigger: 'change' }],
-      },
-      editRules:{
-          command:[{ required: true, message: '请输入关键字', trigger: 'change' }],
-          interface:[{ required: true, message: '请输入预设指令', trigger: 'change' }],
-      },
-      // 分页
-      currentPage: 1, //默认显示第几页
-      pageSize: 10,   //默认每页条数
-      totalCount:1,     // 总条数
-      showTitle:true,
-      addVisible:false,
-      seabtnLoading:false,
-      addBtnLoading:false,
-      editVisible: false,
-      editBtnLoading:false,
-      listLoading:true,
-      isshow:true
-    };
+        list: [],
+        perList:[],
+        totalClass:'',
+        addList:{
+            command:"",
+            interface:""
+        },
+        currentItem:{
+            command:"",
+            interface:""
+        },
+        searchItem:{//搜索数据组
+            command:"",
+        },
+        addRules:{
+            command:[{ required: true, message: '请输入用户query', trigger: 'change' }],
+            interface:[{ required: true, message: '请输入预设指令', trigger: 'change' }],
+        },
+        editRules:{
+            command:[{ required: true, message: '请输入关键字', trigger: 'change' }],
+            interface:[{ required: true, message: '请输入预设指令', trigger: 'change' }],
+        },
+        // 分页
+        currentPage: 1, //默认显示第几页
+        pageSize: 10,   //默认每页条数
+        totalCount:1,     // 总条数
+        showTitle:true,
+        addVisible:false,
+        seabtnLoading:false,
+        addBtnLoading:false,
+        editVisible: false,
+        editBtnLoading:false,
+        listLoading:true,
+        isshow:true
+        };
   },
   created() {
         let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))

@@ -21,6 +21,14 @@ export function logout (data) {
   })
 }
 
+export function logImgCode (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/user/getImgCode',
+    method: 'post',
+    data: data
+  })
+}
+
 export function userMenu (data) {
   return fetch.service_head({
     url: '/lasf-mgr/user/getMenu',
@@ -42,6 +50,14 @@ export function userList (data) {
       't': JSON.parse(sessionStorage.getItem('token')).t,
       'u':sessionStorage.getItem('username')
     }
+  })
+}
+
+export function userReg (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/user/add',
+    method: 'post',
+    data: data
   })
 }
 

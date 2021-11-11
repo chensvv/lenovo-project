@@ -57,11 +57,6 @@
               </template>
             </el-table-column>
             <el-table-column label="客户端类型" prop="dtp" align="center" sortable="custom">
-              <template slot="header">
-                <el-tooltip class="item" effect="dark" content="客户端类型" placement="top">
-                  <span slot class="headlips">客户端类型</span>
-                </el-tooltip>
-              </template>
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -73,7 +68,7 @@
                   </div>
               </template>
             </el-table-column>
-            <el-table-column label="客户端ip" prop="uip" align="center">
+            <!-- <el-table-column label="客户端ip" prop="uip" align="center">
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.uip" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -96,13 +91,8 @@
                       {{ scope.row.upos }}
                   </div>
               </template>
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column label="客户端版本" prop="ver" align="center" sortable="custom">
-              <template slot="header">
-                <el-tooltip class="item" effect="dark" content="客户端版本" placement="top">
-                  <span slot class="headlips">客户端版本</span>
-                </el-tooltip>
-              </template>
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -128,10 +118,9 @@
             </el-table-column>
             <el-table-column label="执行状态" prop="stat" align="center">
               <template slot-scope="scope">
-                <el-tag
-                  :type="scope.row.stat === 'success' ? 'success' : scope.row.stat === 'failed' ? 'danger' :'info'"
-                  disable-transitions
-                >{{scope.row.stat}}</el-tag>
+                <span
+                  :class="scope.row.stat === 'success' ? 'tag-s' : scope.row.stat === 'failed' ? 'tag-d' :'tag-i'"
+                >{{scope.row.stat}}</span>
               </template>
             </el-table-column>
             <el-table-column label="延时" prop="cltd" align="center" min-width="90">
@@ -178,74 +167,14 @@
           <el-table :data="serverList" :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="SlistLoading">
             <el-table-column type="index" align="left" ></el-table-column>
             <el-table-column label="客户端总耗时" prop="ixcd" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="客户端总耗时" placement="top">
-                  <span slot class="headlips">客户端总耗时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixcd" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.ixcd }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.ixcd }}
-                  </div>
-              </template>
             </el-table-column>
             <el-table-column label="服务端总耗时" prop="ixsd" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="服务端总耗时" placement="top">
-                  <span slot class="headlips">服务端总耗时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixsd" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.ixsd }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.ixsd }}
-                  </div>
-              </template>
             </el-table-column>
             <el-table-column label="网络总延时" prop="ixnd" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="网络总延时" placement="top">
-                  <span slot class="headlips">网络总延时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixnd" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.ixnd }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.ixnd }}
-                  </div>
-              </template>
             </el-table-column>
-            <el-table-column label="服务端语音识别耗时" prop="ixad" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="服务端语音识别耗时" placement="top">
-                  <span slot class="headlips">服务端语音识别耗时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixad" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.ixad }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.ixad }}
-                  </div>
-              </template>
+            <el-table-column label="服务端识别耗时" prop="ixad" align="center">
             </el-table-column>
-            <el-table-column label="服务端其他总延时" prop="ixod" align="center">
+            <!-- <el-table-column label="服务端其他总延时" prop="ixod" align="center">
               <template slot="header">
                 <el-tooltip effect="dark" content="服务端其他总延时" placement="top">
                   <span slot class="headlips">服务端其他总延时</span>
@@ -261,8 +190,8 @@
                       {{ scope.row.ixod }}
                   </div>
               </template>
-            </el-table-column>
-            <el-table-column label="最后一个包的客户端耗时" prop="lpcd" align="center">
+            </el-table-column> -->
+            <!-- <el-table-column label="最后一个包的客户端耗时" prop="lpcd" align="center">
               <template slot="header">
                 <el-tooltip effect="dark" content="最后一个包的客户端耗时" placement="top">
                   <span slot class="headlips">最后一个包的客户端耗时</span>
@@ -346,13 +275,12 @@
                       {{ scope.row.lpod }}
                   </div>
               </template>
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column label="执行状态" prop="stat" align="center" min-width="90">
               <template slot-scope="scope">
-                <el-tag
-                  :type="scope.row.stat === 'success' ? 'success' : scope.row.stat === 'failed' ? 'danger' :'info'"
-                  disable-transitions
-                >{{scope.row.stat}}</el-tag>
+                <span
+                  :class="scope.row.stat === 'success' ? 'tag-s' : scope.row.stat === 'failed' ? 'tag-d' :'tag-i'"
+                >{{scope.row.stat}}</span>
               </template>
             </el-table-column>
             <el-table-column label="延时" prop="cltd" align="center">
@@ -360,16 +288,6 @@
                 <el-tooltip effect="dark" content="从结束录音到返回结果" placement="top">
                   <span slot>延时</span>
                 </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.cltd" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.cltd }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.cltd }}
-                  </div>
               </template>
             </el-table-column>
             <el-table-column label="内容" prop="rcn" align="center">

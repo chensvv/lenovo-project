@@ -101,7 +101,7 @@
         </div>
         
 
-        <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="handleClose" @close="closeFun('currentItem')">
+        <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="handleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="60px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="内容" prop="con">
                     <el-input type="textarea" v-model.trim="currentItem.con" auto-complete="off" rows="5"></el-input>
@@ -112,7 +112,7 @@
                 <el-button type="primary" @click="edithandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
+        <el-dialog title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="60px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="内容" prop="con">
                     <el-input type="textarea" v-model.trim="addList.con" auto-complete="off" rows="5"></el-input>

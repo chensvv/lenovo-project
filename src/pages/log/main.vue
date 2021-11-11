@@ -65,52 +65,6 @@
             style="width: 100%"
             v-loading="listLoading"
             @sort-change="sortChange">
-            <el-table-column label="ID" prop="id" align="center">
-                <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.id" placement="top">
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.id }}
-                        </div>
-                    </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.id }}
-                    </div>
-                </template>
-            </el-table-column>
-            <el-table-column label="IXID" prop="ixid" align="center">
-                <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixid" placement="top">
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.ixid }}
-                        </div>
-                    </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.ixid }}
-                    </div>
-                </template>
-            </el-table-column>
-            <el-table-column label="DID" prop="did" align="center">
-                <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.did" placement="top">
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.did }}
-                        </div>
-                    </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.did }}
-                    </div>
-                </template>
-            </el-table-column>
-            <el-table-column label="CODEC" prop="codec" align="center">
-                <template slot-scope="scope">
-                    <span>{{scope.row.codec == '7' ? 'Speex 16k' : 
-                            scope.row.codec == '3' ? 'Speex 8k' : 
-                            scope.row.codec == '5' ? 'Pcm 16k' : 
-                            scope.row.codec == '1' ? 'Pcm 8k' : 
-                            scope.row.codec == '4' ? 'Bv32 16k' : 
-                            scope.row.codec == '0' ? 'Bv32 8k' : '未知'}}</span>
-                </template>
-            </el-table-column>
             <el-table-column label="UID" prop="uid" align="center">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.uid" placement="top">
@@ -123,6 +77,53 @@
                     </div>
                 </template>
             </el-table-column>
+            <!-- <el-table-column label="ID" prop="id" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.id" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.id }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.id }}
+                    </div>
+                </template>
+            </el-table-column> -->
+            <!-- <el-table-column label="IXID" prop="ixid" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixid" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.ixid }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.ixid }}
+                    </div>
+                </template>
+            </el-table-column> -->
+            <el-table-column label="DID" prop="did" align="center">
+                <template slot-scope="scope">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.did" placement="top">
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                        {{ scope.row.did }}
+                        </div>
+                    </el-tooltip>
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                        {{ scope.row.did }}
+                    </div>
+                </template>
+            </el-table-column>
+            <!-- <el-table-column label="CODEC" prop="codec" align="center">
+                <template slot-scope="scope">
+                    <span>{{scope.row.codec == '7' ? 'Speex 16k' : 
+                            scope.row.codec == '3' ? 'Speex 8k' : 
+                            scope.row.codec == '5' ? 'Pcm 16k' : 
+                            scope.row.codec == '1' ? 'Pcm 8k' : 
+                            scope.row.codec == '4' ? 'Bv32 16k' : 
+                            scope.row.codec == '0' ? 'Bv32 8k' : '未知'}}</span>
+                </template>
+            </el-table-column> -->
+            
             <el-table-column label="DTP" prop="dtp" align="center" sortable="custom">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
@@ -149,7 +150,7 @@
             </el-table-column>
             <el-table-column label="VDM" prop="vdm" align="center">
             </el-table-column>
-            <el-table-column label="APP" prop="app" align="center">
+            <!-- <el-table-column label="APP" prop="app" align="center">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.app" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -160,16 +161,16 @@
                         {{ scope.row.app }}
                     </div>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column
                 label="STAT"
                 prop="stat"
                 align="center" 
                 >
                 <template slot-scope="scope">
-                    <el-tag
-                    :type="scope.row.stat === 'success' ? 'success' :'danger'"
-                    disable-transitions>{{scope.row.stat == 'success'? 'S': 'F'}}</el-tag>
+                    <span
+                    :class="scope.row.stat === 'success' ? 'tag-s' :'tag-d'"
+                    >{{scope.row.stat}}</span>
                 </template>
             </el-table-column>
             <el-table-column label="L1C" prop="l1c" align="center">
@@ -211,7 +212,7 @@
         ></el-pagination>
         </div>
           
-        <el-dialog title="详情" :visible.sync="infoVisible" width="300" :before-close="handleClose">
+        <el-dialog title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose">
             <el-form :label-position="'right'" label-width="100px">
                 <el-form-item label="ID">
                     <el-input type="text" v-model="infoList.id" auto-complete="off" readonly></el-input>
@@ -355,7 +356,7 @@ export default {
             },
             // 分页
             currentPage: 1, //默认显示第几页
-            pageSize: 8,   //默认每页条数
+            pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
             showTitle:true,
             btnLoading:false,

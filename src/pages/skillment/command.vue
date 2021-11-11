@@ -6,109 +6,267 @@
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
+        <el-form v-if="commandForm" :inline="true" ref="commandSearchItem" :model="commandSearchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
             <div class="form-input height50">
                 <el-form-item label="用户query" prop="command">
-                    <el-input v-model.trim="searchItem.command" clearable></el-input>
+                    <el-input v-model.trim="commandSearchItem.command" clearable></el-input>
                 </el-form-item>
             </div>
             
             <div class="form-btn">
-                <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-                <el-button size="mini" @click="handleAdd()" v-has="'command:add'">添加</el-button>
-                <el-button size="mini" @click="handleSong()" v-has="'command:norun:list'">指令忽略管理</el-button>
-                <el-button size="mini" @click="handleOriginal()" v-has="'command:mainlist'">原始指令管理</el-button>
+                <el-button size="mini" type="primary" @click="commandOnSubmit" :loading="commandSeaBtnLoading">查询</el-button>
+                <el-button size="mini" @click="commandResetForm('commandSearchItem')">重置</el-button>
+                <el-button size="mini" @click="commandHandleAdd()" v-has="'command:add'">添加</el-button>
+                <!-- <el-button size="mini" @click="handleSong()" v-has="'command:norun:list'">指令忽略管理</el-button>
+                <el-button size="mini" @click="handleOriginal()" v-has="'command:mainlist'">原始指令管理</el-button> -->
+            </div>
+            
+        </el-form>
+        <el-form v-if="norunForm" :inline="true" ref="norunSearchItem" :model="norunSearchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
+            <div class="form-input height50">
+                <el-form-item label="用户query" prop="command">
+                    <el-input v-model.trim="norunSearchItem.command" clearable></el-input>
+                </el-form-item>
+            </div>
+            
+            <div class="form-btn">
+                <el-button size="mini" type="primary" @click="norunOnSubmit" :loading="norunSeaBtnLoading">查询</el-button>
+                <el-button size="mini" @click="norunResetForm('norunSearchItem')">重置</el-button>
+                <el-button size="mini" @click="norunHandleAdd()" v-has="'command:norun:add'">添加</el-button>
+            </div>
+            
+        </el-form>
+        <el-form v-if="originaForm" :inline="true" ref="originaSearchItem" :model="originaSearchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
+            <div class="form-input height50">
+                <el-form-item label="用户query" prop="command">
+                    <el-input v-model.trim="originaSearchItem.command" clearable></el-input>
+                </el-form-item>
+            </div>
+            
+            <div class="form-btn">
+                <el-button size="mini" type="primary" @click="originaOnSubmit" :loading="originaSeaBtnLoading">查询</el-button>
+                <el-button size="mini" @click="originaResetForm('originaSearchItem')">重置</el-button>
+                <el-button size="mini" @click="originaHandleAdd()" v-has="'command:mainadd'">添加</el-button>
             </div>
             
         </el-form>
         <div class="table-box">
-            <el-table
-                :data="list"
-                :class="this.totalClass <= '7' ? 'limitWidth' :''"
-                style="width: 100%"
-                v-loading="listLoading">
-                <el-table-column type="index" align="left" >
-                </el-table-column>
-                <el-table-column
-                    label="用户query"
-                    prop="command"
-                    align="left">
-                    <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.command" placement="top">
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                            {{ scope.row.command }}
-                            </div>
-                        </el-tooltip>
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                            {{ scope.row.command }}
-                        </div>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="预设指令"
-                    prop="commandSeged"
-                    align="left">
-                    <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.commandSeged" placement="top">
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                            {{ scope.row.commandSeged }}
-                            </div>
-                        </el-tooltip>
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                            {{ scope.row.commandSeged }}
-                        </div>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="功能描述"
-                    prop="commandSegedDelStop"
-                    align="left">
-                    <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.commandSegedDelStop" placement="top">
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                            {{ scope.row.commandSegedDelStop }}
-                            </div>
-                        </el-tooltip>
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                            {{ scope.row.commandSegedDelStop }}
-                        </div>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                    label="修改时间"
-                    prop="updateTime"
-                    align="center" 
-                    :formatter="formTime"
-                    min-with="140">
-                </el-table-column>
-                <el-table-column label="操作" align="center" v-if="isshow">
-                    <template slot-scope="scope">
-                        <el-button
-                        size="mini"
-                        type="danger"
-                        v-has="'command:delete'"
-                        @click="handleDel(scope.$index, scope.row)"
-                        >删除</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page.sync="currentPage"
-                :page-size="pageSize"
-                layout="total, prev, pager, next, jumper"
-                :total="totalCount"
-            ></el-pagination>
+             <el-tabs type="card" v-model="activeName" @tab-click="handleClickTabs">
+                <el-tab-pane label="相似度命令关联" name="command" class="flex-align">
+                    <el-table
+                        :data="commandList"
+                        :class="this.commandTotalClass <= '7' ? 'limitWidth' :''"
+                        style="width: 100%"
+                        v-loading="commandListLoading">
+                        <el-table-column type="index" align="left" >
+                        </el-table-column>
+                        <el-table-column
+                            label="用户query"
+                            prop="command"
+                            align="left">
+                            <template slot-scope="scope">
+                                <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.command" placement="top">
+                                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                                    {{ scope.row.command }}
+                                    </div>
+                                </el-tooltip>
+                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                                    {{ scope.row.command }}
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                            label="预设指令"
+                            prop="commandSeged"
+                            align="left">
+                            <template slot-scope="scope">
+                                <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.commandSeged" placement="top">
+                                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                                    {{ scope.row.commandSeged }}
+                                    </div>
+                                </el-tooltip>
+                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                                    {{ scope.row.commandSeged }}
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                            label="功能描述"
+                            prop="commandSegedDelStop"
+                            align="left">
+                            <template slot-scope="scope">
+                                <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.commandSegedDelStop" placement="top">
+                                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                                    {{ scope.row.commandSegedDelStop }}
+                                    </div>
+                                </el-tooltip>
+                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                                    {{ scope.row.commandSegedDelStop }}
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                            label="修改时间"
+                            prop="updateTime"
+                            align="center" 
+                            :formatter="formTime2"
+                            min-with="140">
+                        </el-table-column>
+                        <el-table-column label="操作" align="center" v-if="commandIsshow">
+                            <template slot-scope="scope">
+                                <el-button
+                                size="mini"
+                                type="danger"
+                                v-has="'command:delete'"
+                                @click="commandHandleDel(scope.$index, scope.row)"
+                                >删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <el-pagination
+                        @size-change="commandHandleSizeChange"
+                        @current-change="commandHandleCurrentChange"
+                        :current-page.sync="commandCurrentPage"
+                        :page-size="commandPageSize"
+                        layout="total, prev, pager, next, jumper"
+                        :total="commandTotalCount"
+                    ></el-pagination>
+                </el-tab-pane>
+                <el-tab-pane label="指令忽略管理" name="norun">
+                    <el-table
+                        :data="norunList"
+                        :class="this.norunTotalClass <= '7' ? 'limitWidth' :''"
+                        style="width: 100%"
+                        v-loading="norunListLoading">
+                        <el-table-column type="index" align="left" >
+                        </el-table-column>
+                        <el-table-column
+                            label="用户query"
+                            prop="command"
+                            align="left">
+                            <template slot-scope="scope">
+                                <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.command" placement="top">
+                                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                                    {{ scope.row.command }}
+                                    </div>
+                                </el-tooltip>
+                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                                    {{ scope.row.command }}
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                            label="修改时间"
+                            prop="updateTime"
+                            align="center"
+                            :formatter="formTime2"
+                            min-width="120">
+                        </el-table-column>
+                        <el-table-column label="操作" align="center"  v-if="norunIsshow">
+                            <template slot-scope="scope">
+                                <el-button
+                                size="mini"
+                                type="danger"
+                                v-has="'command:norun:delete'"
+                                @click="norunHandleDel(scope.$index, scope.row)"
+                                >删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                    <el-pagination
+                        @size-change="norunHandleSizeChange"
+                        @current-change="norunHandleCurrentChange"
+                        :current-page.sync="norunCurrentPage"
+                        :page-size="norunPageSize"
+                        layout="total, prev, pager, next, jumper"
+                        :total="norunTotalCount"
+                    ></el-pagination>
+                </el-tab-pane>
+                <el-tab-pane label="原始指令管理" name="origina">
+                    <el-table
+                        :data="originaList"
+                        :class="this.originaLotalClass <= '7' ? 'limitWidth' :''"
+                        style="width: 100%"
+                        v-loading="originaListLoading">
+                        <el-table-column type="index" align="left" >
+                        </el-table-column>
+                        <el-table-column
+                            label="用户query"
+                            prop="command"
+                            align="left">
+                            <template slot-scope="scope">
+                                <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.command" placement="top">
+                                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                                    {{ scope.row.command }}
+                                    </div>
+                                </el-tooltip>
+                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                                    {{ scope.row.command }}
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                            label="预设指令"
+                            prop="commandInterface"
+                            align="left">
+                            <template slot-scope="scope">
+                                <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.commandInterface" placement="top">
+                                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                                    {{ scope.row.commandInterface }}
+                                    </div>
+                                </el-tooltip>
+                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                                    {{ scope.row.commandInterface }}
+                                </div>
+                            </template>
+                        </el-table-column>
+                        <el-table-column
+                            label="添加时间"
+                            prop="createTime"
+                            align="center"
+                            :formatter="formTime"
+                            min-with="140">
+                        </el-table-column>
+                        <el-table-column
+                            label="修改时间"
+                            prop="updateTime"
+                            align="center"
+                            :formatter="formTime2"
+                            min-width="120">
+                        </el-table-column>
+                        <el-table-column label="操作" align="center" min-width="!30" v-if="originaIsshow">
+                            <template slot-scope="scope">
+                                <el-button
+                                size="mini"
+                                @click="handleEdit(scope.$index, scope.row)"
+                                v-has="'command:mainupdate'">编辑</el-button>
+                                <el-button
+                                size="mini"
+                                type="danger"
+                                @click="originaHandleDel(scope.$index, scope.row)"
+                                v-has="'command:maindelete'">删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                <el-pagination
+                    @size-change="originaHandleSizeChange"
+                    @current-change="originaHandleCurrentChange"
+                    :current-page.sync="originaCurrentPage"
+                    :page-size="originaPageSize"
+                    layout="total, prev, pager, next, jumper"
+                    :total="originaTotalCount"
+                ></el-pagination>
+                </el-tab-pane>
+            </el-tabs>
         </div>
-        <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'right'" label-width="130px" size="small" :rules="addRules" :model="addList" ref="addList">
+        
+        <el-dialog title="新增" :visible.sync="commandAddVisible" width="40%" top="10vh" :before-close="commandAddHandleClose" @open="commandOpenFun('commandAddList')">
+            <el-form :label-position="'right'" label-width="130px" size="small" :rules="commandAddRules" :model="commandAddList" ref="commandAddList">
                 <el-form-item label="用户query" prop="command">
-                    <el-input type="text" v-model.trim="addList.command" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="commandAddList.command" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="预设指令" prop="interFaceId" class="el__select">
-                    <el-select v-model="addList.interFaceId" placeholder="--" clearable filterable>
+                    <el-select v-model="commandAddList.interFaceId" placeholder="--" clearable filterable>
                         <el-option v-for="(item,index) in sourceList" :key="index" :label="item.command" :value="item.id">
                             <span style="float: left">{{ item.command }}</span>
                             <span style="float: right; color: #8492a6; font-size: 13px">{{ item.commandInterface }}</span>
@@ -117,8 +275,47 @@
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="addHandleClose">取 消</el-button>
-                <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
+                <el-button @click="commandAddHandleClose">取 消</el-button>
+                <el-button type="primary" @click="commandAddHandleConfirm('commandAddList')" :loading="commandAddBtnLoading">确 定</el-button>
+            </span>
+        </el-dialog>
+        <el-dialog title="新增" :visible.sync="norunAddVisible" width="40%" top="10vh" :before-close="norunAddHandleClose" @open="norunOpenFun('norunAddList')">
+            <el-form :label-position="'right'" label-width="130px" size="small" :rules="norunAddRules" :model="norunAddList" ref="norunAddList">
+                <el-form-item label="用户query" prop="command">
+                    <el-input type="text" v-model.trim="norunAddList.command" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="norunAddHandleClose">取 消</el-button>
+                <el-button type="primary" @click="norunAddHandleConfirm('norunAddList')" :loading="norunAddBtnLoading">确 定</el-button>
+            </span>
+        </el-dialog>
+        <el-dialog title="新增" :visible.sync="originaAddVisible" width="40%" top="10vh" :before-close="originaAddHandleClose" @open="originaOpenFun('originaAddList')">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="originaAddRules" :model="originaAddList" ref="originaAddList">
+                <el-form-item label="用户query" prop="command">
+                    <el-input type="text" v-model.trim="originaAddList.command" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="预设指令" prop="interface">
+                    <el-input type="text" v-model.trim="originaAddList.interface" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="originaAddHandleClose">取 消</el-button>
+                <el-button type="primary" @click="originaAddHandleConfirm('originaAddList')" :loading="originaAddBtnLoading">确 定</el-button>
+            </span>
+        </el-dialog>
+        <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+                <el-form-item label="用户query" prop="command">
+                    <el-input type="text" v-model.trim="currentItem.command" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="预设指令" prop="interface">
+                    <el-input type="text" v-model.trim="currentItem.interface" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="editHandleClose">取 消</el-button>
+                <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -126,35 +323,90 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {commandList, commandDel, commandEcho, commandAdd} from '@/config/api'
+import {commandList, commandDel, commandEcho, commandAdd, norunList, norunDel, norunAdd,originalList,originalAdd,originalUpd,originalDel} from '@/config/api'
 export default {
     data() {
         return {
-            list: [],
+            commandList: [],
+            norunList: [],
+            originaList: [],
             perList:[],
             sourceList:[],
-            totalClass:'',
-            addList: {//添加数据组
+            commandTotalClass:'',
+            norunTotalClass:'',
+            originaTotalClass:'',
+            activeName:'command',
+            commandAddList: {//添加数据组
                 command:"",
                 interFaceId:""
             },
-            searchItem:{//搜索数据组
+            norunAddList: {//添加数据组
+                command:"",
+                interFaceId:""
+            },
+            originaAddList:{
+                command:"",
+                interface:""
+            },
+            currentItem:{
+                command:"",
+                interface:""
+            },
+            commandSearchItem:{//搜索数据组
                 command:"",
             },
-            addRules:{
+            norunSearchItem:{//搜索数据组
+                command:"",
+            },
+            originaSearchItem:{//搜索数据组
+                command:"",
+            },
+            norunAddRules:{
+                command: [{ required: true, message: '请输入用户query', trigger: 'change' }],
+            },
+            commandAddRules:{
                 command: [{ required: true, message: '请输入用户query', trigger: 'change' }],
                 interFaceId: [{ required: true, message: '请选择预设指令', trigger: 'change' }],
             },
-            addVisible: false,
+            originaAddRules:{
+                command:[{ required: true, message: '请输入用户query', trigger: 'change' }],
+                interface:[{ required: true, message: '请输入预设指令', trigger: 'change' }],
+            },
+            editRules:{
+                command:[{ required: true, message: '请输入关键字', trigger: 'change' }],
+                interface:[{ required: true, message: '请输入预设指令', trigger: 'change' }],
+            },
+            commandAddVisible: false,
+            norunAddVisible: false,
+            originaAddVisible: false,
             // 分页
-            currentPage: 1, //默认显示第几页
-            pageSize: 10,   //默认每页条数
-            totalCount:1,     // 总条数
+            commandCurrentPage: 1, //默认显示第几页
+            norunCurrentPage: 1, //默认显示第几页
+            originaCurrentPage: 1, //默认显示第几页
+            commandPageSize: 10,   //默认每页条数
+            norunPageSize: 10,   //默认每页条数
+            originaPageSize: 10,   //默认每页条数
+            commandTotalCount:1,     // 总条数
+            norunTotalCount:1,     // 总条数
+            originaTotalCount:1,     // 总条数
             showTitle:true,
-            seaBtnLoading:false,
-            addBtnLoading:false,
-            listLoading:true,
-            isshow:true
+            commandSeaBtnLoading:false,
+            norunSeaBtnLoading:false,
+            originaSeaBtnLoading:false,
+            commandAddBtnLoading:false,
+            norunAddBtnLoading:false,
+            originaAddBtnLoading:false,
+            editVisible: false,
+            editBtnLoading:false,
+            commandListLoading:true,
+            norunListLoading:true,
+            originaListLoading:true,
+            commandIsshow:true,
+            norunIsshow:true,
+            originaIsshow:true,
+            commandForm:true,
+            norunForm:false,
+            originaForm:false
         };
     },
     created() {
@@ -162,11 +414,19 @@ export default {
         perArr.map(t=>{
             this.perList.push(Object.values(t).join())
         })
-        this.getList();
+        this.getCommandList();
+        this.getNorunList()
+        this.getOriginaList();
     },
     mounted(){
         if(this.perList.indexOf('command:delete') == -1){
-            this.isshow = false
+            this.commandIsshow = false
+        }
+        if(this.perList.indexOf('command:norun:delete') == -1){
+            this.norunIsshow = false
+        }
+        if(this.perList.indexOf('command:mainupdate') == -1 && this.perList.indexOf('command:maindelete') == -1){
+            this.originaIsshow = false
         }
     },
     methods: {
@@ -182,6 +442,15 @@ export default {
             }
         },
         formTime(row, column){
+            var timer = row.createTime
+            var date = new Date(timer)
+                return date.getFullYear()+'-'+
+                    checkTime(date.getMonth()+1)+'-'+
+                    checkTime(date.getDate())+' '+
+                    checkTime(date.getHours())+':'+
+                    checkTime(date.getMinutes())
+        },
+        formTime2(row, column){
             var timer = row.updateTime
             var date = new Date(timer)
                 return date.getFullYear()+'-'+
@@ -190,28 +459,70 @@ export default {
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
         },
-        resetForm(formName) {
+        commandResetForm(formName) {
             this.$refs[formName].resetFields();
-            this.currentPage = 1
-            this.getList();
+            this.commandCurrentPage = 1
+            this.getCommandList();
         },
-        onSubmit(){
-            this.seaBtnLoading = true
-            this.currentPage = 1
-            this.getList()
-            this.seaBtnLoading = false
+        norunResetForm(formName) {
+            this.$refs[formName].resetFields();
+            this.norunCurrentPage = 1
+            this.getNorunList();
         },
-        handleSizeChange(val) {
-            this.pageSize = val;
-            this.currentPage = 1
-            this.getList();
+        originaResetForm(formName) {
+            this.$refs[formName].resetFields();
+            this.originaCurrentPage = 1
+            this.getOriginaList();
         },
-        handleCurrentChange(val) {
+        commandOnSubmit(){
+            this.commandSeaBtnLoading = true
+            this.commandCurrentPage = 1
+            this.getCommandList()
+            this.commandSeaBtnLoading = false
+        },
+        norunOnSubmit(){
+            this.norunSeaBtnLoading = true
+            this.norunCurrentPage = 1
+            this.getNorunList()
+            this.norunSeaBtnLoading = false
+        },
+        originaOnSubmit(){
+            this.originaSeabtnLoading = true
+            this.originaCurrentPage = 1
+            this.getOriginaList();
+            this.originaSeabtnLoading = false
+        },
+        commandHandleSizeChange(val) {
+            this.commandPageSize = val;
+            this.commandCurrentPage = 1
+            this.getCommandList();
+        },
+        norunHandleSizeChange(val) {
+            this.norunPageSize = val;
+            this.norunCurrentPage = 1
+            this.getNorunList();
+        },
+        originaHandleSizeChange(val) {
+            this.originaPageSize = val;
+            this.originaCurrentPage = 1
+            this.getOriginaList();
+        },
+        commandHandleCurrentChange(val) {
             this.currentPage = val
             // console.log(`当前页: ${val}`);
-            this.getList();
+            this.getCommandList();
         },
-        handleDel(index, row) {
+        norunHandleCurrentChange(val) {
+            this.norunCurrentPage = val
+            // console.log(`当前页: ${val}`);
+            this.getNorunList();
+        },
+        originaHandleCurrentChange(val) {
+            this.originaCurrentPage = val
+            //   console.log(`当前页: ${val}`);
+            this.getOriginaList();
+        },
+        commandHandleDel(index, row) {
             let delParams = {
                 id:row.id
             }
@@ -227,7 +538,7 @@ export default {
                             type:"success",
                             duration:1000
                         });
-                        this.getList();
+                        this.getCommandList();
                     }else{
                         this.$message({
                             message:res.data.errorMessage,
@@ -241,43 +552,145 @@ export default {
                 console.log(err);
             });
         },
-        openFun(addList){
+        norunHandleDel(index, row) {
+            let delParams = {
+                id:row.id
+            }
+            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            }).then(() => {
+                norunDel(delParams).then(res=>{
+                    if(res.data.code == 200){
+                        this.$message({
+                            message:'删除成功',
+                            type:"success",
+                            duration:1000
+                        });
+                        this.getNorunList();
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1000
+                        });
+                    }
+                    
+                })
+            }).catch(err => {
+                console.log(err);
+            });
+        },
+        originaHandleDel(index, row) {
+            let delParams = {
+                id:row.id
+            }
+            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                type: "warning"
+            }).then(() => {
+                originalDel(delParams).then(res=>{
+                    if(res.data.code == 200){
+                        this.$message({
+                            message:'删除成功',
+                            type:"success",
+                            duration:1000
+                        });
+                        this.getOriginaList();
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1000
+                        });
+                    }
+                    
+                })
+            }).catch(err => {
+                console.log(err);
+            });
+        },
+        commandOpenFun(commandAddList){
             this.$nextTick(() => {
-                if(this.$refs[addList]){
-                    this.$refs[addList].resetFields();
+                if(this.$refs[commandAddList]){
+                    this.$refs[commandAddList].resetFields();
                 }
             })
         },
-        addHandleClose(){
-            this.addVisible = false
+        norunOpenFun(norunAddList){
+            this.$nextTick(() => {
+                if(this.$refs[norunAddList]){
+                    this.$refs[norunAddList].resetFields();
+                }
+            })
         },
-        handleAdd(){
+        originaOpenFun(originaAddList){
+            this.$nextTick(() => {
+                if(this.$refs[originaAddList]){
+                    this.$refs[originaAddList].resetFields();
+                }
+            })
+        },
+        closeFun(currentItem){
+            this.$nextTick(() => {
+                if(this.$refs[currentItem]){
+                    this.$refs[currentItem].clearValidate();
+                }
+            })
+        },
+        handleEdit(index, row) {
+            this.editVisible = true;
+            this.currentItem = {
+                id:row.id,
+                command: row.command,
+                interface: row.commandInterface
+            };
+        },
+        editHandleClose() {
+            this.editVisible = false;
+        },
+        commandAddHandleClose(){
+            this.commandAddVisible = false
+        },
+        norunAddHandleClose(){
+            this.norunAddVisible = false
+        },
+        originaAddHandleClose(){
+            this.originaAddVisible = false
+        },
+        commandHandleAdd(){
             commandEcho().then(res=>{
                 this.sourceList = res.data
             })
-            this.addVisible = true
+            this.commandAddVisible = true
         },
-        // currentSel(val){
-        //     console.log(val.commandInterface+"-"+val.command)
-        // },
-        addHandleConfirm(addList) {
-            let addParams={
-                command:this.addList.command,
-                interfaceId:this.addList.interFaceId
+        norunHandleAdd(){
+            this.norunAddVisible = true
+        },
+        originaHandleAdd(){
+            this.originaAddVisible = true
+        },
+        editHandleConfirm(currentItem) {
+            let updParams = {
+                id:this.currentItem.id,
+                command:this.currentItem.command,
+                commandInterface:this.currentItem.interface
             }
-            this.$refs[addList].validate((valid) => {
+            this.$refs[currentItem].validate((valid) => {
                 if (valid) {
-                    this.addBtnLoading = true
-                    commandAdd(addParams).then(res=>{
-                        this.addBtnLoading = false
+                    this.editBtnLoading = true
+                    originalUpd(updParams).then(res=>{
+                        this.editBtnLoading = false
                         if(res.data.code == 200){
                             this.$message({
-                                message:'添加成功',
+                                message:'编辑成功',
                                 type:"success",
                                 duration:1000
                             });
-                            this.getList();
-                            this.addVisible = false
+                            this.getOriginaList()
+                            this.editVisible = false
                         }else{
                             this.$message({
                                 message:res.data.errorMessage,
@@ -287,29 +700,182 @@ export default {
                         }
                         
                     }).catch(err => {
-                        this.addBtnLoading = false
+                        this.editBtnLoading = false
                     })
                 } else {
                     return false;
                 }
             });
         },
-        getList() {
-            this.listLoading = true
+        commandAddHandleConfirm(commandAddList) {
+            let addParams={
+                command:this.commandAddList.command,
+                interfaceId:this.commandAddList.interFaceId
+            }
+            this.$refs[commandAddList].validate((valid) => {
+                if (valid) {
+                    this.commandAddBtnLoading = true
+                    commandAdd(addParams).then(res=>{
+                        this.commandAddBtnLoading = false
+                        if(res.data.code == 200){
+                            this.$message({
+                                message:'添加成功',
+                                type:"success",
+                                duration:1000
+                            });
+                            this.getCommandList();
+                            this.commandAddVisible = false
+                        }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
+                        }
+                        
+                    }).catch(err => {
+                        this.commandAddBtnLoading = false
+                    })
+                } else {
+                    return false;
+                }
+            });
+        },
+        norunAddHandleConfirm(norunAddList) {
+            let addParams={
+                command:this.norunAddList.command
+            }
+            this.$refs[norunAddList].validate((valid) => {
+                if (valid) {
+                    this.norunAddBtnLoading = true
+                    norunAdd(addParams).then(res=>{
+                        this.norunAddBtnLoading = false
+                        if(res.data.code == 200){
+                            this.$message({
+                                message:'添加成功',
+                                type:"success",
+                                duration:1000
+                            });
+                            this.getNorunList();
+                            this.norunAddVisible = false
+                        }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
+                        }
+                        
+                    })
+                    .catch(err => {
+                        this.norunAddBtnLoading = false
+                    })
+                } else {
+                    return false;
+                }
+            });
+        },
+        originaAddHandleConfirm(originaAddList) {
+            let addParams={
+                command:this.originaAddList.command,
+                interfaceId:this.originaAddList.interface,
+            }
+            this.$refs[originaAddList].validate((valid) => {
+                if (valid) {
+                    this.originaAddBtnLoading = true
+                    originalAdd(addParams).then(res=>{
+                        this.originaAddBtnLoading = false
+                        if(res.data.code == 200){
+                            this.$message({
+                                message:'添加成功',
+                                type:"success",
+                                duration:1000
+                            });
+                            this.getOriginaList();
+                            this.originaAddVisible = false
+                        }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1000
+                            });
+                        }
+                        
+                    }).catch(err => {
+                        this.originaAddBtnLoading = false
+                    })
+                } else {
+                    return false;
+                }
+            });
+        },
+        handleClickTabs(tab, event){
+            if(tab.name == "norun"){
+                this.commandForm = false
+                this.originaForm = false
+                this.norunForm = true
+            }else if(tab.name == "origina"){
+                this.commandForm = false
+                this.norunForm = false
+                this.originaForm = true
+            }else{
+                this.originaForm = false
+                this.norunForm = false
+                this.commandForm = true
+            }
+        },
+        getCommandList() {
+            this.commandListLoading = true
             let params = {
-                command:this.searchItem.command,
-                pgstr:this.currentPage,
-                pcstr:this.pageSize
+                command:this.commandSearchItem.command,
+                pgstr:this.commandCurrentPage,
+                pcstr:this.commandPageSize
             }
             commandList(params).then(res => {
-                this.listLoading = false
+                this.commandListLoading = false
                 if(res.data.code == 200){
-                    this.list = res.data.data;
-                    this.totalCount = res.data.count
-                    this.totalClass = res.data.data.length
+                    this.commandList = res.data.data;
+                    this.commandTotalCount = res.data.count
+                    this.commandTotalClass = res.data.data.length
                 }
             }).catch(()=>{
-                this.listLoading = false
+                this.commandListLoading = false
+            })
+        },
+        getNorunList() {
+            this.norunListLoading = true
+            let params = {
+                command:this.norunSearchItem.command,
+                pgstr:this.norunCurrentPage,
+                pcstr:this.norunPageSize
+            }
+            norunList(params).then(res => {
+                this.norunListLoading = false
+                if(res.data.code == 200){
+                    this.norunList = res.data.data;
+                    this.norunTotalCount = res.data.count
+                    this.norunTotalClass = res.data.data.length
+                }
+            }).catch(()=>{
+                this.norunListLoading = false
+            })
+        },
+        getOriginaList() {
+        this.originaListLoading = true
+            let params = {
+                pgstr:this.originaCurrentPage,
+                pcstr:this.originaPageSize,
+                command:this.originaSearchItem.command,
+            }
+            originalList(params).then(res => {
+                this.originaListLoading = false
+                if(res.data.code == 200){
+                    this.originaList = res.data.data;
+                    this.originaTotalCount = res.data.count
+                    this.originaTotalClass = res.data.data.length
+                }
+            }).catch(()=>{
+                this.originaListLoading = false
             })
         },
         handleSong(){

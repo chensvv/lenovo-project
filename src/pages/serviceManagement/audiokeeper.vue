@@ -146,7 +146,7 @@
         </div>
          
         
-        <el-dialog title="新增" :visible.sync="addVisible" width="300" :before-close="addHandleClose" @open="openFun('addList')">
+        <el-dialog title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="ip" prop="ipAddress">
                     <el-input type="text" v-model.trim="addList.ipAddress"  auto-complete="off"></el-input>

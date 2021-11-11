@@ -11,6 +11,7 @@ let proURL = 'https://voice.lenovomm.com'
 // axios 配置
 // eslint-disable-next-line camelcase
 const service_head = axios.create({
+  // baseURL: '/api',
   baseURL: proURL,
   // timeout: 15000, // 请求超时时间
   withCredentials: false,
@@ -70,12 +71,15 @@ service_head.interceptors.response.use(response => {
   // endLoading()
   switch (error.response.status){
     case 403:
-      Message.closeAll()
-      Message({
-        message: '登录超时，请重新登录',
-        type: 'error',
-        duration: 1500
-      })
+      // console.log(error.response.url.indexOf('logout'))
+      if(error.response.config.url.indexOf('logout') == -1){
+        Message.closeAll()
+        Message({
+          message: '登录超时，请重新登录',
+          type: 'error',
+          duration: 1500
+        })
+      }
       sessionStorage.clear()
       router.replace('/login')
       break

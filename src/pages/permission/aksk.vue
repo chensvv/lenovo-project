@@ -226,7 +226,7 @@
         ></el-pagination>
         </div>
           
-        <el-dialog title="详情" :visible.sync="infoVisible" width="300" :before-close="handleClose">
+        <el-dialog title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose">
             <el-form :label-position="'right'" label-width="140px" size="small">
                 <el-form-item label="lenovoId">
                     <el-input type="text" v-model="infoList.lenovoId" auto-complete="off" readonly></el-input>
@@ -272,7 +272,7 @@
                 <el-button type="primary" @click="handleConfirm()">关闭</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
+        <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="ASR访问次数" prop="userDailyCloudasrCount">
                     <el-input type="text" v-model.trim="currentItem.userDailyCloudasrCount" auto-complete="off"></el-input>

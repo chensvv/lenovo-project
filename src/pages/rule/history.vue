@@ -73,7 +73,7 @@
       ></el-pagination>
     </div>
 
-    <el-dialog title="编辑" :visible.sync="editVisible" width="300" :before-close="editHandleClose" @close="closeFun('currentItem')">
+    <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="版本号">
           <el-input type="text" v-model.trim="currentItem.version" readonly auto-complete="off"></el-input>

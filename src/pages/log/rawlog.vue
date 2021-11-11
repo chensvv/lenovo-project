@@ -124,7 +124,7 @@
         :total="totalCount"
       ></el-pagination>
     </div>
-    <el-dialog title="详情" :visible.sync="editVisible" width="300" :before-close="handleClose">
+    <el-dialog title="详情" :visible.sync="editVisible" width="40%" top="10vh" :before-close="handleClose">
         {{infoList}}
         <span slot="footer" class="dialog-footer">
             <el-button @click="handleClose">取 消</el-button>
