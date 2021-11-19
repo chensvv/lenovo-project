@@ -185,7 +185,7 @@
                 <el-tab-pane label="原始指令管理" name="origina">
                     <el-table
                         :data="originaList"
-                        :class="this.originaLotalClass <= '7' ? 'limitWidth' :''"
+                        :class="this.originaTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
                         v-loading="originaListLoading">
                         <el-table-column type="index" align="left" >

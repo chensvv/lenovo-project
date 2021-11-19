@@ -17,7 +17,8 @@
           :data="list"
           :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
-          v-loading="listLoading">
+          v-loading="listLoading"
+          @sort-change="sortChange">
           <el-table-column type="index" align="left" >
           </el-table-column>
           <el-table-column
@@ -61,14 +62,16 @@
               prop="createTime"
               align="center" 
               :formatter="formTime2"
-              min-wdth="120">
+              min-wdth="120"
+              sortable="custom">
           </el-table-column>
           <el-table-column
               label="更新时间"
               prop="updateTime"
               align="center" 
               :formatter="formTime"
-              min-width="120">
+              min-width="120"
+              sortable="custom">
           </el-table-column>
           <el-table-column label="操作" align="center" min-width="130" v-if="isshow">
               <template slot-scope="scope">
@@ -182,6 +185,10 @@ export default {
         regular:[{ required: true, message: '请输入匹配规则', trigger: 'change' }],
         replaceResult:[{ required: true, message: '请输入替换后内容', trigger: 'change' }],
         isFlag:[{ required: true, message: '请选择是否生效', trigger: 'change' }],
+      },
+      column:{
+          prop:'',
+          order:''
       },
       editVisible: false,
       addVisible: false,
@@ -395,14 +402,20 @@ export default {
             return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
         };
     },
-    // loadAll(){
-    //     this.list
-    // },
+    sortChange(column){
+        this.column = {
+            prop:column.prop,
+            order:column.order
+        }
+        this.getList()
+    },
     getList() {
       this.listLoading = true
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
+        fieldName: this.column.prop,
+        order:this.column.order == 'ascending' ? '0' : ''
       }
       ttsregularList(params).then(res => {
         this.listLoading = false
