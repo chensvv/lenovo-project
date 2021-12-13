@@ -18,9 +18,6 @@
 
 <script>
 
-import qs from 'qs'
-import {userAdd} from '@/config/adminApi';
-
 export default {
     data(){
         return {
