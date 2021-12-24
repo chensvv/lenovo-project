@@ -15,32 +15,53 @@
             </el-form>
             <el-table
                 :data="list"
+                :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
                 <el-table-column
                     label="ID"
                     prop="id"
                     width='50'
-                    align="left" 
+                    align="center" 
                     >
                 </el-table-column>
                 <el-table-column
                     label="发起人"
                     prop="username"
-                    align="left" 
+                    align="center" 
                     >
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.username" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.username }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.username }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="简要内容"
                     prop="speak"
                     align="left" 
                     >
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.speak" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.speak }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.speak }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="创建时间"
                     prop="createTime"
-                    align="left" 
-                    
+                    align="center"
+                    min-width="110"
                     :formatter="formTime">
                 </el-table-column>
                 <el-table-column label="操作" align="center" >
@@ -121,12 +142,13 @@
             <el-table
                 :data="nlist"
                 style="width: 100%"
+                :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 v-loading="n_listLoading">
                 <el-table-column
                     label="ID"
                     prop="id"
                     width='50'
-                    align="left" 
+                    align="center" 
                     >
                 </el-table-column>
                 <el-table-column
@@ -134,17 +156,37 @@
                     prop="type"
                     align="left" 
                     >
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.type" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.type }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.type }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="简要内容"
                     prop="speak"
                     align="left" 
                     >
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.speak" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.speak }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.speak }}
+                        </div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     label="状态"
                     prop="ver"
-                    align="left" 
+                    align="center" 
                     >
                     <template slot-scope="scope">
                         <span>{{scope.row.ver == 1 ? '审核中' : '审核拒接'}}</span>
@@ -153,8 +195,8 @@
                 <el-table-column
                     label="创建时间"
                     prop="createTime"
-                    align="left" 
-                    
+                    align="center" 
+                    min-width="110"
                     :formatter="formTime">
                 </el-table-column>
                 <el-table-column label="操作" align="center" >
@@ -220,6 +262,7 @@ export default {
             list:[],
             nlist:[],
             perList:[],
+            totalClass:'',
             searchItem:{
                 user:'',
                 con:''
@@ -263,7 +306,8 @@ export default {
             n_infoVisible:false,
             n_listLoading:true,
             infoShow:false,
-            n_infoShow:false
+            n_infoShow:false,
+            showTitle:true,
         }
     },
     created() {
@@ -278,6 +322,17 @@ export default {
        this.execution();
     },
     methods:{
+        onShowNameTipsMouseenter(e) {
+            var target = e.target;
+            let textLength = target.clientWidth;
+            let containerLength = target.scrollWidth;
+            if (textLength < containerLength) {
+                // 溢出了
+                this.showTitle = false;
+            } else {
+                this.showTitle = true;
+            }
+        },
         execution(){
             if(this.perList.indexOf('user:user') != -1){
                 this.getList();
@@ -450,6 +505,7 @@ export default {
                 this.listLoading = false
                 this.list = res.data.rows
                 this.totalCount = res.data.total
+                this.totalClass = res.data.rows.length
                 if(res.data.total >= 1){
                     this.infoShow = true
                 }
@@ -465,6 +521,7 @@ export default {
                 this.n_listLoading = false
                 this.nlist = res.data.data
                 this.n_totalCount = res.data.count
+                this.totalClass = res.data.data.length
                 if(res.data.count >= 1){
                     this.n_infoShow = true
                 }
@@ -492,8 +549,8 @@ export default {
     background: #e3e3e3 !important;
 }
 .workflow{
-    max-width: 510px;
-    min-width: 500px;
+    max-width: 610px;
+    min-width: 600px;
     padding: 14px 14px 14px 13px;
     border-radius: 8px;
     box-sizing: border-box;

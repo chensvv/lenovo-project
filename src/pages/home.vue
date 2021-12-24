@@ -15,9 +15,9 @@
                     {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                    <!-- <el-dropdown-item command="change">切换账号</el-dropdown-item> -->
-                    <!-- <el-dropdown-item @click="userInfo()">修改密码</el-dropdown-item> -->
-                    <el-dropdown-item divided command="logout">退出</el-dropdown-item>
+                    <el-dropdown-item command="userinfo">账号信息</el-dropdown-item>
+                    <el-dropdown-item command="checkpass">修改密码</el-dropdown-item>
+                    <el-dropdown-item command="logout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </el-header>
@@ -94,6 +94,10 @@ export default {
                 this.logoutMethod()
                 sessionStorage.clear();
                 this.$router.push('/login')
+            }else if(v == 'userinfo'){
+                this.$router.push('/user/userinfo')
+            }else{
+                this.$router.push('/user/checkpass')
             }
         },
         logoutMethod(){

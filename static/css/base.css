@@ -151,6 +151,10 @@
   font-size: 12px;
   height: calc(100% - 50px);
 }
+.workflow .el-table{
+  height: calc(100% - 82px);
+  margin-top: 10px;
+}
 /* ---------------------------------- */
 .el-button+.el-button, a .el-button {
   margin-left: 10px;
@@ -448,7 +452,7 @@
 
 .workflow .el-pagination {
   padding: 14px 0 0;
-  height: 50px;
+  height: 30px;
 }
 
 .el-range-editor--mini.el-input__inner {
@@ -1084,4 +1088,33 @@
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   cursor: pointer;
+}
+.reg-box, .userinfo-box{
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  text-align: center;
+}
+.reg-box h1{
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+.code-input input {
+  -webkit-text-security: disc;
+}
+.lookmi{
+  margin-left: 15px;
+  cursor: pointer;
+}
+.lookmi i{
+  font-size: 20px;
+}
+.userinfo-box .el-descriptions__body{
+  font-size: 16px;
+}
+.userinfo-box .el-descriptions__body tr td{
+  display: block;
+}
+.userinfo-box .pass{
+  vertical-align: text-top;
 }

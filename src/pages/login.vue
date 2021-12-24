@@ -85,10 +85,10 @@ export default {
                 imgCode:[{ required: true, message: '请输入验证码', trigger: 'change' }]
             },
             regRules:{
-                username:[{ required: true, message: '请输入用户名', trigger: 'change' }],
+                username:[{ required: true, message: '请输入用户名', trigger: 'blur' }],
                 password:[{ required: true, validator: ValidatePass, trigger: 'blur' },
                     { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/, message: '密码限制8-16字符且必须包含大小写英文及数字',trigger: 'blur' }],
-                regCode:[{ required: true, message: '请输入验证码', trigger: 'change' }]
+                regCode:[{ required: true, message: '请输入验证码', trigger: 'blur' }]
             },
             menu:[]
         }

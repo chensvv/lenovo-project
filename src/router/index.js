@@ -414,6 +414,16 @@ const router = new Router({
           meta: {title: '语音字节数统计',needLogin:true}
         },
         {
+          path: '/user/checkpass',
+          component: () => import('@/pages/checkpass'),
+          meta: {title: '修改密码',needLogin:true}
+        },
+        {
+          path: '/user/userinfo',
+          component: () => import('@/pages/userinfo'),
+          meta: {title: '用户信息'}
+        },
+        {
           path: '/401',
           component: () => import('@/pages/401'),
           meta: {title: '401'}

@@ -85,9 +85,33 @@ export function userUpd (data) {
   })
 }
 
+export function userCheckPass (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/user/updatePassword',
+    method: 'post',
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
 export function userDel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/user/del',
+    method: 'post',
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function userInfoOne (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/user/userInfo',
     method: 'post',
     data: data,
     headers: {
