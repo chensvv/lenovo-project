@@ -12,7 +12,7 @@
           :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
-          <el-table-column type="index" align="left" >
+          <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
               label="版本号"
@@ -101,7 +101,7 @@
           style="width: 100%"
           height="400"
           v-loading="infoListLoading">
-          <el-table-column type="index" align="left" >
+          <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
               label="渠道"

@@ -165,7 +165,7 @@
         </el-tab-pane>
         <el-tab-pane label="服务器信息" name="server">
           <el-table :data="serverList" :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="SlistLoading">
-            <el-table-column type="index" align="left" ></el-table-column>
+            <el-table-column type="index" align="center" label="#"></el-table-column>
             <el-table-column label="客户端总耗时" prop="ixcd" align="center">
             </el-table-column>
             <el-table-column label="服务端总耗时" prop="ixsd" align="center">

@@ -67,7 +67,7 @@
             style="width: 100%"
             v-loading="listLoading"
             @sort-change="sortChange">
-            <el-table-column type="index" align="left" >
+            <el-table-column type="index" align="center" label="#">
             </el-table-column>
             <el-table-column
                 label="设备类型"

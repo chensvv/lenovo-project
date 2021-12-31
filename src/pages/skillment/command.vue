@@ -58,7 +58,7 @@
                         :class="this.commandTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
                         v-loading="commandListLoading">
-                        <el-table-column type="index" align="left" >
+                        <el-table-column type="index" align="center" label="#">
                         </el-table-column>
                         <el-table-column
                             label="用户query"
@@ -138,7 +138,7 @@
                         :class="this.norunTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
                         v-loading="norunListLoading">
-                        <el-table-column type="index" align="left" >
+                        <el-table-column type="index" align="center" label="#">
                         </el-table-column>
                         <el-table-column
                             label="用户query"
@@ -188,7 +188,7 @@
                         :class="this.originaTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
                         v-loading="originaListLoading">
-                        <el-table-column type="index" align="left" >
+                        <el-table-column type="index" align="center" label="#">
                         </el-table-column>
                         <el-table-column
                             label="用户query"

@@ -22,7 +22,7 @@
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
-                <el-table-column type="index" align="left">
+                <el-table-column type="index" align="center" label="#">
                 </el-table-column>
                 <el-table-column
                     label="匹配规则"

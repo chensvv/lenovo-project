@@ -39,7 +39,7 @@
     </el-form>
     <div class="table-box">
       <el-table :data="list" :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading" @sort-change="sortChange">
-        <el-table-column type="index" align="left" ></el-table-column>
+        <el-table-column type="index" align="center" label="#"></el-table-column>
         <el-table-column label="客户端设备类型" prop="dtp" align="center" sortable="custom">
           <template slot-scope="scope">
               <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">

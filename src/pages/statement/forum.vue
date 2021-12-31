@@ -31,7 +31,7 @@
               type="selection"
               width="55">
           </el-table-column>
-          <el-table-column type="index" align="left" >
+          <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
               label="title"

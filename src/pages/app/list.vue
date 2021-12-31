@@ -51,7 +51,9 @@
                 style="width: 100%"
                 v-loading="listLoading"
                 @sort-change="sortChange">
-                <el-table-column type="index" align="center"></el-table-column>
+                <el-table-column type="index" align="center" label="#">
+
+                </el-table-column>
                 <el-table-column label="应用名" prop="name" align="left">
                     <template slot-scope="scope">
                         <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">

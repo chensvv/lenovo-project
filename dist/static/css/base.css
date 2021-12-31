@@ -150,6 +150,8 @@
 .el-table {
   font-size: 12px;
   height: calc(100% - 50px);
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
 }
 .workflow .el-table{
   height: calc(100% - 82px);
@@ -167,8 +169,12 @@
 }
 
 .el-table__header thead tr th {
+  padding: 0 !important;
+  background: #f8f8f9 !important;
+}
+
+.el-table .el-table__cell{
   padding: 0;
-  background: #f8f8f9;
 }
 
 .el-table__header-wrapper {

@@ -47,7 +47,7 @@
                 style="width: 100%"
                 v-loading="listLoading"
                 @sort-change="sortChange">
-                <el-table-column type="index" align="left">
+                <el-table-column type="index" align="center" label="#">
                 </el-table-column>
                 <el-table-column label="原始名" prop="name" align="left">
                     <template slot-scope="scope">
@@ -97,8 +97,8 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="查询时间" prop="searchDate" align="left" :formatter="formTime" min-width="120"></el-table-column>
-                <el-table-column label="入库时间" prop="createTime" align="left" :formatter="formTime2" min-width="120"></el-table-column>
+                <el-table-column label="查询时间" prop="searchDate" align="center" :formatter="formTime" min-width="120"></el-table-column>
+                <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime2" min-width="120"></el-table-column>
                 <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
