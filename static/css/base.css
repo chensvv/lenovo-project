@@ -1124,3 +1124,6 @@
 .userinfo-box .pass{
   vertical-align: text-top;
 }
+.text-d input{
+  text-decoration: line-through;
+}

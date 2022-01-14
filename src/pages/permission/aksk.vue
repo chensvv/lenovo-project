@@ -275,10 +275,12 @@
         <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="ASR访问次数" prop="userDailyCloudasrCount">
-                    <el-input type="text" v-model.trim="currentItem.userDailyCloudasrCount" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.userDailyCloudasrCount" auto-complete="off" :class="currentItem.asrChecked == true ? 'text-d': ''" :disabled="currentItem.asrChecked"></el-input>
+                    <el-checkbox v-model="currentItem.asrChecked" @change="asrChange">不限制</el-checkbox>
                 </el-form-item>
                 <el-form-item label="TTS访问次数" prop="userDailyCloudttsCount">
-                    <el-input type="text" v-model.trim="currentItem.userDailyCloudttsCount" auto-complete="off"></el-input>
+                    <el-input type="text" v-model.trim="currentItem.userDailyCloudttsCount" auto-complete="off" :class="currentItem.ttsChecked == true ? 'text-d': ''" :disabled="currentItem.ttsChecked"></el-input>
+                    <el-checkbox v-model="currentItem.ttsChecked" @change="ttsChange">不限制</el-checkbox>
                 </el-form-item>
                 <el-form-item label="会议监控权限" prop="meetingService">
                     <el-checkbox-group v-model="currentItem.meetingService">
@@ -338,7 +340,9 @@ export default {
                 userDailyCloudttsCount:"",
                 meetingService:null,
                 asrService:null,
-                ttsService:null
+                ttsService:null,
+                asrChecked:false,
+                ttsChecked:false
             },
             checkArr:'',
             editRules:{
@@ -406,6 +410,28 @@ export default {
             checkTime(date.getHours())+':'+
             checkTime(date.getMinutes())
         },
+        asrChange(val){
+            if(val == false){
+                if(this.currentItem.userDailyCloudasrCount == -99){
+                    this.currentItem.userDailyCloudasrCount = ''
+                }
+            }else{
+                if(this.currentItem.userDailyCloudasrCount == ''){
+                    this.currentItem.userDailyCloudasrCount = -99
+                }
+            }
+        },
+        ttsChange(val){
+            if(val == false){
+                if(this.currentItem.userDailyCloudttsCount == -99){
+                    this.currentItem.userDailyCloudttsCount = ''
+                }
+            }else{
+                if(this.currentItem.userDailyCloudttsCount == ''){
+                    this.currentItem.userDailyCloudttsCount = -99
+                }
+            }
+        },
         meeting(row, column){
             return row.meetingService == '1' ? "是" : "否"
         },
@@ -430,9 +456,10 @@ export default {
                 userDailyCloudttsCount: row.userDailyCloudttsCount,
                 meetingService:row.meetingService == '1' ? true : false,
                 asrService:row.userService == '1' || row.userService == '3'? true : false,
-                ttsService:row.userService == '2' || row.userService == '3'? true : false
+                ttsService:row.userService == '2' || row.userService == '3'? true : false,
+                asrChecked: row.userDailyCloudasrCount == -99 ? true : false,
+                ttsChecked: row.userDailyCloudttsCount == -99 ? true : false
             };
-            
         },
         editHandleClose() {
             this.editVisible = false;
@@ -450,8 +477,8 @@ export default {
             }
             let updParams = {
                 id:this.currentItem.id,
-                userDailyCloudasrCount:this.currentItem.userDailyCloudasrCount,
-                userDailyCloudttsCount:this.currentItem.userDailyCloudttsCount,
+                userDailyCloudasrCount:this.currentItem.asrChecked == false ? this.currentItem.userDailyCloudasrCount : -99,
+                userDailyCloudttsCount:this.currentItem.ttsChecked == false ? this.currentItem.userDailyCloudttsCount : -99,
                 meetingService:this.currentItem.meetingService == true ? 1 : 0,
                 userService:setService,
                 lenovoId:this.currentItem.lid
