@@ -2,7 +2,7 @@
   <div class="table height-135">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>服务管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/audiokeeper/list'}">服务管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     <!-- <el-button class="success" size="mini" @click="handleAdd()">添加</el-button> -->

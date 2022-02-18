@@ -2,7 +2,7 @@
     <div class="table height-135">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>日志管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/asr/log/client'}">日志管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height100 width130" size="mini">
@@ -212,86 +212,35 @@
         ></el-pagination>
         </div>
           
-        <el-dialog title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose">
-            <el-form :label-position="'right'" label-width="100px">
-                <el-form-item label="ID">
-                    <el-input type="text" v-model="infoList.id" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="设备ID">
-                    <el-input type="text" v-model="infoList.did" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="客户端类型">
-                    <el-input type="text" v-model="infoList.dtp" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="用户ID">
-                    <el-input type="text" v-model="infoList.uid" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="客户端ip">
-                    <el-input type="text" v-model="infoList.uip" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="客户端版本">
-                    <el-input type="text" v-model="infoList.ver" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="执行状态">
-                    <el-input type="text" v-model="infoList.stat" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="所属领域">
-                    <el-input type="text" v-model="infoList.vdm" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="包的序号">
-                    <el-input type="text" v-model="infoList.pidx" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="语音交互ID">
-                    <el-input type="text" v-model="infoList.ixid" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="识别时间">
-                    <el-input type="text" v-model="infoList.asrd" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="是否包尾">
-                    <el-input type="text" v-model="infoList.over" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="开发者ID">
-                    <el-input type="text" v-model="infoList.dev" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="服务总时间">
-                    <el-input type="text" v-model="infoList.alld" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="省份">
-                    <el-input type="text" v-model="infoList.cprv" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="服务器端地址">
-                    <el-input type="text" v-model="infoList.svr" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="引擎类型">
-                    <el-input type="text" v-model="infoList.egt" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="运营商类型">
-                    <el-input type="text" v-model="infoList.cnwp" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="描述">
-                    <el-input type="text" v-model="infoList.dsc" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="音频压缩格式">
-                    <el-input type="text" v-model="infoList.dsc" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="时间">
-                    <el-input type="text" v-model="infoList.it" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                 <el-form-item label="规则匹配时间">
-                    <el-input type="text" v-model="infoList.nlpd" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                 <el-form-item label="参数解析时间">
-                    <el-input type="text" v-model="infoList.sppd" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                 <el-form-item label="一级返回">
-                    <el-input type="text" v-model="infoList.l1c" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                 <el-form-item label="二级返回">
-                    <el-input type="text" v-model="infoList.l2c" auto-complete="off" readonly></el-input>
-                </el-form-item>
-            </el-form>
+        <el-dialog title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose" class="aksk-info">
+            <el-descriptions>
+                <el-descriptions-item label="ID">{{infoList.id}}</el-descriptions-item>
+                <el-descriptions-item label="设备ID">{{infoList.did}}</el-descriptions-item>
+                <el-descriptions-item label="客户端类型">{{infoList.dtp}}</el-descriptions-item>
+                <el-descriptions-item label="用户ID">{{infoList.uid}}</el-descriptions-item>
+                <el-descriptions-item label="客户端ip">{{infoList.uip}}</el-descriptions-item>
+                <el-descriptions-item label="客户端版本">{{infoList.ver}}</el-descriptions-item>
+                <el-descriptions-item label="执行状态">{{infoList.stat}}</el-descriptions-item>
+                <el-descriptions-item label="所属领域">{{infoList.vdm}}</el-descriptions-item>
+                <el-descriptions-item label="包的序号">{{infoList.pidx}}</el-descriptions-item>
+                <el-descriptions-item label="语音交互ID">{{infoList.ixid}}</el-descriptions-item>
+                <el-descriptions-item label="识别时间">{{infoList.asrd}}</el-descriptions-item>
+                <el-descriptions-item label="是否包尾">{{infoList.over}}</el-descriptions-item>
+                <el-descriptions-item label="开发者ID">{{infoList.dev}}</el-descriptions-item>
+                <el-descriptions-item label="服务总时间">{{infoList.alld}}</el-descriptions-item>
+                <el-descriptions-item label="省份">{{infoList.cprv}}</el-descriptions-item>
+                <el-descriptions-item label="服务器端地址">{{infoList.svr}}</el-descriptions-item>
+                <el-descriptions-item label="引擎类型">{{infoList.egt}}</el-descriptions-item>
+                <el-descriptions-item label="运营商类型">{{infoList.cnwp}}</el-descriptions-item>
+                <el-descriptions-item label="描述">{{infoList.dsc}}</el-descriptions-item>
+                <el-descriptions-item label="时间">{{infoList.it}}</el-descriptions-item>
+                <el-descriptions-item label="规则匹配时间">{{infoList.nlpd}}</el-descriptions-item>
+                <el-descriptions-item label="参数解析时间">{{infoList.sppd}}</el-descriptions-item>
+                <el-descriptions-item label="一级返回">{{infoList.l1c}}</el-descriptions-item>
+                <el-descriptions-item label="二级返回">{{infoList.l2c}}</el-descriptions-item>
+            </el-descriptions>
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="handleConfirm()">确 定</el-button>
+                <el-button type="primary" @click="handleConfirm()">关 闭</el-button>
             </span>
         </el-dialog>
     </div>

@@ -835,7 +835,7 @@
 }
 
 .el-main {
-  padding: 5px 5px 0;
+  padding: 5px 15px 0;
   height: 100%;
 }
 
@@ -1119,7 +1119,7 @@
 .userinfo-box .el-descriptions__body{
   font-size: 16px;
 }
-.userinfo-box .el-descriptions__body tr td{
+.userinfo-box .el-descriptions__body tr td,.aksk-info .el-descriptions__body tr td{
   display: block;
 }
 .userinfo-box .pass{
@@ -1127,4 +1127,72 @@
 }
 .text-d input{
   text-decoration: line-through;
+}
+.cur-info{
+  cursor: pointer;
+}
+.log-info pre{
+  max-height: 400px;
+  overflow: auto;
+}
+.aside-group{
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  transition: .4s;
+  width: 10px;
+	height: 200px;
+	clip-path: polygon(0 0, 100% 10%, 100% 90%, 0% 100%);
+  border: 1px solid #eee;
+  
+}
+.aside-group:hover{
+  background: #eee;
+}
+.aside-group:hover i{
+  color: #ababab;
+}
+.aside-group:before{
+	width: 25px;
+  height: 34px;
+  content: ' ';
+  position: absolute;
+  left: -2px;
+  top: -9px;
+  background: #eee;
+  clip-path: polygon(-12% 35%, 100% 125%, 100% -40%);
+}
+.aside-group:after{
+  width: 25px;
+  height: 34px;
+  content: ' ';
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  clip-path: polygon(20% 100%, 100% 100%, 100% 30%);
+  background: #eee;
+}
+.aside-group i{
+  color: #eee;
+}
+.collapse-btn-box{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.hidebtn{
+  font-size: 20px;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+}
+.el-menu--collapse .el-menu-item span, .el-menu--collapse .el-submenu .el-submenu__title span {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+  display: inline-block;
 }

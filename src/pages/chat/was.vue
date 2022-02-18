@@ -2,7 +2,7 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>闲聊数据</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/csc/csc'}">闲聊数据</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         
@@ -95,7 +95,7 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column
+                <!-- <el-table-column
                     label="WEB网址"
                     prop="url"
                     align="left">
@@ -109,7 +109,7 @@
                             {{ scope.row.url }}
                         </div>
                     </template>
-                </el-table-column>
+                </el-table-column> -->
                 <el-table-column
                     label="来源"
                     prop="source"

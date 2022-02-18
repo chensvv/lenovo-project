@@ -23,7 +23,7 @@
         </el-header>
     
         <el-container>
-            <el-aside width="200px" :class="{is404:is404}">
+            <el-aside width="auto" :class="{is404:is404}">
                 <Aside></Aside>
             </el-aside>
             <el-main>
@@ -118,6 +118,7 @@ export default {
 .home .el-container{
     height: 100%;
     padding-top: 60px;
+    position: relative;
 }
 .is404 .el-header{
     display: none;

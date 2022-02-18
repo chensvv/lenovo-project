@@ -2,7 +2,7 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>应用搜索</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/app/list'}">应用搜索</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
@@ -51,7 +51,7 @@
             v-loading="listLoading">
             <el-table-column type="index" align="center" label="#">
             </el-table-column>
-            <el-table-column label="名称" prop="name" align="left">
+            <el-table-column label="名称" prop="name" align="center">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -66,7 +66,7 @@
             <el-table-column
                 label="拼音"
                 prop="pinyin"
-                align="left">
+                align="center">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.pinyin" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -117,7 +117,7 @@
             <el-table-column
                 label="原名"
                 prop="sname"
-                align="left">
+                align="center">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sname" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">

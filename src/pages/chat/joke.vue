@@ -2,7 +2,7 @@
     <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>闲聊数据</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/csc/csc'}">闲聊数据</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
@@ -37,7 +37,7 @@
             @sort-change="sortChange">
             <el-table-column
               type="selection"
-              width="55">
+              width="50">
             </el-table-column>
             <el-table-column type="index" align="center" label="#">
             </el-table-column>
@@ -68,6 +68,7 @@
                 prop="it"
                 align="center"
                 min-width="120"
+                width="150"
                 :formatter="formTime">
             </el-table-column>
             <el-table-column label="操作" align="center" min-width="190" v-if="isshow">

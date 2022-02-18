@@ -2,7 +2,7 @@
     <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>权限管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/permission/role'}">权限管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
@@ -226,38 +226,20 @@
         ></el-pagination>
         </div>
           
-        <el-dialog title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose">
-            <el-form :label-position="'right'" label-width="140px" size="small">
-                <el-form-item label="lenovoId">
-                    <el-input type="text" v-model="infoList.lenovoId" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="用户名">
-                    <el-input type="text" v-model="infoList.userName" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="ASR可访问次数">
-                    <el-input type="text" v-model="infoList.userDailyCloudasrCount" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="TTS可访问次数">
-                    <el-input type="text" v-model="infoList.userDailyCloudttsCount" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="ASR历史使用次数">
-                    <el-input type="text" v-model="infoList.historyUseAsr" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="TTS历史使用次数">
-                    <el-input type="text" v-model="infoList.historyUseTts" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="ASR当日使用次数">
-                    <el-input type="text" v-model="infoList.usedAsrCount" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="TTS当日使用次数">
-                    <el-input type="text" v-model="infoList.usedTTSCount" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="ASR剩余可访问次数">
-                    <el-input type="text" v-model="infoList.remainAsrCount" auto-complete="off" readonly></el-input>
-                </el-form-item>
-                <el-form-item label="TTS剩余可访问次数">
-                    <el-input type="text" v-model="infoList.remainTTSCount" auto-complete="off" readonly></el-input>
-                </el-form-item>
+        <el-dialog title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose" class="aksk-info">
+            <el-descriptions>
+                <el-descriptions-item label="lenovoId">{{infoList.lenovoId}}</el-descriptions-item>
+                <el-descriptions-item label="用户名">{{infoList.userName}}</el-descriptions-item>
+                <el-descriptions-item label="ASR可访问次数">{{infoList.userDailyCloudasrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS可访问次数">{{infoList.userDailyCloudttsCount}}</el-descriptions-item>
+                <el-descriptions-item label="ASR历史使用次数">{{infoList.historyUseAsr}}</el-descriptions-item>
+                <el-descriptions-item label="TTS历史使用次数">{{infoList.historyUseTts}}</el-descriptions-item>
+                <el-descriptions-item label="ASR当日使用次数">{{infoList.usedAsrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS当日使用次数">{{infoList.usedTTSCount}}</el-descriptions-item>
+                <el-descriptions-item label="ASR剩余可访问次数">{{infoList.remainAsrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS剩余可访问次数">{{infoList.remainTTSCount}}</el-descriptions-item>
+            </el-descriptions>
+            <el-form :label-position="'right'" label-width="40px" size="small">
                 <el-form-item label="AK">
                     <el-input type="text" v-model="infoList.ak" auto-complete="off" readonly></el-input>
                 </el-form-item>

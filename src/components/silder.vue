@@ -1,12 +1,12 @@
 <template>
   <div class="navMenu">
     <label v-for="navMenu in navMenus">
-      <el-menu-item v-if="navMenu.children==null" :data="navMenu" :index="navMenu.url" :route="navMenu.url">
+      <el-menu-item v-if="navMenu.children==null" :index="navMenu.url" :route="navMenu.url">
         <i class="el-icon-date"></i>
         <span slot="title">{{navMenu.ruleName}}</span>
       </el-menu-item>
  
-      <el-submenu v-if="navMenu.children" :data="navMenu" :index="navMenu.id">
+      <el-submenu v-if="navMenu.children" :index="navMenu.id">
         <template slot="title">
           <i class="el-icon-document"></i>
           <span> {{navMenu.ruleName}}</span>

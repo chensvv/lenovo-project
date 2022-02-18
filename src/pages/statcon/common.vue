@@ -2,7 +2,7 @@
   <div class="table height-35">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>报表系统</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/gift/add'}">报表系统</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="table-box">

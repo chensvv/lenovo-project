@@ -2,7 +2,7 @@
   <div class="table chart">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>业务报表</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/servlog/list'}">业务报表</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="table-box" v-loading="loading">

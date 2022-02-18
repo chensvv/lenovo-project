@@ -2,7 +2,7 @@
     <div class="table engine">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>LASF KV</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/kv/list'}">LASF KV</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" class="demo-form-inline search_box" size="mini" label-width="90px">
