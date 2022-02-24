@@ -427,6 +427,12 @@ export default {
           for (let item of this.list) {
               this.restaurants.push({"value": item.regular})
           }
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:'error',
+                duration:1000
+            });
         }
       }).catch(()=>{
         this.listLoading = false

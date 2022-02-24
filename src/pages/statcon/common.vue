@@ -115,6 +115,12 @@ export default {
                   }
                   this.list.push(arr)
               }
+            }else{
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:'error',
+                    duration:1000
+                });
             }
         }).catch(()=>{
           this.listLoading = false

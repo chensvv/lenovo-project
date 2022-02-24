@@ -86,7 +86,7 @@ service_head.interceptors.response.use(response => {
     case 500:
       Message.closeAll()
       Message.error({
-        message: '服务器错误'
+        message: '看上去出错了，我们正在紧急修复！'
       })
       // sessionStorage.clear()
       break

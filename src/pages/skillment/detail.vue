@@ -365,6 +365,12 @@ export default {
                     this.list = res.data.data.functions;
                     this.totalCount = res.data.count
                     this.totalClass = res.data.data.functions.length
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:'error',
+                        duration:1000
+                    });
                 }
             }).catch(()=>{
                 this.listLoading = false

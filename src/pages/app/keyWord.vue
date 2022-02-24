@@ -440,7 +440,13 @@ methods: {
                 this.list = res.data.data;
                 this.totalCount = res.data.count
                 this.totalClass = res.data.data.length
-            }
+            }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:'error',
+                        duration:1000
+                    });
+                }
         }).catch(()=>{
             this.listLoading = false
         })

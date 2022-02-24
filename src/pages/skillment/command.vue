@@ -837,6 +837,13 @@ export default {
                     this.commandList = res.data.data;
                     this.commandTotalCount = res.data.count
                     this.commandTotalClass = res.data.data.length
+                }else{
+                    Message.closeAll()
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:'error',
+                        duration:1000
+                    });
                 }
             }).catch(()=>{
                 this.commandListLoading = false
@@ -855,6 +862,13 @@ export default {
                     this.norunList = res.data.data;
                     this.norunTotalCount = res.data.count
                     this.norunTotalClass = res.data.data.length
+                }else{
+                    Message.closeAll()
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:'error',
+                        duration:1000
+                    });
                 }
             }).catch(()=>{
                 this.norunListLoading = false
@@ -873,6 +887,13 @@ export default {
                     this.originaList = res.data.data;
                     this.originaTotalCount = res.data.count
                     this.originaTotalClass = res.data.data.length
+                }else{
+                    Message.closeAll()
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:'error',
+                        duration:1000
+                    });
                 }
             }).catch(()=>{
                 this.originaListLoading = false

@@ -249,6 +249,12 @@ export default {
                 if(res.data.code == 200){
                     this.data = JSON.parse(res.data.data)
                     this.getList()
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:'error',
+                        duration:1000
+                    });
                 }
             }).catch(()=>{
                 this.listLoading = false
@@ -282,10 +288,10 @@ export default {
             audiokeeperExpire(delParams).then(res=>{
                 if(res.data.code == 200){
                     this.$message({
-                            message:'操作成功',
-                            type:"success",
-                            duration:1000
-                        });
+                        message:'操作成功',
+                        type:"success",
+                        duration:1000
+                    });
                         this.pageList();
                 }else{
                     this.$message.error('错误')

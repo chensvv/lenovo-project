@@ -110,6 +110,12 @@ export default {
       engineView().then(res => {
         if(res.data.code == 200){
           this.list = res.data;
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:'error',
+                duration:1000
+            });
         }
       })
     }

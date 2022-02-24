@@ -453,6 +453,12 @@ export default {
           this.clientList = res.data.data.data;
           this.CtotalCount = res.data.data.total;
           this.ctotalClass = res.data.data.data.length
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:'error',
+                duration:1000
+            });
         }
       }).catch(()=>{
         this.ClistLoading = false

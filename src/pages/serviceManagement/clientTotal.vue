@@ -271,6 +271,12 @@ export default {
         if(res.data.code == 200){
           this.data = res.data.data
           this.getList()
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:'error',
+                duration:1000
+            });
         }
         
       }).catch(()=>{
