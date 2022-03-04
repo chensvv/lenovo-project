@@ -279,6 +279,11 @@
                         <el-checkbox></el-checkbox>
                     </el-checkbox-group>
                 </el-form-item>
+                <el-form-item label="是否禁用">
+                    <el-checkbox-group v-model="currentItem.userStatus">
+                        <el-checkbox></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editHandleClose">取 消</el-button>
@@ -324,7 +329,8 @@ export default {
                 asrService:null,
                 ttsService:null,
                 asrChecked:false,
-                ttsChecked:false
+                ttsChecked:false,
+                userStatus:null
             },
             checkArr:'',
             editRules:{
@@ -440,7 +446,8 @@ export default {
                 asrService:row.userService == '1' || row.userService == '3'? true : false,
                 ttsService:row.userService == '2' || row.userService == '3'? true : false,
                 asrChecked: row.userDailyCloudasrCount == -99 ? true : false,
-                ttsChecked: row.userDailyCloudttsCount == -99 ? true : false
+                ttsChecked: row.userDailyCloudttsCount == -99 ? true : false,
+                userStatus: row.userStatus == 0 ? false : true
             };
         },
         editHandleClose() {
@@ -462,6 +469,7 @@ export default {
                 userDailyCloudasrCount:this.currentItem.asrChecked == false ? this.currentItem.userDailyCloudasrCount : -99,
                 userDailyCloudttsCount:this.currentItem.ttsChecked == false ? this.currentItem.userDailyCloudttsCount : -99,
                 meetingService:this.currentItem.meetingService == true ? 1 : 0,
+                userStatus:this.currentItem.userStatus == true ? 1 : 0,
                 userService:setService,
                 lenovoId:this.currentItem.lid
             }
