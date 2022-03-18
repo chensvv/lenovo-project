@@ -2592,6 +2592,18 @@ export function delRegular (data) {
   })
 }
 
+export function delText (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/ttsregular/delText',
+    method: 'post',
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
 export function newsList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/news/list',

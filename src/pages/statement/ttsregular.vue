@@ -7,10 +7,35 @@
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline width130 height50" size="mini" style="padding-left:10px;">
-      <div class="form-btn">
-        <el-button size="mini" @click="handleAdd()" v-has="'ttsregular:add'">添加</el-button>
+      <div class="form-input height50">
+        <el-form-item label="说法" prop="regular">
+          <el-input v-model.trim="searchItem.regular" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="起始时间" prop="startStr">
+            <el-date-picker 
+                type="date" 
+                placeholder="选择日期" 
+                v-model="searchItem.startStr" 
+                :picker-options="pickerOptions"
+                style="width: 100%;"
+                value-format="yyyy-MM-dd"></el-date-picker>
+        </el-form-item>
+        <el-form-item label="结束时间" prop="endStr">
+            <el-date-picker 
+                type="date" 
+                placeholder="选择日期" 
+                v-model="searchItem.endStr"
+                :picker-options="pickerOptions"
+                style="width: 100%;"
+                value-format="yyyy-MM-dd"></el-date-picker>
+        </el-form-item>
       </div>
-      
+      <div class="form-btn">
+        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'ttsregular:add'">添加</el-button>
+        <el-button size="mini" type="danger" @click="handleDelRedis()" v-has="'forum:delbatch'">删除redis缓存</el-button>
+      </div>
     </el-form>
     <div class="table-box">
       <el-table
@@ -149,15 +174,32 @@
         <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog title="" :visible.sync="redisVisible" width="40%" top="35vh" @open="openFun('redisList')">
+      <el-form :label-position="'right'" label-width="70px" size="small" :rules="redisRules" :model="redisList" ref="redisList">
+        <el-form-item label="说法" prop="redisVal">
+          <el-input v-model="redisList.redisVal" autocomplete="off" clearable></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="redisVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleRedis('redisList')">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {ttsregularList, selRegular, ttsAddAndUpdate, delRegular} from '@/config/api'
+import {ttsregularList, selRegular, ttsAddAndUpdate, delRegular, delText} from '@/config/api'
 export default {
   data() {
     return {
+      pickerOptions: {
+          disabledDate(time) {
+              let times = Date.now() - 24 * 60 * 60 * 1000;
+              return time.getTime() > times;
+          },
+      },
       list: [],
       perList:[],
       restaurants: [],
@@ -173,8 +215,13 @@ export default {
         replaceResult:"",
         isFlag:false
       },
+      redisList:{
+        redisVal:''
+      },
       searchItem:{//搜索数据组
-        
+        regular:"",
+        startStr:"",
+        endStr:""
       },
       addRules:{
         regular:[{ required: true, message: '请输入匹配规则', trigger: 'change' }],
@@ -186,12 +233,16 @@ export default {
         replaceResult:[{ required: true, message: '请输入替换后内容', trigger: 'change' }],
         isFlag:[{ required: true, message: '请选择是否生效', trigger: 'change' }],
       },
+      redisRules:{
+        redisVal:[{ required: true, message: '请输入要删除的说法', trigger: 'change' }],
+      },
       column:{
           prop:'',
           order:''
       },
       editVisible: false,
       addVisible: false,
+      redisVisible:false,
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
@@ -249,6 +300,17 @@ export default {
     },
     formState(row, column){
       return row.isFlag == 'true' ? "是" : "否"
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+      this.currentPage = 1
+      this.getList()
+    },
+    onSubmit(){
+      this.seaBtnLoading = true
+      this.currentPage = 1
+      this.getList()
+      this.seaBtnLoading = false
     },
     handleSizeChange(val) {
       this.pageSize = val;
@@ -391,6 +453,44 @@ export default {
         }
       });
     },
+    handleDelRedis(){
+      this.redisVisible = true
+    },
+    handleRedis(redisList){
+      this.$refs[redisList].validate((valid) => {
+        if (valid) {
+          let delParams = {
+            regular:this.redisList.redisVal
+          }
+          this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }).then(() => {
+            delText(delParams).then(res=>{
+              if(res.data.code == 200){
+                  this.$message({
+                      message:'删除成功',
+                      type:"success",
+                      duration:1000
+                  });
+                  this.getList();
+                  this.redisVisible = false
+              }else{
+                  this.$message({
+                      message:res.data.errorMessage,
+                      type:"error",
+                      duration:1000
+                  });
+              }
+            })
+          }).catch(err => {
+            console.log(err);
+          });
+        }
+      })
+      
+    },
     querySearch(queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
@@ -414,6 +514,9 @@ export default {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
+        regular:this.searchItem.regular,
+        startStr:this.searchItem.startStr,
+        endStr:this.searchItem.endStr,
         fieldName: this.column.prop,
         order:this.column.order == 'ascending' ? '0' : ''
       }
