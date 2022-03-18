@@ -118,7 +118,7 @@ export default {
 .home .el-container{
     height: 100%;
     padding-top: 60px;
-    position: relative;
+    /* position: relative; */
 }
 .is404 .el-header{
     display: none;
