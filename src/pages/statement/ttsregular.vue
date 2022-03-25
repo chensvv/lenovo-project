@@ -34,7 +34,7 @@
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'ttsregular:add'">添加</el-button>
-        <el-button size="mini" type="danger" @click="handleDelRedis()" v-has="'forum:delbatch'">删除redis缓存</el-button>
+        <el-button size="mini" type="danger" @click="handleDelRedis()" v-has="'ttsregular:delete'">删除redis缓存</el-button>
       </div>
     </el-form>
     <div class="table-box">
