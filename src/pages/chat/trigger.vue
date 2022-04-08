@@ -229,7 +229,7 @@
     <el-dialog title="数据压缩包下载" :visible.sync="zipVisible" width="40%" top="10vh" :before-close="zipHandleClose">
         <div class="zip_box">
           <div v-for="(item,index) in zipLists" :key="index">
-            <el-link type="primary" icon="el-icon-download" :href="downURLs+'/lasf-mgr/trigger/download?fileName='+item.filename+'&fileType=zip'" target="_blank">{{item.lasttime}}</el-link>
+            <el-link type="primary" icon="el-icon-download" @click="downZip(item.filename)">{{item.lasttime}}</el-link>
           </div>
           <div v-if="isshow" style="text-align:center;">暂无数据</div>
         </div>
@@ -242,7 +242,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {triggerList, triggerZip, zipList, zipDownload, topKeyWord} from '@/config/api'
+import {triggerList, triggerZip, zipList, zipDownload, topKeyWord, pcmDownload} from '@/config/api'
 import {readablizeBytes} from '@/utils/bytes.js' 
 import downUrl from '@/config/http'
 export default {
@@ -317,13 +317,33 @@ export default {
         }
     },
     handleDown(index,row){
-      let downURL = downUrl.proURL+'/lasf-mgr/trigger/download?fileName='+row.filePath
-      window.open(downURL)
+      pcmDownload(row.filePath).then(res=>{
+        let blobUrl = new Blob([res.data])
+        let a = document.createElement('a');
+        let url = window.URL.createObjectURL(blobUrl);
+        let filename = row.filePath
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
       // let a = document.createElement('a');
       //   a.href = downURL;
       //   a.download = d;
       //   a.click();
       //   window.URL.revokeObjectURL(url);
+    },
+    downZip(data){
+      zipDownload(data).then(res=>{
+        let blobUrl = new Blob([res.data])
+        let a = document.createElement('a');
+        let url = window.URL.createObjectURL(blobUrl);
+        let filename = data
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();

@@ -133,7 +133,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {senList, senAddUpd, senDel, senPub, senExcel} from '@/config/api'
+import {senList, senAddUpd, senDel, senPub, senExcel, downExcel} from '@/config/api'
 import downUrl from '@/config/http'
 export default {
   data() {
@@ -380,8 +380,16 @@ export default {
       })
     },
     exportFile(){
-        let openUrl = downUrl.proURL + '/lasf-mgr/sen/export'
-        window.open(openUrl)
+        downExcel().then(res=>{
+          let blobUrl = new Blob([res.data])
+          let a = document.createElement('a');
+          let url = window.URL.createObjectURL(blobUrl);
+          let filename = 'sen.xlsx'
+          a.href = url;
+          a.download = filename;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
     },
     importExcel(){
             this.uploadVisible = true

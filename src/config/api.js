@@ -1099,9 +1099,19 @@ export function zipList (data) {
 
 export function zipDownload (data) {
   return fetch.FileDownload({
-    url: '/lasf-mgr/trigger/download',
-    method: 'post',
-    data: data,
+    url: '/lasf-mgr/trigger/download?fileName='+data+'&fileType=zip',
+    method: 'get',
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function pcmDownload (data) {
+  return fetch.FileDownload({
+    url: '/lasf-mgr/trigger/download?fileName='+data,
+    method: 'get',
     headers: {
       't': JSON.parse(sessionStorage.getItem('token')).t,
       'u':sessionStorage.getItem('username')
@@ -2441,6 +2451,17 @@ export function senExcel (data) {
     url: '/lasf-mgr/sen/excel',
     method: 'post',
     data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function downExcel () {
+  return fetch.ExcelDownload({
+    url: '/lasf-mgr/sen/export',
+    method: 'post',
     headers: {
       't': JSON.parse(sessionStorage.getItem('token')).t,
       'u':sessionStorage.getItem('username')
