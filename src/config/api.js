@@ -2446,6 +2446,17 @@ export function dictExcel (data) {
   })
 }
 
+export function dictDownload () {
+  return fetch.FileDownload({
+    url: '/lasf-mgr/dict/download',
+    method: 'post',
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
 export function senExcel (data) {
   return fetch.service_head({
     url: '/lasf-mgr/sen/excel',

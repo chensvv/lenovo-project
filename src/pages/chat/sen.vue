@@ -18,7 +18,7 @@
           <el-button size="mini" @click="handleAdd('addList')" v-has="'sen:add'">添加</el-button>
           <el-button size="mini" @click="handlePub" :loading="PubBtnLoading" v-has="'sen:pub'">发布</el-button>
           <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'sen:excel'">导入数据</el-button>
-          <el-button size="mini" @click="exportFile()" v-has="'source:export'">导出数据</el-button>
+          <el-button size="mini" icon="el-icon-download" @click="exportFile()" v-has="'source:export'" :loading="downloading">导出数据</el-button>
       </div >
     </el-form>
     <div class="table-box">
@@ -171,6 +171,7 @@ export default {
       listLoading:true,
       uploadVisible: false,
       fileBtnLoading: false,
+      downloading:false,
       file: [],//文件上传
       isshow:true
     };
@@ -380,7 +381,9 @@ export default {
       })
     },
     exportFile(){
+      this.downloading = true
         downExcel().then(res=>{
+          this.downloading = false
           let blobUrl = new Blob([res.data])
           let a = document.createElement('a');
           let url = window.URL.createObjectURL(blobUrl);

@@ -50,6 +50,7 @@
             <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
             <el-button size="mini" @click="handleAdd()" v-has="'dict:add'">添加</el-button>
             <el-button icon="el-icon-upload" size="mini" @click="importExcel()" v-has="'dict:excel'">导入数据</el-button>
+            <el-button icon="el-icon-download" size="mini" @click="exportFile()" :loading="downloading">导出数据</el-button>
         </div>
         
         </el-form>
@@ -254,7 +255,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {dictList, dictDel, dictAddUpd, dictExcel} from '@/config/api'
+import {dictList, dictDel, dictAddUpd, dictExcel, dictDownload} from '@/config/api'
 export default {
     data() {
         return {
@@ -319,6 +320,7 @@ export default {
             editBtnLoading:false,
             uploadVisible: false,
             fileBtnLoading: false,
+            downloading:false,
             file: [],//文件上传
             listLoading:true,
             isshow:true
@@ -516,6 +518,20 @@ export default {
                     return false;
                 }
             });
+        },
+        exportFile(){
+            this.downloading = true
+            dictDownload().then(res=>{
+                this.downloading = false
+                let blobUrl = new Blob([res.data])
+                let a = document.createElement('a');
+                let url = window.URL.createObjectURL(blobUrl);
+                let filename = '热词.xlsx'
+                a.href = url;
+                a.download = filename;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
         },
         importExcel(){
             this.uploadVisible = true
