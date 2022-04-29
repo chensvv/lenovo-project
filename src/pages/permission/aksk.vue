@@ -19,11 +19,12 @@
         <div class="table-box flex-align">
             <el-table
             :data="list"
+            stripe
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading"
             @sort-change="sortChange">
-            <el-table-column
+            <!-- <el-table-column
                 label="lenovoId"
                 prop="lenovoId"
                 align="center">
@@ -37,11 +38,11 @@
                         {{ scope.row.lenovoId }}
                     </div>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column
                 label="用户名"
                 prop="userName"
-                align="left">
+                align="center">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userName" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -65,11 +66,11 @@
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.userDailyCloudasrCount }}
+                        {{ scope.row.userDailyCloudasrCount  == -99 ? '∞' : scope.row.userDailyCloudasrCount}}
                         </div>
                     </el-tooltip>
                     <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.userDailyCloudasrCount }}
+                        {{ scope.row.userDailyCloudasrCount == -99 ? '∞' : scope.row.userDailyCloudasrCount}}
                     </div>
                 </template>
             </el-table-column>
@@ -85,11 +86,11 @@
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.userDailyCloudttsCount }}
+                        {{ scope.row.userDailyCloudttsCount == -99 ? '∞' : scope.row.userDailyCloudttsCount}}
                         </div>
                     </el-tooltip>
                     <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.userDailyCloudttsCount }}
+                        {{ scope.row.userDailyCloudttsCount == -99 ? '∞' : scope.row.userDailyCloudttsCount}}
                     </div>
                 </template>
             </el-table-column>
@@ -177,7 +178,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column
+            <!-- <el-table-column
                 label="会议监控权限"
                 prop="meetingService"
                 align="center"
@@ -187,7 +188,7 @@
                     <span slot class="headlips">会议监控权限</span>
                     </el-tooltip>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column
                 label="添加时间"
                 prop="createTime"
@@ -230,14 +231,15 @@
             <el-descriptions>
                 <el-descriptions-item label="lenovoId">{{infoList.lenovoId}}</el-descriptions-item>
                 <el-descriptions-item label="用户名">{{infoList.userName}}</el-descriptions-item>
-                <el-descriptions-item label="ASR可访问次数">{{infoList.userDailyCloudasrCount}}</el-descriptions-item>
-                <el-descriptions-item label="TTS可访问次数">{{infoList.userDailyCloudttsCount}}</el-descriptions-item>
+                <el-descriptions-item label="ASR可访问次数">{{infoList.userDailyCloudasrCount == -99 ? '∞' : infoList.userDailyCloudasrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS可访问次数">{{infoList.userDailyCloudttsCount == -99 ? '∞' : infoList.userDailyCloudttsCount}}</el-descriptions-item>
                 <el-descriptions-item label="ASR历史使用次数">{{infoList.historyUseAsr}}</el-descriptions-item>
                 <el-descriptions-item label="TTS历史使用次数">{{infoList.historyUseTts}}</el-descriptions-item>
                 <el-descriptions-item label="ASR当日使用次数">{{infoList.usedAsrCount}}</el-descriptions-item>
                 <el-descriptions-item label="TTS当日使用次数">{{infoList.usedTTSCount}}</el-descriptions-item>
-                <el-descriptions-item label="ASR剩余可访问次数">{{infoList.remainAsrCount}}</el-descriptions-item>
-                <el-descriptions-item label="TTS剩余可访问次数">{{infoList.remainTTSCount}}</el-descriptions-item>
+                <el-descriptions-item label="ASR剩余可访问次数">{{infoList.remainAsrCount == -99 ? '∞' : infoList.remainAsrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS剩余可访问次数">{{infoList.remainTTSCount == -99 ? '∞' : infoList.remainTTSCount}}</el-descriptions-item>
+                <el-descriptions-item label="会议监控权限">{{infoList.meetingService =='1' ? "是" : "否"}}</el-descriptions-item>
             </el-descriptions>
             <el-form :label-position="'right'" label-width="40px" size="small">
                 <el-form-item label="AK">

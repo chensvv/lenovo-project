@@ -13,6 +13,7 @@
         <div class="table-box rule">
             <el-table
                 :data="list"
+                stripe
                 v-laoding="listLoading"
                 row-key="id"
                 :tree-props="{children: 'children', hasChildren: 'hasChildren'}">

@@ -30,6 +30,7 @@
     <div class="table-box">
       <el-table
           :data="list"
+          stripe
           :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
@@ -136,7 +137,7 @@
         <el-form-item label="机型UA">
           <el-input type="text" v-model="optList.code" auto-complete="off" readonly></el-input>
         </el-form-item>
-        <el-table :show-header="false" :data="optList.pageDate" border ref="table" style="width: 100%" @selection-change="handleSelectionChange">
+        <el-table :show-header="false" stripe :data="optList.pageDate" border ref="table" style="width: 100%" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>
             <el-table-column

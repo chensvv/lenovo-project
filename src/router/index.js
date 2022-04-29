@@ -334,6 +334,11 @@ const router = new Router({
           meta: {title: 'NL领域统计',needLogin:true}
         },
         {
+          path: '/sysLog/list',
+          component: () => import('@/pages/log/syslog'),
+          meta: {title: '管理系统操作日志',needLogin:true}
+        },
+        {
           path: '/avater/uv',
           component: () => import('@/pages/avater/uvStat'),
           meta: {title: '用户统计',needLogin:true}

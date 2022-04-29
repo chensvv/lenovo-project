@@ -55,6 +55,7 @@
                 <el-tab-pane label="相似度命令关联" name="command" class="flex-align">
                     <el-table
                         :data="commandList"
+                        stripe
                         :class="this.commandTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
                         v-loading="commandListLoading">
@@ -135,6 +136,7 @@
                 <el-tab-pane label="指令忽略管理" name="norun">
                     <el-table
                         :data="norunList"
+                        stripe
                         :class="this.norunTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
                         v-loading="norunListLoading">
@@ -185,6 +187,7 @@
                 <el-tab-pane label="原始指令管理" name="origina">
                     <el-table
                         :data="originaList"
+                        stripe
                         :class="this.originaTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
                         v-loading="originaListLoading">

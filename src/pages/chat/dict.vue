@@ -57,6 +57,7 @@
         <div class="table-box">
         <el-table
             :data="list"
+            stripe
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading"

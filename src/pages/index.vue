@@ -15,6 +15,7 @@
             </el-form>
             <el-table
                 :data="list"
+                stripe
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
                 v-loading="listLoading">
@@ -141,6 +142,7 @@
             </el-form>
             <el-table
                 :data="nlist"
+                stripe
                 style="width: 100%"
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 v-loading="n_listLoading">

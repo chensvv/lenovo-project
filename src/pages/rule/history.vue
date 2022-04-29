@@ -9,6 +9,7 @@
     <div class="table-box">
       <el-table
           :data="list"
+          stripe
           :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading">
@@ -97,6 +98,7 @@
     <el-dialog title="详情" :visible.sync="infoVisible" width="70%" :before-close="infoHandleClose">
        <el-table
           :data="infoList"
+          stripe
           :class="this.totalCount <= 5 ? 'limitWidth' :''"
           style="width: 100%"
           height="400"

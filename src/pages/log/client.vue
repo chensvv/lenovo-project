@@ -42,7 +42,7 @@
     <div class="table-box">
       <el-tabs type="card" v-model="activeName">
         <el-tab-pane label="客户端信息" name="client" class="flex-align">
-          <el-table :data="clientList" :class="this.ctotalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="ClistLoading" @sort-change="sortChange">
+          <el-table :data="clientList" stripe :class="this.ctotalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="ClistLoading" @sort-change="sortChange">
             <el-table-column type="index" align="left"  ></el-table-column>
             <el-table-column label="UID" prop="uid" align="center">
               <template slot-scope="scope">
@@ -164,7 +164,7 @@
           ></el-pagination>
         </el-tab-pane>
         <el-tab-pane label="服务器信息" name="server">
-          <el-table :data="serverList" :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="SlistLoading">
+          <el-table :data="serverList" stripe :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="SlistLoading">
             <el-table-column type="index" align="center" label="#"></el-table-column>
             <el-table-column label="客户端总耗时" prop="ixcd" align="center">
             </el-table-column>

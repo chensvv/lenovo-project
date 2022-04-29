@@ -2791,3 +2791,15 @@ export function useLog (data) {
     }
   })
 }
+
+export function syslogList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/sysLog/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

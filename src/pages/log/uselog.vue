@@ -42,7 +42,7 @@
       </div>
     </el-form>
     <div class="table-box">
-      <el-table :data="list" :class="this.totalClass <= '5' ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading">
+      <el-table :data="list" stripe :class="this.totalClass <= '5' ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading">
         <el-table-column type="index" align="center" label="#"></el-table-column>
         <el-table-column label="sessionid" prop="sessionid" align="center">
           <template slot-scope="scope">
