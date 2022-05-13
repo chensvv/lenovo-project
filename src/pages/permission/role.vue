@@ -392,7 +392,10 @@ export default {
       })
     },
     getTree(){
-      authList().then(res=>{
+      let treeParams = {
+        id: '0'
+      }
+      authList(treeParams).then(res=>{
         this.treeData = res.data
       })
     }

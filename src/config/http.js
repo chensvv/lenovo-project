@@ -86,7 +86,7 @@ service_head.interceptors.response.use(response => {
     case 500:
       Message.closeAll()
       Message.error({
-        message: '系统出错，请稍后重试！'
+        message: '请稍后重试！'
       })
       // sessionStorage.clear()
       break

@@ -2,32 +2,41 @@
     <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/permission/role'}">权限管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/rule/fetch'}">权限管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" size="mini" style="padding-left:50px;">
             <el-form-item class="sub-btn">
-                <el-button type="primary" @click="handleAdd(1,0)" size="mini" :loading="btnLoading" v-has="'Rule:add'">增加一级菜单</el-button>
+                <el-button type="primary" @click="handleAdd(1,0)" size="mini" :loading="btnLoading" v-has="'Rule:add'">添加二级菜单</el-button>
             </el-form-item>
         </el-form>
-        <div class="table-box">
+        <div class="table-box rule">
             <el-table
                 :data="list"
-                :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 stripe
-                v-laoding="listLoading">
+                v-laoding="listLoading"
+                row-key="id"
+                :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
                 <el-table-column
                     prop="ruleName"
-                    label="一级菜单权限名称">
+                    label="二级菜单权限">
                 </el-table-column>
-                <el-table-column label="操作" align="center"  width="200" v-if="isshow">
+                <el-table-column
+                    prop="ruleCode"
+                    label="权限标识">
+                </el-table-column>
+                <el-table-column
+                    prop="url"
+                    label="url">
+                </el-table-column>
+                <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
                       <el-button
                             size="mini"
-                            @click.native.stop="handleInfo(scope.$index, scope.row)"
+                            @click.native.stop="handleAdd(scope.$index, scope.row)"
                             v-has="'Rule:add'"
-                            v-if="scope.row.menutype != 3"
-                        >详情</el-button>
+                            v-if="scope.row.menutype != 2"
+                        >添加按钮权限</el-button>
                         <el-button
                             size="mini"
                             @click.native.stop="handleEdit(scope.$index, scope.row)"
@@ -42,20 +51,18 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage"
-            :page-size="pageSize"
-            layout="total, prev, pager, next, jumper"
-            :total="totalCount"
-        ></el-pagination>
         </div>
         
-        <el-dialog title="新增一级菜单权限" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
+        <el-dialog :title="addTitle" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="addRules" :model="addList" ref="addList">
-                <el-form-item label="菜单名称" prop="ruleName">
+                <el-form-item label="权限名称" prop="ruleName">
                     <el-input type="text" v-model.trim="addList.ruleName" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="权限标识" prop="ruleCode">
+                    <el-input type="text" v-model.trim="addList.ruleCode" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="url" prop="url" v-if="btnShow">
+                    <el-input type="text" v-model.trim="addList.url" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -65,8 +72,14 @@
         </el-dialog>
         <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
-                <el-form-item label="菜单名称" prop="ruleName">
+                <el-form-item label="权限名称" prop="ruleName">
                     <el-input type="text" v-model.trim="currentItem.ruleName" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="权限标识" prop="ruleCode">
+                    <el-input type="text" v-model.trim="currentItem.ruleCode" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="url" prop="url" v-if="btnShow">
+                    <el-input type="text" v-model.trim="currentItem.url" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -78,28 +91,28 @@
 </template>
 
 <script>
-import { ruleList, userMenu, authAdd, authDel, authUpdate} from '@/config/adminApi'
+import { ruleInfoList, userMenu, authAdd, authDel, authUpdate} from '@/config/adminApi'
 let Base64 = require('js-base64').Base64
 export default {
     inject:['reload'],
     data() {
         return {
             list:[],
-            totalClass:'',
             expands:[],
             addl:{},
+            did:"",
             defaultProps: {
                 children: "children",
                 label: "ruleName"
             },
-            addList: {
-                parentCode: '',
-                ruleCode: '',
+            addList: {//添加数据组
+                parentCode:'',
+                ruleCode:'',
                 ruleName:'',
                 url:'',
                 icon:''
             },
-            currentItem: {
+            currentItem: {//编辑数据组
                 id:'',
                 ruleCode:'',
                 ruleName:'',
@@ -107,26 +120,27 @@ export default {
                 icon:''
             },
             addRules:{
-                ruleName:[{ required: true, message: '请输入菜单名称', trigger: 'change' }]
+                ruleName:[{ required: true, message: '请输入权限名称', trigger: 'change' }],
+                ruleCode:[{ required: true, message: '请输入权限标识', trigger: 'change' }],
+                url:[{ required: true, message: '请输入url', trigger: 'change' }]
             },
             editRules:{
-                ruleName:[{ required: true, message: '请输入菜单名称', trigger: 'change' }]
+                ruleName:[{ required: true, message: '请输入权限名称', trigger: 'change' }],
+                ruleCode:[{ required: true, message: '请输入权限标识', trigger: 'change' }],
+                url:[{ required: true, message: '请输入url', trigger: 'change' }]
             },
-            currentPage: 1, //默认显示第几页
-            pageSize: 10,   //默认每页条数
-            totalCount:1,     // 总条数
             listLoading:false,
             editVisible: false,
             addVisible: false,
             addBtnLoading:false,
             editBtnLoading:false,
-            ruleCodeAuth:false,
-            urlAuth:false,
+            btnShow:true,
             isshow:true,
             addTitle:''
         };
     },
     created() {
+        this.did = this.$route.query.did
         this.getList();
     },
     methods: {
@@ -144,24 +158,6 @@ export default {
                 }
             })
         },
-        handleSizeChange(val) {
-            this.pageSize = val;
-            this.currentPage = 1
-            this.getList();
-        },
-        handleCurrentChange(val) {
-            this.currentPage = val
-            // console.log(`当前页: ${val}`);
-            this.getList();
-        },
-        handleInfo(index, row){
-            this.$router.push({
-                path:'/rule/detail',
-                query:{
-                    did:row.id
-                }
-            })
-        },
         editHandleClose() {
             this.editVisible = false;
         },
@@ -170,11 +166,18 @@ export default {
         },
         handleAdd(index,row){
             this.addList = {
-                parentCode:row == 0 ? 0 : row.id,
+                parentCode:row == 0 ? this.did : row.id,
                 ruleCode:'',
                 ruleName:'',
                 url:'',
-                icon: row == 0 ? 'el-icon-tickets' : row.menutype == 3 ? ' ' : 'el-icon-document'
+                icon: row == 0 ? 'el-icon-tickets' : row.menutype == 2 ? ' ' : 'el-icon-document'
+            }
+            if(row.menutype == 0 || row == 0){
+                this.addTitle = '新增二级菜单权限'
+                this.btnShow = true
+            }else{
+                this.addTitle = '新增按钮权限'
+                this.btnShow = false
             }
             this.addVisible = true
         },
@@ -264,6 +267,11 @@ export default {
                 url:row.url,
                 icon: row.icon
             };
+            if(row.menutype == 1){
+                this.btnShow = true
+            }else{
+                this.btnShow = false
+            }
             this.editVisible = true;
         },
         editHandleConfirm(currentItem) {
@@ -394,14 +402,11 @@ export default {
         getList() {
             this.listLoading = true
             let params = {
-                pgstr:this.currentPage,
-                pcstr:this.pageSize,
+                id:String(this.did)
             }
-            ruleList(params).then(res => {
+            ruleInfoList(params).then(res => {
                 this.listLoading = false
-                this.list = res.data.data
-                this.totalCount = res.data.count
-                this.totalClass = res.data.data.length
+                this.list = res.data
             }).catch(()=>{
                 this.listLoading = false
             })

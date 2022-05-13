@@ -254,8 +254,13 @@ const router = new Router({
           meta: {title: '官网用户',needLogin:true}
         },
         {
-          path: '/permission/rule',
+          path: '/rule/fetch',
           component: () => import('@/pages/permission/rule'),
+          meta: {title: '权限管理',needLogin:true}
+        },
+        {
+          path: '/rule/detail',
+          component: () => import('@/pages/permission/ruleDetail'),
           meta: {title: '权限管理',needLogin:true}
         },
         {

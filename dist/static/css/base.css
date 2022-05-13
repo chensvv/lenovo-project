@@ -135,6 +135,10 @@
   font-size: 12px;
   height: calc(100% - 85px);
 }
+.height-85 .rule {
+  font-size: 12px;
+  height: auto !important;
+}
 .height-105 .table-box {
   font-size: 12px;
   height: calc(100% - 105px);

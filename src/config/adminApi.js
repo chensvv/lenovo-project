@@ -360,3 +360,27 @@ export function authUpdate (data) {
     }
   })
 }
+
+export function ruleList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/Rule/fetch',
+    method: 'post',
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function ruleInfoList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/Rule/queryone',
+    method: 'post',
+    data: data,
+    headers: {
+      't': JSON.parse(sessionStorage.getItem('token')).t,
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

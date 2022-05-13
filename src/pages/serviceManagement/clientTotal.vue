@@ -15,68 +15,68 @@
         </el-form>
         <div class="table-box">
             <el-table
-                    :data="list"
-                    stripe
-                    :class="this.totalClass <= '7' ? 'limitWidth' :''"
-                    style="width: 100%"
-                    v-loading="listLoading">
-                    <el-table-column type="index" align="center" label="#">
-                    </el-table-column>
-                    <el-table-column
-                        label="地址"
-                        prop="name"
-                        align="center">
-                        <template slot-scope="scope">
-                            <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
-                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                                {{ scope.row.name }}
-                                </div>
-                            </el-tooltip>
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                                {{ scope.row.name }}
+                :data="list"
+                stripe
+                :class="this.totalClass <= '7' ? 'limitWidth' :''"
+                style="width: 100%"
+                v-loading="listLoading">
+                <el-table-column type="index" align="center" label="#">
+                </el-table-column>
+                <el-table-column
+                    label="地址"
+                    prop="name"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.name }}
                             </div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                        label="值"
-                        prop="value"
-                        align="center">
-                        <template slot-scope="scope">
-                            <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.value" placement="top">
-                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                                {{ scope.row.value }}
-                                </div>
-                            </el-tooltip>
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                                {{ scope.row.value }}
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.name }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="值"
+                    prop="value"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.value" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.value }}
                             </div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                        label="sce"
-                        prop="sce"
-                        align="center">
-                        <template slot-scope="scope">
-                            <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sce" placement="top">
-                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                                {{ scope.row.sce }}
-                                </div>
-                            </el-tooltip>
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                                {{ scope.row.sce }}
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.value }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="sce"
+                    prop="sce"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sce" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.sce }}
                             </div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="操作" align="center"  v-if="isshow">
-                        <template slot-scope="scope">
-                            <el-button
-                            size="mini"
-                            type="danger"
-                            @click="handleDel(scope.$index, scope.row)"
-                            v-has="'engine:offline'">下线</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.sce }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作" align="center"  v-if="isshow">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDel(scope.$index, scope.row)"
+                        v-has="'engine:offline'">下线</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
