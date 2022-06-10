@@ -422,19 +422,11 @@ export default {
       }
       params.sign = deleteParams(params)
       versionList(params).then(res => {
-        if(res.data.code == 200){
           this.listLoading = false
           this.skillDetail.functionName = res.data.lasfControlFunction.functionName
           this.list = res.data.lasfControlVersionPage.data;
           this.totalCount = res.data.lasfControlVersionPage.total
           this.totalClass = res.data.lasfControlVersionPage.data.length
-        }else{
-          this.$message({
-              message:res.data.errorMessage,
-              type:'error',
-              duration:1000
-          });
-        }
       }).catch(()=>{
           this.listLoading = false
       });

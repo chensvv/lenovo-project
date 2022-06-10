@@ -372,20 +372,11 @@ export default {
       }
       params.sign = deleteParams(params)
       speakList(params).then(res => {
-        if(res.data.code == 200){
           this.listLoading = false
           this.skillDetail.functionName = res.data.lasfControlFunction.functionName
           this.list = res.data.lasfControlSpeakPage.data;
           this.totalCount = res.data.lasfControlSpeakPage.total
           this.totalClass = res.data.lasfControlSpeakPage.data.length
-        }else{
-            this.$message({
-                message:res.data.errorMessage,
-                type:'error',
-                duration:1000
-            });
-        }
-        
       }).catch(()=>{
           this.listLoading = false
       });
