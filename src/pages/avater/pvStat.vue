@@ -46,6 +46,7 @@
 <script>
 import {avaterList,avaterChannel} from '@/config/api'
 import {checkTime} from '@/utils/timer.js'
+import {deleteParams} from '@/utils/deleteParams.js'
 let echarts = require('echarts/lib/echarts')
 export default {
   data() {
@@ -141,6 +142,7 @@ export default {
           endStr:this.searchItem.endTime,
           channel:this.searchItem.channelVal
         }
+        paramsList.sign = deleteParams(paramsList)
         let myChart = echarts.init(this.$refs.myChart)
         let Xdata = []
         let Ydata = []

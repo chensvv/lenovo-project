@@ -34,6 +34,7 @@
 
 <script>
 import {allDurList} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 import {checkTime} from '@/utils/timer.js'
 let echarts = require('echarts/lib/echarts')
 export default {
@@ -90,6 +91,7 @@ export default {
           startStr:this.searchItem.startTime,
           endStr:this.searchItem.endTime
         }
+        paramsList.sign = deleteParams(paramsList)
         let myChart = echarts.init(this.$refs.myChart)
         allDurList(paramsList).then(res=>{
             this.loading = false

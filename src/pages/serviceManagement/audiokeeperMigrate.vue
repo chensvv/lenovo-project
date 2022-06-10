@@ -32,6 +32,7 @@
 <script>
 import {socketTotal,migrate} from '@/config/api'
 let echarts = require('echarts/lib/echarts')
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     let vue = this
@@ -93,6 +94,7 @@ export default {
       let addParams = {
         serverAddr:this.addList.serverAddr,
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true

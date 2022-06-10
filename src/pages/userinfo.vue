@@ -24,6 +24,7 @@
 <script>
 import {userInfoOne} from '@/config/adminApi'
 let Base64 = require('js-base64').Base64
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   name:'userinfo',
   data(){
@@ -49,6 +50,7 @@ export default {
       let params = {
           userName:Base64.decode(sessionStorage.getItem('username'))
       }
+      params.sign = deleteParams(params)
       userInfoOne(params).then(res=>{
           this.userinfo = res.data.data.user
           this.treeList = res.data.data.menu

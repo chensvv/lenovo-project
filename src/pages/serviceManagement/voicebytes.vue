@@ -213,6 +213,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {voicebytes} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -308,6 +309,7 @@ export default {
         language:this.searchItem.language,
         offline:this.searchItem.offline
       }
+      params.sign = deleteParams(params)
       voicebytes(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

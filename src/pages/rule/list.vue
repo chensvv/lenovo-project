@@ -194,6 +194,7 @@
 import {checkTime} from '@/utils/timer.js'
 import Cropper from "@/components/cropper";
 import {showModeList, showModeRele, configList, configAdd, showModeImport,showModeDel} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -333,6 +334,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -363,6 +365,7 @@ export default {
             id:row.id,
             publishStatus:row.publishStatus
         }
+        issueParams.sign = deleteParams(issueParams)
         showModeRele(issueParams).then(res=>{
         if(res.data.code == 200){
             this.$message({
@@ -419,10 +422,11 @@ export default {
     },
     addResHandleConfirm(addResList){
         let addResParams = {
-        parentCode:this.addResList.resType,
-        context:this.addResList.resChannel,
-        appPackageName:this.addResList.appname
-      }
+          parentCode:this.addResList.resType,
+          context:this.addResList.resChannel,
+          appPackageName:this.addResList.appname
+        }
+        addResParams.sign = deleteParams(addResParams)
       this.$refs[addResList].validate((valid) => {
           if (valid) {
               this.addResBtnLoading = true
@@ -462,6 +466,7 @@ export default {
         endStr: this.searchItem.putTime,
         channel: this.searchItem.channelVal
       }
+      params.sign = deleteParams(params)
       showModeList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){
@@ -483,31 +488,35 @@ export default {
         let configParams = {
           parentCode:1
       }
+      configParams.sign = deleteParams(configParams)
       configList(configParams).then(res=>{
           this.channelList = res.data.data
       })
     },
     getTypeList(){
-        let configParams = {
+        let typeParams = {
           parentCode:2
       }
-      configList(configParams).then(res=>{
+      typeParams.sign = deleteParams(typeParams)
+      configList(typeParams).then(res=>{
           this.typeList = res.data.data
       })
     },
     getPhoneTypeList(){
-        let configParams = {
+        let phoneParams = {
           parentCode:3
       }
-      configList(configParams).then(res=>{
+      phoneParams.sign = deleteParams(phoneParams)
+      configList(phoneParams).then(res=>{
           this.phoneTypeList = res.data.data
       })
     },
     getResTypeList(){
-        let configParams = {
+        let resParams = {
           parentCode:0
       }
-      configList(configParams).then(res=>{
+      resParams.sign = deleteParams(resParams)
+      configList(resParams).then(res=>{
           this.resTypeList = res.data.data
       })
     }

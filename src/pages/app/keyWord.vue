@@ -162,6 +162,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
+import {deleteParams} from '@/utils/deleteParams.js'
 import {wordList,keyAdd,keyUpd,keyDel} from '@/config/api'
 export default {
   data() {
@@ -322,6 +323,7 @@ methods: {
             alias:this.currentItem.alias,
             stname:this.currentItem.stname
         }
+        updParams.sign = deleteParams(updParams)
         this.$refs[currentItem].validate((valid) => {
             if (valid) {
                 this.editBtnLoading = true
@@ -356,6 +358,7 @@ methods: {
             alias:this.addList.alias,
             stname:this.addList.stname
         }
+        addParams.sign = deleteParams(addParams)
         this.$refs[addList].validate((valid) => {
             if (valid) {
                 this.addBtnLoading = true
@@ -387,7 +390,8 @@ methods: {
     },
     handleDel(index, row) {
         let delParams = {
-            id:row.id
+            id:row.id,
+            sign:this.$md5(`id=${row.id}`)
         }
         this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
             confirmButtonText: "确定",
@@ -420,7 +424,6 @@ methods: {
             prop:column.prop,
             order:column.order
         }
-        console.log(this.column)
         this.getList()
     },
     getList() {
@@ -435,6 +438,7 @@ methods: {
             fieldName: this.column.prop,
             order:this.column.order == 'ascending' ? '0' : ''
         }
+        params.sign = deleteParams(params)
         wordList(params).then(res => {
             this.listLoading = false
             if(res.data.code == 200){

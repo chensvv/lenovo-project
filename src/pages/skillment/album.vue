@@ -188,6 +188,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {albumList, albumDel, albumUpd, albumAdd} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data() {
         return {
@@ -301,6 +302,7 @@ export default {
             let delParams = {
                 albumQqId:row.id
             }
+            delParams.sign = deleteParams(delParams)
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -354,9 +356,9 @@ export default {
                 albumQqId: this.currentItem.albumQqId,
                 albumQqMid: this.currentItem.albumQqMid,
                 albumQqPhoto: this.currentItem.albumQqPhoto,
-                albumQqIntroduce: this.currentItem.albumQqIntroduce,
-                albumQqPosterUrl:this.currentItem.albumQqPosterUrl
+                albumQqSingerId: this.currentItem.albumQqSingerId
             }
+            updParams.sign = deleteParams(updParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
@@ -397,6 +399,7 @@ export default {
                 albumQqSingerId:this.addList.albumQqSingerId,
                 albumQqPhoto:this.addList.albumQqPhoto,
             }
+            addParams.sign = deleteParams(addParams)
             this.$refs[addList].validate((valid) => {
                 if (valid) {
                     this.addBtnLoading = true
@@ -433,6 +436,7 @@ export default {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize
             }
+            params.sign = deleteParams(params)
             albumList(params).then(res => {
                 this.listLoading = false
                 if(res.data.code == 200){

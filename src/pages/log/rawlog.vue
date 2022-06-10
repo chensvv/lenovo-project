@@ -137,6 +137,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {rawList,rawView} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 import countTo from 'vue-count-to';
 export default {
   components: {countTo },
@@ -243,10 +244,11 @@ export default {
       this.getList();
     },
     handleInfo(index,row){
-      let params = {
+      let infoParams = {
         id:row.id
       }
-      rawView(params).then(res=>{
+      infoParams.sign = deleteParams(infoParams)
+      rawView(infoParams).then(res=>{
         this.infoList = res
         this.editVisible = true;
       })
@@ -271,8 +273,8 @@ export default {
         uip:this.searchItem.uip,
         fieldName: this.column.prop,
         order:this.column.order == 'ascending' ? '0' : ''
-        // id:this.bigId
       }
+      params.sign = deleteParams(params)
       rawList(params).then(res=>{
         this.listLoading = false
         if(res.data.code == 200){

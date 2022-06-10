@@ -129,6 +129,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js';
 import {oprList} from '@/config/api';
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -230,6 +231,7 @@ export default {
         fieldName: this.column.prop,
         order:this.column.order == 'ascending' ? '0' : ''
       }
+      params.sign = deleteParams(params)
       oprList(params).then(res=>{
         this.listLoading = false
         if(res.data.code == 200){

@@ -180,6 +180,7 @@
 <script>
   import Cropper from 'cropperjs'
 import { showModeAdd, configList} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -559,31 +560,35 @@ export default {
         let configParams = {
           parentCode:1
       }
+      configParams.sign = deleteParams(configParams)
       configList(configParams).then(res=>{
           this.channelList = res.data.data
       })
     },
     getTypeList(){
-        let configParams = {
+        let typeParams = {
           parentCode:2
       }
-      configList(configParams).then(res=>{
+      typeParams.sign = deleteParams(typeParams)
+      configList(typeParams).then(res=>{
           this.typeList = res.data.data
       })
     },
     getPhoneTypeList(){
-        let configParams = {
+        let phoneParams = {
           parentCode:3
       }
-      configList(configParams).then(res=>{
+      phoneParams.sign = deleteParams(phoneParams)
+      configList(phoneParams).then(res=>{
           this.phoneTypeList = res.data.data
       })
     },
     getVideoTypeList(){
-        let configParams = {
+        let videoParams = {
           parentCode:this.addList.resTypeVal
       }
-      configList(configParams).then(res=>{
+      videoParams.sign = deleteParams(videoParams)
+      configList(videoParams).then(res=>{
           this.videoTypeList = res.data.data
       })
     }

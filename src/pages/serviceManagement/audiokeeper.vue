@@ -181,6 +181,7 @@
 
 <script>
 import {audiokeeperList, audiokeeperExpire, audiokeeperAdd} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data(){
         return{
@@ -286,6 +287,7 @@ export default {
                 ipAddress:row.ipAddress,
                 port:row.port
             }
+            delParams.sign = deleteParams(delParams)
             audiokeeperExpire(delParams).then(res=>{
                 if(res.data.code == 200){
                     this.$message({
@@ -322,6 +324,7 @@ export default {
             rate:this.addList.rate,
             channel:this.addList.channel
         }
+        addParams.sign = deleteParams(addParams)
         this.$refs[addList].validate((valid) => {
             if (valid) {
                 this.addBtnLoading = true

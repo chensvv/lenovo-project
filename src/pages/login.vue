@@ -52,8 +52,7 @@
 <script>
 let Base64 = require('js-base64').Base64
 import {login,userReg,userMenu,logImgCode} from '@/config/adminApi'
-import qs from 'qs' 
-import axios from 'axios'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data(){
         let ValidatePass = (rule, value, callback) => {
@@ -108,6 +107,8 @@ export default {
             let u_params = {
                  userName:this.loginForm.username,
             }
+            params.sign = deleteParams(params)
+            u_params.sign = deleteParams(u_params)
             // params = qs.stringify(params);
             this.$refs[loginForm].validate((valid) => {
                 if (valid) {
@@ -115,7 +116,7 @@ export default {
                     login(params).then((res)=>{
                         if(res.data.code == 200){
                             sessionStorage.setItem('username',Base64.encode(this.loginForm.username))
-                            let paramss = {'t': res.data.data};
+                            let paramss = {'t': Base64.encode(res.data.data)};
                             var datas = Object.assign(paramss, { startTime: new Date().getTime() });
                             sessionStorage.setItem("token", JSON.stringify(datas));
                             // sessionStorage.setItem('log',Base64.encode(this.loginForm.password))
@@ -149,6 +150,7 @@ export default {
                 imgCode:this.regForm.regCode,
                 ucode:this.uuid
             }
+            regParams.sign = deleteParams(regParams)
             this.$refs[regForm].validate((valid) => {
                 if(valid){
                     userReg(regParams).then(res=>{

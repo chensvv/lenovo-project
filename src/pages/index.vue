@@ -253,7 +253,7 @@
 </template>
 <script>
 import {checkTime} from '@/utils/timer.js'
-// import countTo from 'vue-count-to';
+import {deleteParams} from '@/utils/deleteParams.js'
 import {activitiList,activitiPass,activitinList,activitiStatus, userMenu} from '@/config/adminApi'
 export default {
     inject:['reload'],
@@ -446,6 +446,7 @@ export default {
                 id:this.infoList.taskid,
                 status:0
             }
+            passParams.sign = deleteParams(passParams)
             activitiPass(passParams).then(res=>{
                 if(res.data.code == 200){
                     this.$message({
@@ -470,12 +471,13 @@ export default {
             this.backVisible = true
         },
         handleEnsure(){
-            let passParams = {
+            let pass_Params = {
                 id:this.infoList.taskid,
                 status:2,
                 speak:this.infoList.backres
             }
-            activitiPass(passParams).then(res=>{
+            pass_Params.sign = deleteParams(pass_Params)
+            activitiPass(pass_Params).then(res=>{
                 if(res.data.code == 200){
                     this.$message({
                         message:'已退回',
@@ -503,6 +505,7 @@ export default {
                 username:this.searchItem.user,
                 speak:this.searchItem.con
             }
+            params.sign = deleteParams(params)
             activitiList(params).then(res=>{
                 this.listLoading = false
                 this.list = res.data.rows
@@ -519,6 +522,7 @@ export default {
                 pcstr:this.n_pageSize,
                 speak:this.n_searchItem.con
             }
+            n_params.sign = deleteParams(n_params)
             activitinList(n_params).then(res=>{
                 this.n_listLoading = false
                 this.nlist = res.data.data
@@ -533,6 +537,7 @@ export default {
             let u_params = {
                  userName:sessionStorage.getItem('username'),
             }
+            u_params.sign = deleteParams(u_params)
             userMenu(u_params).then(res=>{
                 
             })

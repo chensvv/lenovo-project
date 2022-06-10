@@ -110,6 +110,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {useLog} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -212,6 +213,7 @@ export default {
         sce:this.searchItem.sce,
         lenovokey:this.searchItem.lenovokey
       }
+      params.sign = deleteParams(params)
       useLog(params).then(res=>{
         this.listLoading = false
         if(res.data.code == 200){

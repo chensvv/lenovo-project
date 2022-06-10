@@ -62,6 +62,7 @@
 
 <script>
 import { showModeAll, showModeSave, carouselListEnable, grayList,} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -120,48 +121,48 @@ export default {
       let that = this
       that.item = value
     },
-    handleUp(item, index) {
+    handleUp(item, index) {
       //   item为选中的项    index为对应的index
-      let self = this;
-      item = self.item;   //选中值
-      if (item.length == 1) {  //  因为右侧的选项是可以多选，但这里的上下移动事件，我做的是单项上移，每次上移一个空间，所以判断，当我的选中值只有一个选项时，进行上移操作
+      let self = this;
+      item = self.item; //选中值
+      if (item.length == 1) { //  因为右侧的选项是可以多选，但这里的上下移动事件，我做的是单项上移，每次上移一个空间，所以判断，当我的选中值只有一个选项时，进行上移操作
       //选中值的下标 
-      self.value.find((val, indexs, arr) => { // find()方法 val-项，indexs-下标，arr数组
-          if (val == item) { //  value数组的项val等于我选中的项item
-            index = indexs;  // 数组项的下标就是我当前选中项的下标
+      self.value.find((val, indexs, arr) => { // find()方法 val-项，indexs-下标，arr数组
+          if (val == item) { //  value数组的项val等于我选中的项item
+            index = indexs; // 数组项的下标就是我当前选中项的下标
           }
         });
-        if (index == 0) { //当选择的项的下标为0，即第一个，则提醒没有上移的空间，选择其他项进行上移
+        if (index == 0) { //当选择的项的下标为0，即第一个，则提醒没有上移的空间，选择其他项进行上移
           self.$message.warning("没有上移的空间了");
           return;
         }
         // 上移-改变的数组（项和下标同时改变）
-        let changeItem = JSON.parse(JSON.stringify(self.value[index - 1]));
-        self.value.splice(index - 1, 1);
-        self.value.splice(index, 0, changeItem);
-      } else {
+        let changeItem = JSON.parse(JSON.stringify(self.value[index - 1]));
+        self.value.splice(index - 1, 1);
+        self.value.splice(index, 0, changeItem);
+      } else {
         self.$message.warning("只能选择一条数据进行上下移动");
         return;
       }
     },
-    handleDown(item, index) {
-      let self = this;
-      item = self.item;
-      if (item.length == 1) {
+    handleDown(item, index) {
+      let self = this;
+      item = self.item;
+      if (item.length == 1) {
           //选中值的下标
-        self.value.find((val, indexs, arr) => {
-          if (val == item) {
-            index = indexs;
+        self.value.find((val, indexs, arr) => {
+          if (val == item) {
+            index = indexs;
           }
         });
-        if (index == self.value.length-1) {   // 这里是length-1,因为下标值从0开始
+        if (index == self.value.length-1) {  // 这里是length-1,因为下标值从0开始
           self.$message.warning("没有下移的空间了");
           return;
         }
-        let changeItem = JSON.parse(JSON.stringify(self.value[index]));
+        let changeItem = JSON.parse(JSON.stringify(self.value[index]));
         self.value.splice(index,1);
-        self.value.splice(index + 1, 0, changeItem);
-      } else {
+        self.value.splice(index + 1, 0, changeItem);
+      } else {
         self.$message.warning("只能选择一条数据进行上下移动");
         return;
       }
@@ -205,6 +206,7 @@ export default {
           resources:this.value.join(),
           grayId:this.addList.gray.join()
         }
+        addParams.sign = deleteParams(addParams)
         this.$refs[addList].validate((valid) => {
           if (valid) {
             this.addBtnLoading = true

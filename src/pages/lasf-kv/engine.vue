@@ -36,6 +36,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {engineView, engineUpd} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -69,6 +70,7 @@ export default {
         pwd:this.currentItem.asrpsd,
         val:this.currentItem.asr
       }
+      updParams.sign = deleteParams(updParams)
       // console.log(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {

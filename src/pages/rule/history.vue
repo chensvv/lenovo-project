@@ -178,6 +178,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {historyList, historyDetails, configList, grayList, grayUpd, historyDel} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -282,6 +283,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -312,6 +314,7 @@ export default {
         id:this.currentItem.id,
         grayId:this.currentItem.gray.join()
       }
+      updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -346,6 +349,7 @@ export default {
       let addParams = {
         resources:row.resources
       }
+      addParams.sign = deleteParams(addParams)
       this.infoListLoading =true
         historyDetails(addParams).then(res=>{
         if(res.data.code == 200){
@@ -389,15 +393,17 @@ export default {
         let configParams = {
           parentCode:3
       }
+      configParams.sign = deleteParams(configParams)
       configList(configParams).then(res=>{
           this.phoneList = res.data.data
       })
     },
     getGrayList(){
-        let grayParams = {
-          pgstr:this.pageSize,
-          pcstr:this.currentPage,
-        }
+      let grayParams = {
+        pgstr:this.pageSize,
+        pcstr:this.currentPage,
+      }
+      grayParams.sign = deleteParams(grayParams)
       grayList(grayParams).then(res=>{
         this.grayList = res.data.data
       })

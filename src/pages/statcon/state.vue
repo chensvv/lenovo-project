@@ -24,6 +24,7 @@
 <script>
 import {stateAdd} from '@/config/api'
 import {login} from '@/config/adminApi'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     inject:['reload'],
     data() {
@@ -55,6 +56,8 @@ export default {
                         userName:sessionStorage.getItem('username'),
                         password:sessionStorage.getItem('log')
                     }
+                    params.sign = deleteParams(params)
+                    logParams.sign = deleteParams(logParams)
                     stateAdd(params).then(res => {
                         if(res.data.code == 200){
                             this.$message({

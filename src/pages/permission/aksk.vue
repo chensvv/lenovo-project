@@ -298,6 +298,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {akskList,akskDetail,modinfy, userinfoUpdate} from '@/config/adminApi'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data(){
         return{
@@ -475,6 +476,7 @@ export default {
                 userService:setService,
                 lenovoId:this.currentItem.lid
             }
+            updParams.sign = deleteParams(updParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                 this.editBtnLoading = true
@@ -508,6 +510,7 @@ export default {
                 userName:this.infoList.userName,
                 lenovoId:this.infoList.lenovoId
             }
+            detailParams.sign = deleteParams(detailParams)
             modinfy(detailParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
@@ -544,6 +547,7 @@ export default {
                 fieldName: this.column.prop,
                 order:this.column.order == 'ascending' ? '0' : ''
             }
+            params.sign = deleteParams(params)
             akskList(params).then(res=>{
                 this.listLoading = false
                 if(res.data.code == 200){
@@ -568,11 +572,12 @@ export default {
             this.getAkSkDetail()
         },
         getAkSkDetail(){
-            let detailParams = {
+            let detailsParams = {
                 userName:this.user,
                 lenovoId:this.id
             }
-            akskDetail(detailParams).then(res=>{
+            detailsParams.sign = deleteParams(detailsParams)
+            akskDetail(detailsParams).then(res=>{
                 this.infoList = {
                     lenovoId:res.data.lenovoId,
                     userName:res.data.userName,

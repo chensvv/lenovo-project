@@ -129,6 +129,7 @@
 import {checkTime} from '@/utils/timer.js'
 import {kvList,kvAdd,kvUpd, giftDel,kvDel} from '@/config/api'
 import {userMenu} from '@/config/adminApi'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     inject:['reload'],
     data() {
@@ -257,6 +258,7 @@ export default {
                 pwd:this.currentItem.lasfpsd,
                 val:this.currentItem.lasfval
             }
+            updParams.sign = deleteParams(updParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
@@ -292,6 +294,7 @@ export default {
                 key:this.addList.lasfkey,
                 val:this.addList.lasfval
             }
+            addParams.sign = deleteParams(addParams)
             this.$refs[addList].validate((valid) => {
                 if (valid) {
                     this.addBtnLoading = true
@@ -324,6 +327,7 @@ export default {
             let delParams = {
                 key:row.key,
             }
+            delParams.sign = deleteParams(delParams)
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -350,19 +354,21 @@ export default {
             });
         },
         handleDel(index, row) {
-            let delParams = {
+            let delsParams = {
                 sql:row.sta,
                 name:row.key,
             }
             let logParams = {
                 userName:sessionStorage.getItem('username')
             }
+            delsParams.sign = deleteParams(delsParams)
+            logParams.sign = deleteParams(logParams)
             this.$confirm("此操作不会永久删除该数据, 可以随时撤回, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
-                giftDel(delParams).then(res=>{
+                giftDel(delsParams).then(res=>{
                     if(res.data.code == 200){
                         this.$message({
                             message:'删除成功',
@@ -397,14 +403,16 @@ export default {
             });
         },
         handleRecall(index, row) {
-            let delParams = {
+            let delcParams = {
                 sql:row.sta,
                 name:row.key,
             }
-            let logParams = {
+            let logsParams = {
                 userName:sessionStorage.getItem('username')
             }
-            giftDel(delParams).then(res=>{
+            delcParams.sign = deleteParams(delcParams)
+            logsParams.sign = deleteParams(logsParams)
+            giftDel(delcParams).then(res=>{
                 if(res.data.code == 200){
                     this.$message({
                         message:'撤回成功',
@@ -414,7 +422,7 @@ export default {
                     this.getList();
                     sessionStorage.removeItem('menuData');
                     sessionStorage.removeItem('btnpermission')
-                    userMenu(logParams).then((res)=>{
+                    userMenu(logsParams).then((res)=>{
                         if(res.data.code == 200){
                             sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                             let menuData = res.data.data
@@ -465,6 +473,7 @@ export default {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize
             }
+            params.sign = deleteParams(params)
             kvList(params).then(res => {
                 this.listLoading = false
                 if(res.data.code == 200){

@@ -131,6 +131,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {jokeList, jokeAddUpd, jokeDel, jokeVeri, jokeDelBatch, jokeVeriBatch} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data(){
     return{
@@ -229,6 +230,7 @@ export default {
         fieldName: this.column.prop,
         order:this.column.order == 'ascending' ? '0' : ''
       }
+      params.sign = deleteParams(params)
       jokeList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){
@@ -294,15 +296,16 @@ export default {
             duration:1000
         });
       }else{
-        let delParams = {
+        let delsParams = {
           ids:ids
         }
+        delsParams.sign = deleteParams(delsParams)
         this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
         }).then(() => {
-            jokeDelBatch(delParams).then(res=>{
+            jokeDelBatch(delsParams).then(res=>{
               if(res.data.code == 200){
                 this.$message({
                   message:'删除成功',
@@ -336,6 +339,7 @@ export default {
         let veriParams = {
           ids:ids
         }
+        veriParams.sign = deleteParams(veriParams)
         jokeVeriBatch(veriParams).then(res=>{
           if(res.data.code == 200){
               this.$message({
@@ -359,10 +363,11 @@ export default {
     },
     checkState(index,row){
       this.checkLoading = true
-      let veriParams = {
+      let verParams = {
         id:row.id
       }
-      jokeVeri(veriParams).then(res=>{
+      verParams.sign = deleteParams(verParams)
+      jokeVeri(verParams).then(res=>{
         this.checkLoading = false
         if(res.data.code == 200){
             this.$message({
@@ -395,9 +400,9 @@ export default {
     edithandleConfirm(currentItem) {
       let updParams = {
         con:this.currentItem.con,
-        url:this.currentItem.url,
         id:this.currentItem.id
       }
+      updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -430,6 +435,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
@@ -466,6 +472,7 @@ export default {
           con:this.addList.con,
           url:''
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
           if (valid) {
             this.addBtnLoading = true

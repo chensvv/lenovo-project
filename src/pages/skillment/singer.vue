@@ -180,6 +180,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {singerList, singerDel, singerUpd, singerAdd, singerPub} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data() {
         return {
@@ -297,6 +298,7 @@ export default {
             let delParams = {
                 id:row.id
             }
+            delParams.sign = deleteParams(delParams)
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -351,6 +353,7 @@ export default {
                 singerQqIntroduce: this.currentItem.singerQqIntroduce,
                 singerQqPosterUrl:this.currentItem.singerQqPosterUrl
             }
+            updParams.sign = deleteParams(updParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
@@ -393,6 +396,7 @@ export default {
                 singerQqIntroduce:this.addList.singerQqIntroduce,
                 singerQqPosterUrl:this.addList.singerQqPosterUrl,
             }
+            addParams.sign = deleteParams(addParams)
             this.$refs[addList].validate((valid) => {
                 if (valid) {
                     this.addBtnLoading = true
@@ -452,6 +456,7 @@ export default {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize
             }
+            params.sign = deleteParams(params)
             singerList(params).then(res => {
                 this.listLoading = false
                 if(res.data.code == 200){

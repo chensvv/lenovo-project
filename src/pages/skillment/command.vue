@@ -327,6 +327,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {commandList, commandDel, commandEcho, commandAdd, norunList, norunDel, norunAdd,originalList,originalAdd,originalUpd,originalDel} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data() {
         return {
@@ -529,6 +530,7 @@ export default {
             let delParams = {
                 id:row.id
             }
+            delParams.sign = deleteParams(delParams)
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -556,15 +558,16 @@ export default {
             });
         },
         norunHandleDel(index, row) {
-            let delParams = {
+            let delsParams = {
                 id:row.id
             }
+            delsParams.sign = deleteParams(delsParams)
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
             }).then(() => {
-                norunDel(delParams).then(res=>{
+                norunDel(delsParams).then(res=>{
                     if(res.data.code == 200){
                         this.$message({
                             message:'删除成功',
@@ -589,6 +592,7 @@ export default {
             let delParams = {
                 id:row.id
             }
+            delParams.sign = deleteParams(delParams)
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -681,6 +685,7 @@ export default {
                 command:this.currentItem.command,
                 commandInterface:this.currentItem.interface
             }
+            updParams.sign = deleteParams(updParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
@@ -715,6 +720,7 @@ export default {
                 command:this.commandAddList.command,
                 interfaceId:this.commandAddList.interFaceId
             }
+            addParams.sign = deleteParams(addParams)
             this.$refs[commandAddList].validate((valid) => {
                 if (valid) {
                     this.commandAddBtnLoading = true
@@ -748,6 +754,7 @@ export default {
             let addParams={
                 command:this.norunAddList.command
             }
+            addParams.sign = deleteParams(addParams)
             this.$refs[norunAddList].validate((valid) => {
                 if (valid) {
                     this.norunAddBtnLoading = true
@@ -783,6 +790,7 @@ export default {
                 command:this.originaAddList.command,
                 interfaceId:this.originaAddList.interface,
             }
+            addParams.sign = deleteParams(addParams)
             this.$refs[originaAddList].validate((valid) => {
                 if (valid) {
                     this.originaAddBtnLoading = true
@@ -834,6 +842,7 @@ export default {
                 pgstr:this.commandCurrentPage,
                 pcstr:this.commandPageSize
             }
+            params.sign = deleteParams(params)
             commandList(params).then(res => {
                 this.commandListLoading = false
                 if(res.data.code == 200){
@@ -859,6 +868,7 @@ export default {
                 pgstr:this.norunCurrentPage,
                 pcstr:this.norunPageSize
             }
+            params.sign = deleteParams(params)
             norunList(params).then(res => {
                 this.norunListLoading = false
                 if(res.data.code == 200){
@@ -884,6 +894,7 @@ export default {
                 pcstr:this.originaPageSize,
                 command:this.originaSearchItem.command,
             }
+            params.sign = deleteParams(params)
             originalList(params).then(res => {
                 this.originaListLoading = false
                 if(res.data.code == 200){

@@ -46,6 +46,7 @@
 <script>
 import {lenKeyList, usernameList} from '@/config/api'
 import {checkTime} from '@/utils/timer.js'
+import {deleteParams} from '@/utils/deleteParams.js'
 let echarts = require('echarts/lib/echarts')
 export default {
   data() {
@@ -94,11 +95,11 @@ export default {
         this.searchItem.endTime = val[1]
     },
     computedPosition(length,xArraylength) {
-        if(xArraylength>=10){
-            return length <= 10 ? this.end = 50 : this.end = (100 -   Math.floor(50 / length * 100));
-        }else{
-            return 100;//小于十条数据显示全部
-        }
+        if(xArraylength>=10){
+          return length <= 10 ? this.end = 50 : this.end = (100 -   Math.floor(50 / length * 100));
+        }else{
+          return 100;//小于十条数据显示全部
+        }
     },
     getUsernameList(){
       usernameList().then(res=>{
@@ -116,6 +117,7 @@ export default {
           endStr:this.searchItem.endTime,
           userName:this.searchItem.username
         }
+        paramsList.sign = deleteParams(paramsList)
         let myChart = echarts.init(this.$refs.myChart)
         lenKeyList(paramsList).then(res=>{
             this.loading = false

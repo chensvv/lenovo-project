@@ -99,6 +99,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js';
 import {syslogList} from '@/config/api';
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -188,6 +189,7 @@ export default {
         startStr:this.searchItem.refreshTime,
         endStr:this.searchItem.putTime,
       }
+      params.sign = deleteParams(params)
       syslogList(params).then(res=>{
           console.log(res)
         this.listLoading = false

@@ -31,6 +31,7 @@
 <script>
 import {errChart} from '@/config/api'
 import {checkTime} from '@/utils/timer.js'
+import {deleteParams} from '@/utils/deleteParams.js'
 let echarts = require('echarts/lib/echarts')
 export default {
   data() {
@@ -71,7 +72,7 @@ export default {
         let paramsList = {
           startStr:this.searchItem.startTime
         }
-        
+        paramsList.sign = deleteParams(paramsList)
         errChart(paramsList).then(res=>{
             let myChart = echarts.init(this.$refs.myChart)
             this.loading = false

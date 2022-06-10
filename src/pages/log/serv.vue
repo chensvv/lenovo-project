@@ -80,6 +80,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {servList} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -165,6 +166,7 @@ export default {
         endStr:this.searchItem.putTime,
         uid:this.searchItem.uip
       }
+      params.sign = deleteParams(params)
       servList(params).then(res=>{
         this.listLoading = false
         if(res.data.code == 200){

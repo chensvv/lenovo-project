@@ -192,6 +192,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {ttsregularList, selRegular, ttsAddAndUpdate, delRegular, delText} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -336,6 +337,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = delParams
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -389,6 +391,7 @@ export default {
         replaceResult:this.currentItem.replaceResult,
         isFlag:this.currentItem.isFlag
       }
+      updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -426,6 +429,7 @@ export default {
         replaceResult:this.addList.replaceResult,
         isFlag:this.addList.isFlag
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
@@ -463,6 +467,7 @@ export default {
           let delParams = {
             regular:this.redisList.redisVal
           }
+          delParams.sign = deleteParams(delParams)
           this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
@@ -521,6 +526,7 @@ export default {
         fieldName: this.column.prop,
         order:this.column.order == 'ascending' ? '0' : ''
       }
+      params.sign = deleteParams(params)
       ttsregularList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

@@ -107,6 +107,7 @@
 
 <script>
 import {clientTotal,engineOffline,engineOnline} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 let echarts = require('echarts/lib/echarts')
 export default {
   data() {
@@ -211,6 +212,7 @@ export default {
         serverAddr:this.addList.name,
         sce:this.addList.sce
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
@@ -244,6 +246,7 @@ export default {
             serverAddr:row.name,
             sce:row.sce
         }
+        delParams.sign = deleteParams(delParams)
         engineOffline(delParams).then(res=>{
         if(res.data.code == 200){
                 this.$message({

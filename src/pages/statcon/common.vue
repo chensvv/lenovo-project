@@ -39,6 +39,7 @@
 
 <script>
 import {querySql} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -101,6 +102,7 @@ export default {
             page:this.pageSize,
             name:this.getCaption(window.location.href)
         }
+        params.sign = deleteParams(params)
         querySql(params).then(res => {
             this.listLoading = false
             if(res.data.code == 200){

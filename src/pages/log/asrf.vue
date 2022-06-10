@@ -91,12 +91,10 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import {checkTime} from '@/utils/timer.js'
 import {asrfList} from '@/config/api'
-import countTo from 'vue-count-to';
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
-  components: { iTable, countTo },
   data() {
     return {
       pickerOptions: {
@@ -198,6 +196,7 @@ export default {
         fieldName: this.column.prop,
         order:this.column.order == 'ascending' ? '0' : ''
       }
+      params.sign = deleteParams(params)
       asrfList(params).then(res=>{
         this.listLoading = false
         if(res.data.code == 200){

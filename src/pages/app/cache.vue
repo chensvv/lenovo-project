@@ -184,6 +184,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
+import {deleteParams} from '@/utils/deleteParams.js'
 import {cacheList, cacheDel, cacheAdd} from '@/config/api'
 export default {
     data(){
@@ -259,6 +260,7 @@ export default {
                 type:this.searchItem.type,
                 cn:this.searchItem.cn
             }
+            params.sign = deleteParams(params)
             cacheList(params).then(res => {
                 this.listLoading = false
                 if(res.data.code == 200){
@@ -317,7 +319,8 @@ export default {
         },
         handleDel(index, row){
             let delParams = {
-                name:row.name
+                name:row.name,
+                sign:this.$md5(`name=${row.name}`)
             }
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
@@ -358,6 +361,7 @@ export default {
             name:this.addList.name,
             alias:this.addList.alias
         }
+        addParams.sign = deleteParams(addParams)
         this.$refs[addList].validate((valid) => {
             if (valid) {
                 this.addBtnLoading = true

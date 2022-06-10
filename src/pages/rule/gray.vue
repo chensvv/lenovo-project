@@ -114,6 +114,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import { grayAdd, listGrays, updGray, deleteGray} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -231,6 +232,7 @@ export default {
         name:this.addItem.name,
         currentContext:this.addItem.context
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addItem].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
@@ -263,6 +265,7 @@ export default {
       let delParams = {
         grayId:row.grayId
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -294,6 +297,7 @@ export default {
         name:this.currentItem.name,
         currentContext:this.currentItem.context
       }
+      updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -328,6 +332,7 @@ export default {
           pgstr:this.currentPage,
           pcstr:this.pageSize,
       }
+      listParams.sign = deleteParams(listParams)
       listGrays(listParams).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

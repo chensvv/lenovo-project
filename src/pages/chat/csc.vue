@@ -122,6 +122,7 @@
 
 <script>
 import {cscList, cscAdd, cscDel} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -205,6 +206,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -249,6 +251,7 @@ export default {
         exts:this.addList.exts,
         tels:this.addList.tel
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
@@ -286,6 +289,7 @@ export default {
         exts:this.searchItem.exts,
         tel:this.searchItem.tel
       }
+      params.sign = deleteParams(params)
       cscList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

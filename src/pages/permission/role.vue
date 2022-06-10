@@ -122,7 +122,7 @@
 
 <script>
 import {roleList, authList, roleAdd, roleEcho, roleUpd, roleDel, userMenu} from '@/config/adminApi'
-let Base64 = require('js-base64').Base64
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   inject:['reload'],
   data() {
@@ -223,6 +223,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该角色, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -281,6 +282,8 @@ export default {
       let logParams = {
           userName:sessionStorage.getItem('username')
       }
+      updParams.sign = deleteParams(updParams)
+      logParams.sign = deleteParams(logParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -333,6 +336,7 @@ export default {
         roleName:this.addList.roleName,
         ids:this.selectedKeysAdd
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
@@ -374,6 +378,7 @@ export default {
         pcstr:this.pageSize,
         roleName:this.searchItem.roleName
       }
+      params.sign = deleteParams(params)
       roleList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){
@@ -395,6 +400,7 @@ export default {
       let treeParams = {
         id: '0'
       }
+      treeParams.sign = deleteParams(treeParams)
       authList(treeParams).then(res=>{
         this.treeData = res.data
       })

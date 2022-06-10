@@ -136,6 +136,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
+import {deleteParams} from '@/utils/deleteParams.js'
 import {appNameList, appNameAdd, appNameUpd, appNameDel, appNameUpFile, qaFile} from '@/config/api'
 export default {
   data() {
@@ -249,7 +250,8 @@ export default {
     },
     handleDel(index, row) {
       let delParams = {
-        id:row.id
+        id:row.id,
+        sign:this.$md5(`id=${row.id}`)
       }
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -302,6 +304,7 @@ export default {
         id:this.currentItem.id,
         appName:this.currentItem.appName
       }
+      updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -335,7 +338,8 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        appName:this.addList.appName
+        appName:this.addList.appName,
+        sign:this.$md5(`appName=${this.addList.appName}`)
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
@@ -440,8 +444,9 @@ export default {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        appname:this.searchItem.appName,
+        appname:this.searchItem.appName
       }
+      params.sign = deleteParams(params)
       appNameList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

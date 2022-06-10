@@ -85,6 +85,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {forumList, forumDetele, forumDelbatch} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -184,15 +185,16 @@ export default {
             duration:1000
         });
       }else{
-        let delParams = {
+        let delsParams = {
           ids:ids
         }
+        delsParams.sign = deleteParams(delsParams)
         this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
         }).then(() => {
-            forumDelbatch(delParams).then(res=>{
+            forumDelbatch(delsParams).then(res=>{
               if(res.data.code == 200){
                 this.$message({
                   message:'删除成功',
@@ -217,6 +219,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -249,6 +252,7 @@ export default {
         pcstr:this.pageSize,
         title:this.searchItem.title,
       }
+      params.sign = deleteParams(params)
       forumList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

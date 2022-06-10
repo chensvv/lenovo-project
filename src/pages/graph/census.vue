@@ -23,6 +23,7 @@
 
 <script>
 import {censusList, censusUserList} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 import {checkTime} from '@/utils/timer.js'
 let echarts = require('echarts/lib/echarts')
 export default {
@@ -65,6 +66,7 @@ export default {
         let userParams = {
           lenovoid:this.searchItem.lenovoId
         }
+        userParams.sign = deleteParams(userParams)
         // 基于准备好的dom，初始化echarts实例
         let myChart = echarts.init(this.$refs.myChart)
         censusList(userParams).then(res=>{

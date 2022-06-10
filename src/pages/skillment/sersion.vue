@@ -142,6 +142,7 @@
 
 <script>
 import {skillInfo, versionList, versionAdd, versionUpd, versionDel, versionStr} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -256,6 +257,7 @@ export default {
       let delParams = {
         versionId:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -306,6 +308,7 @@ export default {
         versionAnswer:this.currentItem.answer,
         versionIllustration:this.currentItem.version
       }
+      updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -344,6 +347,7 @@ export default {
         versionIllustration:this.addList.version,
         functionId:this.functionId
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
@@ -384,6 +388,7 @@ export default {
           containsModel:this.strList.serCon,
           notModel:this.strList.serNot
         }
+        strParams.sign = deleteParams(strParams)
         this.strBtnLoading = true
         versionStr(strParams).then(res=>{
           this.strBtnLoading = false
@@ -415,16 +420,28 @@ export default {
         pgstr:this.currentPage,
         pcstr:this.pageSize
       }
+      params.sign = deleteParams(params)
       versionList(params).then(res => {
-        this.listLoading = false
-        this.skillDetail.functionName = res.data.lasfControlFunction.functionName
-        this.list = res.data.lasfControlVersionPage.data;
-        this.totalCount = res.data.lasfControlVersionPage.total
-        this.totalClass = res.data.lasfControlVersionPage.data.length
+        if(res.data.code == 200){
+          this.listLoading = false
+          this.skillDetail.functionName = res.data.lasfControlFunction.functionName
+          this.list = res.data.lasfControlVersionPage.data;
+          this.totalCount = res.data.lasfControlVersionPage.total
+          this.totalClass = res.data.lasfControlVersionPage.data.length
+        }else{
+          this.$message({
+              message:res.data.errorMessage,
+              type:'error',
+              duration:1000
+          });
+        }
+      }).catch(()=>{
+          this.listLoading = false
       });
       let lastParams = {
           id:this.appId
       }
+      lastParams.sign = deleteParams(lastParams)
       skillInfo(lastParams).then(res => {
           this.skillDetail.appName = res.data.data.appName
       });

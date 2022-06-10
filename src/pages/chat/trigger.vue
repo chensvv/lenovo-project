@@ -246,6 +246,7 @@ import {checkTime} from '@/utils/timer.js'
 import {triggerList, triggerZip, zipList, zipDownload, topKeyWord, pcmDownload} from '@/config/api'
 import {readablizeBytes} from '@/utils/bytes.js' 
 import downUrl from '@/config/http'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -380,6 +381,7 @@ export default {
         keywordPhrase:this.searchItem.keywordPhrase,
         origin:this.searchItem.origin
       }
+      zipParams.sign = deleteParams(zipParams)
       this.zipBtnLoading = true
       triggerZip(zipParams).then(res=>{
             this.zipBtnLoading = false
@@ -505,6 +507,7 @@ export default {
         fieldName: this.column.prop,
         order:this.column.order == 'ascending' ? '0' : ''
       }
+      params.sign = deleteParams(params)
       triggerList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

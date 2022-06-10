@@ -79,7 +79,7 @@
 
 <script>
 import { ruleList, userMenu, authAdd, authDel, authUpdate} from '@/config/adminApi'
-let Base64 = require('js-base64').Base64
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     inject:['reload'],
     data() {
@@ -189,6 +189,8 @@ export default {
             let logParams = {
                 userName:sessionStorage.getItem('username')
             }
+            addParams.sign = deleteParams(addParams)
+            logParams.sign = deleteParams(logParams)
             this.$refs[addList].validate((valid) => {
                 if (valid) {
                     this.addBtnLoading = true
@@ -277,6 +279,8 @@ export default {
             let logParams = {
                 userName:sessionStorage.getItem('username')
             }
+            updParams.sign = deleteParams(updParams)
+            logParams.sign = deleteParams(logParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
@@ -351,6 +355,8 @@ export default {
             let logParams = {
                 userName:sessionStorage.getItem('username')
             }
+            delParams.sign = deleteParams(delParams)
+            logParams.sign = deleteParams(logParams)
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -397,6 +403,7 @@ export default {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
             }
+            params.sign = deleteParams(params)
             ruleList(params).then(res => {
                 this.listLoading = false
                 this.list = res.data.data

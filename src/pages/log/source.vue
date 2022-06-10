@@ -142,6 +142,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {sourceList, sourceExport,sourceUserNameList} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -246,6 +247,7 @@ export default {
                 endStr:this.searchItem.putTime,
                 channel:this.searchItem.channel
             }
+            exprotParams.sign = deleteParams(exprotParams)
             sourceExport(exprotParams).then(res=>{
               if(res.data.size == 0){
                 this.$message({
@@ -289,6 +291,7 @@ export default {
         channel:this.searchItem.channel,
         userName:this.searchItem.username
       }
+      params.sign = deleteParams(params)
       sourceList(params).then(res=>{
         this.listLoading = false
         if(res.data.code == 200){

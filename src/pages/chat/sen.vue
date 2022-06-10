@@ -135,7 +135,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {senList, senAddUpd, senDel, senPub, senExcel, downExcel} from '@/config/api'
-import downUrl from '@/config/http'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -244,6 +244,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -295,6 +296,7 @@ export default {
         id:this.currentItem.id,
         word:this.currentItem.word
       }
+      updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -330,6 +332,7 @@ export default {
       let addParams = {
         word:this.addList.word
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
@@ -452,10 +455,11 @@ export default {
     getList() {
       this.listLoading = true
       let params = {
-        pgstr:this.currentPage,
         pcstr:this.pageSize,
+        pgstr:this.currentPage,
         q:this.searchItem.word
       }
+      params.sign = deleteParams(params)
       senList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

@@ -79,21 +79,22 @@
 
 <script>
 import {regList} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data(){
         return{
-        searchItem:{
-            reg:""
-        },
-        list:[],
-        // 分页
-        currentPage: 1, //默认显示第几页
-        pageSize: 10,   //默认每页条数
-        totalCount:1,     // 总条数
-        showTitle:true,
-        btnLoading:false,
-        listLoading:true,
-        totalClass:''
+            searchItem:{
+                reg:""
+            },
+            list:[],
+            // 分页
+            currentPage: 1, //默认显示第几页
+            pageSize: 10,   //默认每页条数
+            totalCount:1,     // 总条数
+            showTitle:true,
+            btnLoading:false,
+            listLoading:true,
+            totalClass:''
         }
     },
     created(){
@@ -118,6 +119,7 @@ export default {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize
             }
+            params.sign = deleteParams(params)
             regList(params).then(res => {
                 this.listLoading = false
                 if(res.data.code == 200){

@@ -73,6 +73,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {rvdList} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 import countTo from 'vue-count-to';
 import downUrl from '@/config/http'
 export default {
@@ -194,6 +195,7 @@ export default {
         app:this.searchItem.app,
         desc:this.searchItem.desc
       }
+      params.sign = deleteParams(params)
       rvdList(params).then(res=>{
         this.listLoading = false
         if(res.data.code == 200){

@@ -1200,3 +1200,9 @@
   visibility: hidden;
   display: inline-block;
 }
+.inpntNumber .el-input-number{
+  width: 100%;
+}
+.inpntNumber .el-input-number .el-input__inner{
+  text-align: left;
+}

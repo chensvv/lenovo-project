@@ -160,6 +160,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {greyList, greyAddUpd, greyDel, greyOpt, greyOptSave} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -277,6 +278,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -329,6 +331,7 @@ export default {
         n:this.currentItem.name,
         c:this.currentItem.code
       }
+      updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -365,6 +368,7 @@ export default {
         n:this.addList.name,
         c:this.addList.code
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
@@ -407,6 +411,7 @@ export default {
     let optId = {
       id:row.id
     }
+    optId.sign = deleteParams(optId)
     greyOpt(optId).then(res=>{
       this.optList.name = res.data.devName
       this.optList.code = res.data.devCode
@@ -428,6 +433,7 @@ export default {
         id:this.selectId,
         chk:this.multipleSelection
       }
+      optParams.sign = deleteParams(optParams)
       this.optBtnLoading = true
       greyOptSave(optParams).then(res=>{
             this.optBtnLoading = false
@@ -456,8 +462,9 @@ export default {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
         n:this.searchItem.name,
-        c:this.searchItem.code,
+        c:this.searchItem.inc,
       }
+      params.sign = deleteParams(params)
       greyList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

@@ -159,6 +159,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {askList, askDel, askUpd, askAdd, askPub} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
     return {
@@ -287,6 +288,7 @@ export default {
       let delParams = {
         id:row.id
       }
+      delParams.sign = deleteParams(delParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -337,9 +339,9 @@ export default {
       let updParams = {
         id:this.currentItem.id,
         speak:this.currentItem.speak,
-        answer:this.currentItem.answer,
-        excel:this.currentItem.excel
+        answer:this.currentItem.answer
       }
+      updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -374,9 +376,9 @@ export default {
     addHandleConfirm(addList) {
       let addParams = {
         speak:this.addList.speak,
-        answer:this.addList.answer,
-        excel:this.addList.excel
+        answer:this.addList.answer
       }
+      addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
@@ -433,6 +435,7 @@ export default {
         pcstr:this.pageSize,
         ask:this.searchItem.speak,
       }
+      params.sign = deleteParams(params)
       askList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

@@ -232,6 +232,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {outerList, outerInfo} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data() {
         return {
@@ -319,6 +320,7 @@ export default {
             let infoParams = {
                 id:row.id
             }
+            infoParams.sign = deleteParams(infoParams)
             outerInfo(infoParams).then(res=>{
                 this.infoList = res.data
                 // console.log(this.infoList)
@@ -352,6 +354,7 @@ export default {
                 fieldName: this.column.prop,
                 order:this.column.order == 'ascending' ? '0' : ''
             }
+            params.sign = deleteParams(params)
             outerList(params).then(res => {
                 this.listLoading = false
                 if(res.data.code == 200){

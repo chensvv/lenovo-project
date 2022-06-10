@@ -11,6 +11,10 @@ import 'babel-polyfill'
 import 'default-passive-events'
 Vue.config.productionTip = false
 
+// md5
+import md5 from 'js-md5'
+Vue.prototype.$md5 = md5
+
 // 使用element-ui
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'

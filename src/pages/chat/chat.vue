@@ -116,6 +116,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
+import {deleteParams} from '@/utils/deleteParams.js'
 import {chatList, chatExport} from '@/config/api'
 export default {
   data() {
@@ -203,6 +204,7 @@ export default {
         endtime:this.searchItem.putTime,
         question:this.searchItem.question
       }
+      exprotParams.sign = deleteParams(exprotParams)
       this.fileBtnLoading = true
       chatExport(exprotParams).then(res=>{
         // let bom = '\uFEFF'
@@ -241,6 +243,7 @@ export default {
         fieldName: this.column.prop,
         order:this.column.order == 'ascending' ? '0' : ''
       }
+      params.sign = deleteParams(params)
       chatList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){

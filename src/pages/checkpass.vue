@@ -27,6 +27,7 @@
 <script>
 import {logImgCode, userCheckPass, userInfoOne, logout} from '@/config/adminApi'
 let Base64 = require('js-base64').Base64
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data(){
         let ValidatePass = (rule, value, callback) => {
@@ -78,6 +79,7 @@ export default {
                         oldpassword:this.checkForm.oldpass,
                         newpassword:this.checkForm.newpass
                     }
+                    params.sign = deleteParams(params)
                     userCheckPass(params).then(res=>{
                         this.regLoading = false
                         if(res.data.code == 200){
@@ -108,10 +110,11 @@ export default {
             })
         },
         getQueryOne(){
-            let params = {
+            let uparams = {
                 userName:Base64.decode(sessionStorage.getItem('username'))
             }
-            userInfoOne(params).then(res=>{
+            uparams.sign = deleteParams(uparams)
+            userInfoOne(uparams).then(res=>{
                 this.userinfo = res.data.data.user
             })
         },

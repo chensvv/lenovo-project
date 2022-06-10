@@ -319,12 +319,10 @@
 </template>
 
 <script>
-import iTable from "@/components/table";
 import { checkTime } from "@/utils/timer.js";
 import { clientList } from "@/config/api.js";
-import countTo from 'vue-count-to';
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
-  components: { iTable,countTo },
   data() {
     return {
       pickerOptions: {
@@ -447,6 +445,8 @@ export default {
         pgstr: this.ScurrentPage,
         pcstr: this.SpageSize
       };
+      Cparams.sign = deleteParams(Cparams)
+      Sparams.sign = deleteParams(Sparams)
       clientList(Cparams).then(res => {
         this.ClistLoading = false
         if(res.data.code == 200){

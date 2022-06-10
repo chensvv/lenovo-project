@@ -250,6 +250,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {logList, logDown, logInfo} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 import downUrl from '@/config/http'
 export default {
     data(){
@@ -377,6 +378,7 @@ export default {
                 fieldName: this.column.prop,
                 order:this.column.order == 'ascending' ? '0' : ''
             }
+            params.sign = deleteParams(params)
             logList(params).then(res=>{
                 this.listLoading = false
                 if(res.data.code == 200){
@@ -399,6 +401,7 @@ export default {
             let iParams={
                 id:row.id
             }
+            iParams.sign = deleteParams(iParams)
             logInfo(iParams).then(res=>{
                 this.infoList = {
                     id:res.data.data.id,

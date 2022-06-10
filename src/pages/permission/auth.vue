@@ -134,7 +134,7 @@
 
 <script>
 import {userList, userDel, userUpd, userAdd, userEcho, userRole, userRoleEcho, userRoleSave, userMenu} from '@/config/adminApi'
-let Base64 = require('js-base64').Base64
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     inject:['reload'],
     data() {
@@ -227,6 +227,7 @@ export default {
             let delParams = {
                 id:row.id
             }
+            delParams.sign = deleteParams(delParams)
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -282,6 +283,7 @@ export default {
                 userName:this.currentItem.userName,
                 password:this.currentItem.password,
             }
+            updParams.sign = deleteParams(updParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
@@ -320,6 +322,7 @@ export default {
                 userName:this.addList.userName,
                 password:this.addList.password,
             }
+            addParams.sign = deleteParams(addParams)
             this.$refs[addList].validate((valid) => {
                 if (valid) {
                     this.addBtnLoading = true
@@ -355,6 +358,7 @@ export default {
              let roleParams = {
                 id:this.seleId
             }
+            roleParams.sign = deleteParams(roleParams)
             userRoleEcho(roleParams).then(res=>{
                 this.roleIds = res.data.ids
             })
@@ -384,6 +388,8 @@ export default {
             let logParams = {
                 userName:sessionStorage.getItem('username')
             }
+            Saveparams.sign = deleteParams(Saveparams)
+            logParams.sign = deleteParams(logParams)
             this.roleBtnLoading = true
             userRoleSave(Saveparams).then(res=>{
                 this.roleBtnLoading = false
@@ -432,6 +438,7 @@ export default {
                 userName:this.searchItem.userName,
                 roleName:window.sessionStorage.getItem('username')
             }
+            params.sign = deleteParams(params)
             userList(params).then(res => {
                 this.listLoading = false
                 if(res.data.code == 200){

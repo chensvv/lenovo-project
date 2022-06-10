@@ -145,8 +145,8 @@
                 <el-form-item label="节目类型" prop="programDisplayType">
                     <el-input type="text" v-model.trim="currentItem.programDisplayType" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="上映类型" prop="programRelaseType">
-                    <el-input type="text" v-model.trim="currentItem.programRelaseType" auto-complete="off"></el-input>
+                <el-form-item label="上映类型" prop="programReleaseType">
+                    <el-input type="text" v-model.trim="currentItem.programReleaseType" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="内容类型" prop="programContentType">
                     <el-input type="text" v-model.trim="currentItem.programContentType" auto-complete="off"></el-input>
@@ -169,8 +169,8 @@
                 <el-form-item label="简介" prop="programIntroduce">
                     <el-input type="textarea" v-model.trim="currentItem.programIntroduce" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="网站评分" prop="programScore">
-                    <el-input type="text" v-model.trim="currentItem.programScore" auto-complete="off"></el-input>
+                <el-form-item label="网站评分" prop="programScore" class="inpntNumber">
+                    <el-input-number v-model.trim="currentItem.programScore" auto-complete="off" :precision="1" :controls="false"></el-input-number>
                 </el-form-item>
                 <el-form-item label="集数" prop="programChildNumber">
                     <el-input type="text" v-model.trim="currentItem.programChildNumber" auto-complete="off"></el-input>
@@ -206,8 +206,8 @@
                 <el-form-item label="节目类型" prop="programDisplayType">
                     <el-input type="text" v-model.trim="addList.programDisplayType" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="上映类型" prop="programRelaseType">
-                    <el-input type="text" v-model.trim="addList.programRelaseType" auto-complete="off"></el-input>
+                <el-form-item label="上映类型" prop="programReleaseType">
+                    <el-input type="text" v-model.trim="addList.programReleaseType" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="内容类型" prop="programContentType">
                     <el-input type="text" v-model.trim="addList.programContentType" auto-complete="off"></el-input>
@@ -230,8 +230,8 @@
                 <el-form-item label="简介" prop="programIntroduce">
                     <el-input type="textarea" v-model.trim="addList.programIntroduce" auto-complete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="网站评分" prop="programScore">
-                    <el-input type="text" v-model.trim="addList.programScore" auto-complete="off"></el-input>
+                <el-form-item label="网站评分" prop="programScore" class="inpntNumber">
+                    <el-input-number v-model.trim="addList.programScore" auto-complete="off" :precision="1" :controls="false"></el-input-number>
                 </el-form-item>
                 <el-form-item label="集数" prop="programChildNumber">
                     <el-input type="text" v-model.trim="addList.programChildNumber" auto-complete="off"></el-input>
@@ -262,6 +262,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {videoList, videoDel, videoUpd, videoAdd, videoSelect, videoDelBatch} from '@/config/api'
+import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data() {
         return {
@@ -274,7 +275,7 @@ export default {
                 programName: "",
                 programAliasName: "",
                 programDisplayType: "",
-                programRelaseType:"",
+                programReleaseType:"",
                 programContentType:"",
                 programReleaseAge:"",
                 programContentLanguage:"",
@@ -294,7 +295,7 @@ export default {
                 programName: "",
                 programAliasName: "",
                 programDisplayType: "",
-                programRelaseType:"",
+                programReleaseType:"",
                 programContentType:"",
                 programReleaseAge:"",
                 programContentLanguage:"",
@@ -316,7 +317,7 @@ export default {
                 programName: [{ required: true, message: '请输入电影名称', trigger: 'change' }],
                 programAliasName: [{ required: true, message: '请输入电影别名（如无别名，请输入电影名称）', trigger: 'change' }],
                 programDisplayType: [{ required: true, message: '请输入节目类型', trigger: 'change' }],
-                programRelaseType:[{ required: true, message: '请输入上映类型', trigger: 'change' }],
+                programReleaseType:[{ required: true, message: '请输入上映类型', trigger: 'change' }],
                 programContentType:[{ required: true, message: '请输入内容类型', trigger: 'change' }],
                 programReleaseAge:[{ required: true, message: '请输入上映年代', trigger: 'change' }],
                 programContentLanguage:[{ required: true, message: '请输入语言', trigger: 'change' }],
@@ -324,7 +325,7 @@ export default {
                 programMainStar:[{ required: true, message: '请输入主演', trigger: 'change' }],
                 programActors:[{ required: true, message: '请输入演员', trigger: 'change' }],
                 programIntroduce:[{ required: true, message: '请输入简介', trigger: 'change' }],
-                programScore:[{ required: true, message: '请输入电影评分', trigger: 'change' }],
+                programScore:[{ required: true,message: '请输入电影评分', trigger: 'change' }],
                 programChildNumber:[{ required: true, message: '请输入电影集数', trigger: 'change' }],
                 programUrl:[{ required: true, message: '请输入链接', trigger: 'change' }],
                 programLevel:[{ required: true, message: '请输入级别', trigger: 'change' }],
@@ -335,7 +336,7 @@ export default {
                 programName: [{ required: true, message: '请输入电影名称', trigger: 'change' }],
                 programAliasName: [{ required: true, message: '请输入电影别名（如无别名，请输入电影名称）', trigger: 'change' }],
                 programDisplayType: [{ required: true, message: '请输入节目类型', trigger: 'change' }],
-                programRelaseType:[{ required: true, message: '请输入上映类型', trigger: 'change' }],
+                programReleaseType:[{ required: true, message: '请输入上映类型', trigger: 'change' }],
                 programContentType:[{ required: true, message: '请输入内容类型', trigger: 'change' }],
                 programReleaseAge:[{ required: true, message: '请输入上映年代', trigger: 'change' }],
                 programContentLanguage:[{ required: true, message: '请输入语言', trigger: 'change' }],
@@ -426,7 +427,7 @@ export default {
                 programName: row.programName,
                 programAliasName: row.programAliasName,
                 programDisplayType: row.programDisplayType,
-                programRelaseType:row.programReleaseType,
+                programReleaseType:row.programReleaseType,
                 programContentType:row.programContentType,
                 programReleaseAge:row.programReleaseAge,
                 programContentLanguage:row.programContentLanguage,
@@ -446,6 +447,7 @@ export default {
             let delParams = {
                 id:row.id
             }
+            delParams.sign = deleteParams(delParams)
             this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
@@ -481,15 +483,16 @@ export default {
                     duration:1000
                 });
             }else{
-                let delParams = {
+                let delsParams = {
                     ids:ids
                 }
+                delsParams.sign = deleteParams(delsParams)
                 this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
                     confirmButtonText: "确定",
                     cancelButtonText: "取消",
                     type: "warning"
                 }).then(() => {
-                    videoDelBatch(delParams).then(res=>{
+                    videoDelBatch(delsParams).then(res=>{
                         if(res.data.code == 200){
                             this.$message({
                                 message:'删除成功',
@@ -535,15 +538,16 @@ export default {
             let updParams = {
                 programName:this.currentItem.programName,
                 programAliasName:this.currentItem.programAliasName,
-                programType:this.currentItem.programType,
-                programRelaseType:this.currentItem.programRelaseType,
-                programContenType:this.currentItem.programContenType,
+                programDisplayType: this.currentItem.programDisplayType,
+                programReleaseType:this.currentItem.programReleaseType,
+                programContentType:this.currentItem.programContentType,
                 programReleaseAge:this.currentItem.programReleaseAge,
                 programContentLanguage:this.currentItem.programContentLanguage,
                 programDirector:this.currentItem.programDirector,
-                programNameMainStar:this.currentItem.programNameMainStar,
+                programMainStar:this.currentItem.programMainStar,
                 programActors:this.currentItem.programActors,
-                programScore:this.currentItem.programScore,
+                programScore:Number(this.currentItem.programScore).toFixed(1),
+                programIntroduce:this.currentItem.programIntroduce,
                 programChildNumber:this.currentItem.programChildNumber,
                 programUrl:this.currentItem.programUrl,
                 programLevel:this.currentItem.programLevel,
@@ -551,6 +555,7 @@ export default {
                 programPoster:this.currentItem.programPoster,
                 id:this.currentItem.id
             }
+            updParams.sign = deleteParams(updParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
@@ -587,11 +592,12 @@ export default {
             })
         },
         addHandleConfirm(addList) {
+            console.log(addList)
             let addParams={
                 programName: this.addList.programName,
                 programAliasName: this.addList.programAliasName,
                 programDisplayType: this.addList.programDisplayType,
-                programRelaseType:this.addList.programRelaseType,
+                programReleaseType:this.addList.programReleaseType,
                 programContentType:this.addList.programContentType,
                 programReleaseAge:this.addList.programReleaseAge,
                 programContentLanguage:this.addList.programContentLanguage,
@@ -599,13 +605,14 @@ export default {
                 programMainStar:this.addList.programMainStar,
                 programActors:this.addList.programActors,
                 programIntroduce:this.addList.programIntroduce,
-                programScore:this.addList.programScore,
+                programScore:Number(this.addList.programScore).toFixed(1),
                 programChildNumber:this.addList.programChildNumber,
                 programUrl:this.addList.programUrl,
                 programLevel:this.addList.programLevel,
                 programSource:this.addList.programSource,
                 programPoster:this.addList.programPoster
             }
+            addParams.sign = deleteParams(addParams)
             this.$refs[addList].validate((valid) => {
                 if (valid) {
                     this.addBtnLoading = true
@@ -652,6 +659,7 @@ export default {
                 fieldName: this.column.prop,
                 order:this.column.order == 'ascending' ? '0' : ''
             }
+            params.sign = deleteParams(params)
             videoList(params).then(res => {
                 this.listLoading = false
                 if(res.data.code == 200){
