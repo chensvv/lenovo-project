@@ -15,7 +15,7 @@ export function deleteParams(json_data){
       Object.keys(new_json).sort().map(item=>{
         newParams[item] = new_json[item]
       })
-      // console.log(Object.entries(newParams).map(([ key, val ]) => `${key}=${JSON.stringify(val)}`).join('&').replace(/\"/g, ""))
+      // console.log(Object.entries(newParams).map(([ key, val ]) => `${key}=${JSON.stringify(val)}`).join('&').replace(/\"/g, "").replace(/\\/g, ""))
       let md5Json = md5(Object.entries(newParams).map(([ key, val ]) => `${key}=${JSON.stringify(val)}`).join('&').replace(/\"/g, ""))
       return md5Json
     }

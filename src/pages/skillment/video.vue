@@ -17,6 +17,7 @@
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
                 <el-button size="mini" @click="handleAdd()" v-has="'skill:videoadd'">添加</el-button>
+                <el-button size="mini" icon="el-icon-upload" @click="importExcel()">导入数据</el-button>
                 <el-button size="mini" @click="handleBatchDel()" v-has="'skill:videodelete'">批量删除</el-button>
             </div>
             
@@ -256,12 +257,41 @@
                 <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
+        <el-dialog title="上传文件" :visible.sync="uploadVisible" width="40%" top="10vh" class="eldialog" :before-close="closeFile">
+          <el-form class="eldialogForm">
+            <el-form-item label >
+               <el-upload
+                    class="upload-demo"
+                    drag
+                    ref="upload"
+                    :auto-upload="false"
+                    accept=".xlsx,.xls"
+                    action
+                    :before-upload="beforeUpload"
+                    :on-change="fileChange"
+                    :filelist="fileList"
+                    multiple
+                >
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">
+                  将文件拖到此处，或
+                  <em>点击上传</em>
+                </div>
+                <div class="el-upload__tip" slot="tip">只能上传Excel文件</div>
+              </el-upload>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="closeFile()">取 消</el-button>
+            <el-button type="primary" @click="postFile()" :loading="fileBtnLoading">确 定</el-button>
+          </div>
+        </el-dialog>
     </div>
 </template>
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {videoList, videoDel, videoUpd, videoAdd, videoSelect, videoDelBatch} from '@/config/api'
+import {videoList, videoDel, videoUpd, videoAdd, videoSelect, videoDelBatch, videoUpFile} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data() {
@@ -270,6 +300,7 @@ export default {
             perList:[],
             sels:[],
             totalClass:'',
+            fileList:[],
             currentItem: {//编辑数据组
                 id:"",
                 programName: "",
@@ -366,6 +397,8 @@ export default {
             addBtnLoading:false,
             editBtnLoading:false,
             listLoading:true,
+            uploadVisible:false,
+            fileBtnLoading: false,
             isshow:true
         };
     },
@@ -416,6 +449,65 @@ export default {
         },
         handleSelectionChange(val){
             this.sels = val
+        },
+        importExcel(){
+            this.uploadVisible = true
+        },
+        closeFile(){
+            this.uploadVisible = false
+        },
+        fileChange(file,fileList) {
+            this.fileList = fileList;
+        },
+        beforeUpload(file) {
+            const extension = file.name.split('.')[1] === 'xls'
+            const extension2 = file.name.split('.')[1] === 'xlsx'
+            if (!extension && !extension2) {
+                this.$message.warning('上传文件必须是Excel格式!')
+                return false
+            }else{
+                return extension || extension2;
+            }
+            
+        },
+        postFile(){
+            if(this.$refs.upload.$children[0].fileList.length < 1){
+                this.$message.warning('请选择要上传的文件！')
+                return false
+            }else{
+               var fileData = new FormData();
+                this.fileList.forEach(function(item,index){
+                    fileData.append("file", item.raw);
+                });
+                this.fileBtnLoading = true;
+                videoUpFile(fileData).then(res=>{
+                    this.fileBtnLoading = false
+                    if(res.data.code == 200){
+                        this.$message({
+                            message:res.data.msg,
+                            type:"success",
+                        });
+                        this.$refs.upload.clearFiles()
+                        this.uploadVisible = false
+                        this.getList()
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1000
+                        });
+                    }
+                }).catch(err=>{
+                    this.$message.error('请稍后重试！')
+                    this.fileBtnLoading = false;
+                })
+            }
+            
+        },
+        closeFile() {
+            this.files = []
+            this.$refs.upload.clearFiles()
+            this.uploadVisible = false;
         },
         handleEdit(index, row) {
             this.editVisible = true;

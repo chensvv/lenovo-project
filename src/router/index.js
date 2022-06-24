@@ -319,6 +319,11 @@ const router = new Router({
           meta: {title: '服务端日志',needLogin:true}
         },
         {
+          path: '/paydaily/list',
+          component: () => import('@/pages/log/pay'),
+          meta: {title: '支付记录',needLogin:true}
+        },
+        {
           path: '/source/list',
           component: () => import('@/pages/log/source'),
           meta: {title: 'NLP日志分析',needLogin:true}
@@ -343,16 +348,16 @@ const router = new Router({
           component: () => import('@/pages/log/syslog'),
           meta: {title: '管理系统操作日志',needLogin:true}
         },
-        {
-          path: '/avater/uv',
-          component: () => import('@/pages/avater/uvStat'),
-          meta: {title: '用户统计',needLogin:true}
-        },
-        {
-          path: '/avater/list',
-          component: () => import('@/pages/avater/pvStat'),
-          meta: {title: '事件统计',needLogin:true}
-        },
+        // {
+        //   path: '/avater/uv',
+        //   component: () => import('@/pages/avater/uvStat'),
+        //   meta: {title: '用户统计',needLogin:true}
+        // },
+        // {
+        //   path: '/avater/list',
+        //   component: () => import('@/pages/avater/pvStat'),
+        //   meta: {title: '事件统计',needLogin:true}
+        // },
         {
           path: '/lenovokey/list',
           component: () => import('@/pages/avater/brain'),

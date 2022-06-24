@@ -221,7 +221,7 @@ export default {
         this.fileBtnLoading = false
       }).catch(err => {
           this.fileBtnLoading = false
-        })
+      })
     },
     sortChange(column){
       this.column = {

@@ -2804,3 +2804,75 @@ export function syslogList (data) {
     }
   })
 }
+
+export function videoUpFile (data) {
+  return fetch.UPFile({
+    url: '/lasf-mgr/skill/videoexcel',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function albumUpFile (data) {
+  return fetch.UPFile({
+    url: '/lasf-mgr/skill/music/albumexcel',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function singerUpFile (data) {
+  return fetch.UPFile({
+    url: '/lasf-mgr/skill/music/singerexcel',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function songUpFile (data) {
+  return fetch.UPFile({
+    url: '/lasf-mgr/skill/music/songexcel',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function payList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/paydaily/list ',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function payExport (data) {
+  return fetch.ExcelDownload({
+    url: '/lasf-mgr/paydaily/export',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
