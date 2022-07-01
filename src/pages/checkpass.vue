@@ -55,7 +55,7 @@ export default {
             userinfo:[],
             regLoading:false,
             regRules:{
-                oldpass:[{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                oldpass:[{ required: true, message: '请输入原密码', trigger: 'blur' }],
                 newpass:[{ required: true, validator: ValidatePass, trigger: 'blur' },
                     { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/, message: '密码限制8-16字符且必须包含大小写英文及数字',trigger: 'blur' }],
                 checkPass: [
