@@ -130,7 +130,7 @@ export default {
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
-                                duration:1000
+                                duration:2000
                             });
                             this.loginLoading = false
                         }
@@ -158,7 +158,7 @@ export default {
                             this.$message({
                                 message:'注册成功，请登录',
                                 type:"success",
-                                duration:1000
+                                duration:2000
                             });
                             this.loginShow = !this.loginShow
                         }else{
@@ -166,7 +166,7 @@ export default {
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
-                                duration:1000
+                                duration:2000
                             });
                         }
                         
@@ -175,7 +175,7 @@ export default {
                         this.$message({
                             message:'服务器错误，请稍后重试！',
                             type:"error",
-                            duration:1000
+                            duration:2000
                         });
                     })
                 }else{

@@ -54,6 +54,7 @@
 
 .el-aside {
   -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* 修改按钮样式 */

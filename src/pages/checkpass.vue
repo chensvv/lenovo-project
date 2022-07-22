@@ -97,7 +97,7 @@ export default {
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
-                                duration:1500
+                                duration:2000
                             });
                         }
                     })

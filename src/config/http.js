@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from '../router'
 import {
   // Loading,
-  Message} from 'element-ui'
+  Message,MessageBox} from 'element-ui'
   // let proURL = 'http://m.voice.lenovomm.com'
 // eslint-disable-next-line no-unused-vars
 let service = {}
@@ -54,13 +54,15 @@ service_head.interceptors.response.use(response => {
       break
     case 888:
       Message.closeAll()
-      Message({
-        message: '登录超时，请重新登录',
-        type: 'error',
-        duration: 1500
-      })
-      sessionStorage.clear()
-      router.replace('/login')
+      MessageBox.alert('登录超时，请重新登录', '', {
+        confirmButtonText: '确定',
+        showClose:false,
+        center: true,
+        callback: action => {
+          sessionStorage.clear()
+          router.replace('/login')
+        }
+      });
       break
     default:
       return response
@@ -74,14 +76,22 @@ service_head.interceptors.response.use(response => {
       // console.log(error.response.url.indexOf('logout'))
       if(error.response.config.url.indexOf('logout') == -1){
         Message.closeAll()
-        Message({
-          message: '登录超时，请重新登录',
-          type: 'error',
-          duration: 1500
-        })
+        // Message({
+        //   message: '登录超时，请重新登录',
+        //   type: 'error',
+        //   duration: 1500
+        // })
+        MessageBox.alert('登录超时，请重新登录', '', {
+          confirmButtonText: '确定',
+          showClose:false,
+          center: true,
+          callback: action => {
+            sessionStorage.clear()
+            router.replace('/login')
+          }
+        });
       }
-      sessionStorage.clear()
-      router.replace('/login')
+      
       break
     case 500:
       Message.closeAll()
