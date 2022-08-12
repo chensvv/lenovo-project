@@ -429,6 +429,11 @@ const router = new Router({
           meta: {title: '语音字节数统计',needLogin:true}
         },
         {
+          path: '/iot/list',
+          component: () => import('@/pages/iot/list'),
+          meta: {title: '数据管理',needLogin:true}
+        },
+        {
           path: '/user/checkpass',
           component: () => import('@/pages/checkpass'),
           meta: {title: '修改密码',needLogin:true}

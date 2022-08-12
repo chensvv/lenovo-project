@@ -2876,3 +2876,39 @@ export function payExport (data) {
     }
   })
 }
+
+export function iotList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/iot/list ',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function iotDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/iot/delete ',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function iotPull (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/iot/pull ',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
