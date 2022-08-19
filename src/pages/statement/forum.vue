@@ -27,7 +27,9 @@
           :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading"
-          @selection-change="handleSelectionChange">
+          @selection-change="handleSelectionChange"
+          element-loading-text="拼命加载中"
+          element-loading-spinner="el-icon-loading">
           <el-table-column
               type="selection"
               width="55">
@@ -92,7 +94,7 @@ export default {
       list: [],
       perList:[],
       sels:[],
-      totalClass:'',
+      totalClass:'8',
       currentItem: {//编辑数据组
         id:"",
         speak: "",

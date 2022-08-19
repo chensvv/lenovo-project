@@ -16,7 +16,9 @@
                 stripe
                 v-laoding="listLoading"
                 row-key="id"
-                :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
+                :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+                element-loading-text="拼命加载中"
+                element-loading-spinner="el-icon-loading">
                 <el-table-column
                     prop="ruleName"
                     label="二级菜单权限">

@@ -38,7 +38,15 @@
       </div>
     </el-form>
     <div class="table-box">
-      <el-table :data="list" stripe :class="this.totalClass <= '7' ? 'limitWidth' :''" style="width: 100%" v-loading="listLoading" @sort-change="sortChange">
+      <el-table 
+        :data="list" 
+        stripe 
+        :class="this.totalClass <= '7' ? 'limitWidth' :''"
+        style="width: 100%" 
+        v-loading="listLoading" 
+        @sort-change="sortChange"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading">
         <el-table-column type="index" align="center" label="#"></el-table-column>
         <el-table-column label="客户端设备ID" prop="did" align="center">
           <template slot-scope="scope">
@@ -140,7 +148,7 @@ export default {
           },
       },
       list: [],
-      totalClass:'',
+      totalClass:'8',
       searchItem:{//搜索数据组
         app:"",
         desc:"",

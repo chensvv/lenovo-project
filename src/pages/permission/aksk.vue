@@ -23,7 +23,9 @@
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading"
-            @sort-change="sortChange">
+            @sort-change="sortChange"
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading">
             <!-- <el-table-column
                 label="lenovoId"
                 prop="lenovoId"
@@ -307,7 +309,7 @@ export default {
             },
             list:[],
             perList:[],
-            totalClass:'',
+            totalClass:'8',
             checkList:[],
             infoList:{
                 lenovoId:'',

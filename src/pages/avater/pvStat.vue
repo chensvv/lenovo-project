@@ -37,7 +37,7 @@
               <el-button size="mini" @click="resetForm()">重置</el-button>
           </div>
         </el-form>
-        <div class="table-box" v-loading="loading">
+        <div class="table-box" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
             <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>
         </div>
     </div>

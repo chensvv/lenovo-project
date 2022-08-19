@@ -44,7 +44,9 @@
           :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
           v-loading="listLoading"
-          @sort-change="sortChange">
+          @sort-change="sortChange"
+          element-loading-text="拼命加载中"
+          element-loading-spinner="el-icon-loading">
           <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
@@ -195,6 +197,19 @@ import {ttsregularList, selRegular, ttsAddAndUpdate, delRegular, delText} from '
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
+    let ValidatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入替换后内容'));
+            } else {
+              console.log(value)
+              if(value.split('<').length - 1 !== value.split('>').length - 1){
+                callback(new Error('请确认内容输入是否正确'));
+              }else{
+                callback();
+              }
+                
+            }
+        }
     return {
       pickerOptions: {
           disabledDate(time) {
@@ -205,7 +220,7 @@ export default {
       list: [],
       perList:[],
       restaurants: [],
-      totalClass:'',
+      totalClass:'8',
       currentItem: {//编辑数据组
         id:"",
         regular: "",
@@ -227,12 +242,12 @@ export default {
       },
       addRules:{
         regular:[{ required: true, message: '请输入匹配规则', trigger: 'change' }],
-        replaceResult:[{ required: true, message: '请输入替换后内容', trigger: 'change' }],
+        replaceResult:[{ required: true, validator: ValidatePass, trigger: 'blur' }],
         isFlag:[{ required: true, message: '请选择是否生效', trigger: 'change' }],
       },
       editRules:{
         regular:[{ required: true, message: '请输入匹配规则', trigger: 'change' }],
-        replaceResult:[{ required: true, message: '请输入替换后内容', trigger: 'change' }],
+        replaceResult:[{ required: true, validator: ValidatePass, trigger: 'blur' }],
         isFlag:[{ required: true, message: '请选择是否生效', trigger: 'change' }],
       },
       redisRules:{

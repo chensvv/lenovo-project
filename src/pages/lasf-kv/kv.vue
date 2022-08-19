@@ -19,7 +19,9 @@
                 stripe
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 style="width: 100%"
-                v-loading="listLoading">
+                v-loading="listLoading"
+                element-loading-text="拼命加载中"
+                element-loading-spinner="el-icon-loading">
                 <el-table-column type="index" align="center" label="#">
                 </el-table-column>
                 <el-table-column
@@ -180,7 +182,7 @@ export default {
             editBtnLoading:false,
             listLoading:true,
             isshow:true,
-            totalClass:''
+            totalClass:'8'
         };
     },
     created() {

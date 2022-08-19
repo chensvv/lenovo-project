@@ -5,7 +5,7 @@
       <el-breadcrumb-item :to="{ path: '/servlog/list'}">业务报表</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <div class="table-box" v-loading="loading">
+    <div class="table-box" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
         <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>
     </div>
   </div>

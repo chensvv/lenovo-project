@@ -40,7 +40,9 @@
               stripe
               :class="this.totalClass <= '5' ? 'limitWidth' :''"
               style="width: 100%"
-              v-loading="listLoading">
+              v-loading="listLoading"
+              element-loading-text="拼命加载中"
+              element-loading-spinner="el-icon-loading">
               <el-table-column type="index" align="center" label="#">
               </el-table-column>
               <el-table-column label="ID" prop="id" align="left"  :show-overflow-tooltip="true">
@@ -91,7 +93,7 @@ export default {
           },
       },
       list: [],
-      totalClass:'',
+      totalClass:'8',
       searchItem:{//搜索数据组
         uip:"",
         refreshTime:"",

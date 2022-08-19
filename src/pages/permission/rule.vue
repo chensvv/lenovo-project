@@ -15,7 +15,9 @@
                 :data="list"
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
                 stripe
-                v-laoding="listLoading">
+                v-laoding="listLoading"
+                element-loading-text="拼命加载中"
+                element-loading-spinner="el-icon-loading">
                 <el-table-column
                     prop="ruleName"
                     label="一级菜单权限名称">
@@ -85,7 +87,7 @@ export default {
     data() {
         return {
             list:[],
-            totalClass:'',
+            totalClass:'8',
             expands:[],
             addl:{},
             defaultProps: {

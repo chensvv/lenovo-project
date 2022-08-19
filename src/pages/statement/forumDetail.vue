@@ -12,7 +12,9 @@
           stripe
           :class="this.totalClass <= '7' ? 'limitWidth' :''"
           style="width: 100%"
-          v-loading="listLoading">
+          v-loading="listLoading"
+          element-loading-text="拼命加载中"
+          element-loading-spinner="el-icon-loading">
           <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
@@ -69,7 +71,7 @@ export default {
       list: [],
       perList:[],
       articleId:"",
-      totalClass:'',
+      totalClass:'8',
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数

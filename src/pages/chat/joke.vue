@@ -35,7 +35,9 @@
             style="width: 100%"
             v-loading="listLoading"
             @selection-change="handleSelectionChange"
-            @sort-change="sortChange">
+            @sort-change="sortChange"
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading">
             <el-table-column
               type="selection"
               width="50">
@@ -150,7 +152,7 @@ export default {
       sels:[],
       list:[],
       perList:[],
-      totalClass:'',
+      totalClass:'8',
       editRules:{
         con:[{ required: true, message: '请输入内容', trigger: 'blur' }]
       },

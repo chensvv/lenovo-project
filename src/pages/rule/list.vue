@@ -54,7 +54,9 @@
           stripe
           :class="this.totalClass <= '5' ? 'limitWidth' :''"
           style="width: 100%"
-          v-loading="listLoading">
+          v-loading="listLoading"
+          element-loading-text="拼命加载中"
+          element-loading-spinner="el-icon-loading">
           <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
@@ -210,7 +212,7 @@ export default {
       typeList:[],//类型
       phoneTypeList:[],//机型
       resTypeList:[],
-      totalClass:'',
+      totalClass:'6',
       selectList:[
             {typeLabel:"是",typeVal:"1"},
             {typeLabel:"否",typeVal:"0"}

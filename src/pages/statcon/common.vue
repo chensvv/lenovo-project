@@ -11,7 +11,9 @@
             stripe
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
-            v-loading="listLoading">
+            v-loading="listLoading"
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading">
             <el-table-column :label="head" v-for="(head, key) in header" :key="head" align="left">
                 <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="list[scope.$index][key]" placement="top">
@@ -45,7 +47,7 @@ export default {
     return {
       list: [],
       header:[],
-      totalClass:'',
+      totalClass:'8',
       editVisible: false,
       addVisible: false,
       // 分页

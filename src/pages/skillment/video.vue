@@ -30,7 +30,9 @@
                 style="width: 100%"
                 @selection-change="handleSelectionChange"
                 v-loading="listLoading"
-                @sort-change="sortChange">
+                @sort-change="sortChange"
+                element-loading-text="拼命加载中"
+                element-loading-spinner="el-icon-loading">
                 <el-table-column
                     type="selection"
                     width="55">
@@ -299,7 +301,7 @@ export default {
             list: [],
             perList:[],
             sels:[],
-            totalClass:'',
+            totalClass:'8',
             fileList:[],
             currentItem: {//编辑数据组
                 id:"",

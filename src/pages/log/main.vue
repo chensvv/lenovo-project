@@ -65,7 +65,9 @@
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
             v-loading="listLoading"
-            @sort-change="sortChange">
+            @sort-change="sortChange"
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading">
             <el-table-column label="UID" prop="uid" align="center">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.uid" placement="top">
@@ -274,7 +276,7 @@ export default {
             },
             list:[],
             perList:[],
-            totalClass:'',
+            totalClass:'8',
             infoList:{
                 id:"",
                 did:"",

@@ -17,7 +17,9 @@
             stripe
             :class="this.totalClass <= '9' ? 'limitWidth' :''"
             style="width: 100%"
-            v-loading="listLoading">
+            v-loading="listLoading"
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading">
             <el-table-column type="index" align="center" label="#">
             </el-table-column>
             <el-table-column
@@ -197,7 +199,7 @@ export default {
             list:[],
             data:[],
             perList:[],
-            totalClass:'',
+            totalClass:'8',
             addRules:{
                 ipAddress:[{ required: true, message: '请输入ip地址', trigger: 'change' }],
                 port:[{ required: true, message: '请输入端口', trigger: 'change' }],

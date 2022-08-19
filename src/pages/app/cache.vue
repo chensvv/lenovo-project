@@ -49,7 +49,9 @@
             stripe
             :class="this.totalClass <= '7' ? 'limitWidth' :''"
             style="width: 100%"
-            v-loading="listLoading">
+            v-loading="listLoading"
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading">
             <el-table-column type="index" align="center" label="#">
             </el-table-column>
             <el-table-column label="名称" prop="name" align="center">
@@ -208,7 +210,7 @@ export default {
             },
             list:[],
             perList:[],
-            totalClass:'',
+            totalClass:'8',
             addRules:{
                 name:[{ required: true, message: '请输入应用名', trigger: 'change' }],
                 alias:[{ required: true, message: '请输入别名', trigger: 'change' }],

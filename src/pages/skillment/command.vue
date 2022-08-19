@@ -58,7 +58,9 @@
                         stripe
                         :class="this.commandTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
-                        v-loading="commandListLoading">
+                        v-loading="commandListLoading"
+                        element-loading-text="拼命加载中"
+                        element-loading-spinner="el-icon-loading">
                         <el-table-column type="index" align="center" label="#">
                         </el-table-column>
                         <el-table-column
@@ -139,7 +141,9 @@
                         stripe
                         :class="this.norunTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
-                        v-loading="norunListLoading">
+                        v-loading="norunListLoading"
+                        element-loading-text="拼命加载中"
+                        element-loading-spinner="el-icon-loading">
                         <el-table-column type="index" align="center" label="#">
                         </el-table-column>
                         <el-table-column
@@ -190,7 +194,9 @@
                         stripe
                         :class="this.originaTotalClass <= '7' ? 'limitWidth' :''"
                         style="width: 100%"
-                        v-loading="originaListLoading">
+                        v-loading="originaListLoading"
+                        element-loading-text="拼命加载中"
+                        element-loading-spinner="el-icon-loading">
                         <el-table-column type="index" align="center" label="#">
                         </el-table-column>
                         <el-table-column
@@ -336,9 +342,9 @@ export default {
             originaList: [],
             perList:[],
             sourceList:[],
-            commandTotalClass:'',
-            norunTotalClass:'',
-            originaTotalClass:'',
+            commandTotalClass:'8',
+            norunTotalClass:'8',
+            originaTotalClass:'8',
             activeName:'command',
             commandAddList: {//添加数据组
                 command:"",
