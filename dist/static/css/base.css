@@ -1207,3 +1207,10 @@
 .inpntNumber .el-input-number .el-input__inner{
   text-align: left;
 }
+
+.el-loading-mask .el-loading-spinner{
+  font-size: 30px;
+}
+.el-loading-mask .el-loading-spinner .el-loading-text{
+  font-size: 16px;
+}

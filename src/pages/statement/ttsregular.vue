@@ -201,7 +201,6 @@ export default {
             if (value === '') {
                 callback(new Error('请输入替换后内容'));
             } else {
-              console.log(value)
               if(value.split('<').length - 1 !== value.split('>').length - 1){
                 callback(new Error('请确认内容输入是否正确'));
               }else{
