@@ -63,7 +63,7 @@ export default {
                             this.$message({
                                 message:'请求成功',
                                 type:"success",
-                                duration:1000
+                                duration:1500
                             });
                             this.seaBtnLoading = false
                             sessionStorage.removeItem('menuData')
@@ -76,7 +76,7 @@ export default {
                                     this.$message({
                                         message:res.data.errorMessage,
                                         type:"error",
-                                        duration:1000
+                                        duration:1500
                                     });
                                 }
                             })
@@ -84,7 +84,7 @@ export default {
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
-                                duration:1000
+                                duration:1500
                             });
                         } 
                         

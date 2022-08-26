@@ -244,7 +244,7 @@ export default {
                 this.$message({
                     message:'新增成功',
                     type:"success",
-                    duration:1000
+                    duration:1500
                 });
                 this.getList();
                 this.addVisible = false
@@ -252,7 +252,7 @@ export default {
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
             }
           }).catch(err => {
@@ -278,14 +278,14 @@ export default {
                 this.$message({
                     message:'删除成功',
                     type:"success",
-                    duration:1000
+                    duration:1500
                 });
                 this.getList();
             }else{
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
             }
           })
@@ -309,7 +309,7 @@ export default {
                 this.$message({
                     message:'编辑成功',
                     type:"success",
-                    duration:1000
+                    duration:1500
                 });
                 this.getList()
                 this.editVisible = false
@@ -317,7 +317,7 @@ export default {
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
             }
           }).catch(err => {
@@ -345,7 +345,7 @@ export default {
             this.$message({
                 message:res.data.errorMessage,
                 type:'error',
-                duration:1000
+                duration:1500
             });
         }
       }).catch(()=>{

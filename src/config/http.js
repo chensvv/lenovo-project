@@ -100,6 +100,13 @@ service_head.interceptors.response.use(response => {
       })
       // sessionStorage.clear()
       break
+      case 404:
+        Message.closeAll()
+        Message.error({
+          message: '请稍后重试！'
+        })
+        // sessionStorage.clear()
+      break
     default:
       return error
   }

@@ -577,7 +577,7 @@ export default {
                     this.$message({
                         message:'编辑成功',
                         type:"success",
-                        duration:1000
+                        duration:1500
                     });
                     this.editVisible = false
                     this.$router.push({
@@ -587,7 +587,7 @@ export default {
                     this.$message({
                         message:res.data.errorMessage,
                         type:"error",
-                        duration:1000
+                        duration:1500
                     });
                 }
               }).catch(err => {

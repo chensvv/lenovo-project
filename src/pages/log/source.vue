@@ -255,7 +255,7 @@ export default {
                 this.$message({
                     message:'您选择当前时间的数据为空！',
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
                 this.fileBtnLoading = false
               }else{
@@ -278,7 +278,7 @@ export default {
             this.$message({
                 message:'请选择起始时间和结束时间或者类型导出！',
                 type:"error",
-                duration:1000
+                duration:1500
             });
             this.fileBtnLoading = false
         }
@@ -304,7 +304,7 @@ export default {
             this.$message({
                 message:res.data.errorMessage,
                 type:'error',
-                duration:1000
+                duration:1500
             });
         }
       }).catch(()=>{

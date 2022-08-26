@@ -181,7 +181,7 @@ export default {
       //     this.$message({
       //         message:res.data.errorMessage,
       //         type:"error",
-      //         duration:1000
+      //         duration:1500
       //     });
       //   }
       // })
@@ -209,7 +209,7 @@ export default {
             this.$message({
                 message:res.data.errorMessage,
                 type:'error',
-                duration:1000
+                duration:1500
             });
         }
       }).catch(()=>{

@@ -224,7 +224,7 @@ export default {
                 this.$message({
                     message:'上线成功',
                     type:"success",
-                    duration:1000
+                    duration:1500
                 });
                 this.pageList()
                 this.addVisible = false
@@ -232,7 +232,7 @@ export default {
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
             }
           }).catch(err => {
@@ -254,14 +254,14 @@ export default {
                 this.$message({
                     message:'已下线',
                     type:"success",
-                    duration:1000
+                    duration:1500
                 });
                 this.pageList();
             }else{
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
             }
         })
@@ -281,7 +281,7 @@ export default {
             this.$message({
                 message:res.data.errorMessage,
                 type:'error',
-                duration:1000
+                duration:1500
             });
         }
         

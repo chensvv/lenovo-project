@@ -2912,3 +2912,15 @@ export function iotPull (data) {
     }
   })
 }
+
+export function triggerBatchDownload (data) {
+  return fetch.FileDownload({
+    url: '/lasf-mgr/trigger/batchDownload ',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

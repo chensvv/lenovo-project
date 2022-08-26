@@ -235,14 +235,14 @@ export default {
                 this.$message({
                     message:'删除成功',
                     type:"success",
-                    duration:1000
+                    duration:1500
                 });
                 this.getList();
             }else{
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
             }
           })
@@ -284,7 +284,7 @@ export default {
                 this.$message({
                     message:'编辑成功',
                     type:"success",
-                    duration:1000
+                    duration:1500
                 });
                 this.getList()
                 this.editBtnLoading = false
@@ -294,7 +294,7 @@ export default {
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
             }
           }).catch(err => {
@@ -322,7 +322,7 @@ export default {
                 this.$message({
                     message:'添加成功',
                     type:"success",
-                    duration:1000
+                    duration:1500
                 });
                 this.getList();
                 this.addVisible = false
@@ -331,7 +331,7 @@ export default {
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
                 this.addBtnLoading = false
             }
@@ -351,13 +351,13 @@ export default {
               this.$message({
                 message:'发布成功',
                 type:"success",
-                duration:1000
+                duration:1500
               });
           }else{
               this.$message({
                   message:res.data.errorMessage,
                   type:"error",
-                  duration:1000
+                  duration:1500
               });
           } 
       }).catch(err => {

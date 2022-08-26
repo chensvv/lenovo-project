@@ -32,7 +32,8 @@
           element-loading-spinner="el-icon-loading">
           <el-table-column
               type="selection"
-              width="55">
+              width="55"
+              align="center">
           </el-table-column>
           <el-table-column type="index" align="center" label="#">
           </el-table-column>
@@ -184,7 +185,7 @@ export default {
         this.$message({
             message:'请选择要删除的数据',
             type:"warning",
-            duration:1000
+            duration:1500
         });
       }else{
         let delsParams = {
@@ -201,14 +202,14 @@ export default {
                 this.$message({
                   message:'删除成功',
                   type:"success",
-                  duration:1000
+                  duration:1500
                 });
                 this.getList();
               }else{
                 this.$message({
                   message:res.data.errorMessage,
                   type:"error",
-                  duration:1000
+                  duration:1500
                 });
               }
             })
@@ -232,14 +233,14 @@ export default {
                 this.$message({
                     message:'删除成功',
                     type:"success",
-                    duration:1000
+                    duration:1500
                 });
                 this.getList();
             }else{
                 this.$message({
                     message:res.data.errorMessage,
                     type:"error",
-                    duration:1000
+                    duration:1500
                 });
             }
           })
@@ -265,7 +266,7 @@ export default {
             this.$message({
                 message:res.data.errorMessage,
                 type:'error',
-                duration:1000
+                duration:1500
             });
         }
       }).catch(()=>{

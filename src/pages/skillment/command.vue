@@ -547,14 +547,14 @@ export default {
                         this.$message({
                             message:'删除成功',
                             type:"success",
-                            duration:1000
+                            duration:1500
                         });
                         this.getCommandList();
                     }else{
                         this.$message({
                             message:res.data.errorMessage,
                             type:"error",
-                            duration:1000
+                            duration:1500
                         });
                     }
                     
@@ -578,14 +578,14 @@ export default {
                         this.$message({
                             message:'删除成功',
                             type:"success",
-                            duration:1000
+                            duration:1500
                         });
                         this.getNorunList();
                     }else{
                         this.$message({
                             message:res.data.errorMessage,
                             type:"error",
-                            duration:1000
+                            duration:1500
                         });
                     }
                     
@@ -609,14 +609,14 @@ export default {
                         this.$message({
                             message:'删除成功',
                             type:"success",
-                            duration:1000
+                            duration:1500
                         });
                         this.getOriginaList();
                     }else{
                         this.$message({
                             message:res.data.errorMessage,
                             type:"error",
-                            duration:1000
+                            duration:1500
                         });
                     }
                     
@@ -701,7 +701,7 @@ export default {
                             this.$message({
                                 message:'编辑成功',
                                 type:"success",
-                                duration:1000
+                                duration:1500
                             });
                             this.getOriginaList()
                             this.editVisible = false
@@ -709,7 +709,7 @@ export default {
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
-                                duration:1000
+                                duration:1500
                             });
                         }
                         
@@ -736,7 +736,7 @@ export default {
                             this.$message({
                                 message:'添加成功',
                                 type:"success",
-                                duration:1000
+                                duration:1500
                             });
                             this.getCommandList();
                             this.commandAddVisible = false
@@ -744,7 +744,7 @@ export default {
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
-                                duration:1000
+                                duration:1500
                             });
                         }
                         
@@ -770,7 +770,7 @@ export default {
                             this.$message({
                                 message:'添加成功',
                                 type:"success",
-                                duration:1000
+                                duration:1500
                             });
                             this.getNorunList();
                             this.norunAddVisible = false
@@ -778,7 +778,7 @@ export default {
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
-                                duration:1000
+                                duration:1500
                             });
                         }
                         
@@ -806,7 +806,7 @@ export default {
                             this.$message({
                                 message:'添加成功',
                                 type:"success",
-                                duration:1000
+                                duration:1500
                             });
                             this.getOriginaList();
                             this.originaAddVisible = false
@@ -814,7 +814,7 @@ export default {
                             this.$message({
                                 message:res.data.errorMessage,
                                 type:"error",
-                                duration:1000
+                                duration:1500
                             });
                         }
                         
@@ -860,7 +860,7 @@ export default {
                     this.$message({
                         message:res.data.errorMessage,
                         type:'error',
-                        duration:1000
+                        duration:1500
                     });
                 }
             }).catch(()=>{
@@ -886,7 +886,7 @@ export default {
                     this.$message({
                         message:res.data.errorMessage,
                         type:'error',
-                        duration:1000
+                        duration:1500
                     });
                 }
             }).catch(()=>{
@@ -912,7 +912,7 @@ export default {
                     this.$message({
                         message:res.data.errorMessage,
                         type:'error',
-                        duration:1000
+                        duration:1500
                     });
                 }
             }).catch(()=>{

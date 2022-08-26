@@ -173,13 +173,13 @@ export default {
     //         this.$message({
     //             message:'保存成功',
     //             type:"success",
-    //             duration:1000
+    //             duration:1500
     //         });
     //     }else{
     //         this.$message({
     //             message:res.data.errorMessage,
     //             type:"error",
-    //             duration:1000
+    //             duration:1500
     //         });
     //     }
     //   })
@@ -198,7 +198,7 @@ export default {
           this.$message({
               message:'请选择发布资源',
               type:"warning",
-              duration:1000
+              duration:1500
           });
       }else{
         let addParams = {
@@ -216,14 +216,14 @@ export default {
                 this.$message({
                       message:'发布成功',
                       type:"success",
-                      duration:1000
+                      duration:1500
                   });
                   this.$refs[addList].resetFields();
               }else{
                 this.$message({
                       message:res.data.errorMessage,
                       type:"error",
-                      duration:1000
+                      duration:1500
                   });
               }
             }).catch(err => {

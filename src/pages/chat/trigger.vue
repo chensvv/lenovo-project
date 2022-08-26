@@ -53,8 +53,9 @@
         <div class="form-btn-block" >
           <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
           <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-          <el-button size="mini" @click="dataPack" :loading="zipBtnLoading">数据打包</el-button>
-          <el-button size="mini" @click="packResult" :loading="listBtnLoading">打包结果</el-button>
+          <el-button size="mini" @click="dataPack" :loading="zipBtnLoading" v-has="'trigger:zip'">数据打包</el-button>
+          <el-button size="mini" @click="packResult" v-has="'trigger:zip:list'">打包结果</el-button>
+          <el-button icon="el-icon-download" size="mini" @click="exportBatch" :loading="exportBtnLoading" v-has="'trigger:batchDownload'">批量导出</el-button>
         </div>
     </el-form>
 
@@ -68,8 +69,14 @@
             style="width: 100%"
             v-loading="listLoading"
             @sort-change="sortChange"
+            @selection-change="handleSelectionChange"
             element-loading-text="拼命加载中"
             element-loading-spinner="el-icon-loading">
+            <el-table-column
+              type="selection"
+              width="50"
+              align="center">
+            </el-table-column>
             <el-table-column type="index" align="center" label="#">
             </el-table-column>
             <el-table-column
@@ -245,7 +252,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {triggerList, triggerZip, zipList, zipDownload, topKeyWord, pcmDownload} from '@/config/api'
+import {triggerList, triggerZip, zipList, zipDownload, topKeyWord, pcmDownload, triggerBatchDownload} from '@/config/api'
 import {readablizeBytes} from '@/utils/bytes.js' 
 import downUrl from '@/config/http'
 import {deleteParams} from '@/utils/deleteParams.js'
@@ -262,6 +269,7 @@ export default {
       perList:[],
       zipLists:[],
       keywordList:[],
+      exportIds:[],
       totalClass:'8',
       downURLs:downUrl.proURL,
       searchItem:{//搜索数据组
@@ -288,6 +296,8 @@ export default {
       seaBtnLoading:false,
       zipBtnLoading:false,
       listBtnLoading:false,
+      exportBtnLoading:false,
+      downloading:false,
       zipVisible:false,
       listLoading:true,
       isshow:false,
@@ -338,7 +348,9 @@ export default {
       //   window.URL.revokeObjectURL(url);
     },
     downZip(data){
+      this.downloading = true
       zipDownload(data).then(res=>{
+        this.downloading = false
         let blobUrl = new Blob([res.data])
         let a = document.createElement('a');
         let url = window.URL.createObjectURL(blobUrl);
@@ -370,6 +382,44 @@ export default {
       // console.log(`当前页: ${val}`);
       this.getList();
     },
+    handleSelectionChange(val){
+      this.exportIds = val
+    },
+    exportBatch(){
+      let ids = this.exportIds.map(item => item.id)
+      if(ids.length == 0 || ids == [] || ids == null){
+        this.$message({
+            message:'请选择要导出的数据',
+            type:"warning",
+            duration:1500
+        });
+      }else{
+        console.log(ids.join(','))
+        this.exportBtnLoading = true
+        let batchParams = {
+          ids:ids
+        }
+        batchParams.sign = deleteParams(batchParams)
+        triggerBatchDownload(batchParams).then(res=>{
+                this.exportBtnLoading = false
+                let blobUrl = new Blob([res.data])
+                let a = document.createElement('a');
+                let url = window.URL.createObjectURL(blobUrl);
+                let filename = ids.join('-')+'.zip'
+                a.href = url;
+                a.download = filename;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            }).catch(()=>{
+              this.$message({
+                  message:'请稍后再试！',
+                  type:"error",
+                  duration:1500
+                });
+              this.exportBtnLoading = false
+            })
+      }
+    },
     dataPack(){
       let zipParams = {
         startStr:this.searchItem.refreshTime,
@@ -391,13 +441,13 @@ export default {
             this.$message({
                 message:'打包成功',
                 type:"success",
-                duration:1000
+                duration:1500
             });
         }else{
             this.$message({
                 message:res.data.errorMessage,
                 type:"error",
-                duration:1000
+                duration:1500
             });
         }
       }).catch(error=>{
@@ -405,7 +455,7 @@ export default {
         this.$message({
             message:res.data.message,
             type:"error",
-            duration:1000
+            duration:1500
         });
       })
     },
@@ -463,7 +513,7 @@ export default {
       //   this.$message({
       //       message:res.data.message,
       //       type:"error",
-      //       duration:1000
+      //       duration:1500
       //   });
       // })
     },
@@ -520,7 +570,7 @@ export default {
             this.$message({
                 message:res.data.errorMessage,
                 type:'error',
-                duration:1000
+                duration:1500
             });
         }
       }).catch(()=>{
