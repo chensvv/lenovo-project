@@ -2879,7 +2879,7 @@ export function payExport (data) {
 
 export function iotList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/iot/list ',
+    url: '/lasf-mgr/iot/list',
     method: 'post',
     data: data,
     headers: {
@@ -2891,7 +2891,7 @@ export function iotList (data) {
 
 export function iotDel (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/iot/delete ',
+    url: '/lasf-mgr/iot/delete',
     method: 'post',
     data: data,
     headers: {
@@ -2903,7 +2903,7 @@ export function iotDel (data) {
 
 export function iotPull (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/iot/pull ',
+    url: '/lasf-mgr/iot/pull',
     method: 'post',
     data: data,
     headers: {
@@ -2915,7 +2915,31 @@ export function iotPull (data) {
 
 export function triggerBatchDownload (data) {
   return fetch.FileDownload({
-    url: '/lasf-mgr/trigger/batchDownload ',
+    url: '/lasf-mgr/trigger/batchDownload',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function sceneList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/scene/list ',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function sceneControl (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/scene/control ',
     method: 'post',
     data: data,
     headers: {

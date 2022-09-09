@@ -155,6 +155,7 @@ export default {
 
 .fr {
     float: right;
+    margin-right: 25px;
 }
 
 

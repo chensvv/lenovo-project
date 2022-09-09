@@ -431,7 +431,12 @@ const router = new Router({
         {
           path: '/iot/list',
           component: () => import('@/pages/iot/list'),
-          meta: {title: '数据管理',needLogin:true}
+          meta: {title: '设备列表',needLogin:true}
+        },
+        {
+          path: '/scene/list',
+          component: () => import('@/pages/iot/scene'),
+          meta: {title: '场景列表',needLogin:true}
         },
         {
           path: '/user/checkpass',
