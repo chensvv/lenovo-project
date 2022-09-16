@@ -2948,3 +2948,15 @@ export function sceneControl (data) {
     }
   })
 }
+
+export function audiokeeperRecovery (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/audiokeeper/recovery ',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

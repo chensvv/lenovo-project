@@ -8,6 +8,7 @@
         <el-form :inline="true" label-width="90px" class="demo-form-inline height50 width130" size="mini" style="padding-left:10px;">
             <div class="form-btn">
                 <el-button size="mini" @click="handleAdd()" v-has="'audiokeeper:add'">添加</el-button>
+                <el-button size="mini" @click="handleRecovery()" v-has="'audiokeeper:add'">恢复</el-button>
             </div>
             
         </el-form>
@@ -178,11 +179,25 @@
                 <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
+        <el-dialog title="恢复" :visible.sync="recoveryVisible" width="40%" top="10vh" :before-close="recoveryHandleClose" @open="openFun('recoveryList')">
+            <el-form :label-position="'right'" label-width="100px" size="small" :rules="recoveryRules" :model="recoveryList" ref="recoveryList">
+                <el-form-item label="ip" prop="ipAddress">
+                    <el-input type="text" v-model.trim="recoveryList.ipAddress"  auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="端口" prop="port">
+                    <el-input type="text" v-model.trim="recoveryList.port" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="recoveryHandleClose">取 消</el-button>
+                <el-button type="primary" @click="recoveryHandleConfirm('recoveryList')" :loading="recoveryBtnLoading">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import {audiokeeperList, audiokeeperExpire, audiokeeperAdd} from '@/config/api'
+import {audiokeeperList, audiokeeperExpire, audiokeeperAdd, audiokeeperRecovery} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data(){
@@ -195,6 +210,10 @@ export default {
                 language:"",
                 rate:"",
                 channel:""
+            },
+            recoveryList: {
+                ipAddress:"",
+                port:""
             },
             list:[],
             data:[],
@@ -209,6 +228,10 @@ export default {
                 rate:[{ required: true, message: '请输入比率', trigger: 'change' }],
                 channel:[{ required: true, message: '请输入来源', trigger: 'change' }],
             },
+            recoveryRules:{
+                ipAddress:[{ required: true, message: '请输入ip地址', trigger: 'change' }],
+                port:[{ required: true, message: '请输入端口', trigger: 'change' }],
+            },
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
@@ -216,7 +239,9 @@ export default {
             showTitle:true,
             btnLoading:false,
             addVisible:false,
+            recoveryVisible:false,
             addBtnLoading:false,
+            recoveryBtnLoading:false,
             listLoading:true,
             isshow:true
         }
@@ -316,6 +341,12 @@ export default {
     handleAdd(){
         this.addVisible = true
     },
+    recoveryHandleClose(){
+        this.recoveryVisible = false
+    },
+    handleRecovery(){
+        this.recoveryVisible = true
+    },
     addHandleConfirm(addList) {
         let addParams = {
             ipAddress:this.addList.ipAddress,
@@ -350,6 +381,41 @@ export default {
                     
                 }).catch(err => {
                     this.addBtnLoading = false
+                })
+            } else {
+                return false;
+            }
+        });
+    },
+    recoveryHandleConfirm(recoveryList) {
+        let recoveryParams = {
+            ipAddress:this.recoveryList.ipAddress,
+            port:this.recoveryList.port,
+        }
+        recoveryParams.sign = deleteParams(recoveryParams)
+        this.$refs[recoveryList].validate((valid) => {
+            if (valid) {
+                this.recoveryBtnLoading = true
+                audiokeeperRecovery(recoveryParams).then(res => {
+                        this.recoveryBtnLoading = false
+                    if(res.data.code == 200){
+                        this.$message({
+                            message:'恢复成功',
+                            type:"success",
+                            duration:1500
+                        });
+                        this.pageList()
+                        this.recoveryVisible = false
+                    }else{
+                        this.$message({
+                            message:res.data.errorMessage,
+                            type:"error",
+                            duration:1500
+                        });
+                    }
+                    
+                }).catch(err => {
+                    this.recoveryBtnLoading = false
                 })
             } else {
                 return false;
