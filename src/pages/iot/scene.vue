@@ -86,7 +86,7 @@
                         <el-button
                         size="mini"
                         @click="handleAdd(scope.$index, scope.row)"
-                        v-has="'iot:pull'">控制</el-button>
+                        v-has="'scene:control'">控制</el-button>
                     </template>
                 </el-table-column>
             </el-table>

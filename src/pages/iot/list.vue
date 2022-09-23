@@ -47,6 +47,21 @@
                 </el-table-column>
                 <el-table-column
                     label="设备名称"
+                    prop="modelName"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.modelName" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.modelName }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.modelName }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="设备别名"
                     prop="friendlyName"
                     align="center">
                     <template slot-scope="scope">
@@ -97,8 +112,12 @@
                     :formatter="formTime"
                     min-width="120">
                 </el-table-column>
-                <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
+                <el-table-column label="操作" min-width="150" align="center"  v-if="isshow">
                     <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="handleControl(scope.$index, scope.row)"
+                        v-has="'iot:control'">控制</el-button>
                         <el-button
                         size="mini"
                         @click="handleInfo(scope.$index, scope.row)"
@@ -144,12 +163,22 @@
                 <el-button type="primary" @click="infoHandleClose">确 定</el-button>
             </span>
         </el-dialog>
+        <el-dialog :title="controlTitle" :visible.sync="controlVisible" width="40%" top="10vh" :before-close="controlHandleClose">
+            <el-form :label-position="'right'" label-width="100px" size="small" :rules="controlRules" :model="controlList" ref="controlList">
+                <el-form-item label="开关">
+                    <el-switch v-model="controlItem.value" active-value="ON" inactive-value="OFF" :disabled="switchDisabled"></el-switch>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" :loading="conBtnLoading" @click="controlHandleConfirm">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {iotList, iotDel, iotPull} from '@/config/api'
+import {iotList, iotDel, iotPull, sceneControl} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data() {
@@ -161,13 +190,19 @@ export default {
                 lenovoid:""
             },
             infoItem:[],
+            controlItem:[],
+            controlTitle:"",
+            controlList:[],
+            switchDisabled:false,
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
             showTitle:true,
             infoVisible:false,
+            controlVisible:false,
             seaBtnLoading:false,
+            conBtnLoading:false,
             listLoading:true,
             isshow:true
         };
@@ -180,7 +215,7 @@ export default {
         this.getList();
     },
     mounted(){
-        if(this.perList.indexOf('iot:pull') == -1 && this.perList.indexOf('iot:delete') == -1 && this.perList.indexOf('iot:info') == -1){
+        if(this.perList.indexOf('iot:pull') == -1 && this.perList.indexOf('iot:delete') == -1 && this.perList.indexOf('iot:info') == -1 && this.perList.indexOf('iot:control') == -1){
             this.isshow = false
         }
     },
@@ -215,6 +250,20 @@ export default {
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
         },
+        findItem(options, name) {
+            return options.find(item => item.name === name) || {};
+        },
+        generateMixed(n) {
+            var chars = ['0','1','2','3','4','5','6','7','8','9',
+                        'A','B','C','D','E','F','G','H','I','J','K','L','M',
+                        'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+            var res = "";
+            for(var i = 0; i < n ; i++) {
+                var id = Math.floor(Math.random()*36);
+                res += chars[id];
+            }
+            return res;
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1
@@ -241,8 +290,60 @@ export default {
             this.infoVisible = true;
             this.infoItem = row;
         },
+        handleControl(index, row) {
+            // console.log(index, row);
+            this.controlList = row
+            this.controlTitle = row.friendlyName
+            let attributes = JSON.parse(row.attributes)
+            this.controlItem = this.findItem(attributes, 'turnOnState')
+            this.controlVisible = true;
+        },
         infoHandleClose(){
             this.infoVisible = false
+        },
+        controlHandleClose(){
+            this.controlVisible = false
+        },
+        controlHandleConfirm(){
+            this.conBtnLoading = true
+            let params = {
+                header:{
+                    namespace:"ZUI.SmartHome.Control",
+                    name:this.controlItem.value == 'ON' ? 'TurnOnRequest' :'TurnOffRequest',
+                    messageId:this.generateMixed(20),
+                    payloadVersion:"1"
+                },
+                payload:{
+                    lenovoId:String(this.controlList.lenovoid),
+                    appliance:{
+                        additionalApplianceDetails:JSON.parse(this.controlList.additionalDetails),
+                        applianceId:this.controlList.applianceId
+                    },
+                    function:"light"
+                }
+            }
+            sceneControl(params).then(res=>{
+                this.conBtnLoading = false
+                console.log(res)
+                if(res.data.code == 200){
+                    this.$message({
+                        message:'控制成功',
+                        type:"success",
+                        duration:1500
+                    });
+                    this.getList();
+                    this.controlVisible = false
+                }else{
+                    this.$message({
+                        message:res.data.msg,
+                        type:"error",
+                        duration:1500
+                    });
+                }
+            }).catch(err=>{
+                this.conBtnLoading = false
+            })
+            
         },
         handleDel(index, row) {
             let delParams = {
