@@ -127,6 +127,10 @@
 
     <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+        <el-form-item label="例句" prop="liju" >
+          <el-input type="text" v-model.trim="currentItem.liju" auto-complete="off" class="tts-input"></el-input>
+          <span @click="playVoice('adit')"><i :class="voiceStatus" style="font-size:18px;cursor: pointer;"></i></span>
+        </el-form-item>
         <el-form-item label="匹配规则" prop="regular">
           <el-autocomplete
             class="inline-input"
@@ -153,6 +157,10 @@
     </el-dialog>
     <el-dialog title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
+        <el-form-item label="例句" prop="liju" >
+          <el-input type="text" v-model.trim="addList.liju" auto-complete="off" class="tts-input"></el-input>
+          <span @click="playVoice('add')"><i :class="voiceStatus" style="font-size:18px;cursor: pointer;"></i></span>
+        </el-form-item>
         <el-form-item label="匹配规则" prop="regular">
           <el-autocomplete
             class="inline-input"
@@ -195,6 +203,7 @@
 import {checkTime} from '@/utils/timer.js'
 import {ttsregularList, selRegular, ttsAddAndUpdate, delRegular, delText} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
+import proURL from '@/config/http'
 export default {
   data() {
     let ValidatePass = (rule, value, callback) => {
@@ -220,13 +229,16 @@ export default {
       perList:[],
       restaurants: [],
       totalClass:'8',
+      voiceStatus:'el-icon-microphone',
       currentItem: {//编辑数据组
         id:"",
+        liju:"",
         regular: "",
         replaceResult:"",
         isFlag:null
       },
       addList: {//添加数据组
+        liju:"",
         regular: "",
         replaceResult:"",
         isFlag:false
@@ -346,6 +358,63 @@ export default {
         replaceResult:row.replaceResult,
         isFlag:row.isFlag == 'true' ? true : false
       };
+    },
+    playVoice(a){
+      let that = this
+      this.voiceStatus = 'el-icon-loading'
+      var req = new XMLHttpRequest();
+      var formData
+      if(a == 'add'){
+        formData = 'text='+this.addList.liju+'&user=2'
+      }else{
+        formData = 'text='+this.currentItem.liju+'&user=2'
+      }
+      if(proURL.proURL.indexOf('8085') != '-1'){
+        req.open("POST", proURL.proURL+'/lasf/cloudtts', true);
+      }else{
+        req.open("POST", proURL.proURL+'/website/cloudtts', true); // grab our audio file
+      }
+      req.setRequestHeader('channel', 'cloudasr')
+      req.setRequestHeader('lenovokey','LENOVO-VOICE-2t6588161u3bcba')
+      req.setRequestHeader('secretkey','28A5E16C525F2442E9DAA64CB5208AA7')
+      req.setRequestHeader('content-type', 'application/x-www-form-urlencoded')
+      req.responseType = "arraybuffer";   // needs to be specific type to work
+      req.overrideMimeType('text/xml; charset = utf-8')
+      req.onload = function() {
+        that.voiceStatus = 'el-icon-microphone'
+          var blob = new Blob([req.response]);
+          var reader = new FileReader();
+          reader.readAsText(blob, 'utf-8');
+          reader.onload = function (e) {
+            let str = reader.result
+            if(str.length < 200 && str.length > 1){
+              this.$message({
+                    message:str.split('error=')[1],
+                    type:"error",
+                    duration:1500
+                });
+            }else if(str.length == 0 || str == ''){
+              this.$message({
+                    message:'请稍后重试！',
+                    type:"error",
+                    duration:1500
+                });
+            }else{
+              // console.log(blob)
+              let audio = new Audio()
+              audio.src = URL.createObjectURL(blob);
+              audio.play();
+            }
+          }
+      }
+      req.onerror = function(){
+        Swal.fire({
+            text:$.i18n.prop('server_error'),
+            confirmButtonText: $.i18n.prop('confirm'),
+            confirmButtonColor: '#94cb82'
+        })
+      }
+      req.send(formData);
     },
     handleDel(index, row) {
       let delParams = {

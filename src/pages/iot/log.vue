@@ -46,32 +46,47 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    label="名称"
-                    prop="name"
+                    label="header"
+                    prop="header"
                     align="center">
                     <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.name" placement="top">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.header" placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                            {{ scope.row.name }}
+                            {{ scope.row.header }}
                             </div>
                         </el-tooltip>
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                            {{ scope.row.name }}
+                            {{ scope.row.header }}
                         </div>
                     </template>
                 </el-table-column>
                 <el-table-column
-                    label="sceneId"
-                    prop="sceneId"
+                    label="body"
+                    prop="body"
                     align="center">
                     <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sceneId" placement="top">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.body" placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                            {{ scope.row.sceneId }}
+                            {{ scope.row.body }}
                             </div>
                         </el-tooltip>
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                            {{ scope.row.sceneId }}
+                            {{ scope.row.body }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="result"
+                    prop="result"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.result" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.result }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.result }}
                         </div>
                     </template>
                 </el-table-column>
@@ -80,14 +95,6 @@
                     prop="createTime"
                     align="center"
                     :formatter="formTime">
-                </el-table-column>
-                <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
-                    <template slot-scope="scope">
-                        <el-button
-                        size="mini"
-                        @click="handleAdd(scope.$index, scope.row)"
-                        v-has="'scene:control'">控制</el-button>
-                    </template>
                 </el-table-column>
             </el-table>
             <el-pagination
@@ -104,7 +111,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {sceneList, sceneControl, } from '@/config/api'
+import {iotLogList } from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data() {
@@ -170,17 +177,6 @@ export default {
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
         },
-        generateMixed(n) {
-            var chars = ['0','1','2','3','4','5','6','7','8','9',
-                        'A','B','C','D','E','F','G','H','I','J','K','L','M',
-                        'N','O','P','Q','R','S','T','U','V','W','X','Y','Z','-'];
-            var res = "";
-            for(var i = 0; i < n ; i++) {
-                var id = Math.floor(Math.random()*36);
-                res += chars[id];
-            }
-            return res;
-        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1
@@ -202,37 +198,6 @@ export default {
             // console.log(`当前页: ${val}`);
             this.getList();
         },
-        handleAdd(index, row){
-            let addParams = {
-                header: {
-                    namespace: "ZUI.SmartHome.ControlScene",
-                    name: "ControlSceneRequest",
-                    messageId: this.generateMixed(20),
-                    payloadVersion: "1"
-                },
-                payload: {
-                    lenovoId: String(row.lenovoid),
-                    sceneId: row.sceneId
-                }
-            }
-            sceneControl(addParams).then(res=>{
-                    if(res.data.code == 200){
-                        this.$message({
-                            message:'添加成功',
-                            type:"success",
-                            duration:1500
-                        });
-                        this.getList();
-                    }else{
-                        this.$message({
-                            message:res.data.msg,
-                            type:"error",
-                            duration:1500
-                        });
-                    }
-                    
-                })
-        },
         
         getList() {
             this.listLoading = true
@@ -242,7 +207,8 @@ export default {
                 pcstr:this.pageSize
             }
             params.sign = deleteParams(params)
-            sceneList(params).then(res => {
+            iotLogList(params).then(res => {
+                console.log(res)
                 this.listLoading = false
                 if(res.data.code == 200){
                     this.list = res.data.data;

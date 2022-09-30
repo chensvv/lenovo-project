@@ -439,6 +439,11 @@ const router = new Router({
           meta: {title: '场景列表',needLogin:true}
         },
         {
+          path: '/iot/log/list',
+          component: () => import('@/pages/iot/log'),
+          meta: {title: '设备日志',needLogin:true}
+        },
+        {
           path: '/user/checkpass',
           component: () => import('@/pages/checkpass'),
           meta: {title: '修改密码',needLogin:true}
