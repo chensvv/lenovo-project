@@ -365,18 +365,29 @@ export default {
       var req = new XMLHttpRequest();
       var formData
       if(a == 'add'){
-        formData = 'text='+this.addList.liju+'&user=2'
+        if(proURL.proURL.indexOf('8085') != '-1'){
+          formData = 'text='+this.addList.liju+'&user=2'
+        }else{
+          formData = 'text='+this.addList.liju+'&user=10140802691'
+        }
       }else{
-        formData = 'text='+this.currentItem.liju+'&user=2'
+        if(proURL.proURL.indexOf('8085') != '-1'){
+          formData = 'text='+this.currentItem.liju+'&user=2'
+        }else{
+          formData = 'text='+this.currentItem.liju+'&user=10140802691'
+        }
       }
       if(proURL.proURL.indexOf('8085') != '-1'){
         req.open("POST", proURL.proURL+'/lasf/cloudtts', true);
+        req.setRequestHeader('channel', 'cloudasr')
+        req.setRequestHeader('lenovokey','LENOVO-VOICE-2t6588161u3bcba')
+        req.setRequestHeader('secretkey','28A5E16C525F2442E9DAA64CB5208AA7')
       }else{
         req.open("POST", proURL.proURL+'/website/cloudtts', true); // grab our audio file
+        req.setRequestHeader('channel', 'cloudasr')
+        req.setRequestHeader('lenovokey','LENOVO-VOICE-25c705e83m8865da1l7ac6d')
+        req.setRequestHeader('secretkey','266AC5CAC135A2221A0D8D9CBC896F4F')
       }
-      req.setRequestHeader('channel', 'cloudasr')
-      req.setRequestHeader('lenovokey','LENOVO-VOICE-2t6588161u3bcba')
-      req.setRequestHeader('secretkey','28A5E16C525F2442E9DAA64CB5208AA7')
       req.setRequestHeader('content-type', 'application/x-www-form-urlencoded')
       req.responseType = "arraybuffer";   // needs to be specific type to work
       req.overrideMimeType('text/xml; charset = utf-8')
@@ -388,13 +399,13 @@ export default {
           reader.onload = function (e) {
             let str = reader.result
             if(str.length < 200 && str.length > 1){
-              this.$message({
+              that.$message({
                     message:str.split('error=')[1],
                     type:"error",
                     duration:1500
                 });
             }else if(str.length == 0 || str == ''){
-              this.$message({
+              that.$message({
                     message:'请稍后重试！',
                     type:"error",
                     duration:1500
