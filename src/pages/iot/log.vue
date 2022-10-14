@@ -11,7 +11,35 @@
                 <el-form-item label="Lenovoid" prop="lenovoid">
                     <el-input v-model.trim="searchItem.lenovoid" clearable></el-input>
                 </el-form-item>
+                <el-form-item label="日志类型" prop="logType">
+                    <el-select v-model="searchItem.logType" placeholder="--" clearable>
+                        <el-option label="控制" value="1"></el-option>
+                        <el-option label="拉取" value="2"></el-option>
+                        <el-option label="设备属性查询" value="3"></el-option>
+                        <el-option label="设备属性上报" value="5"></el-option>
+                        <el-option label="场景上报" value="6"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="起始时间" prop="refreshTime">
+                <el-date-picker 
+                    type="date" 
+                    placeholder="选择日期" 
+                    v-model="searchItem.refreshTime" 
+                    :picker-options="pickerOptions"
+                    style="width: 100%;"
+                    value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="结束时间" prop="putTime">
+                    <el-date-picker 
+                        type="date" 
+                        placeholder="选择日期" 
+                        v-model="searchItem.putTime" 
+                        :picker-options="pickerOptions"
+                        style="width: 100%;"
+                        value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
             </div>
+            
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
@@ -120,7 +148,10 @@ export default {
             perList:[],
             totalClass:'8',
             searchItem:{//搜索数据组
-                lenovoid:""
+                lenovoid:"",
+                logType:"",
+                refreshTime:"",
+                putTime:""
             },
             infoItem:[],
             // 分页
@@ -203,6 +234,9 @@ export default {
             this.listLoading = true
             let params = {
                 lenovoid:this.searchItem.lenovoid,
+                logType:this.searchItem.logType,
+                startStr:this.searchItem.refreshTime,
+                endStr:this.searchItem.putTime,
                 pgstr:this.currentPage,
                 pcstr:this.pageSize
             }

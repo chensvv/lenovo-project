@@ -76,7 +76,7 @@
       ></el-pagination>
     </div>
 
-    <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
+    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="版本号">
           <el-input type="text" v-model.trim="currentItem.version" readonly auto-complete="off"></el-input>
@@ -97,7 +97,7 @@
         <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="详情" :visible.sync="infoVisible" width="70%" :before-close="infoHandleClose">
+    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="详情" :visible.sync="infoVisible" width="70%" :before-close="infoHandleClose">
        <el-table
           :data="infoList"
           stripe

@@ -132,7 +132,7 @@
         :total="totalCount"
       ></el-pagination>
     </div>
-    <el-dialog title="详情" :visible.sync="editVisible" width="40%" top="10vh" :before-close="handleClose" class="log-info">
+    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="详情" :visible.sync="editVisible" width="40%" top="10vh" :before-close="handleClose" class="log-info">
         <pre>{{infoList}}</pre>
         <span slot="footer" class="dialog-footer">
             <el-button @click="handleClose">取 消</el-button>

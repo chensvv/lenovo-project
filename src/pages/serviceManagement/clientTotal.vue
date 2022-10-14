@@ -88,7 +88,7 @@
                 :total="totalCount"
             ></el-pagination>
         </div>
-        <el-dialog title="上线" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="上线" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="ip地址" prop="name">
                   <el-input type="text" v-model.trim="addList.name" auto-complete="off" placeholder="输入多个ip地址请用英文,隔开"></el-input>

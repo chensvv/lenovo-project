@@ -372,9 +372,14 @@
 }
 
 .el-tooltip__popper {
-  max-width: 500px;
+  max-width: 350px;
   height: auto;
   max-height: 400px !important;
+  overflow: auto;
+}
+
+.el-tooltip__popper .popper__arrow, .el-tooltip__popper .popper__arrow:after{
+  border-style: none;
 }
 
 .kv-tooltip {
@@ -1216,4 +1221,10 @@
 }
 .tts-input{
   width: 90%;
+}
+.iotcontrol .el-dialog__header{
+  text-align: center;
+}
+.readonly .el-input__inner{
+  border: none;
 }

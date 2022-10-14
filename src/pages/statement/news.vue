@@ -112,7 +112,7 @@
         :total="totalCount"
       ></el-pagination>
     </div>
-    <el-dialog title="添加" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
+    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="添加" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="标题" prop="newsTitle">
           <el-input type="text" v-model.trim="addList.newsTitle" auto-complete="off"></el-input>
@@ -143,7 +143,7 @@
         <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog excel="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
+    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" excel="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
         <el-form-item label="标题" prop="newsTitle">
           <el-input type="text" v-model.trim="currentItem.newsTitle" auto-complete="off"></el-input>

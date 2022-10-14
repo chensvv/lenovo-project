@@ -91,6 +91,21 @@
                     </template>
                 </el-table-column>
                 <el-table-column
+                    label="房间名称"
+                    prop="room"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.room" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.room }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.room }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
                     label="制造商名称"
                     prop="manufacturerName"
                     align="center">
@@ -143,33 +158,63 @@
                 :total="totalCount"
             ></el-pagination>
         </div>
-        <el-dialog :visible.sync="infoVisible" width="40%" top="10vh" :before-close="infoHandleClose">
-            <el-descriptions direction="vertical" :column="1" border>
-                <el-descriptions-item label="Lenovoid">{{infoItem.lenovoid}}</el-descriptions-item>
-                <el-descriptions-item label="设备类型">{{infoItem.applianceTypes}}</el-descriptions-item>
-                <el-descriptions-item label="设备标识符">{{infoItem.applianceId}}</el-descriptions-item>
-                <el-descriptions-item label="设备型号名称">{{infoItem.modelName}}</el-descriptions-item>
-                <el-descriptions-item label="设备版本">{{infoItem.version}}</el-descriptions-item>
-                <el-descriptions-item label="设备名称">{{infoItem.friendlyName}}</el-descriptions-item>
-                <el-descriptions-item label="设备描述">{{infoItem.friendlyDescription}}</el-descriptions-item>
-                <el-descriptions-item label="是否可用">{{infoItem.reachable == 0 ? '否' : '是'}}</el-descriptions-item>
-                <el-descriptions-item label="支持的操作类型">{{infoItem.actions}}</el-descriptions-item>
-                <el-descriptions-item label="附加信息">{{infoItem.additionalDetails}}</el-descriptions-item>
-                <el-descriptions-item label="设备厂商名称">{{infoItem.manufacturerName}}</el-descriptions-item>
-                <el-descriptions-item label="属性名称">{{infoItem.attributes}}</el-descriptions-item>
-                <el-descriptions-item label="创建时间">{{infoItem.updateTime | timer}}</el-descriptions-item>
-            </el-descriptions>
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="infoHandleClose" @close="closeFun('infoItem')">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="infoItem" ref="infoItem">
+                <el-form-item label="Lenovoid" prop="Lenovoid" class="readonly">
+                    <el-input type="text" v-model.trim="infoItem.Lenovoid" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="设备标识符" prop="applianceId" class="readonly">
+                    <el-input type="text" v-model.trim="infoItem.applianceId" auto-complete="off" readonly></el-input>
+                </el-form-item>
+                <el-form-item label="设备类型" prop="applianceTypes">
+                    <el-input type="text" v-model.trim="infoItem.applianceTypes" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="房间" prop="room">
+                    <el-input type="text" v-model.trim="infoItem.room" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="设备型号名称" prop="modelName">
+                    <el-input type="text" v-model.trim="infoItem.modelName" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="设备版本" prop="version">
+                    <el-input type="text" v-model.trim="infoItem.version" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="设备名称" prop="friendlyName">
+                    <el-input type="text" v-model.trim="infoItem.friendlyName" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="设备描述" prop="friendlyDescription">
+                    <el-input type="text" v-model.trim="infoItem.friendlyDescription" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="是否可用">
+                    <el-checkbox-group v-model="infoItem.reachable">
+                        <el-checkbox></el-checkbox>
+                    </el-checkbox-group>
+                </el-form-item>
+                <el-form-item label="支持的操作类型" prop="actions">
+                    <el-input type="textarea" v-model.trim="infoItem.actions" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="附加信息" prop="additionalDetails">
+                    <el-input type="textarea" v-model.trim="infoItem.additionalDetails" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="设备厂商名称" prop="manufacturerName">
+                    <el-input type="text" v-model.trim="infoItem.manufacturerName" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="属性名称" prop="attributes">
+                    <el-input type="textarea" v-model.trim="infoItem.attributes" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="infoHandleClose">确 定</el-button>
+                <el-button @click="infoHandleClose">取 消</el-button>
+                <el-button type="primary" @click="infoHandleConfirm('infoItem')" :loading="editBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog :title="controlTitle" :visible.sync="controlVisible" width="40%" top="10vh" :before-close="controlHandleClose">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" class="iotcontrol" :title="controlTitle" :visible.sync="controlVisible" width="25%" top="40vh" :before-close="controlHandleClose">
             <el-form :label-position="'right'" label-width="100px" size="small" :rules="controlRules" :model="controlList" ref="controlList">
                 <el-form-item label="开关">
                     <el-switch v-model="controlItem.value" active-value="ON" inactive-value="OFF" :disabled="switchDisabled"></el-switch>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
+                <el-button @click="controlHandleClose">取 消</el-button>
                 <el-button type="primary" :loading="conBtnLoading" @click="controlHandleConfirm">确 定</el-button>
             </span>
         </el-dialog>
@@ -178,7 +223,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {iotList, iotDel, iotPull, sceneControl} from '@/config/api'
+import {iotList, iotDel, iotPull, sceneControl, iotUpdate} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data() {
@@ -189,7 +234,34 @@ export default {
             searchItem:{//搜索数据组
                 lenovoid:""
             },
-            infoItem:[],
+            infoItem:{
+                id:"",
+                Lenovoid:"",
+                applianceTypes:"",
+                applianceId:"",
+                room:"",
+                modelName:"",
+                version:"",
+                friendlyName:"",
+                friendlyDescription:"",
+                reachable:null,
+                actions:"",
+                additionalDetails:"",
+                manufacturerName:"",
+                attributes:""
+            },
+            editRules:{
+                applianceTypes:[{ required: true, message: '请输入设备类型', trigger: 'change' }],
+                modelName:[{ required: true, message: '请输入设备型号名称', trigger: 'change' }],
+                room:[{ required: true, message: '请输入房间名称', trigger: 'change' }],
+                version:[{ required: true, message: '请输入设备版本', trigger: 'change' }],
+                friendlyName:[{ required: true, message: '请输入设备名称', trigger: 'change' }],
+                friendlyDescription:[{ required: true, message: '请输入设备描述', trigger: 'change' }],
+                actions:[{ required: true, message: '请输入支持的操作类型', trigger: 'change' }],
+                additionalDetails:[{ required: true, message: '请输入附加信息', trigger: 'change' }],
+                manufacturerName:[{ required: true, message: '请输入设备厂商名称', trigger: 'change' }],
+                attributes:[{ required: true, message: '请输入属性名称', trigger: 'change' }]
+            },
             controlItem:[],
             controlTitle:"",
             controlList:[],
@@ -203,6 +275,7 @@ export default {
             controlVisible:false,
             seaBtnLoading:false,
             conBtnLoading:false,
+            editBtnLoading:false,
             listLoading:true,
             isshow:true
         };
@@ -285,10 +358,32 @@ export default {
             // console.log(`当前页: ${val}`);
             this.getList();
         },
+        closeFun(infoItem){
+            this.$nextTick(() => {
+                if(this.$refs[infoItem]){
+                    this.$refs[infoItem].clearValidate();
+                }
+            })
+        },
         handleInfo(index, row) {
             // console.log(index, row);
             this.infoVisible = true;
-            this.infoItem = row;
+            this.infoItem = {
+                id:row.id,
+                Lenovoid:row.lenovoid,
+                applianceTypes:row.applianceTypes,
+                applianceId:row.applianceId,
+                room:row.room,
+                modelName:row.modelName,
+                version:row.version,
+                friendlyName:row.friendlyName,
+                friendlyDescription:row.friendlyDescription,
+                reachable:row.reachable == 1 ? true : false,
+                actions:row.actions,
+                additionalDetails:row.additionalDetails,
+                manufacturerName:row.manufacturerName,
+                attributes:row.attributes
+            }
         },
         handleControl(index, row) {
             // console.log(index, row);
@@ -300,6 +395,51 @@ export default {
         },
         infoHandleClose(){
             this.infoVisible = false
+        },
+        infoHandleConfirm(infoItem){
+            let infoParams = {
+                id:this.infoItem.id,
+                applianceTypes:this.infoItem.applianceTypes,
+                room:this.infoItem.room,
+                modelName:this.infoItem.modelName,
+                version:this.infoItem.version,
+                friendlyName:this.infoItem.friendlyName,
+                friendlyDescription:this.infoItem.friendlyDescription,
+                reachable:this.infoItem.reachable == true ? 1 : 0,
+                actions:this.infoItem.actions,
+                additionalDetails:this.infoItem.additionalDetails,
+                manufacturerName:this.infoItem.manufacturerName,
+                attributes:this.infoItem.attributes
+            }
+            infoParams.sign = deleteParams(infoParams)
+            this.$refs[infoItem].validate((valid) => {
+                if (valid) {
+                    this.editBtnLoading = true
+                    iotUpdate(infoParams).then(res=>{
+                        this.editBtnLoading = false
+                        if(res.data.code == 200){
+                            this.$message({
+                                message:'编辑成功',
+                                type:"success",
+                                duration:1500
+                            });
+                            this.getList()
+                            this.infoVisible = false
+                        }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1500
+                            });
+                        }
+                    }).catch(err => {
+                        this.editBtnLoading = false
+                    })
+                } else {
+                    return false;
+                }
+            })
+            
         },
         controlHandleClose(){
             this.controlVisible = false

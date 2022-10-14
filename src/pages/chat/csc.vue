@@ -102,7 +102,7 @@
         :total="totalCount"
       ></el-pagination>
     </div>
-    <el-dialog title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
+    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
         <el-form-item label="名称" prop="name">
           <el-input type="text" v-model.trim="addList.name" auto-complete="off"></el-input>

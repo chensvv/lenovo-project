@@ -269,7 +269,7 @@
             </el-tabs>
         </div>
         
-        <el-dialog title="新增" :visible.sync="commandAddVisible" width="40%" top="10vh" :before-close="commandAddHandleClose" @open="commandOpenFun('commandAddList')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="commandAddVisible" width="40%" top="10vh" :before-close="commandAddHandleClose" @open="commandOpenFun('commandAddList')">
             <el-form :label-position="'right'" label-width="130px" size="small" :rules="commandAddRules" :model="commandAddList" ref="commandAddList">
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="commandAddList.command" auto-complete="off"></el-input>
@@ -288,7 +288,7 @@
                 <el-button type="primary" @click="commandAddHandleConfirm('commandAddList')" :loading="commandAddBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="新增" :visible.sync="norunAddVisible" width="40%" top="10vh" :before-close="norunAddHandleClose" @open="norunOpenFun('norunAddList')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="norunAddVisible" width="40%" top="10vh" :before-close="norunAddHandleClose" @open="norunOpenFun('norunAddList')">
             <el-form :label-position="'right'" label-width="130px" size="small" :rules="norunAddRules" :model="norunAddList" ref="norunAddList">
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="norunAddList.command" auto-complete="off"></el-input>
@@ -299,7 +299,7 @@
                 <el-button type="primary" @click="norunAddHandleConfirm('norunAddList')" :loading="norunAddBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="新增" :visible.sync="originaAddVisible" width="40%" top="10vh" :before-close="originaAddHandleClose" @open="originaOpenFun('originaAddList')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="originaAddVisible" width="40%" top="10vh" :before-close="originaAddHandleClose" @open="originaOpenFun('originaAddList')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="originaAddRules" :model="originaAddList" ref="originaAddList">
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="originaAddList.command" auto-complete="off"></el-input>
@@ -313,7 +313,7 @@
                 <el-button type="primary" @click="originaAddHandleConfirm('originaAddList')" :loading="originaAddBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="currentItem.command" auto-complete="off"></el-input>

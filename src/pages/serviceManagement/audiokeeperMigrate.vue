@@ -15,7 +15,7 @@
         <div class="table-box" v-loading="loading">
             <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>
         </div>
-        <el-dialog title="迁移" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="迁移" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="服务地址" prop="serverAddr">
                 <el-input type="text" v-model.trim="addList.serverAddr" auto-complete="off" placeholder="实例：localhost:8080"></el-input>

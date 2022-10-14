@@ -124,7 +124,7 @@
             ></el-pagination>
         </div>
 
-        <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="歌曲名称" prop="songName">
                     <el-input type="text" v-model.trim="currentItem.songName" auto-complete="off"></el-input>
@@ -152,7 +152,7 @@
                 <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item label="歌曲名称" prop="songName">
                     <el-input type="text" v-model.trim="addList.songName" auto-complete="off"></el-input>
@@ -180,7 +180,7 @@
                 <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="上传文件" :visible.sync="uploadVisible" width="40%" top="10vh" class="eldialog" :before-close="closeFile">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="上传文件" :visible.sync="uploadVisible" width="40%" top="10vh" class="eldialog" :before-close="closeFile">
           <el-form class="eldialogForm">
             <el-form-item label >
                <el-upload

@@ -165,7 +165,7 @@
         :total="totalCount"
       ></el-pagination>
     </div>
-    <el-dialog title="添加资源渠道类型" :visible.sync="addResVisible" width="40%" top="10vh" :before-close="addResHandleClose" @open="openResFun('addResList')">
+    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="添加资源渠道类型" :visible.sync="addResVisible" width="40%" top="10vh" :before-close="addResHandleClose" @open="openResFun('addResList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addResRules" :model="addResList" ref="addResList">
         <el-form-item label="资源类型" prop="resType">
             <el-select v-model="addResList.resType" placeholder="请选择" @change="selectChanged">

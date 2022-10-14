@@ -92,7 +92,7 @@
             :total="totalCount"
         ></el-pagination>
     </div>
-        <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
         <el-form :label-position="'right'" label-width="80px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
             <el-form-item label="说明" prop="version">
                 <el-input type="text" v-model.trim="currentItem.version" auto-complete="off"></el-input>
@@ -106,7 +106,7 @@
             <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
         </span>
         </el-dialog>
-        <el-dialog title="添加答案" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="添加答案" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="0px" size="small" :rules="addRules" :model="addList" ref="addList">
                 <el-form-item prop="version">
                     <el-input type="text" v-model.trim="addList.version" placeholder="在此处添加说明" auto-complete="off"></el-input>
@@ -121,7 +121,7 @@
                 <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="发布策略" :visible.sync="strVisible" width="40%" top="10vh" :before-close="strHandleClose">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="发布策略" :visible.sync="strVisible" width="40%" top="10vh" :before-close="strHandleClose">
             <el-form :label-position="'right'" label-width="80px" size="small" ref="strList">
                 <el-form-item label="软件版本" class="ver_text1">
                     <el-input type="text" v-model.trim="strList.minVer" placeholder="最小版本" auto-complete="off"></el-input> - 

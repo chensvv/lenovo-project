@@ -236,7 +236,7 @@
         :total="totalCount"
       ></el-pagination>
     </div>
-    <el-dialog title="数据压缩包下载" :visible.sync="zipVisible" width="40%" top="10vh" :before-close="zipHandleClose">
+    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="数据压缩包下载" :visible.sync="zipVisible" width="40%" top="10vh" :before-close="zipHandleClose">
         <div class="zip_box">
           <div v-for="(item,index) in zipLists" :key="index">
             <el-link type="primary" icon="el-icon-download" @click="downZip(item.filename)">{{item.lasttime}}</el-link>

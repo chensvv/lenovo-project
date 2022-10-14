@@ -215,7 +215,7 @@
         ></el-pagination>
         </div>
           
-        <el-dialog title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose" class="aksk-info">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose" class="aksk-info">
             <el-descriptions>
                 <el-descriptions-item label="ID">{{infoList.id}}</el-descriptions-item>
                 <el-descriptions-item label="设备ID">{{infoList.did}}</el-descriptions-item>

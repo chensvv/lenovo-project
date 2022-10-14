@@ -82,7 +82,7 @@
                 :total="totalCount"
             ></el-pagination>
         </div>
-        <el-dialog title="详情" :visible.sync="infoVisible" width="300" :close-on-press-escape="false" :close-on-click-modal="false" :before-close="handleClose">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="详情" :visible.sync="infoVisible" width="300" :before-close="handleClose">
             <el-form :label-position="'right'" size="small" label-width="120px">
                 <el-form-item label="用户名称">
                     <el-input type="text" v-model="infoList.username" auto-complete="off" readonly></el-input>
@@ -119,7 +119,7 @@
             </span>
         </el-dialog>
 
-        <el-dialog title="退回理由" :visible.sync="backVisible" width="300" :before-close="back_handleClose">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="退回理由" :visible.sync="backVisible" width="300" :before-close="back_handleClose">
             <el-form :label-position="'right'" size="small" label-width="120px">
                 <el-form-item label="退回理由">
                     <el-input type="textarea" v-model="infoList.backres" auto-complete="off"></el-input>
@@ -218,7 +218,7 @@
                 :total="n_totalCount"
             ></el-pagination>
         </div>
-        <el-dialog title="详情" :visible.sync="n_infoVisible" width="300" :before-close="n_handleClose">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="详情" :visible.sync="n_infoVisible" width="300" :before-close="n_handleClose">
             <el-form :label-position="'right'" size="small" label-width="120px">
                 <el-form-item label="ID">
                     <el-input type="text" v-model="n_infoList.id" auto-complete="off" readonly></el-input>

@@ -229,7 +229,7 @@
         ></el-pagination>
         </div>
           
-        <el-dialog title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose" class="aksk-info">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose" class="aksk-info">
             <el-descriptions>
                 <el-descriptions-item label="lenovoId">{{infoList.lenovoId}}</el-descriptions-item>
                 <el-descriptions-item label="用户名">{{infoList.userName}}</el-descriptions-item>
@@ -258,7 +258,7 @@
                 <el-button type="primary" @click="handleConfirm()">关闭</el-button>
             </span>
         </el-dialog>
-        <el-dialog title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
                 <el-form-item label="ASR访问次数" prop="userDailyCloudasrCount">
                     <el-input type="text" v-model.trim="currentItem.userDailyCloudasrCount" auto-complete="off" :class="currentItem.asrChecked == true ? 'text-d': ''" :disabled="currentItem.asrChecked"></el-input>
