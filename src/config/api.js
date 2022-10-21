@@ -2529,6 +2529,30 @@ export function forumDelbatch (data) {
   })
 }
 
+export function forumReview (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/forum/update/review',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function forumUpdate (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/forum/update',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
 export function engineDictList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/engineDict/list',

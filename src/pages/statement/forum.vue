@@ -8,12 +8,16 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
       <div class="form-input height50">
-        <el-form-item label="title" prop="title">
+        <el-form-item label="标题" prop="title">
           <el-input v-model.trim="searchItem.title" clearable></el-input>
         </el-form-item>
       </div>
       
       <div class="form-btn">
+        <el-radio-group v-model="autoAudit" size="mini" @change="handleChange">
+          <el-radio label="1" border>开启自动审批</el-radio>
+          <el-radio label="2" border>关闭自动审批</el-radio>
+        </el-radio-group>
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleBatchDel()" v-has="'forum:delbatch'">批量删除</el-button>
@@ -38,7 +42,7 @@
           <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
-              label="title"
+              label="标题"
               prop="title"
               align="left">
               <template slot-scope="scope">
@@ -53,6 +57,12 @@
               </template>
           </el-table-column>
           <el-table-column
+                label="状态"
+                prop="invalidate"
+                align="center"
+                :formatter="formState">
+            </el-table-column>
+          <el-table-column
               label="创建时间"
               prop="createTime"
               align="center"
@@ -61,6 +71,18 @@
           </el-table-column>
           <el-table-column label="操作" align="center" min-width="130" v-if="btnshow">
               <template slot-scope="scope">
+                <el-button
+                  v-if="scope.row.invalidate == 1 || scope.row.invalidate == 0"
+                  size="mini"
+                  type="danger"
+                  @click="handleOff(scope.$index, scope.row)"
+                  v-has="'forum:details'">否决</el-button>
+                <el-button
+                  v-if="scope.row.invalidate == 2 || scope.row.invalidate == 0"
+                  size="mini"
+                  type="danger"
+                  @click="handleUpdate(scope.$index, scope.row)"
+                  v-has="'forum:details'">审批</el-button>
                   <el-button
                   size="mini"
                   @click="handleInfo(scope.$index, scope.row)"
@@ -87,7 +109,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {forumList, forumDetele, forumDelbatch} from '@/config/api'
+import {forumList, forumDetele, forumDelbatch, forumReview, forumUpdate} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
@@ -96,6 +118,7 @@ export default {
       perList:[],
       sels:[],
       totalClass:'8',
+      autoAudit:"",
       currentItem: {//编辑数据组
         id:"",
         speak: "",
@@ -147,6 +170,9 @@ export default {
         checkTime(date.getHours())+':'+
         checkTime(date.getMinutes())
     },
+    formState(row, column){
+      return row.invalidate == 1 ? "已审核" : row.invalidate == 0 ? '未审核' : "审核拒绝"
+    },
     resetForm(formName) {
       this.$refs[formName].resetFields();
       this.currentPage = 1
@@ -171,6 +197,14 @@ export default {
     handleSelectionChange(val){
       this.sels = val
     },
+    handleChange(val){
+      let reviewParams = {
+        invalidate:val
+      }
+      forumReview(reviewParams).then(res=>{
+        console.log(res)
+      })
+    },
     handleInfo(index, row) {
       this.$router.push({
             path:'/forum/detail',
@@ -178,6 +212,50 @@ export default {
                 articleId:row.articleId
             }
         })
+    },
+    handleUpdate(index,row){
+      let updateParams = {
+        id:row.id,
+        invalidate:1
+      }
+      forumUpdate(updateParams).then(res=>{
+        if(res.data.code == 200){
+          this.$message({
+            message:'审批成功',
+            type:"success",
+            duration:1500
+          });
+          this.getList();
+        }else{
+          this.$message({
+            message:res.data.errorMessage,
+            type:"error",
+            duration:1500
+          });
+        }
+      })
+    },
+    handleOff(index,row){
+      let updateParams = {
+        id:row.id,
+        invalidate:2
+      }
+      forumUpdate(updateParams).then(res=>{
+        if(res.data.code == 200){
+          this.$message({
+            message:'已否决',
+            type:"success",
+            duration:1500
+          });
+          this.getList();
+        }else{
+          this.$message({
+            message:res.data.errorMessage,
+            type:"error",
+            duration:1500
+          });
+        }
+      })
     },
     handleBatchDel(){
       let ids = this.sels.map(item => item.id)

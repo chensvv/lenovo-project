@@ -18,7 +18,7 @@
           <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
-              label="content"
+              label="内容"
               prop="content"
               align="left">
               <template slot-scope="scope">

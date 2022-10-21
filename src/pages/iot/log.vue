@@ -1,13 +1,13 @@
 <template>
-    <div class="table height-105">
+    <div class="table height-135">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/csc/csc'}">IOT领域</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
-            <div class="form-input height70">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height100 width130" size="mini">
+            <div class="form-input height100">
                 <el-form-item label="Lenovoid" prop="lenovoid">
                     <el-input v-model.trim="searchItem.lenovoid" clearable></el-input>
                 </el-form-item>
@@ -19,6 +19,15 @@
                         <el-option label="设备属性上报" value="5"></el-option>
                         <el-option label="场景上报" value="6"></el-option>
                     </el-select>
+                </el-form-item>
+                <el-form-item label="appId" prop="appId">
+                    <el-input v-model.trim="searchItem.appId" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="bodyName" prop="bodyName">
+                    <el-input v-model.trim="searchItem.bodyName" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="resultName" prop="resultName">
+                    <el-input v-model.trim="searchItem.resultName" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="起始时间" prop="refreshTime">
                 <el-date-picker 
@@ -74,17 +83,32 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    label="header"
-                    prop="header"
+                    label="applianceid"
+                    prop="applianceid"
                     align="center">
                     <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.header" placement="top">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.applianceid" placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                            {{ scope.row.header }}
+                            {{ scope.row.applianceid }}
                             </div>
                         </el-tooltip>
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                            {{ scope.row.header }}
+                            {{ scope.row.applianceid }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="bodyName"
+                    prop="bodyName"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.bodyName" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.bodyName }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.bodyName }}
                         </div>
                     </template>
                 </el-table-column>
@@ -119,20 +143,44 @@
                     </template>
                 </el-table-column>
                 <el-table-column
+                    label="resultName"
+                    prop="resultName"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.resultName" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.resultName }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.resultName }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
                     label="添加时间"
                     prop="createTime"
                     align="center"
                     :formatter="formTime">
                 </el-table-column>
             </el-table>
-            <el-pagination
+            <!-- <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
                 :page-size="pageSize"
-                layout="total, prev, pager, next, jumper"
-                :total="totalCount"
-            ></el-pagination>
+                layout="prev, pager, next, jumper"
+                :class="lastNone ? 'lastNone':'lastBlock'"
+            ></el-pagination> -->
+            <div class="pagination-wrap" v-cloak>
+                <ul class="pagination">
+                    <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                    <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li>
+                    <li class="active"><a href="javascript:;" @click="turnToPage(currentPage)">{{currentPage}}</a></li>
+                    <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li>
+                    <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -150,9 +198,13 @@ export default {
             searchItem:{//搜索数据组
                 lenovoid:"",
                 logType:"",
+                appId:"",
+                bodyName:"",
+                resultName:"",
                 refreshTime:"",
                 putTime:""
             },
+            lastNone:'',
             infoItem:[],
             // 分页
             currentPage: 1, //默认显示第几页
@@ -162,7 +214,14 @@ export default {
             infoVisible:false,
             seaBtnLoading:false,
             listLoading:true,
-            isshow:true
+            isshow:true,
+            isPageNumberError:false,
+            lastPage:0,
+            MaxId:"",
+            MinId:"",
+            nextPage:"",
+            isLastPage:false,
+            lastCurrentPage:""
         };
     },
     created() {
@@ -208,6 +267,12 @@ export default {
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
         },
+        lastLi(){
+	    //记得加上 this.$nextTick，不然获取不到document
+            this.$nextTick(_=>{
+                this.lastNone = !!document.getElementsByClassName('btn-quicknext')[0]
+            })
+        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1
@@ -229,7 +294,27 @@ export default {
             // console.log(`当前页: ${val}`);
             this.getList();
         },
-        
+        turnToPage(pageNum){
+            console.log(pageNum)
+            var ts = this;
+            var pageNum = parseInt(pageNum);
+            //页数不合法则退出
+            if(pageNum == -1){
+                ts.lastPage = -1
+                ts.getLastList()
+            }else{
+                ts.currentPage = pageNum
+                if (!pageNum || pageNum < 1) {
+                    console.log('页码输入有误！');
+                    ts.isPageNumberError = true;
+                    return false;
+                }else{
+                    ts.lastPage = 0
+                    ts.getList();
+                    ts.isPageNumberError = false;
+                }
+            }
+        },
         getList() {
             this.listLoading = true
             let params = {
@@ -237,17 +322,76 @@ export default {
                 logType:this.searchItem.logType,
                 startStr:this.searchItem.refreshTime,
                 endStr:this.searchItem.putTime,
-                pgstr:this.currentPage,
-                pcstr:this.pageSize
+                appId:this.searchItem.appId,
+                bodyName:this.searchItem.bodyName,
+                resultName:this.searchItem.resultName,
+                pgstr:this.nextPage,
+                pcstr:this.pageSize,
+                maxId:this.MaxId,
+                minId:this.MinId,
+                nextPage:this.currentPage,
+                currentPage:this.lastCurrentPage
             }
             params.sign = deleteParams(params)
             iotLogList(params).then(res => {
-                console.log(res)
                 this.listLoading = false
-                if(res.data.code == 200){
+                if(res.status == 200){
                     this.list = res.data.data;
-                    this.totalCount = res.data.count
+                    // this.totalCount = res.data.count
                     this.totalClass = res.data.data.length
+                    this.MaxId = Math.max.apply(Math, this.list.map(function(o) {return o.id}))
+                    this.MinId = Math.min.apply(Math, this.list.map(function(o) {return o.id}))
+                    this.isLastPage = res.data.hasLastPage
+                    this.lastCurrentPage = res.data.currentPage
+                    this.currentPage = res.data.currentPage
+                    if(res.data.lastPage == true){
+                        this.lastPage = -1
+                        this.isLastPage = true
+                    }
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:'error',
+                        duration:1500
+                    });
+                }
+            }).catch(()=>{
+                this.listLoading = false
+            })
+        },
+        getLastList() {
+            this.listLoading = true
+            let params = {
+                lenovoid:this.searchItem.lenovoid,
+                logType:this.searchItem.logType,
+                startStr:this.searchItem.refreshTime,
+                endStr:this.searchItem.putTime,
+                appId:this.searchItem.appId,
+                bodyName:this.searchItem.bodyName,
+                resultName:this.searchItem.resultName,
+                pgstr:this.nextPage,
+                pcstr:this.pageSize,
+                maxId:this.MaxId,
+                minId:this.MinId,
+                nextPage:this.lastPage,
+                currentPage:this.lastCurrentPage
+            }
+            params.sign = deleteParams(params)
+            iotLogList(params).then(res => {
+                this.listLoading = false
+                if(res.status == 200){
+                    this.list = res.data.data;
+                    // this.totalCount = res.data.count
+                    this.totalClass = res.data.data.length
+                    this.MaxId = Math.max.apply(Math, this.list.map(function(o) {return o.id}))
+                    this.MinId = Math.min.apply(Math, this.list.map(function(o) {return o.id}))
+                    this.isLastPage = res.data.hasLastPage
+                    this.lastCurrentPage = res.data.currentPage
+                    this.currentPage = res.data.currentPage
+                    if(res.data.lastPage == true){
+                        this.lastPage = -1
+                        this.isLastPage = true
+                    }
                 }else{
                     this.$message({
                         message:res.data.errorMessage,
@@ -264,4 +408,62 @@ export default {
 </script>
 
 <style scoped>
+/* .lastNone .el-pagination .el-pager li:nth-last-child(1){	
+    display: none;
+}
+
+.lastBlock .el-pagination .el-pager li:nth-last-child(1){
+    display: inline-block;
+} */
+.pagination-wrap{
+	margin: 0 auto;
+	text-align: center;
+}
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 10px 0;
+}
+.pagination>.disabled>span, .pagination>.disabled>span:hover, .pagination>.disabled>span:focus, .pagination>.disabled>a, .pagination>.disabled>a:hover, .pagination>.disabled>a:focus {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    pointer-events: none;
+}
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    z-index: 2;
+    color: #409eff;
+    cursor: default;
+    font-weight: 700;
+}
+.pagination>li>a, .pagination>li>span {
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    color: #409eff;
+    text-decoration: none;
+    background-color: #fff;
+}
+.pagination>li {
+    display: inline;
+}
+.pagination>li i{
+    font-size: 12px;
+    font-weight: 700;
+}
+.pagination li button{
+    cursor: pointer;
+    margin: 0;
+    color: #303133;
+    border: none;
+    padding: 0 6px;
+    background-color: #fff;
+}
+.pagination li button:disabled{
+    color: #c0c4cc;
+    background-color: #fff;
+    cursor: not-allowed;
+}
+.pagination li button:hover {
+    color: #409eff;
+}
 </style>

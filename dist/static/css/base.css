@@ -1228,3 +1228,9 @@
 .readonly .el-input__inner{
   border: none;
 }
+.form-btn .el-radio{
+  margin-right: 0;
+}
+.form-btn .el-radio-group{
+  margin-right: 10px;
+}
