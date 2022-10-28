@@ -162,14 +162,28 @@
             </el-table-column>
             <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" min-width="140"></el-table-column>
           </el-table>
-          <el-pagination
+          <!-- <el-pagination
             @size-change="handleSizeChangeC"
             @current-change="handleCurrentChangeC"
             :current-page.sync="CcurrentPage"
             :page-size="CpageSize"
             layout="total, prev, pager, next, jumper"
             :total="CtotalCount"
-          ></el-pagination>
+          ></el-pagination> -->
+          <div class="pagination-wrap" v-cloak>
+                <ul class="pagination">
+                    <li><button :disabled="currentPageC==1? true : false" @click="turnToPageC(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                    <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
+                    <li v-if="isLastPageC != false" class="unum" @click="turnToPageC(currentPageC-2)">{{currentPageC-2}}</li>
+                    <li v-if="currentPageC-1>0"  class="unum" @click="turnToPageC(currentPageC-1)">{{currentPageC-1}}</li>
+                    <li class="active" @click="turnToPageC(currentPageC)">{{currentPageC}}</li>
+                    <li v-if="isLastPageC != true" class="unum" @click="turnToPageC(currentPageC+1)">{{currentPageC+1}}</li>
+                    <li v-if="currentPageC+1 < 3" class="unum" @click="turnToPageC(currentPageC+2)">{{currentPageC+2}}</li>
+
+                    <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
+                    <li><button :disabled="lastPageC!= 0 && isLastPageC == true? true: false" @click="turnToPageC(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
+                </ul>
+            </div>
         </el-tab-pane>
         <el-tab-pane label="服务器信息" name="server">
           <el-table 
@@ -319,14 +333,28 @@
             </el-table-column>
             <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" min-width="140"></el-table-column>
           </el-table>
-          <el-pagination
+          <!-- <el-pagination
             @size-change="handleSizeChangeS"
             @current-change="handleCurrentChangeS"
             :current-page.sync="ScurrentPage"
             :page-size="SpageSize"
             layout="total, prev, pager, next, jumper"
             :total="StotalCount"
-          ></el-pagination>
+          ></el-pagination> -->
+          <div class="pagination-wrap" v-cloak>
+                <ul class="pagination">
+                    <li><button :disabled="currentPageS==1? true : false" @click="turnToPageS(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                    <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
+                    <li v-if="isLastPageS != false" class="unum" @click="turnToPageS(currentPageS-2)">{{currentPageS-2}}</li>
+                    <li v-if="currentPageS-1>0"  class="unum" @click="turnToPageS(currentPageS-1)">{{currentPageS-1}}</li>
+                    <li class="active" @click="turnToPageS(currentPageS)">{{currentPageS}}</li>
+                    <li v-if="isLastPageS != true" class="unum" @click="turnToPageS(currentPageS+1)">{{currentPageS+1}}</li>
+                    <li v-if="currentPageS+1 < 3" class="unum" @click="turnToPageS(currentPageS+2)">{{currentPageS+2}}</li>
+
+                    <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
+                    <li><button :disabled="lastPageS!= 0 && isLastPageS == true? true: false" @click="turnToPageS(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
+                </ul>
+            </div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -359,17 +387,31 @@ export default {
       ctotalClass:'8',
       totalClass:'8',
       // 分页
-      CcurrentPage: 1, //默认显示第几页
+      currentPageC: 1, //默认显示第几页
       CpageSize: 10, //默认每页条数
       CtotalCount: 1, // 总条数
-      
-      ScurrentPage: 1, //默认显示第几页
+      isPageNumberErrorC:false,
+      lastPageC:0,
+      MaxIdC:"",
+      MinIdC:"",
+      nextPageC:"",
+      isLastPageC:false,
+      lastCurrentPageC:"",
+
+      currentPageS: 1, //默认显示第几页
       SpageSize: 10, //默认每页条数
       StotalCount: 1, // 总条数
       showTitle:true,
       seaBtnLoading: false,
       ClistLoading:true,
       SlistLoading:true,
+      isPageNumberErrorS:false,
+      lastPageS:0,
+      MaxIdS:"",
+      MinIdS:"",
+      nextPageS:"",
+      isLastPageS:false,
+      lastCurrentPageS:"",
       column:{
         prop:'',
         order:''
@@ -378,6 +420,7 @@ export default {
   },
   created() {
     this.getList();
+    this.getSList()
   },
   methods: {
     onShowNameTipsMouseenter(e) {
@@ -393,7 +436,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.currentPage = 1
+      this.currentPageC = 1
       this.getList()
     },
     formTime(row, column) {
@@ -419,23 +462,59 @@ export default {
     },
     handleSizeChangeC(val) {
       this.CpageSize = val;
-      this.CcurrentPage = 1;
+      this.currentPageC = 1;
       this.getList();
     },
     handleSizeChangeS(val) {
       this.SpageSize = val;
-      this.ScurrentPage = 1;
+      this.currentPageS = 1;
       this.getList();
     },
     handleCurrentChangeC(val) {
-      this.CcurrentPage = val;
+      this.currentPageC = val;
       // console.log(`当前页: ${val}`);
       this.getList();
     },
     handleCurrentChangeS(val) {
-      this.ScurrentPage = val;
+      this.currentPageS = val;
       // console.log(`当前页: ${val}`);
       this.getList();
+    },
+    turnToPageC(pageNum){
+        var ts = this;
+        var pageNum = parseInt(pageNum);
+        if(pageNum == -1){
+            ts.lastPageC = -1
+            ts.getList(pageNum)
+        }else{
+            if (!pageNum || pageNum < 1) {
+                console.log('页码输入有误！');
+                ts.isPageNumberErrorC = true;
+                return false;
+            }else{
+                ts.lastPageC = 0
+                ts.getList(pageNum);
+                ts.isPageNumberErrorC = false;
+            }
+        }
+    },
+    turnToPageS(pageNum){
+        var ts = this;
+        var pageNum = parseInt(pageNum);
+        if(pageNum == -1){
+            ts.lastPageS = -1
+            ts.getSList(pageNum)
+        }else{
+            if (!pageNum || pageNum < 1) {
+                console.log('页码输入有误！');
+                ts.isPageNumberErrorS = true;
+                return false;
+            }else{
+                ts.lastPageS = 0
+                ts.getSList(pageNum);
+                ts.isPageNumberErrorS = false;
+            }
+        }
     },
     sortChange(column){
       this.column = {
@@ -445,52 +524,78 @@ export default {
       console.log(this.column)
       this.getList()
     },
-    getList() {
+    getList(pageNum) {
       let Cparams = {
-        pgstr: this.CcurrentPage,
-        pcstr: this.CpageSize,
-        startStr: this.searchItem.refreshTime,
-        endStr: this.searchItem.putTime,
-        uid: this.searchItem.uid,
-        dtp: this.searchItem.dtp,
-        fieldName: this.column.prop,
-        order:this.column.order == 'ascending' ? '0' : ''
-      };
-      let Sparams = {
-        pgstr: this.ScurrentPage,
-        pcstr: this.SpageSize
-      };
-      Cparams.sign = deleteParams(Cparams)
-      Sparams.sign = deleteParams(Sparams)
-      clientList(Cparams).then(res => {
-        this.ClistLoading = false
-        if(res.data.code == 200){
-          this.clientList = res.data.data.data;
-          this.CtotalCount = res.data.data.total;
-          this.ctotalClass = res.data.data.data.length
-        }else{
-            this.$message({
-                message:res.data.errorMessage,
-                type:'error',
-                duration:1500
-            });
-        }
-      }).catch(()=>{
-        this.ClistLoading = false
-      })
-      clientList(Sparams).then(res => {
-        this.SlistLoading = false
-        if(res.data.code == 200){
-          this.serverList = res.data.data.data;
-          this.StotalCount = res.data.data.total;
-          this.totalClass = res.data.data.data.length
-        }
-      }).catch(()=>{
-        this.SlistLoading = false
-      })
+          startStr: this.searchItem.refreshTime,
+          endStr: this.searchItem.putTime,
+          uid: this.searchItem.uid,
+          dtp: this.searchItem.dtp,
+          fieldName: this.column.prop,
+          pgstr:this.nextPageC,
+          pcstr:this.CpageSize,
+          maxId:this.MaxIdC,
+          minId:this.MinIdC,
+          nextPage:pageNum == 1 || pageNum == undefined ? '1' : pageNum,
+          currentPage:this.lastCurrentPageC,
+          order:this.column.order == 'ascending' ? '0' : ''
+        };
+        Cparams.sign = deleteParams(Cparams)
+        clientList(Cparams).then(res => {
+          console.log(res.data.data)
+          this.ClistLoading = false
+          if(res.data.code == 200){
+            this.clientList = res.data.data.data;
+            this.ctotalClass = res.data.data.data.length
+            this.isLastPageC = res.data.data.lastPage
+            this.lastCurrentPageC = res.data.data.currentPage
+            this.currentPageC = res.data.data.currentPage
+            this.MaxIdC = Math.max.apply(Math, this.clientList.map(function(o) {return o.id}))
+            this.MinIdC = Math.min.apply(Math, this.clientList.map(function(o) {return o.id}))
+            if(res.data.lastPage == true){
+                this.lastPageC = -1
+            }
+          }else{
+              this.$message({
+                  message:res.data.errorMessage,
+                  type:'error',
+                  duration:1500
+              });
+          }
+        }).catch(()=>{
+          this.ClistLoading = false
+        })
+      },
+      getSList(pageNum){
+        let Sparams = {
+          pgstr:this.nextPageS,
+          pcstr:this.SpageSize,
+          maxId:this.MaxIdS,
+          minId:this.MinIdS,
+          nextPage:pageNum == 1 || pageNum == undefined ? '1' : pageNum,
+          currentPage:this.lastCurrentPageS,
+        };
+        Sparams.sign = deleteParams(Sparams)
+        clientList(Sparams).then(res => {
+          this.SlistLoading = false
+          if(res.data.code == 200){
+            this.serverList = res.data.data.data;
+            this.totalClass = res.data.data.data.length
+            this.isLastPageS = res.data.data.lastPage
+            this.lastCurrentPageS = res.data.data.currentPage
+            this.currentPageS = res.data.data.currentPage
+            this.MaxIdS = Math.max.apply(Math, this.serverList.map(function(o) {return o.id}))
+            this.MinIdS = Math.min.apply(Math, this.serverList.map(function(o) {return o.id}))
+            if(res.data.lastPage == true){
+                this.lastPageS = -1
+            }
+          }
+        }).catch(()=>{
+          this.SlistLoading = false
+        })
+      },
     }
   }
-};
+;
 </script>
 
 <style scoped>

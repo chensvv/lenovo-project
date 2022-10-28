@@ -175,9 +175,14 @@
             <div class="pagination-wrap" v-cloak>
                 <ul class="pagination">
                     <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
-                    <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li>
-                    <li class="active"><a href="javascript:;" @click="turnToPage(currentPage)">{{currentPage}}</a></li>
-                    <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li>
+                    <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
+                    <li v-if="isLastPage != false" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+                    <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
+                    <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+                    <li v-if="isLastPage != true" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
+                    <li v-if="currentPage+1 < 3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+
+                    <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
                     <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
                 </ul>
             </div>
@@ -246,6 +251,8 @@ export default {
                     checkTime(date.getMinutes())
         }
     },
+    watch:{
+    },
     methods: {
         onShowNameTipsMouseenter(e) {
             var target = e.target;
@@ -267,12 +274,6 @@ export default {
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
         },
-        lastLi(){
-	    //记得加上 this.$nextTick，不然获取不到document
-            this.$nextTick(_=>{
-                this.lastNone = !!document.getElementsByClassName('btn-quicknext')[0]
-            })
-        },
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1
@@ -284,38 +285,28 @@ export default {
             this.getList()
             this.seaBtnLoading = false
         },
-        handleSizeChange(val) {
-            this.pageSize = val;
-            this.currentPage = 1
-            this.getList();
-        },
-        handleCurrentChange(val) {
-            this.currentPage = val
-            // console.log(`当前页: ${val}`);
-            this.getList();
-        },
         turnToPage(pageNum){
             console.log(pageNum)
             var ts = this;
             var pageNum = parseInt(pageNum);
-            //页数不合法则退出
             if(pageNum == -1){
                 ts.lastPage = -1
-                ts.getLastList()
+                ts.getList(pageNum)
             }else{
-                ts.currentPage = pageNum
+                // ts.currentPage = pageNum
                 if (!pageNum || pageNum < 1) {
                     console.log('页码输入有误！');
                     ts.isPageNumberError = true;
                     return false;
                 }else{
                     ts.lastPage = 0
-                    ts.getList();
+                    ts.getList(pageNum)
                     ts.isPageNumberError = false;
                 }
             }
         },
-        getList() {
+        getList(pageNum) {
+            console.log(pageNum)
             this.listLoading = true
             let params = {
                 lenovoid:this.searchItem.lenovoid,
@@ -329,7 +320,7 @@ export default {
                 pcstr:this.pageSize,
                 maxId:this.MaxId,
                 minId:this.MinId,
-                nextPage:this.currentPage,
+                nextPage:pageNum == 1 || pageNum == undefined ? '1' : pageNum,
                 currentPage:this.lastCurrentPage
             }
             params.sign = deleteParams(params)
@@ -341,56 +332,11 @@ export default {
                     this.totalClass = res.data.data.length
                     this.MaxId = Math.max.apply(Math, this.list.map(function(o) {return o.id}))
                     this.MinId = Math.min.apply(Math, this.list.map(function(o) {return o.id}))
-                    this.isLastPage = res.data.hasLastPage
+                    this.isLastPage = res.data.lastPage
                     this.lastCurrentPage = res.data.currentPage
                     this.currentPage = res.data.currentPage
                     if(res.data.lastPage == true){
                         this.lastPage = -1
-                        this.isLastPage = true
-                    }
-                }else{
-                    this.$message({
-                        message:res.data.errorMessage,
-                        type:'error',
-                        duration:1500
-                    });
-                }
-            }).catch(()=>{
-                this.listLoading = false
-            })
-        },
-        getLastList() {
-            this.listLoading = true
-            let params = {
-                lenovoid:this.searchItem.lenovoid,
-                logType:this.searchItem.logType,
-                startStr:this.searchItem.refreshTime,
-                endStr:this.searchItem.putTime,
-                appId:this.searchItem.appId,
-                bodyName:this.searchItem.bodyName,
-                resultName:this.searchItem.resultName,
-                pgstr:this.nextPage,
-                pcstr:this.pageSize,
-                maxId:this.MaxId,
-                minId:this.MinId,
-                nextPage:this.lastPage,
-                currentPage:this.lastCurrentPage
-            }
-            params.sign = deleteParams(params)
-            iotLogList(params).then(res => {
-                this.listLoading = false
-                if(res.status == 200){
-                    this.list = res.data.data;
-                    // this.totalCount = res.data.count
-                    this.totalClass = res.data.data.length
-                    this.MaxId = Math.max.apply(Math, this.list.map(function(o) {return o.id}))
-                    this.MinId = Math.min.apply(Math, this.list.map(function(o) {return o.id}))
-                    this.isLastPage = res.data.hasLastPage
-                    this.lastCurrentPage = res.data.currentPage
-                    this.currentPage = res.data.currentPage
-                    if(res.data.lastPage == true){
-                        this.lastPage = -1
-                        this.isLastPage = true
                     }
                 }else{
                     this.$message({
@@ -415,55 +361,5 @@ export default {
 .lastBlock .el-pagination .el-pager li:nth-last-child(1){
     display: inline-block;
 } */
-.pagination-wrap{
-	margin: 0 auto;
-	text-align: center;
-}
-.pagination {
-    display: inline-block;
-    padding-left: 0;
-    margin: 10px 0;
-}
-.pagination>.disabled>span, .pagination>.disabled>span:hover, .pagination>.disabled>span:focus, .pagination>.disabled>a, .pagination>.disabled>a:hover, .pagination>.disabled>a:focus {
-    color: #777;
-    cursor: not-allowed;
-    background-color: #fff;
-    pointer-events: none;
-}
-.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
-    z-index: 2;
-    color: #409eff;
-    cursor: default;
-    font-weight: 700;
-}
-.pagination>li>a, .pagination>li>span {
-    padding: 6px 12px;
-    line-height: 1.42857143;
-    color: #409eff;
-    text-decoration: none;
-    background-color: #fff;
-}
-.pagination>li {
-    display: inline;
-}
-.pagination>li i{
-    font-size: 12px;
-    font-weight: 700;
-}
-.pagination li button{
-    cursor: pointer;
-    margin: 0;
-    color: #303133;
-    border: none;
-    padding: 0 6px;
-    background-color: #fff;
-}
-.pagination li button:disabled{
-    color: #c0c4cc;
-    background-color: #fff;
-    cursor: not-allowed;
-}
-.pagination li button:hover {
-    color: #409eff;
-}
+
 </style>
