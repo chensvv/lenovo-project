@@ -420,6 +420,7 @@ export default {
                 maxId:this.MaxId,
                 minId:this.MinId,
                 nextPage:pageNum == 1 || pageNum == undefined ? '1' : pageNum,
+                currentPage:this.lastCurrentPage,
                 order:this.column.order == 'ascending' ? '0' : ''
             }
             params.sign = deleteParams(params)

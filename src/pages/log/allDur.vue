@@ -124,7 +124,7 @@ export default {
               series: [{
                   name: '平均时间',
                   type: 'bar',
-                  data: res.data.data.visit,
+                  data: res.data.data.visit +'ms',
                   color:"#409eff",
                   barMaxWidth: 60, // 最大宽度
                   itemStyle: {

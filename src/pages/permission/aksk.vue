@@ -242,16 +242,22 @@
                 <el-descriptions-item label="ASR剩余可访问次数">{{infoList.remainAsrCount == -99 ? '∞' : infoList.remainAsrCount}}</el-descriptions-item>
                 <el-descriptions-item label="TTS剩余可访问次数">{{infoList.remainTTSCount == -99 ? '∞' : infoList.remainTTSCount}}</el-descriptions-item>
                 <el-descriptions-item label="会议监控权限">{{infoList.meetingService =='1' ? "是" : "否"}}</el-descriptions-item>
+                <el-descriptions-item label="历史AK">{{infoList.oldLenovoKey}}</el-descriptions-item>
+                <el-descriptions-item label="历史SK">{{infoList.oldSecretKey}}</el-descriptions-item>
+                <el-descriptions-item label="历史AK、SK过期时间">{{infoList.oldTimeOut}}</el-descriptions-item>
             </el-descriptions>
-            <el-form :label-position="'right'" label-width="40px" size="small">
+            <el-form :label-position="'right'" label-width="80px" size="small" :rules="infoRules" :model="infoList" ref="infoList">
                 <el-form-item label="AK">
                     <el-input type="text" v-model="infoList.ak" auto-complete="off" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="SK">
                     <el-input type="text" v-model="infoList.sk" auto-complete="off" readonly></el-input>
                 </el-form-item>
+                <el-form-item label="过期时间" prop="outDate">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="infoList.outDate" :picker-options="pickerOptions" value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
                 <el-form-item label="">
-                    <el-button type="primary" @click="getAkSk()" :loading="regLoading" v-has="'userinfo:modify'">更新AKSK</el-button>
+                    <el-button type="primary" @click="getAkSk('infoList')" :loading="regLoading" v-has="'userinfo:modify'">更新AKSK</el-button>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -304,6 +310,11 @@ import {deleteParams} from '@/utils/deleteParams.js'
 export default {
     data(){
         return{
+            pickerOptions: {
+            disabledDate(v) {
+                    return v.getTime() < new Date().getTime() - 86400000;//  - 86400000是否包括当天
+                }
+            },
             searchItem:{
                 userName:''
             },
@@ -323,7 +334,11 @@ export default {
                 usedAsrCount:'',
                 usedTTSCount:'',
                 remainAsrCount:'',
-                remainTTSCount:''
+                remainTTSCount:'',
+                oldLenovoKey:"",
+                oldSecretKey:"",
+                oldTimeOut:"",
+                outDate:""
             },
             currentItem: {//编辑数据组
                 id:"",
@@ -341,6 +356,9 @@ export default {
             editRules:{
                 userDailyCloudasrCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
                 userDailyCloudttsCount:[{ required: true, message: '请输入访问次数', trigger: 'blur' }], 
+            },
+            infoRules:{
+                outDate:[{ required: true, message: '请选择过期时间', trigger: 'blur' }]
             },
             column:{
                 prop:'',
@@ -507,30 +525,36 @@ export default {
                 }
             });
         },
-        getAkSk(){
+        getAkSk(infoList){
             let detailParams = {
                 userName:this.infoList.userName,
-                lenovoId:this.infoList.lenovoId
+                lenovoId:this.infoList.lenovoId,
+                timeOut:this.infoList.outDate
             }
             detailParams.sign = deleteParams(detailParams)
-            modinfy(detailParams).then(res=>{
-            if(res.data.code == 200){
-                this.$message({
-                    message:'更新成功',
-                    type:"success",
-                    duration:1500
-                });
-                this.getAkSkDetail();
-            }else{
-                this.$message({
-                    message:res.data.errorMessage,
-                    type:"error",
-                    duration:1500
-                });
-            }
-        }).catch((err) => {
-          console.log(err);
-        });
+            this.$refs[infoList].validate((valid) => {
+                if (valid) {
+                    modinfy(detailParams).then(res=>{
+                        if(res.data.code == 200){
+                            this.$message({
+                                message:'更新成功',
+                                type:"success",
+                                duration:1500
+                            });
+                            this.getAkSkDetail();
+                        }else{
+                            this.$message({
+                                message:res.data.errorMessage,
+                                type:"error",
+                                duration:1500
+                            });
+                        }
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }
+            })
+            
         },
         sortChange(column){
             this.column = {
@@ -592,7 +616,10 @@ export default {
                     usedAsrCount:res.data.usedAsrCount,
                     usedTTSCount:res.data.usedTTSCount,
                     remainAsrCount:res.data.remainAsrCount,
-                    remainTTSCount:res.data.remainTTSCount
+                    remainTTSCount:res.data.remainTTSCount,
+                    oldTimeOut:new Date(res.data.oldTimeOut).getFullYear()+'-'+checkTime(new Date(res.data.oldTimeOut).getMonth()+1)+'-'+checkTime(new Date(res.data.oldTimeOut).getDate()),
+                    oldLenovoKey:res.data.oldLenovoKey,
+                    oldSecretKey:res.data.oldSecretKey
                 }
             })
         },

@@ -109,7 +109,6 @@
               <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
               <li v-if="isLastPage != true" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
               <li v-if="currentPage+1 < 3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
-
               <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
               <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
           </ul>
@@ -239,6 +238,7 @@ export default {
         maxId:this.MaxId,
         minId:this.MinId,
         nextPage:pageNum == 1 || pageNum == undefined ? '1' : pageNum,
+        currentPage:this.lastCurrentPage
       }
       params.sign = deleteParams(params)
       syslogList(params).then(res=>{

@@ -525,6 +525,7 @@ export default {
       this.getList()
     },
     getList(pageNum) {
+      this.ClistLoading = false
       let Cparams = {
           startStr: this.searchItem.refreshTime,
           endStr: this.searchItem.putTime,
@@ -566,6 +567,7 @@ export default {
         })
       },
       getSList(pageNum){
+        this.SlistLoading = false
         let Sparams = {
           pgstr:this.nextPageS,
           pcstr:this.SpageSize,

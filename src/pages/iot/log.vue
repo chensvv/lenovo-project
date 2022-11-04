@@ -306,7 +306,6 @@ export default {
             }
         },
         getList(pageNum) {
-            console.log(pageNum)
             this.listLoading = true
             let params = {
                 lenovoid:this.searchItem.lenovoid,
