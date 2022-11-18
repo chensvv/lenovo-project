@@ -6,7 +6,7 @@ import {
   // let proURL = 'http://m.voice.lenovomm.com'
 // eslint-disable-next-line no-unused-vars
 let service = {}
-// let proURL = 'http://10.110.148.59:8085'
+// let proURL = 'http://10.110.148.57:8085'
 let proURL = 'https://voice.lenovomm.com'
 // axios 配置
 // eslint-disable-next-line camelcase

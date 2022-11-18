@@ -617,7 +617,7 @@ export default {
                     usedTTSCount:res.data.usedTTSCount,
                     remainAsrCount:res.data.remainAsrCount,
                     remainTTSCount:res.data.remainTTSCount,
-                    oldTimeOut:new Date(res.data.oldTimeOut).getFullYear()+'-'+checkTime(new Date(res.data.oldTimeOut).getMonth()+1)+'-'+checkTime(new Date(res.data.oldTimeOut).getDate()),
+                    oldTimeOut:res.data.oldTimeOut == null ? '' : new Date(res.data.oldTimeOut).getFullYear()+'-'+checkTime(new Date(res.data.oldTimeOut).getMonth()+1)+'-'+checkTime(new Date(res.data.oldTimeOut).getDate()),
                     oldLenovoKey:res.data.oldLenovoKey,
                     oldSecretKey:res.data.oldSecretKey
                 }

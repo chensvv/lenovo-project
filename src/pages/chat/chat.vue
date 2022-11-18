@@ -104,14 +104,27 @@
               :formatter="formTime">
           </el-table-column>
       </el-table>
-      <el-pagination
+      <!-- <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page.sync="currentPage"
         :page-size="pageSize"
         layout="total, prev, pager, next, jumper"
         :total="totalCount"
-      ></el-pagination>
+      ></el-pagination> -->
+      <div class="pagination-wrap" v-cloak>
+          <ul class="pagination">
+              <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+              <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
+              <li v-if="isLastPage != false && currentPage !=1" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+              <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
+              <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+              <li v-if="isLastPage != true" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
+              <li v-if="currentPage+1 < 3 && isLastPage !=true" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+              <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
+              <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
+          </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -149,7 +162,14 @@ export default {
       showTitle:true,
       seaBtnLoading:false,
       fileBtnLoading:false,
-      listLoading:true
+      listLoading:true,
+      isPageNumberError:false,
+      lastPage:0,
+      MaxId:"",
+      MinId:"",
+      nextPage:"",
+      isLastPage:false,
+      lastCurrentPage:""
     };
   },
   created() {
@@ -178,13 +198,15 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.currentPage = 1
-      this.getList()
+      this.currentPage = ''
+      this.maxId = ''
+      this.minId = ''
+      this.getList(1)
     },
     onSubmit(){
       this.seaBtnLoading = true
-      this.currentPage = 1
-      this.getList()
+      this.currentPage = ''
+      this.getList(1)
       this.seaBtnLoading = false
     },
     handleSizeChange(val) {
@@ -197,6 +219,25 @@ export default {
       this.listLoading = true
       // console.log(`当前页: ${val}`);
       this.getList();
+    },
+    turnToPage(pageNum){
+        var ts = this;
+        var pageNum = parseInt(pageNum);
+        if(pageNum == -1){
+            ts.lastPage = -1
+            ts.getList(pageNum)
+        }else{
+            // ts.currentPage = pageNum
+            if (!pageNum || pageNum < 1) {
+                console.log('页码输入有误！');
+                ts.isPageNumberError = true;
+                return false;
+            }else{
+                ts.lastPage = 0
+                ts.getList(pageNum)
+                ts.isPageNumberError = false;
+            }
+        }
     },
     exportFile(){
       // let timestamp = new Date();
@@ -230,28 +271,38 @@ export default {
         prop:column.prop,
         order:column.order
       }
-      console.log(this.column)
-      this.getList()
+      this.getList(this.lastCurrentPage)
     },
-    getList() {
+    getList(pageNum) {
       this.listLoading = true
       let params = {
-        pgstr:this.currentPage,
-        pcstr:this.pageSize,
         q:this.searchItem.question,
         ex:'',
         startStr:this.searchItem.refreshTime,
         endStr:this.searchItem.putTime,
         fieldName: this.column.prop,
+        pgstr:this.nextPage,
+        pcstr:this.pageSize,
+        maxId:this.MaxId,
+        minId:this.MinId,
+        nextPage:pageNum == 1 || pageNum == undefined ? '1' : pageNum,
+        currentPage:this.lastCurrentPage,
         order:this.column.order == 'ascending' ? '0' : ''
       }
       params.sign = deleteParams(params)
       chatList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){
-          this.list = res.data.data;
-          this.totalCount = res.data.count
-          this.totalClass = res.data.data.length
+          this.list = res.data.data.data;
+          this.totalClass = res.data.data.data.length
+          this.MaxId = Math.max.apply(Math, this.list.map(function(o) {return o.id}))
+          this.MinId = Math.min.apply(Math, this.list.map(function(o) {return o.id}))
+          this.isLastPage = res.data.data.lastPage
+          this.lastCurrentPage = res.data.data.currentPage
+          this.currentPage = res.data.data.currentPage
+          if(res.data.data.lastPage == true){
+              this.lastPage = -1
+          }
         }else{
             this.$message({
                 message:res.data.errorMessage,

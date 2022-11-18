@@ -98,11 +98,11 @@
           <ul class="pagination">
               <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
               <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
-              <li v-if="isLastPage != false" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+              <li v-if="isLastPage != false && currentPage !=1" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
               <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
               <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
               <li v-if="isLastPage != true" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
-              <li v-if="currentPage+1 < 3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+              <li v-if="currentPage+1 < 3 && isLastPage !=true" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
               <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
               <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
           </ul>
@@ -185,13 +185,15 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.currentPage = 1
-      this.getList()
+      this.currentPage = ''
+      this.maxId = ''
+      this.minId = ''
+      this.getList(1)
     },
     onSubmit(){
       this.seaBtnLoading = true
-      this.currentPage = 1
-      this.getList()
+      this.currentPage = ''
+      this.getList(1)
       this.seaBtnLoading = false
     },
     handleSizeChange(val) {
@@ -210,7 +212,7 @@ export default {
             order:column.order
         }
         console.log(this.column)
-        this.getList()
+        this.getList(this.lastCurrentPage)
     },
     turnToPage(pageNum){
         var ts = this;

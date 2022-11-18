@@ -3008,3 +3008,15 @@ export function iotUpdate (data) {
     }
   })
 }
+
+export function clientChart (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/log/client/chart',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

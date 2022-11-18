@@ -289,6 +289,11 @@ const router = new Router({
           meta: {title: '客户端上报日志',needLogin:true}
         },
         {
+          path: '/log/client/chart',
+          component: () => import('@/pages/log/clientChart'),
+          meta: {title: '客户端上报日志',needLogin:true}
+        },
+        {
           path: '/asr/log/rawlog',
           component: () => import('@/pages/log/rawlog'),
           meta: {title: '客户端原始日志',needLogin:true}

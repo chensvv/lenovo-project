@@ -174,12 +174,11 @@
                 <ul class="pagination">
                     <li><button :disabled="currentPageC==1? true : false" @click="turnToPageC(1)"><i class="el-icon-d-arrow-left"></i></button></li>
                     <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
-                    <li v-if="isLastPageC != false" class="unum" @click="turnToPageC(currentPageC-2)">{{currentPageC-2}}</li>
+                    <li v-if="isLastPageC != false && currentPageC !=1" class="unum" @click="turnToPageC(currentPageC-2)">{{currentPageC-2}}</li>
                     <li v-if="currentPageC-1>0"  class="unum" @click="turnToPageC(currentPageC-1)">{{currentPageC-1}}</li>
                     <li class="active" @click="turnToPageC(currentPageC)">{{currentPageC}}</li>
                     <li v-if="isLastPageC != true" class="unum" @click="turnToPageC(currentPageC+1)">{{currentPageC+1}}</li>
-                    <li v-if="currentPageC+1 < 3" class="unum" @click="turnToPageC(currentPageC+2)">{{currentPageC+2}}</li>
-
+                    <li v-if="currentPageC+1 < 3 && isLastPageC !=true" class="unum" @click="turnToPageC(currentPageC+2)">{{currentPageC+2}}</li>
                     <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
                     <li><button :disabled="lastPageC!= 0 && isLastPageC == true? true: false" @click="turnToPageC(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
                 </ul>
@@ -345,11 +344,11 @@
                 <ul class="pagination">
                     <li><button :disabled="currentPageS==1? true : false" @click="turnToPageS(1)"><i class="el-icon-d-arrow-left"></i></button></li>
                     <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
-                    <li v-if="isLastPageS != false" class="unum" @click="turnToPageS(currentPageS-2)">{{currentPageS-2}}</li>
+                    <li v-if="isLastPageS != false && currentPageS != 1" class="unum" @click="turnToPageS(currentPageS-2)">{{currentPageS-2}}</li>
                     <li v-if="currentPageS-1>0"  class="unum" @click="turnToPageS(currentPageS-1)">{{currentPageS-1}}</li>
                     <li class="active" @click="turnToPageS(currentPageS)">{{currentPageS}}</li>
                     <li v-if="isLastPageS != true" class="unum" @click="turnToPageS(currentPageS+1)">{{currentPageS+1}}</li>
-                    <li v-if="currentPageS+1 < 3" class="unum" @click="turnToPageS(currentPageS+2)">{{currentPageS+2}}</li>
+                    <li v-if="currentPageS+1 < 3 && isLastPageS != true" class="unum" @click="turnToPageS(currentPageS+2)">{{currentPageS+2}}</li>
 
                     <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
                     <li><button :disabled="lastPageS!= 0 && isLastPageS == true? true: false" @click="turnToPageS(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
@@ -436,8 +435,10 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.currentPageC = 1
-      this.getList()
+      this.currentPageC = ''
+      this.MaxIdC = ''
+      this.MinIdC = ''
+      this.getList(1)
     },
     formTime(row, column) {
       var timer = row.it;
@@ -457,7 +458,7 @@ export default {
     onSubmit() {
       this.seaBtnLoading = true;
       this.currentPage = 1
-      this.getList();
+      this.getList(1);
       this.seaBtnLoading = false;
     },
     handleSizeChangeC(val) {
@@ -522,7 +523,7 @@ export default {
         order:column.order
       }
       console.log(this.column)
-      this.getList()
+      this.getList(this.lastCurrentPageC)
     },
     getList(pageNum) {
       this.ClistLoading = false

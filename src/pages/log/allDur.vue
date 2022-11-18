@@ -119,7 +119,11 @@ export default {
                  borderWidth:1
               },
               yAxis: {
-                minInterval : 1
+                minInterval : 1,
+                type: 'value',
+                axisLabel:{
+                  formatter: "{value} ms",
+                }
               },
               series: [{
                   name: '平均时间',
