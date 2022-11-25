@@ -149,6 +149,11 @@ const router = new Router({
           meta: {title: '灰度发布-机型列表',needLogin:true}
         },
         {
+          path: '/goods/list',
+          component: () => import('@/pages/rule/goods'),
+          meta: {title: '商品管理',needLogin:true}
+        },
+        {
           path: '/ttsgrey/devlist',
           component: () => import('@/pages/rule/ttsGrey'),
           meta: {title: 'TTS灰度',needLogin:true}

@@ -3020,3 +3020,51 @@ export function clientChart (data) {
     }
   })
 }
+
+export function goodsList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/goods/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function goodsUpdate (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/goods/update',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function goodsDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/goods/delete',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function goodsAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/goods/add',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
