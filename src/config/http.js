@@ -69,18 +69,11 @@ service_head.interceptors.response.use(response => {
   }
   return response
 }, error => {
-  // console.log(error.response)
-  // endLoading()
   switch (error.response.status){
     case 403:
       // console.log(error.response.url.indexOf('logout'))
       if(error.response.config.url.indexOf('logout') == -1){
         Message.closeAll()
-        // Message({
-        //   message: '登录超时，请重新登录',
-        //   type: 'error',
-        //   duration: 1500
-        // })
         MessageBox.alert('登录超时，请重新登录', '', {
           confirmButtonText: '确定',
           showClose:false,
