@@ -472,7 +472,8 @@ export default {
         developer:this.searchItem.developer,
         keywordType:this.searchItem.keywordType,
         keywordPhrase:this.searchItem.keywordPhrase,
-        origin:this.searchItem.origin
+        origin:this.searchItem.origin,
+        userName:sessionStorage.getItem('username')
       }
       zipParams.sign = deleteParams(zipParams)
       this.zipBtnLoading = true
@@ -502,7 +503,11 @@ export default {
     },
     packResult(){
       this.zipVisible = true
-      zipList().then(res=>{
+      let userparams = {
+        userName:sessionStorage.getItem('username')
+      }
+      userparams.sign = deleteParams(userparams)
+      zipList(userparams).then(res=>{
         this.zipLists = res.data.array
         if(this.zipLists.length == 0){
           this.isshow = true

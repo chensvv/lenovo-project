@@ -1100,7 +1100,7 @@ export function zipList (data) {
 
 export function zipDownload (data) {
   return fetch.FileDownload({
-    url: '/lasf-mgr/trigger/download?fileName='+data+'&fileType=zip',
+    url: '/lasf-mgr/trigger/download?fileName='+data+'&fileType=zip&userName='+sessionStorage.getItem('username'),
     method: 'get',
     headers: {
       't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),

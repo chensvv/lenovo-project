@@ -105,7 +105,6 @@
                         show-checkbox
                         node-key="id"
                         :props="defaultProps"
-                        :check-strictly='true'
                         ref="treeAdd"
                         @check-change="getCheckedAdd"
                         :default-checked-keys="selectedKeysAdd">
