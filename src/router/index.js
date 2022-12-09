@@ -344,6 +344,11 @@ const router = new Router({
           meta: {title: '官网调用日志',needLogin:true}
         },
         {
+          path: '/visit/list',
+          component: () => import('@/pages/log/visit'),
+          meta: {title: '官网访问统计',needLogin:true}
+        },
+        {
           path: '/census/list',
           component: () => import('@/pages/graph/census'),
           meta: {title: '访问量统计',needLogin:true}

@@ -104,6 +104,9 @@
         <el-form-item label="机型UA" prop="code">
           <el-input type="textarea" v-model="currentItem.code" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item label="时效" prop="et">
+          <el-input type="text" v-model="currentItem.et" auto-complete="off"></el-input>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="editHandleClose">取 消</el-button>
@@ -117,6 +120,9 @@
         </el-form-item>
         <el-form-item label="机型UA" prop="code">
           <el-input type="textarea" v-model="addList.code" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="时效" prop="et">
+          <el-input type="text" v-model="addList.et" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -141,10 +147,12 @@ export default {
         id:"",
         code: "",
         name: "",
+        et:""
       },
       addList: {//添加数据组
         name:"",
-        code:""
+        code:"",
+        et:""
       },
       searchItem:{//搜索数据组
         inc:"",
@@ -154,11 +162,13 @@ export default {
       selectId:"",
       addRules:{
         name:[{ required: true, message: '请输入机型名称', trigger: 'change' }],
-        code:[{ required: true, message: '请输入机型UA', trigger: 'change' }]  
+        code:[{ required: true, message: '请输入机型UA', trigger: 'change' }],
+        et:[{ required: true, message: '请输入过期天数', trigger: 'change' }]  
       },
       editRules:{
         name:[{ required: true, message: '请输入机型名称', trigger: 'blur' }],
-        code:[{ required: true, message: '请输入机型UA', trigger: 'blur' }]  
+        code:[{ required: true, message: '请输入机型UA', trigger: 'blur' }],
+        et:[{ required: true, message: '请输入过期天数', trigger: 'blur' }]
       },
       editVisible: false,
       addVisible: false,
@@ -234,6 +244,7 @@ export default {
         id:row.id,
         code: row.code,
         name: row.name,
+        et:row.expireTime
       };
     },
     handleDel(index, row) {
@@ -291,7 +302,8 @@ export default {
       let updParams = {
         id:this.currentItem.id,
         n:this.currentItem.name,
-        c:this.currentItem.code
+        c:this.currentItem.code,
+        et:this.currentItem.et
       }
       updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
@@ -330,7 +342,8 @@ export default {
     addHandleConfirm(addList) {
       let addParams = {
         n:this.addList.name,
-        c:this.addList.code
+        c:this.addList.code,
+        et:this.addList.et
       }
       addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
