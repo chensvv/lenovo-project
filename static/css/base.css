@@ -1106,8 +1106,13 @@
   cursor: pointer;
   height: 38px;
 }
-.reg-box, .userinfo-box{
+.reg-box{
   width: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  text-align: center;
+}
+.userinfo-box{
   margin: 0 auto;
   margin-top: 50px;
   text-align: center;
@@ -1298,4 +1303,14 @@
 }
 .pagination li button:hover {
     color: #409eff;
+}
+.userinfo-box th.el-descriptions-item__cell.el-descriptions-item__label.has-colon{
+  display: none;
+}
+.userinfo-box .el-des{
+  display: inline-block;
+  width: 200px;
+}
+.fontSize30{
+  font-size: 30px;
 }

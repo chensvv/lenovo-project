@@ -3080,3 +3080,15 @@ export function visitList (data) {
     }
   })
 }
+
+export function visitPages (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/visit/pages',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

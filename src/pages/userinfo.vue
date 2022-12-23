@@ -1,23 +1,28 @@
 <template>
   <div>
     <div class="userinfo-box">
-      <el-descriptions title="用户信息">
-          <el-descriptions-item label="用户名">{{userinfo.userName}}</el-descriptions-item>
-          <el-descriptions-item label="密码">
-            <span v-if="passShow">{{userinfo.password}}</span>
-            <span class="pass" v-else>{{password}}</span> 
-            <span class="lookmi" @click="passHide()"><i class="el-icon-view"></i></span>
-          </el-descriptions-item>
-      </el-descriptions>
-      <el-descriptions direction="vertical">
-          <el-descriptions-item label="权限">
-            <el-tree
-              :data="treeList"
-              :props="defaultProps"
-              accordion>
-            </el-tree>
-          </el-descriptions-item>
-      </el-descriptions>
+      <div class="el-des">
+        <el-descriptions title="用户信息">
+            <el-descriptions-item label="用户名">{{userinfo.userName}}</el-descriptions-item>
+            <el-descriptions-item label="密码">
+              <span v-if="passShow">{{userinfo.password}}</span>
+              <span class="pass" v-else>{{password}}</span> 
+              <span class="lookmi" @click="passHide()"><i class="el-icon-view"></i></span>
+            </el-descriptions-item>
+        </el-descriptions>
+      </div>
+      <div class="el-des">
+        <el-descriptions direction="vertical" title="用户权限">
+            <el-descriptions-item>
+              <el-tree
+                :data="treeList"
+                :props="defaultProps"
+                accordion>
+              </el-tree>
+            </el-descriptions-item>
+        </el-descriptions>
+      </div>
+      
     </div>
   </div>
 </template>

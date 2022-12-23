@@ -8,30 +8,30 @@
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="100px" class="demo-form-inline height100 width130" size="mini">
             <div class="form-input height100">
                 <el-form-item label="页面唯一标识" prop="page">
-                    <el-input v-model.trim="searchItem.page" clearable></el-input>
+                    <el-select v-model.trim="searchItem.page" placeholder="--" clearable>
+                        <el-option v-for="item in pageList" :key="item" :label="item" :value="item"></el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item label="类型" prop="type">
                     <el-select v-model.trim="searchItem.type" placeholder="--" clearable>
                         <el-option v-for="item in opList" :key="item.id" :label="item.label" :value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="起始时间" prop="refreshTime">
-                    <el-date-picker 
-                    type="date" 
-                    placeholder="选择日期" 
-                    v-model="searchItem.refreshTime" 
-                    :picker-options="pickerOptions"
-                    style="width: 100%;"
-                    value-format="yyyy-MM-dd"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="结束时间" prop="putTime">
-                    <el-date-picker 
-                    type="date" 
-                    placeholder="选择日期" 
-                    v-model="searchItem.putTime"
-                    :picker-options="pickerOptions" 
-                    style="width: 100%;"
-                    value-format="yyyy-MM-dd"></el-date-picker>
+                <el-form-item label="选择时间" prop="pickerVal" class="picker-form">
+                    <el-date-picker
+                        :clearable="true"
+                        v-model="pickerVal"
+                        type="daterange"
+                        align="center"
+                        size="mini"
+                        class="data-picker"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :picker-options="pickerOptions"
+                        value-format="yyyy-MM-dd"
+                        @change="dateChangebirthday">
+                    </el-date-picker>
                 </el-form-item>
             </div>
             <div class="form-btn">
@@ -62,6 +62,21 @@
                         </el-tooltip>
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
                             {{ scope.row.page }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="小时"
+                    prop="hour"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.hour" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.hour }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.hour }}
                         </div>
                     </template>
                 </el-table-column>
@@ -112,17 +127,34 @@
 </template>
 
 <script>
-import {visitList} from '@/config/api'
+import {visitList, visitPages} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 import {checkTime} from '@/utils/timer.js'
 export default {
     data(){
+        let vue = this
         return{
             pickerOptions: {
                 disabledDate(time) {
-                    let times = Date.now() - 24 * 60 * 60 * 1000;
+                    let times = Date.now();
+                    let timeOptionRange = vue.timeOptionRange;
+                    let secondNum = 3600 * 1000 * 24 * 30;
+                    if (timeOptionRange) {
+                    return time.getTime() > timeOptionRange.getTime() + (Date.now() - timeOptionRange.getTime() < secondNum ? Date.now() - timeOptionRange.getTime() : secondNum) || time.getTime() < timeOptionRange.getTime() - secondNum;
+                    }else{
                     return time.getTime() > times;
+                    }
+                    // return time.getTime() > Date.now();
                 },
+                onPick(time) {
+                    //当第一时间选中才设置禁用
+                    if (time.minDate && !time.maxDate) {
+                        vue.timeOptionRange = time.minDate;
+                    }
+                    if (time.maxDate) {
+                        vue.timeOptionRange = null;
+                    }
+                }
             },
             searchItem:{
                 page:"",
@@ -131,6 +163,7 @@ export default {
                 type:""
             },
             list:[],
+            pageList:[],
             opList:[
                 {id:1,label:"所有访问数"},
                 {id:2,label:"每小时访问数"},
@@ -138,6 +171,7 @@ export default {
                 {id:4,label:"每时每页面访问数"}
             ],
             // 分页
+            pickerVal:[],
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
@@ -150,6 +184,7 @@ export default {
     created(){
         this.searchItem.type = this.opList[0].id
         this.getList();
+        this.getPages()
     },
     methods:{
         onShowNameTipsMouseenter(e) {
@@ -171,6 +206,16 @@ export default {
                 checkTime(date.getDate())+' '+
                 checkTime(date.getHours())+':'+
                 checkTime(date.getMinutes())
+        },
+        dateChangebirthday(val) {
+            if (val == null) val = []
+                this.searchItem.refreshTime = val[0]
+                this.searchItem.putTime = val[1]
+        },
+        getPages(){
+            visitPages().then(res=>{
+                this.pageList = res.data
+            })
         },
         getList() {
             this.listLoading = true
@@ -203,6 +248,7 @@ export default {
         resetForm(formName) {
             this.$refs[formName].resetFields();
             this.currentPage = 1
+            this.searchItem.type = this.opList[0].id
             this.getList()
         },
         onSubmit(){

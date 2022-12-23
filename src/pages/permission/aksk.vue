@@ -71,7 +71,7 @@
                         {{ scope.row.userDailyCloudasrCount  == -99 ? '∞' : scope.row.userDailyCloudasrCount}}
                         </div>
                     </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle" :class="scope.row.userDailyCloudasrCount == -99 ? 'fontSize30' : ''">
                         {{ scope.row.userDailyCloudasrCount == -99 ? '∞' : scope.row.userDailyCloudasrCount}}
                     </div>
                 </template>
@@ -91,7 +91,7 @@
                         {{ scope.row.userDailyCloudttsCount == -99 ? '∞' : scope.row.userDailyCloudttsCount}}
                         </div>
                     </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle" :class="scope.row.userDailyCloudttsCount == -99 ? 'fontSize30' : ''">
                         {{ scope.row.userDailyCloudttsCount == -99 ? '∞' : scope.row.userDailyCloudttsCount}}
                     </div>
                 </template>
@@ -109,11 +109,11 @@
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dailyUseAsr" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.dailyUseAsr }}
+                        {{ scope.row.dailyUseAsr == null ? '0' : scope.row.dailyUseAsr }}
                         </div>
                     </el-tooltip>
                     <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.dailyUseAsr }}
+                        {{ scope.row.dailyUseAsr == null ? '0' : scope.row.dailyUseAsr }}
                     </div>
                 </template>
             </el-table-column>
@@ -130,11 +130,11 @@
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dailyUseTts" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.dailyUseTts }}
+                        {{ scope.row.dailyUseTts == null ? '0' : scope.row.dailyUseTts }}
                         </div>
                     </el-tooltip>
                     <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.dailyUseTts }}
+                        {{ scope.row.dailyUseTts == null ? '0' : scope.row.dailyUseTts }}
                     </div>
                 </template>
             </el-table-column>

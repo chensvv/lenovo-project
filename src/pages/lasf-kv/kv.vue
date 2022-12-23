@@ -8,7 +8,7 @@
     
     <el-form :inline="true" class="demo-form-inline height50 width130" size="mini" style="float:right;">
         <div class="form-btn">
-            <el-button size="mini" @click="handleState()">报表配置</el-button>
+            <!-- <el-button size="mini" @click="handleState()">报表配置</el-button> -->
             <el-button size="mini" @click="handleAdd()" v-has="'kv:editsave'">添加</el-button>
         </div>
         
@@ -193,8 +193,8 @@ export default {
         this.getList();
     },
     mounted(){
-        if(this.perList.indexOf('kv:update') == -1){
-        this.isshow = false
+        if(this.perList.indexOf('kv:update') == -1 && this.perList.indexOf('kv:delete') == -1){
+            this.isshow = false
         }
     },
     methods: {
