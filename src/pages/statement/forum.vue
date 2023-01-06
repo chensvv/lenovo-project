@@ -11,13 +11,23 @@
         <el-form-item label="标题" prop="title">
           <el-input v-model.trim="searchItem.title" clearable></el-input>
         </el-form-item>
+        <el-form-item label="自动审批">
+          <el-switch
+            v-model="autoAudit"
+            active-value="1"
+            inactive-value="2"
+            :disabled="isdisabled"
+            @change="handleChange">
+          </el-switch>
+        </el-form-item>
       </div>
       
       <div class="form-btn">
-        <el-radio-group v-model="autoAudit" size="mini" @change="handleChange">
+        
+        <!-- <el-radio-group v-model="autoAudit" size="mini" @change="handleChange">
           <el-radio label="1" border>开启自动审批</el-radio>
           <el-radio label="2" border>关闭自动审批</el-radio>
-        </el-radio-group>
+        </el-radio-group> -->
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleBatchDel()" v-has="'forum:delbatch'">批量删除</el-button>
@@ -109,7 +119,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {forumList, forumDetele, forumDelbatch, forumReview, forumUpdate} from '@/config/api'
+import {forumList, forumDetele, forumDelbatch, forumReview, forumUpdate, forumAutoAudit} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
@@ -118,7 +128,7 @@ export default {
       perList:[],
       sels:[],
       totalClass:'8',
-      autoAudit:"",
+      autoAudit:'2',
       currentItem: {//编辑数据组
         id:"",
         speak: "",
@@ -131,6 +141,7 @@ export default {
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
       totalCount:1,     // 总条数
+      isdisabled:false,
       showTitle:true,
       seaBtnLoading:false,
       listLoading:true,
@@ -143,6 +154,7 @@ export default {
       this.perList.push(Object.values(t).join())
     })
     this.getList();
+    this.getStatus()
   },
   mounted(){
     if(this.perList.indexOf('forum:details') == -1 && this.perList.indexOf('forum:delete') == -1){
@@ -198,11 +210,32 @@ export default {
       this.sels = val
     },
     handleChange(val){
+      this.isdisabled = true
       let reviewParams = {
         invalidate:val
       }
       forumReview(reviewParams).then(res=>{
-        console.log(res)
+        this.isdisabled = false
+        if(res.data.code == 200){
+          this.$message({
+            message:`已${this.autoAudit == '1' ? '开启' : '关闭'}自动审批`,
+            type:"success",
+            duration:1500
+          });
+        }else{
+          this.$message({
+            message:res.data.errorMessage,
+            type:"error",
+            duration:1500
+          });
+        }
+      }).catch(error=>{
+        this.isdisabled = false
+      })
+    },
+    getStatus(){
+      forumAutoAudit().then(res=>{
+        this.autoAudit = res.data.data
       })
     },
     handleInfo(index, row) {

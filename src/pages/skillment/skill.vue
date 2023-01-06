@@ -47,6 +47,12 @@
                     </template>
                 </el-table-column>
                 <el-table-column
+                    label="应用调用用户数"
+                    prop="appUserCount"
+                    align="center" 
+                    >
+                </el-table-column>
+                <el-table-column
                     label="技能数"
                     prop="funCount"
                     align="center" 

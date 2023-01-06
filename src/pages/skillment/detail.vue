@@ -52,6 +52,12 @@
                     </template>
                 </el-table-column>
                 <el-table-column
+                    label="技能调用用户数"
+                    prop="funUserCount"
+                    align="center" 
+                    >
+                </el-table-column>
+                <el-table-column
                     label="说法数量"
                     prop="speakCount"
                     align="center" 

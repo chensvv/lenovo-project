@@ -2505,6 +2505,18 @@ export function forumDetele (data) {
   })
 }
 
+export function forumAutoAudit (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/forum/review/status',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
 export function forumDetails (data) {
   return fetch.service_head({
     url: '/lasf-mgr/forum/details',
