@@ -71,7 +71,6 @@ service_head.interceptors.response.use(response => {
 }, error => {
   switch (error.response.status){
     case 403:
-      // console.log(error.response.url.indexOf('logout'))
       if(error.response.config.url.indexOf('logout') == -1){
         Message.closeAll()
         MessageBox.alert('登录超时，请重新登录', '', {
