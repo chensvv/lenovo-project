@@ -136,13 +136,14 @@ export default {
         return{
             pickerOptions: {
                 disabledDate(time) {
-                    let times = Date.now();
+                    let tromm = 3600 *1000 * 24
+                    let times = Date.now() + tromm;
                     let timeOptionRange = vue.timeOptionRange;
                     let secondNum = 3600 * 1000 * 24 * 30;
                     if (timeOptionRange) {
-                    return time.getTime() > timeOptionRange.getTime() + (Date.now() - timeOptionRange.getTime() < secondNum ? Date.now() - timeOptionRange.getTime() : secondNum) || time.getTime() < timeOptionRange.getTime() - secondNum;
+                        return time.getTime() > timeOptionRange.getTime() + (times - timeOptionRange.getTime() < secondNum ? times - timeOptionRange.getTime() : secondNum) || time.getTime() < timeOptionRange.getTime() - secondNum;
                     }else{
-                    return time.getTime() > times;
+                        return time.getTime() > times;
                     }
                     // return time.getTime() > Date.now();
                 },

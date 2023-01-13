@@ -1062,6 +1062,18 @@ export function senPub (data) {
   })
 }
 
+export function senExcept (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/sen/update/except',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
 export function triggerList (data) {
   return fetch.service_head({
     url: '/lasf-mgr/trigger/list',

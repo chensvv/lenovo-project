@@ -48,6 +48,21 @@
                     </template>
                 </el-table-column>
                 <el-table-column
+                    label="例外"
+                    prop="except"
+                    align="center">
+                    <template slot-scope="scope">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.except" placement="top">
+                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
+                            {{ scope.row.except }}
+                            </div>
+                        </el-tooltip>
+                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
+                            {{ scope.row.except }}
+                        </div>
+                    </template>
+                </el-table-column>
+                <el-table-column
                     label="更新/入库时间"
                     prop="it"
                     align="center"
@@ -56,6 +71,10 @@
                 </el-table-column>
                 <el-table-column label="操作" align="center" min-width="130" v-if="isshow">
                     <template slot-scope="scope">
+                      <el-button
+                        size="mini"
+                        @click="handleExcept(scope.$index, scope.row)"
+                        v-has="'sen:except'">例外</el-button>
                         <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)"
@@ -79,17 +98,30 @@
     </div>
 
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-        <el-form :label-position="'right'" label-width="80px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
-            <el-form-item label="敏感词" prop="word">
-                <el-input type="textarea" v-model.trim="currentItem.word" auto-complete="off"></el-input>
-                <span style="font-size:12px;">编辑时不能带有换行</span>
-            </el-form-item>
-        </el-form>
-        
-        <span slot="footer" class="dialog-footer">
-            <el-button @click="editHandleClose">取 消</el-button>
-            <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
-        </span>
+          <el-form :label-position="'right'" label-width="80px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+              <el-form-item label="敏感词" prop="word">
+                  <el-input type="textarea" v-model.trim="currentItem.word" auto-complete="off"></el-input>
+                  <span style="font-size:12px;">编辑时不能带有换行</span>
+              </el-form-item>
+          </el-form>
+          
+          <span slot="footer" class="dialog-footer">
+              <el-button @click="editHandleClose">取 消</el-button>
+              <el-button type="primary" @click="editHandleConfirm('currentItem')" :loading="editBtnLoading">确 定</el-button>
+          </span>
+        </el-dialog>
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="例外" :visible.sync="exceptVisible" width="40%" top="10vh" :before-close="exceptHandleClose" @close="closeFun('exceptItem')">
+          <el-form :label-position="'right'" label-width="80px" size="small" :rules="exceptRules" :model="exceptItem" ref="exceptItem">
+              <el-form-item label="敏感词" prop="except">
+                  <el-input type="textarea" v-model.trim="exceptItem.except" auto-complete="off"></el-input>
+                  <span style="font-size:12px;">多个请用逗号隔开</span>
+              </el-form-item>
+          </el-form>
+          
+          <span slot="footer" class="dialog-footer">
+              <el-button @click="exceptHandleClose">取 消</el-button>
+              <el-button type="primary" @click="exceptHandleConfirm('exceptItem')" :loading="exceptBtnLoading">确 定</el-button>
+          </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="80px" size="small" :rules="addRules" :model="addList" ref="addList">
@@ -136,7 +168,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {senList, senAddUpd, senDel, senPub, senExcel, downExcel} from '@/config/api'
+import {senList, senAddUpd, senDel, senPub, senExcel, downExcel, senExcept} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
@@ -154,14 +186,22 @@ export default {
       searchItem:{//搜索数据组
         word:""
       },
+      exceptItem:{
+        id:"",
+        except:""
+      },
       addRules:{
         word:[{ required: true, message: '请输入敏感词名称', trigger: 'change' }]
       },
       editRules:{
         word:[{ required: true, message: '请输入敏感词名称', trigger: 'blur' }]
       },
+      exceptRules:{
+        except:[{ required: true, message: '请输入敏感词名称', trigger: 'blur' }]
+      },
       editVisible: false,
       addVisible: false,
+      exceptVisible: false,
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
@@ -170,6 +210,7 @@ export default {
       seaBtnLoading:false,
       addBtnLoading:false,
       editBtnLoading:false,
+      exceptBtnLoading:false,
       PubBtnLoading:false,
       listLoading:true,
       uploadVisible: false,
@@ -187,7 +228,7 @@ export default {
         this.getList();
     },
     mounted(){
-        if(this.perList.indexOf('sen:update') == -1 && this.perList.indexOf('sen:del') == -1){
+        if(this.perList.indexOf('sen:update') == -1 && this.perList.indexOf('sen:del') == -1 && this.perList.indexOf('sen:except') == -1){
             this.isshow = false
         }
     },
@@ -233,6 +274,13 @@ export default {
       this.listLoading = true
       // console.log(`当前页: ${val}`);
       this.getList();
+    },
+    handleExcept(index, row){
+      this.exceptVisible = true
+      this.exceptItem = {
+        id:row.id,
+        except:row.except
+      }
     },
     handleEdit(index, row) {
       // console.log(index, row);
@@ -290,6 +338,10 @@ export default {
       this.editVisible = false;
       
     },
+    exceptHandleClose() {
+      this.exceptVisible = false;
+      
+    },
     addHandleClose(){
       this.addVisible = false
     },
@@ -321,6 +373,40 @@ export default {
             } 
           }).catch(err=>{
             this.editBtnLoading = false
+          })
+        } else {
+          return false;
+        }
+      });
+    },
+    exceptHandleConfirm(exceptItem) {
+      let exceptParams = {
+        id:this.exceptItem.id,
+        except:this.exceptItem.except
+      }
+      exceptParams.sign = deleteParams(exceptParams)
+      this.$refs[exceptItem].validate((valid) => {
+        if (valid) {
+          this.exceptBtnLoading = true
+          senExcept(exceptParams).then(res=>{
+                this.exceptBtnLoading = false
+            if(res.data.code == 200){
+                this.$message({
+                    message:'编辑成功',
+                    type:"success",
+                    duration:1500
+                });
+                this.getList()
+                this.exceptVisible = false
+            }else{
+                this.$message({
+                    message:res.data.errorMessage,
+                    type:"error",
+                    duration:1500
+                });
+            } 
+          }).catch(err=>{
+            this.exceptBtnLoading = false
           })
         } else {
           return false;
