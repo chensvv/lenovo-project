@@ -7,13 +7,13 @@
                     <div class="loginn" v-if="loginShow">
                         <span class="form-title">联想语音管理系统</span>
                         <el-form :label-position="'left'" :model="loginForm" :rules="loginRules" ref="loginForm" @submit.native.prevent>
-                            <el-form-item prop="username">
+                            <el-form-item prop="username" :error="loginUserErr">
                                 <el-input type="text" v-model.trim="loginForm.username" placeholder="用户名" prefix-icon="el-icon-user" auto-complete="off" clearable></el-input>
                             </el-form-item>
-                            <el-form-item prop="password">
+                            <el-form-item prop="password" :error="loginPsdErr">
                                 <el-input type="password" v-model.trim="loginForm.password" placeholder="密码" prefix-icon="el-icon-lock" auto-complete="off" clearable></el-input>
                             </el-form-item>
-                            <el-form-item prop="imgCode" class="imgcode-item">
+                            <el-form-item prop="imgCode" class="imgcode-item" :error="loginImgCodeErr">
                                 <el-input type="text" v-model.trim="loginForm.imgCode" placeholder="验证码" auto-complete="off" clearable></el-input>
                                 <img :src="limgCode" class="img" @click="getImgCode()">
                             </el-form-item>
@@ -26,7 +26,7 @@
                     <div class="register" v-else key="register">
                         <span class="form-title">联想语音管理系统</span>
                         <el-form :label-position="'left'" :model="regForm" :rules="regRules" ref="regForm" @submit.native.prevent>
-                            <el-form-item prop="username">
+                            <el-form-item prop="username" :error="regUserErr">
                                 <el-input style="position:fixed; bottom:-9999px"></el-input>
                                 <el-input type="text" v-model.trim="regForm.username" placeholder="请输入用户名" prefix-icon="el-icon-user" auto-complete="off" clearable></el-input>
                             </el-form-item>
@@ -34,7 +34,7 @@
                                 <el-input style="position:fixed; bottom:-9999px"></el-input>
                                 <el-input v-model.trim="regForm.password" placeholder="请输入密码" prefix-icon="el-icon-lock" auto-complete="off" clearable></el-input>
                             </el-form-item>
-                            <el-form-item prop="regCode" class="imgcode-item">
+                            <el-form-item prop="regCode" class="imgcode-item" :error="regCodeErr">
                                 <el-input type="text" v-model.trim="regForm.regCode" placeholder="验证码" auto-complete="off" clearable></el-input>
                                 <img :src="limgCode" class="img" @click="getImgCode()">
                             </el-form-item>
@@ -62,9 +62,46 @@ export default {
                 callback();
             }
         }
+        let ValidateloginPsd = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入密码'));
+            } else {
+                this.loginPsdErr = ''
+                callback();
+            }
+        }
+        let ValidateloginImgCode = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入验证码'));
+            } else {
+                this.loginImgCodeErr = ''
+                callback();
+            }
+        }
+        let ValidateRegUser = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入用户名'));
+            } else {
+                this.regUserErr = ''
+                callback();
+            }
+        }
+        let ValidateRegCode = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入验证码'));
+            } else {
+                this.regCodeErr = ''
+                callback();
+            }
+        }
         return {
             limgCode:'',
             uuid:'',
+            loginUserErr:"",
+            loginPsdErr:"",
+            loginImgCodeErr:"",
+            regUserErr:"",
+            regCodeErr:"",
             loginForm:{
                 username:'',
                 password:'',
@@ -80,14 +117,14 @@ export default {
             regLoading:false,
             loginRules:{
                 username:[{ required: true, message: '请输入用户名', trigger: 'change' }],
-                password:[{ required: true, message: '请输入密码', trigger: 'change' }],
-                imgCode:[{ required: true, message: '请输入验证码', trigger: 'change' }]
+                password:[{ required: true, validator: ValidateloginPsd, trigger: 'change' }],
+                imgCode:[{ required: true, validator: ValidateloginImgCode, trigger: 'change' }]
             },
             regRules:{
-                username:[{ required: true, message: '请输入用户名', trigger: 'blur' }],
-                password:[{ required: true, validator: ValidatePass, trigger: 'blur' },
+                username:[{ required: true, validator: ValidateRegUser, trigger: 'change' }],
+                password:[{ required: true, validator: ValidatePass, trigger: 'change' },
                     { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/, message: '密码限制8-16字符且必须包含大小写英文及数字',trigger: 'blur' }],
-                regCode:[{ required: true, message: '请输入验证码', trigger: 'blur' }]
+                regCode:[{ required: true, validator: ValidateRegCode, trigger: 'change' }]
             },
             menu:[]
         }
@@ -97,7 +134,6 @@ export default {
     },
     methods:{
         loginSubmit(loginForm){
-
             let params = {
                 userName:this.loginForm.username,
                 password:this.loginForm.password,
@@ -114,6 +150,7 @@ export default {
                 if (valid) {
                     this.loginLoading=true
                     login(params).then((res)=>{
+                        this.loginLoading = false
                         if(res.data.code == 200){
                             sessionStorage.setItem('username',Base64.encode(this.loginForm.username))
                             let paramss = {'t': Base64.encode(res.data.data)};
@@ -124,19 +161,16 @@ export default {
                                 sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                                 this.$router.push('/')
                             })
-                            this.loginLoading = false
+                        }else if(res.data.code == 400){
+                            this.getImgCode()
+                            this.loginPsdErr = res.data.errorMessage
+                            
                         }else{
                             this.getImgCode()
-                            this.$message({
-                                message:res.data.errorMessage,
-                                type:"error",
-                                duration:2000
-                            });
-                            this.loginLoading = false
+                            this.loginImgCodeErr = res.data.errorMessage
                         }
                     }).catch(err=>{
                         this.getImgCode()
-                        this.loginLoading = false
                     })
                 } else {
                     return false;
@@ -153,7 +187,9 @@ export default {
             regParams.sign = deleteParams(regParams)
             this.$refs[regForm].validate((valid) => {
                 if(valid){
+                    this.regLoading = true
                     userReg(regParams).then(res=>{
+                        this.regLoading = false
                         if(res.data.code == 200){
                             this.$message({
                                 message:'注册成功，请登录',
@@ -161,13 +197,12 @@ export default {
                                 duration:2000
                             });
                             this.loginShow = !this.loginShow
+                        }else if(res.data.code == 400){
+                            this.getImgCode()
+                            this.regUserErr = res.data.errorMessage
                         }else{
                             this.getImgCode()
-                            this.$message({
-                                message:res.data.errorMessage,
-                                type:"error",
-                                duration:2000
-                            });
+                            this.regCodeErr = res.data.errorMessage
                         }
                         
                     }).catch(err=>{

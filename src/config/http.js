@@ -48,7 +48,7 @@ service_head.interceptors.response.use(response => {
       Message({
         message: '没有权限',
         type: 'warning',
-        duration: 1000
+        duration: 2000
       })
       router.replace('/401')
       break
