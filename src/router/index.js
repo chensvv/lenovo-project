@@ -269,6 +269,11 @@ const router = new Router({
           meta: {title: '权限管理',needLogin:true}
         },
         {
+          path: '/license/list',
+          component: () => import('@/pages/permission/license'),
+          meta: {title: '授权管理',needLogin:true}
+        },
+        {
           path: '/home/userinfo',
           component: () => import('@/pages/user/userInfo'),
           meta: {title: '详细信息',needLogin:true}

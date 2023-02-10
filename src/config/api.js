@@ -3116,3 +3116,75 @@ export function visitPages (data) {
     }
   })
 }
+
+export function licenseList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/license/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function licenseAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/license/add',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function licenseUpdate (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/license/update',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function licenseDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/license/delete',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function licenseGen (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/license/generate',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function licenseDown (data) {
+  return fetch.FileDownload({
+    url: '/lasf-mgr/license/download',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

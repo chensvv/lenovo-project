@@ -41,10 +41,26 @@ export default {
   data() {
     let vue = this
     return {
-      pickerOptions: {
-        disabledDate(time) {
+        pickerOptions: {
+          disabledDate(time) {
               let times = Date.now();
-              return time.getTime() > times;
+              let timeOptionRange = vue.timeOptionRange;
+              let secondNum = 3600 * 1000 * 24 * 7;
+              if (timeOptionRange) {
+                return time.getTime() > timeOptionRange.getTime() + (Date.now() - timeOptionRange.getTime() < secondNum ? Date.now() - timeOptionRange.getTime() : secondNum) || time.getTime() < timeOptionRange.getTime() - secondNum;
+              }else{
+                return time.getTime() > times;
+              }
+              // return time.getTime() > Date.now();
+          },
+          onPick(time) {
+              //当第一时间选中才设置禁用
+              if (time.minDate && !time.maxDate) {
+                  vue.timeOptionRange = time.minDate;
+              }
+              if (time.maxDate) {
+                  vue.timeOptionRange = null;
+              }
           }
         },
         searchItem:{
@@ -79,10 +95,10 @@ export default {
         this.searchItem.endTime = val[1]
     },
     computedPosition(length,xArraylength) {
-        if(xArraylength>=10){
-            return length <= 10 ? this.end = 50 : this.end = (100 -   Math.floor(50 / length * 100));
+        if(xArraylength>=24){
+            return length <= 24 ? this.end = 50 : this.end = (100 -   Math.floor(50 / length * 100));
         }else{
-            return 100;//小于十条数据显示全部
+            return 100;//小于24条数据显示全部
         }
     },
     getChartsData(){
@@ -103,12 +119,14 @@ export default {
               },
               tooltip: {
                 trigger: 'item',
-                formatter: "{b} <br/>{a} : {c}ms"
+                formatter: "{b}:00 <br/>{a} : {c}ms"
               },
               xAxis: {
+                type:'category',
                   data: res.data.data.data,
                   axisLabel:{
-                      rotate:20
+                      rotate:20,
+                      formatter:'{value}:00'
                   }
               },
               grid:{
@@ -127,7 +145,7 @@ export default {
               },
               series: [{
                   name: '平均时间',
-                  type: 'bar',
+                  type: 'line',
                   data: res.data.data.visit +'ms',
                   color:"#409eff",
                   barMaxWidth: 60, // 最大宽度

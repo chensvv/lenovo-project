@@ -1075,6 +1075,13 @@
 .upload-demo{
   text-align: center;
 }
+.lice-upload .el-upload-dragger{
+  width: 200px;
+  height: 150px;
+}
+.lice-upload .el-upload-dragger .el-icon-upload{
+  line-height: 25px;
+}
 .tag-s{
   color: #67c23a;
 }
