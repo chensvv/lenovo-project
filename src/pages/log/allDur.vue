@@ -146,7 +146,7 @@ export default {
               series: [{
                   name: '平均时间',
                   type: 'line',
-                  data: res.data.data.visit +'ms',
+                  data: res.data.data.visit,
                   color:"#409eff",
                   barMaxWidth: 60, // 最大宽度
                   itemStyle: {
@@ -156,7 +156,9 @@ export default {
                             position: 'top', //在上方显示
                             textStyle: { //数值样式
                                 color: 'black',
-                                fontSize: 16
+                                fontSize: 16,
+                                 formatter: "{value} ms",
+
                             }
                         }
                     }
