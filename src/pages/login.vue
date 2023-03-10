@@ -14,8 +14,15 @@
                                 <el-input type="password" v-model.trim="loginForm.password" placeholder="密码" prefix-icon="el-icon-lock" auto-complete="off" clearable></el-input>
                             </el-form-item>
                             <el-form-item prop="imgCode" class="imgcode-item" :error="loginImgCodeErr">
-                                <el-input type="text" v-model.trim="loginForm.imgCode" placeholder="验证码" auto-complete="off" clearable></el-input>
-                                <img :src="limgCode" class="img" @click="getImgCode()">
+                                    <el-input type="text" v-model.trim="loginForm.imgCode" placeholder="验证码" auto-complete="off" clearable>
+                                        <i slot="prefix" class="el-input__icon codeimg">
+                                          <img src="../../static/images/code.svg">
+                                        </i>
+                                    </el-input>
+                                    <img :src="limgCode" class="img" @click="getImgCode()">
+                                    <div class="tooltiptext" v-if="loginStatus == '1'">
+                                        登录超时
+                                    </div>
                             </el-form-item>
                             <el-form-item class="btn_item">
                                 <el-button type="primary" native-type="submit" @click="loginSubmit('loginForm')" :loading="loginLoading">登录</el-button>
@@ -35,7 +42,11 @@
                                 <el-input v-model.trim="regForm.password" placeholder="请输入密码" prefix-icon="el-icon-lock" auto-complete="off" clearable></el-input>
                             </el-form-item>
                             <el-form-item prop="regCode" class="imgcode-item" :error="regCodeErr">
-                                <el-input type="text" v-model.trim="regForm.regCode" placeholder="验证码" auto-complete="off" clearable></el-input>
+                                <el-input type="text" v-model.trim="regForm.regCode" placeholder="验证码" auto-complete="off" clearable>
+                                    <i slot="prefix" class="el-input__icon codeimg">
+                                        <img src="../../static/images/code.svg">
+                                    </i>
+                                </el-input>
                                 <img :src="limgCode" class="img" @click="getImgCode()">
                             </el-form-item>
                             <el-form-item class="btn_item">
@@ -102,6 +113,7 @@ export default {
             loginImgCodeErr:"",
             regUserErr:"",
             regCodeErr:"",
+            loginStatus: this.$store.getters.get_userinfo,
             loginForm:{
                 username:'',
                 password:'',
@@ -126,11 +138,17 @@ export default {
                     { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/, message: '密码限制8-16字符且必须包含大小写英文及数字',trigger: 'blur' }],
                 regCode:[{ required: true, validator: ValidateRegCode, trigger: 'change' }]
             },
-            menu:[]
+            menu:[],
         }
     },
     created(){
         this.getImgCode()
+    },
+    mounted(){
+        //读取全局变量
+        console.log( this.$store.getters.get_userinfo)
+        //修改全局变量 修改要用commit 然后commit(key,value) key是名，要和mutations下的set_userinfo一致 value是修改的值
+        
     },
     methods:{
         loginSubmit(loginForm){
@@ -156,6 +174,7 @@ export default {
                             let paramss = {'t': Base64.encode(res.data.data)};
                             var datas = Object.assign(paramss, { startTime: new Date().getTime() });
                             sessionStorage.setItem("token", JSON.stringify(datas));
+                            this.$store.commit('set_userinfo','0')
                             // sessionStorage.setItem('log',Base64.encode(this.loginForm.password))
                             userMenu(u_params).then(res=>{
                                 sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
@@ -256,7 +275,7 @@ export default {
 }
 .login-box {
     background: #fff;
-    padding: 20px 30px 35px 30px;
+    padding: 20px 30px 5px;
     border-radius: 10px;
     width: 20%;
     min-width: 270px;

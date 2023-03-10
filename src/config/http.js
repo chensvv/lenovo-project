@@ -1,10 +1,12 @@
 import axios from 'axios'
+import store from '../store/index';
 import router from '../router'
 import {
   // Loading,
   Message,MessageBox} from 'element-ui'
   // let proURL = 'http://m.voice.lenovomm.com'
 // eslint-disable-next-line no-unused-vars
+console.log(store.getters.get_userinfo)
 let service = {}
 // let proURL = 'http://10.110.148.57:8085'
 let proURL = 'https://voice.lenovomm.com'
@@ -54,15 +56,18 @@ service_head.interceptors.response.use(response => {
       break
     case 888:
       Message.closeAll()
-      MessageBox.alert('登录超时，请重新登录', '', {
-        confirmButtonText: '确定',
-        showClose:false,
-        center: true,
-        callback: action => {
+      // MessageBox.alert('登录超时，请重新登录', '', {
+      //   confirmButtonText: '确定',
+      //   showClose:false,
+      //   center: true,
+      //   callback: action => {
+        store.commit('set_userinfo','1')
+        console.log(store.getters.get_userinfo)
           sessionStorage.clear()
           router.replace('/login')
-        }
-      });
+          
+        // }
+      // });
       break
     default:
       return response
@@ -73,15 +78,18 @@ service_head.interceptors.response.use(response => {
     case 403:
       if(error.response.config.url.indexOf('logout') == -1){
         Message.closeAll()
-        MessageBox.alert('登录超时，请重新登录', '', {
-          confirmButtonText: '确定',
-          showClose:false,
-          center: true,
-          callback: action => {
+        // MessageBox.alert('登录超时，请重新登录', '', {
+        //   confirmButtonText: '确定',
+        //   showClose:false,
+        //   center: true,
+        //   callback: action => {
+          store.commit('set_userinfo','1')
+          console.log(store.getters.get_userinfo)
             sessionStorage.clear()
             router.replace('/login')
-          }
-        });
+            
+        //   }
+        // });
       }
       
       break

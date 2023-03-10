@@ -1,6 +1,6 @@
 <template>
     <div class="index">
-        <div class="workflow" v-has="'user:user'" v-if="infoShow">
+        <!-- <div class="workflow" v-has="'user:user'" v-if="infoShow">
             <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline" size="mini">
                 <el-form-item label="内容" prop="con">
                     <el-input v-model.trim="searchItem.con" clearable></el-input>
@@ -248,11 +248,11 @@
             <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="n_handleConfirm()">关闭</el-button>
             </span>
-        </el-dialog>
+        </el-dialog> -->
     </div>
 </template>
 <script>
-import {checkTime} from '@/utils/timer.js'
+// import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
 import {activitiList,activitiPass,activitinList,activitiStatus, userMenu} from '@/config/adminApi'
 export default {
@@ -321,218 +321,218 @@ export default {
         
     },
     mounted(){
-       this.execution();
+    //    this.execution();
     },
     methods:{
-        onShowNameTipsMouseenter(e) {
-            var target = e.target;
-            let textLength = target.clientWidth;
-            let containerLength = target.scrollWidth;
-            if (textLength < containerLength) {
-                // 溢出了
-                this.showTitle = false;
-            } else {
-                this.showTitle = true;
-            }
-        },
-        execution(){
-            if(this.perList.indexOf('user:user') != -1){
-                this.getList();
-            }
-            if(this.perList.indexOf('user:data') != -1){
-                this.getNList();
-            }
-        },
-        formTime(row, column){
-        var timer = row.createTime
-        var date = new Date(timer)
-        return date.getFullYear()+'-'+
-            checkTime(date.getMonth()+1)+'-'+
-            checkTime(date.getDate())+' '+
-            checkTime(date.getHours())+':'+
-            checkTime(date.getMinutes())
-        },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.currentPage = 1
-            this.getList()
-        },
-        n_resetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.currentPage = 1
-            this.getNList()
-        },
-        onSubmit(){
-            this.btnLoading = true
-            this.currentPage = 1
-            this.getList()
-            this.btnLoading = false
-        },
-        n_onSubmit(){
-            this.btnLoading = true
-            this.currentPage = 1
-            this.getNList()
-            this.btnLoading = false
-        },
-        rowClick(index,row){
-            this.infoVisible = true
-            this.infoList = {
-                username:row.username,
-                speak:row.speak,
-                answer:row.answer,
-                type:row.type,
-                createTime:new Date(row.createTime).getFullYear()+'-'+checkTime(new Date(row.createTime).getMonth()+1)+'-'+checkTime(new Date(row.createTime).getDate())+' '+checkTime(new Date(row.createTime).getHours())+':'+checkTime(new Date(row.createTime).getMinutes()),
-                updateTime:new Date(row.updateTime).getFullYear()+'-'+checkTime(new Date(row.updateTime).getMonth()+1)+'-'+checkTime(new Date(row.updateTime).getDate())+' '+checkTime(new Date(row.updateTime).getHours())+':'+checkTime(new Date(row.updateTime).getMinutes()),
-                taskid:row.taskid,
-                result:row.result
-            }
-        },
-        n_rowClick(index,row){
-            this.n_infoVisible = true
-            this.n_infoList = {
-                id:row.id,
-                speak:row.speak,
-                answer:row.answer,
-                type:row.type,
-                comm:row.comm,
-                createTime:new Date(row.createTime).getFullYear()+'-'+checkTime(new Date(row.createTime).getMonth()+1)+'-'+checkTime(new Date(row.createTime).getDate())+' '+checkTime(new Date(row.createTime).getHours())+':'+checkTime(new Date(row.createTime).getMinutes()),
-                updateTime:new Date(row.updateTime).getFullYear()+'-'+checkTime(new Date(row.updateTime).getMonth()+1)+'-'+checkTime(new Date(row.updateTime).getDate())+' '+checkTime(new Date(row.updateTime).getHours())+':'+checkTime(new Date(row.updateTime).getMinutes()),
-                result:row.result
-            }
-            let n_stauts = {
-                id:row.id
-            }
-            activitiStatus(n_stauts).then(res=>{
-                // console.log(res)
-            })
-        },
-        handleSizeChange(val) {
-            this.pageSize = val;
-            this.currentPage = 1
-            this.getList();
-        },
-        handleCurrentChange(val) {
-            this.currentPage = val
-            // console.log(`当前页: ${val}`);
-            this.getList();
-        },
-        handleClose(){
-            this.infoVisible = false
-        },
-        back_handleClose(){
-            this.backVisible = false
-        },
-        handleConfirm(){
-            this.infoVisible = false
-        },
-        n_handleSizeChange(val) {
-            this.n_pageSize = val;
-            this.n_currentPage = 1
-            this.getNList();
-        },
-        n_handleCurrentChange(val) {
-            this.n_currentPage = val
-            // console.log(`当前页: ${val}`);
-            this.getNList();
-        },
-        n_handleClose(){
-            this.n_infoVisible = false
-        },
-        n_handleConfirm(){
-            this.n_infoVisible = false
-        },
-        handlePass(){
-            let passParams = {
-                id:this.infoList.taskid,
-                status:0
-            }
-            passParams.sign = deleteParams(passParams)
-            activitiPass(passParams).then(res=>{
-                if(res.data.code == 200){
-                    this.$message({
-                        message:'审核通过',
-                        type:"success",
-                        duration:1000
-                    });
-                    this.infoVisible = false
-                    this.getList()
-                }else{
-                    this.$message({
-                        message:res.data.errorMessage,
-                        type:"error",
-                        duration:1000
-                    });
-                }
-            }).catch((err) => {
-                console.log(err);
-            });
-        },
-        handleBack(){
-            this.backVisible = true
-        },
-        handleEnsure(){
-            let pass_Params = {
-                id:this.infoList.taskid,
-                status:2,
-                speak:this.infoList.backres
-            }
-            pass_Params.sign = deleteParams(pass_Params)
-            activitiPass(pass_Params).then(res=>{
-                if(res.data.code == 200){
-                    this.$message({
-                        message:'已退回',
-                        type:"success",
-                        duration:1000
-                    });
-                    this.infoVisible = false
-                    this.backVisible = false
-                    this.getList()
-                }else{
-                    this.$message({
-                        message:res.data.errorMessage,
-                        type:"error",
-                        duration:1000
-                    });
-                }
-            }).catch((err) => {
-                console.log(err);
-            });
-        },
-        getList() {
-            let params = {
-                pgstr:this.currentPage,
-                pcstr:this.pageSize,
-                username:this.searchItem.user,
-                speak:this.searchItem.con
-            }
-            params.sign = deleteParams(params)
-            activitiList(params).then(res=>{
-                this.listLoading = false
-                this.list = res.data.rows
-                this.totalCount = res.data.total
-                this.totalClass = res.data.rows.length
-                if(res.data.total >= 1){
-                    this.infoShow = true
-                }
-            })
-        },
-        getNList() {
-            let n_params = {
-                pgstr:this.n_currentPage,
-                pcstr:this.n_pageSize,
-                speak:this.n_searchItem.con
-            }
-            n_params.sign = deleteParams(n_params)
-            activitinList(n_params).then(res=>{
-                this.n_listLoading = false
-                this.nlist = res.data.data
-                this.n_totalCount = res.data.count
-                this.totalClass = res.data.data.length
-                if(res.data.count >= 1){
-                    this.n_infoShow = true
-                }
-            })
-        },
+        // onShowNameTipsMouseenter(e) {
+        //     var target = e.target;
+        //     let textLength = target.clientWidth;
+        //     let containerLength = target.scrollWidth;
+        //     if (textLength < containerLength) {
+        //         // 溢出了
+        //         this.showTitle = false;
+        //     } else {
+        //         this.showTitle = true;
+        //     }
+        // },
+        // execution(){
+        //     if(this.perList.indexOf('user:user') != -1){
+        //         this.getList();
+        //     }
+        //     if(this.perList.indexOf('user:data') != -1){
+        //         this.getNList();
+        //     }
+        // },
+        // formTime(row, column){
+        // var timer = row.createTime
+        // var date = new Date(timer)
+        // return date.getFullYear()+'-'+
+        //     checkTime(date.getMonth()+1)+'-'+
+        //     checkTime(date.getDate())+' '+
+        //     checkTime(date.getHours())+':'+
+        //     checkTime(date.getMinutes())
+        // },
+        // resetForm(formName) {
+        //     this.$refs[formName].resetFields();
+        //     this.currentPage = 1
+        //     this.getList()
+        // },
+        // n_resetForm(formName) {
+        //     this.$refs[formName].resetFields();
+        //     this.currentPage = 1
+        //     this.getNList()
+        // },
+        // onSubmit(){
+        //     this.btnLoading = true
+        //     this.currentPage = 1
+        //     this.getList()
+        //     this.btnLoading = false
+        // },
+        // n_onSubmit(){
+        //     this.btnLoading = true
+        //     this.currentPage = 1
+        //     this.getNList()
+        //     this.btnLoading = false
+        // },
+        // rowClick(index,row){
+        //     this.infoVisible = true
+        //     this.infoList = {
+        //         username:row.username,
+        //         speak:row.speak,
+        //         answer:row.answer,
+        //         type:row.type,
+        //         createTime:new Date(row.createTime).getFullYear()+'-'+checkTime(new Date(row.createTime).getMonth()+1)+'-'+checkTime(new Date(row.createTime).getDate())+' '+checkTime(new Date(row.createTime).getHours())+':'+checkTime(new Date(row.createTime).getMinutes()),
+        //         updateTime:new Date(row.updateTime).getFullYear()+'-'+checkTime(new Date(row.updateTime).getMonth()+1)+'-'+checkTime(new Date(row.updateTime).getDate())+' '+checkTime(new Date(row.updateTime).getHours())+':'+checkTime(new Date(row.updateTime).getMinutes()),
+        //         taskid:row.taskid,
+        //         result:row.result
+        //     }
+        // },
+        // n_rowClick(index,row){
+        //     this.n_infoVisible = true
+        //     this.n_infoList = {
+        //         id:row.id,
+        //         speak:row.speak,
+        //         answer:row.answer,
+        //         type:row.type,
+        //         comm:row.comm,
+        //         createTime:new Date(row.createTime).getFullYear()+'-'+checkTime(new Date(row.createTime).getMonth()+1)+'-'+checkTime(new Date(row.createTime).getDate())+' '+checkTime(new Date(row.createTime).getHours())+':'+checkTime(new Date(row.createTime).getMinutes()),
+        //         updateTime:new Date(row.updateTime).getFullYear()+'-'+checkTime(new Date(row.updateTime).getMonth()+1)+'-'+checkTime(new Date(row.updateTime).getDate())+' '+checkTime(new Date(row.updateTime).getHours())+':'+checkTime(new Date(row.updateTime).getMinutes()),
+        //         result:row.result
+        //     }
+        //     let n_stauts = {
+        //         id:row.id
+        //     }
+        //     activitiStatus(n_stauts).then(res=>{
+        //         // console.log(res)
+        //     })
+        // },
+        // handleSizeChange(val) {
+        //     this.pageSize = val;
+        //     this.currentPage = 1
+        //     this.getList();
+        // },
+        // handleCurrentChange(val) {
+        //     this.currentPage = val
+        //     // console.log(`当前页: ${val}`);
+        //     this.getList();
+        // },
+        // handleClose(){
+        //     this.infoVisible = false
+        // },
+        // back_handleClose(){
+        //     this.backVisible = false
+        // },
+        // handleConfirm(){
+        //     this.infoVisible = false
+        // },
+        // n_handleSizeChange(val) {
+        //     this.n_pageSize = val;
+        //     this.n_currentPage = 1
+        //     this.getNList();
+        // },
+        // n_handleCurrentChange(val) {
+        //     this.n_currentPage = val
+        //     // console.log(`当前页: ${val}`);
+        //     this.getNList();
+        // },
+        // n_handleClose(){
+        //     this.n_infoVisible = false
+        // },
+        // n_handleConfirm(){
+        //     this.n_infoVisible = false
+        // },
+        // handlePass(){
+        //     let passParams = {
+        //         id:this.infoList.taskid,
+        //         status:0
+        //     }
+        //     passParams.sign = deleteParams(passParams)
+        //     activitiPass(passParams).then(res=>{
+        //         if(res.data.code == 200){
+        //             this.$message({
+        //                 message:'审核通过',
+        //                 type:"success",
+        //                 duration:1000
+        //             });
+        //             this.infoVisible = false
+        //             this.getList()
+        //         }else{
+        //             this.$message({
+        //                 message:res.data.errorMessage,
+        //                 type:"error",
+        //                 duration:1000
+        //             });
+        //         }
+        //     }).catch((err) => {
+        //         console.log(err);
+        //     });
+        // },
+        // handleBack(){
+        //     this.backVisible = true
+        // },
+        // handleEnsure(){
+        //     let pass_Params = {
+        //         id:this.infoList.taskid,
+        //         status:2,
+        //         speak:this.infoList.backres
+        //     }
+        //     pass_Params.sign = deleteParams(pass_Params)
+        //     activitiPass(pass_Params).then(res=>{
+        //         if(res.data.code == 200){
+        //             this.$message({
+        //                 message:'已退回',
+        //                 type:"success",
+        //                 duration:1000
+        //             });
+        //             this.infoVisible = false
+        //             this.backVisible = false
+        //             this.getList()
+        //         }else{
+        //             this.$message({
+        //                 message:res.data.errorMessage,
+        //                 type:"error",
+        //                 duration:1000
+        //             });
+        //         }
+        //     }).catch((err) => {
+        //         console.log(err);
+        //     });
+        // },
+        // getList() {
+        //     let params = {
+        //         pgstr:this.currentPage,
+        //         pcstr:this.pageSize,
+        //         username:this.searchItem.user,
+        //         speak:this.searchItem.con
+        //     }
+        //     params.sign = deleteParams(params)
+        //     activitiList(params).then(res=>{
+        //         this.listLoading = false
+        //         this.list = res.data.rows
+        //         this.totalCount = res.data.total
+        //         this.totalClass = res.data.rows.length
+        //         if(res.data.total >= 1){
+        //             this.infoShow = true
+        //         }
+        //     })
+        // },
+        // getNList() {
+        //     let n_params = {
+        //         pgstr:this.n_currentPage,
+        //         pcstr:this.n_pageSize,
+        //         speak:this.n_searchItem.con
+        //     }
+        //     n_params.sign = deleteParams(n_params)
+        //     activitinList(n_params).then(res=>{
+        //         this.n_listLoading = false
+        //         this.nlist = res.data.data
+        //         this.n_totalCount = res.data.count
+        //         this.totalClass = res.data.data.length
+        //         if(res.data.count >= 1){
+        //             this.n_infoShow = true
+        //         }
+        //     })
+        // },
         getMenu(){
             let u_params = {
                  userName:sessionStorage.getItem('username'),

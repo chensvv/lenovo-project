@@ -6,20 +6,45 @@
                 <div class="head_logo">
                     <img src="../../static/images/logo_img.png" alt="" class="logo_img">
                 </div>
-            <span class="logo_txt">联想语音管理系统</span>
+                <span class="logo_txt">联想语音管理系统</span>
+            </div>
+            <div class="fr">
+                <!-- <el-popover
+                    placement="bottom"
+                    width="400"
+                    trigger="click"
+                    v-model="visible"
+                    class="inform-popo"
+                    popper-class="inform-popover">
+                    <div v-for="item in inform1" :key="item.id" class="pover-body">
+                        <div class="tooltips-wrap">
+                            <span class="pocont" @click="goPage(item.url)">你的{{item.dataType}}数据已被审批，审批{{item.status == 0 ? '通过' : '拒绝'}}</span>
+                        </div>
+                            <el-button size="mini" @click="informBtn(item.id)">标记已读</el-button>
+                    </div>
+                    <div v-for="cont in inform2" :key="cont.id" class="pover-body">
+                        <div class="tooltips-wrap">
+                            <span @click="goPage(cont.url)" class="pocont">一条{{cont.dataType}}数据待你审批</span>
+                        </div>
+                        <el-button size="mini" @click="informBtn(cont.id)">标记已读</el-button>
+                    </div>
+                    <el-badge slot="reference" :value="inform2Count" :max="99" class="inform-item">
+                        <el-button class="inform-button" icon="el-icon-bell" type="primary"></el-button>
+                    </el-badge>
+                </el-popover> -->
+                
+                <el-dropdown @command="handleDropdown" trigger="click">
+                    <span class="el-dropdown-link">
+                        {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item command="userinfo">账号信息</el-dropdown-item>
+                        <el-dropdown-item command="checkpass">修改密码</el-dropdown-item>
+                        <el-dropdown-item command="logout">退出</el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
             </div>
             
-            
-            <el-dropdown class="fr" @command="handleDropdown" trigger="click">
-                <span class="el-dropdown-link">
-                    {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="userinfo">账号信息</el-dropdown-item>
-                    <el-dropdown-item command="checkpass">修改密码</el-dropdown-item>
-                    <el-dropdown-item command="logout">退出</el-dropdown-item>
-                </el-dropdown-menu>
-            </el-dropdown>
         </el-header>
     
         <el-container>
@@ -38,6 +63,8 @@
 <script>
 
 import Aside from '@/components/Aside'
+// import EllipsisTooltip from '@/components/popover'
+import { activitiNotice, activitiRead } from '@/config/api'
 import { logout} from '@/config/adminApi'
 let Base64 = require('js-base64').Base64
 export default {
@@ -45,7 +72,16 @@ export default {
         return {
             username:"",
             is404:false,
-            menuData:[]
+            inform2:[],
+            inform1:[],
+            inform2Count:0,
+            menuData:[],
+            disabledTip: false,
+            tooltipFlag: false,
+            disabledTip2: false,
+            tooltipFlag2: false,
+            placement:'top',
+            className:'text'
         }
     },
     created(){
@@ -75,9 +111,11 @@ export default {
             }
         }
         sessionStorage.setItem('btnpermission',JSON.stringify(menuList))
+        // this.getactivitiNotice()
     },
     components: {
-        Aside
+        Aside,
+        // EllipsisTooltip
     },
     watch:{
         $route(to, from) {
@@ -100,9 +138,65 @@ export default {
                 this.$router.push('/user/checkpass')
             }
         },
+        visibilityChange(event) {
+            const ev = event.target
+            const ev_height = ev.offsetHeight // 文本的实际高度
+            const content_height = this.$refs.tlp.$el.parentNode.clientHeight // 文本容器高度
+            if (content_height < ev_height) {
+                // 实际内容高度 > 文本高度 =》内容溢出
+                this.tooltipFlag = true // NameIsIncludeWord ? true : !!false
+            } else {
+                // 否则为不溢出
+                this.tooltipFlag = false
+            }
+        },
+        visibilityChange2(event) {
+            const ev = event.target
+            const ev_height = ev.offsetHeight // 文本的实际高度
+            const content_height = this.$refs.tlp.$el.parentNode.clientHeight // 文本容器高度
+            if (content_height < ev_height) {
+                // 实际内容高度 > 文本高度 =》内容溢出
+                this.tooltipFlag2 = true // NameIsIncludeWord ? true : !!false
+            } else {
+                // 否则为不溢出
+                this.tooltipFlag2 = false
+            }
+        },
         logoutMethod(){
             logout().then(res=>{
                 
+            })
+        },
+        getactivitiNotice(){
+            let params = {}
+            activitiNotice(params).then(res=>{
+                console.log(typeof(res.data[2]))
+                if(typeof(res.data[2]) == 'undefined' || typeof(res.data[2]) == undefined){
+
+                }else{
+                    this.inform2 = res.data[2].data
+                    this.inform2Count = res.data[2].count    
+                }
+                this.inform1 = res.data[1].data
+            })
+        },
+        informBtn(id){
+            let paramsID = {
+                id:id
+            }
+            activitiRead(paramsID).then(res=>{
+                this.$message({
+                    message:'标记已读',
+                    type:"success",
+                    duration:1000
+                });
+                this.getactivitiNotice()
+            })
+        },
+        goPage(url){
+            console.log(url)
+            this.$router.push({
+                path:url
             })
         }
     }

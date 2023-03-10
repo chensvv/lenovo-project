@@ -55,22 +55,6 @@
                     prop="productId"
                     align="center">
                 </el-table-column>
-                
-                <el-table-column
-                    label="授权类别"
-                    prop="licenseType"
-                    align="center">
-                    <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.licenseType" placement="top">
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                            {{ scope.row.licenseType }}
-                            </div>
-                        </el-tooltip>
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                            {{ scope.row.licenseType }}
-                        </div>
-                    </template>
-                </el-table-column>
                 <el-table-column
                     label="授权线程数"
                     prop="threadNum"

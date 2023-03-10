@@ -8,7 +8,7 @@
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="100px" class="demo-form-inline height100 width130" size="mini">
             <div class="form-input height100">
                 <el-form-item label="页面唯一标识" prop="page">
-                    <el-select v-model.trim="searchItem.page" placeholder="--" clearable>
+                    <el-select v-model.trim="searchItem.page" placeholder="所有页面" clearable>
                         <el-option v-for="item in pageList" :key="item" :label="item" :value="item"></el-option>
                     </el-select>
                 </el-form-item>
@@ -55,13 +55,13 @@
                     prop="page"
                     align="center">
                     <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.page" placement="top">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content=" scope.row.page == null ? '所有页面' : scope.row.page " placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                            {{ scope.row.page }}
+                            {{ scope.row.page == null ? '所有页面' : scope.row.page }}
                             </div>
                         </el-tooltip>
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                            {{ scope.row.page }}
+                            {{ scope.row.page == null ? '所有页面' : scope.row.page }}
                         </div>
                     </template>
                 </el-table-column>
@@ -70,13 +70,13 @@
                     prop="hour"
                     align="center">
                     <template slot-scope="scope">
-                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.hour" placement="top">
+                        <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.hour == null ? '0-24' : scope.row.hour" placement="top">
                             <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                            {{ scope.row.hour }}
+                            {{ scope.row.hour == null ? '0-24' : scope.row.hour }}
                             </div>
                         </el-tooltip>
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                            {{ scope.row.hour }}
+                            {{ scope.row.hour == null ? '0-24' : scope.row.hour }}
                         </div>
                     </template>
                 </el-table-column>
@@ -166,10 +166,8 @@ export default {
             list:[],
             pageList:[],
             opList:[
-                {id:1,label:"所有访问数"},
-                {id:2,label:"每小时访问数"},
-                {id:3,label:"每个页面访问数"},
-                {id:4,label:"每时每页面访问数"}
+                {id:1,label:"每天访问数"},
+                {id:2,label:"每小时访问数"}
             ],
             // 分页
             pickerVal:[],
@@ -246,8 +244,11 @@ export default {
                 this.listLoading = false
             })
         },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
+        resetForm(searchItem) {
+            this.$refs[searchItem].resetFields();
+            this.pickerVal = []
+            this.searchItem.refreshTime = ''
+            this.searchItem.putTime = ''
             this.currentPage = 1
             this.searchItem.type = this.opList[0].id
             this.getList()

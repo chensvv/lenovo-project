@@ -3188,3 +3188,27 @@ export function licenseDown (data) {
     }
   })
 }
+
+export function activitiNotice (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/activiti/notice',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function activitiRead (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/activiti/read',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

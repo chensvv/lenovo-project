@@ -1091,7 +1091,37 @@
 .tag-i{
   color: #909399;
 }
+.imgcode-item{
+  position: relative;
+}
+.tooltiptext {
+  /* display: none; */
+  width: 120px;
+  /* top: 100%; */
+  left: 50%; 
+  margin-left: -60px; /* 使用一半宽度 (120/2 = 60) 来居中提示工具 */
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  /* padding: 5px 0; */
+  border-radius: 6px;
 
+  /* 定位 */
+  position: absolute;
+  z-index: 1;
+  bottom: -85%;
+  line-height: 28px;
+}
+.tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%; /* 提示工具底部 */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
 .imgcode-item .el-form-item__content{
   display: flex;
   justify-content: space-between;
@@ -1112,6 +1142,9 @@
   border-bottom-right-radius: 4px;
   cursor: pointer;
   height: 38px;
+}
+.btn_item{
+  padding-top: 20px;
 }
 .reg-box{
   width: 400px;
@@ -1320,4 +1353,42 @@
 }
 .fontSize30{
   font-size: 30px;
+}
+.inform-button{
+  padding: 6px 10px;
+}
+.inform-popover{
+  width: 400px;
+}
+.inform-item sup{
+  top: 15px !important;
+}
+.inform-popo{
+  margin-right: 30px;
+}
+.tooltips-wrap {
+  height: 16px;
+  overflow: hidden;
+}
+.tooltips-wrap span{
+  white-space: nowrap;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.pover-body{
+  display: flex;
+  padding: 3px 0px;
+  align-items: center;
+  justify-content: space-between;
+}
+.pocont{
+  cursor: pointer;
+}
+.login-box .codeimg, .register .codeimg{
+  display: inline-block;
+}
+.login-box .codeimg img, .register .codeimg img{
+  vertical-align: text-top;
 }

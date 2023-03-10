@@ -2,6 +2,7 @@
 /* eslint-disable camelcase */
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store/index';
 import { Message, MessageBox} from 'element-ui'
 // 使用loading
 import NProgress from 'nprogress'
@@ -507,32 +508,34 @@ router.beforeEach((to, from, next) => {
       // 如果大于就是过期了，如果小于或等于就还没过期
       if (date - item.startTime > EXPIRESTIME) {
         // console.log(date - item.startTime)
-        MessageBox.alert('登录超时，请重新登录', '', {
-          confirmButtonText: '确定',
-          showClose:false,
-          center: true,
-          callback: action => {
+        // MessageBox.alert('登录超时，请重新登录', '', {
+        //   confirmButtonText: '确定',
+        //   showClose:false,
+        //   center: true,
+        //   callback: action => {
+          store.commit('set_userinfo','1')
             sessionStorage.clear();
             next('/login')
             NProgress.done()
-          }
-        });
+        //   }
+        // });
           
       } else {
         next();
         NProgress.done()
       }
     } else {
-      MessageBox.alert('登录超时，请重新登录', '', {
-        confirmButtonText: '确定',
-        showClose:false,
-        center: true,
-        callback: action => {
+      // MessageBox.alert('登录超时，请重新登录', '', {
+      //   confirmButtonText: '确定',
+      //   showClose:false,
+      //   center: true,
+      //   callback: action => {
+        store.commit('set_userinfo','1')
           sessionStorage.clear();
           next('/login')
           NProgress.done()
-        }
-      });
+      //   }
+      // });
     }
   }else{
     next()
