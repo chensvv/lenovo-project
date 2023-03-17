@@ -62,6 +62,16 @@
               </template>
             </el-table-column>
             <el-table-column
+              label="状态"
+              prop="otherstatus"
+              align="center">
+              <template slot-scope="scope">
+                  <span>{{scope.row.otherstatus == 0 ? '未审批' : 
+                            scope.row.otherstatus == 1 ? '审批通过' : 
+                            scope.row.otherstatus == 2 ? '审批拒绝' : ''}}</span>
+              </template>
+          </el-table-column>
+            <el-table-column
               label="添加时间"
               prop="createTime"
               align="center"
@@ -79,8 +89,8 @@
                     <template slot-scope="scope">
                       <el-popconfirm
                       :hide-icon="true"
-                      confirm-button-text='审核通过'
-                      cancel-button-text='审核拒绝'
+                      confirm-button-text='审批通过'
+                      cancel-button-text='审批拒绝'
                       cancel-button-type="danger"
                       @confirm="handleAuditPass(scope.$index, scope.row)"
                       @cancel="handleAuditReject(scope.$index, scope.row)"
@@ -89,9 +99,9 @@
                       slot="reference" 
                       size="mini"
                       :disabled="scope.row.otherstatus == 0 ? false : true"
-                      v-has="'activiti:pass'">{{scope.row.otherstatus == 0 ? '审核' : 
-                                scope.row.otherstatus == 1 ? '审核通过' : 
-                                scope.row.otherstatus == 2 ? '审核拒绝' : ''}}</el-button>
+                      v-has="'activiti:pass'">{{scope.row.otherstatus == 0 ? '审批' : 
+                                scope.row.otherstatus == 1 ? '审批通过' : 
+                                scope.row.otherstatus == 2 ? '审批拒绝' : ''}}</el-button>
                     </el-popconfirm>
                     <el-button
                     size="mini"
@@ -309,7 +319,7 @@ export default {
       activitiPass(auditParams).then(res=>{
         if(res.data.code == 200){
             this.$message({
-                message:'审核已通过',
+                message:'审批已通过',
                 type:"success",
                 duration:1500
             });
@@ -331,7 +341,7 @@ export default {
       activitiPass(auditParams).then(res=>{
         if(res.data.code == 200){
             this.$message({
-                message:'审核已拒绝',
+                message:'审批已拒绝',
                 type:"success",
                 duration:1500
             });
