@@ -85,18 +85,6 @@
               </template>
           </el-table-column>
           <el-table-column
-              label="状态"
-              prop="status"
-              align="center"
-              min-width="80"
-              v-if="isshow">
-              <template slot-scope="scope">
-                  <span  v-has="'user:data'">{{scope.row.status == 0 ? '已审批' : 
-                            scope.row.status == 1 ? '未审批' : 
-                            scope.row.status == 2 ? '申请拒绝' : ''}}</span>
-              </template>
-          </el-table-column>
-          <el-table-column
               label="添加时间"
               prop="createTime"
               align="center"
@@ -112,6 +100,29 @@
           </el-table-column>
           <el-table-column label="操作" align="center" min-width="130" v-if="btnshow">
               <template slot-scope="scope">
+                <el-popconfirm
+                  :hide-icon="true"
+                  confirm-button-text='审核通过'
+                  cancel-button-text='审核拒绝'
+                  cancel-button-type="danger"
+                  @confirm="handleAuditPass(scope.$index, scope.row)"
+                  @cancel="handleAuditReject(scope.$index, scope.row)"
+                >
+                  <el-button 
+                  slot="reference" 
+                  size="mini"
+                  :disabled="scope.row.otherstatus == 0 ? false : true"
+                  v-has="'activiti:pass'">{{scope.row.otherstatus == 0 ? '审核' : 
+                            scope.row.otherstatus == 1 ? '审核通过' : 
+                            scope.row.otherstatus == 2 ? '审核拒绝' : ''}}</el-button>
+                </el-popconfirm>
+                <!-- <el-button
+                  size="mini"
+                  :disabled="scope.row.otherstatus == 0 ? false : true"
+                  @click="handleAudit(scope.$index, scope.row)"
+                  v-has="'activiti:pass'">{{scope.row.otherstatus == 0 ? '审核' : 
+                            scope.row.otherstatus == 1 ? '审核通过' : 
+                            scope.row.otherstatus == 2 ? '审核拒绝' : ''}}</el-button> -->
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
@@ -230,6 +241,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {qaList, qaSave, qaDel, qaUpFile, qaPub, qaFile} from '@/config/api'
+import {activitiPass} from '@/config/adminApi'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
@@ -277,7 +289,6 @@ export default {
       editBtnLoading:false,
       AIMLBtnLoading:false,
       listLoading:true,
-      isshow:true,
       btnshow:true
     };
   },
@@ -289,9 +300,6 @@ export default {
     this.getList();
   },
   mounted(){
-    if(this.perList.indexOf('user:data') == -1){
-      this.isshow = false
-    }
     if(this.perList.indexOf('qa:update') == -1 && this.perList.indexOf('qa:del') == -1){
           this.btnshow = false
       }
@@ -355,6 +363,51 @@ export default {
         answer: row.answer,
         speak: row.speak,
       };
+    },
+    handleAuditPass(index, row){
+      console.log(row)
+      let auditParams = {
+        id:row.otherid,
+        status:1
+      }
+      activitiPass(auditParams).then(res=>{
+        if(res.data.code == 200){
+            this.$message({
+                message:'审核已通过',
+                type:"success",
+                duration:1500
+            });
+            this.getList();
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1500
+            });
+        }
+      })
+    },
+    handleAuditReject(index, row){
+      let auditParams = {
+        id:row.otherid,
+        status:2
+      }
+      activitiPass(auditParams).then(res=>{
+        if(res.data.code == 200){
+            this.$message({
+                message:'审核已拒绝',
+                type:"success",
+                duration:1500
+            });
+            this.getList();
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1500
+            });
+        }
+      })
     },
     handleDel(index, row) {
       let delParams = {
@@ -644,10 +697,15 @@ export default {
         ex:this.searchItem.excel
       }
       params.sign = deleteParams(params)
+      this.list = []
       qaList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){
-          this.list = res.data.data;
+          res.data.data.map((item,index)=>{
+            item.data.otherstatus = item.other.status
+            item.data.otherid = item.other.id
+            this.list.push(item.data)
+          })
           this.totalCount = res.data.count
           this.totalClass = res.data.data.length
         }else{

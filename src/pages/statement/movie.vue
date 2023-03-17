@@ -2,7 +2,7 @@
   <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/joke/speakList'}">说法配置</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/forum/list'}">说法配置</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
@@ -48,17 +48,6 @@
               </template>
           </el-table-column>
           <el-table-column
-              label="状态"
-              prop="status"
-              align="center"
-              v-if="isshow">
-              <template slot-scope="scope">
-                  <span  v-has="'user:data'">{{scope.row.status == 0 ? '已审批' : 
-                            scope.row.status == 1 ? '未审批' : 
-                            scope.row.status == 2 ? '申请拒绝' : ''}}</span>
-              </template>
-          </el-table-column>
-          <el-table-column
               label="创建时间"
               prop="createTime"
               align="center"
@@ -74,6 +63,22 @@
           </el-table-column>
           <el-table-column label="操作" align="center" min-width="130" v-if="btnshow">
               <template slot-scope="scope">
+                <el-popconfirm
+                    :hide-icon="true"
+                    confirm-button-text='审核通过'
+                    cancel-button-text='审核拒绝'
+                    cancel-button-type="danger"
+                    @confirm="handleAuditPass(scope.$index, scope.row)"
+                    @cancel="handleAuditReject(scope.$index, scope.row)"
+                  >
+                    <el-button 
+                    slot="reference" 
+                    size="mini"
+                    :disabled="scope.row.otherstatus == 0 ? false : true"
+                    v-has="'activiti:pass'">{{scope.row.otherstatus == 0 ? '审核' : 
+                              scope.row.otherstatus == 1 ? '审核通过' : 
+                              scope.row.otherstatus == 2 ? '审核拒绝' : ''}}</el-button>
+                  </el-popconfirm>
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
@@ -124,6 +129,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {movieList, movieDel, movieUpd, movieAdd, moviePub} from '@/config/api'
+import {activitiPass} from '@/config/adminApi'
 import {deleteParams} from '@/utils/deleteParams.js'
 export default {
   data() {
@@ -228,6 +234,51 @@ export default {
       this.currentPage = val
       // console.log(`当前页: ${val}`);
       this.getList();
+    },
+    handleAuditPass(index, row){
+      console.log(row)
+      let auditParams = {
+        id:row.otherid,
+        status:1
+      }
+      activitiPass(auditParams).then(res=>{
+        if(res.data.code == 200){
+            this.$message({
+                message:'审核已通过',
+                type:"success",
+                duration:1500
+            });
+            this.getList();
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1500
+            });
+        }
+      })
+    },
+    handleAuditReject(index, row){
+      let auditParams = {
+        id:row.otherid,
+        status:2
+      }
+      activitiPass(auditParams).then(res=>{
+        if(res.data.code == 200){
+            this.$message({
+                message:'审核已拒绝',
+                type:"success",
+                duration:1500
+            });
+            this.getList();
+        }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1500
+            });
+        }
+      })
     },
     handleEdit(index, row) {
       this.editVisible = true;
@@ -386,10 +437,15 @@ export default {
         ask:this.searchItem.speak,
       }
       params.sign = deleteParams(params)
+      this.list = []
       movieList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){
-          this.list = res.data.data
+          res.data.data.map((item,index)=>{
+            item.data.otherstatus = item.other.status
+            item.data.otherid = item.other.id
+            this.list.push(item.data)
+          })
           this.totalCount = res.data.count
           this.totalClass = res.data.data.length
         }else{

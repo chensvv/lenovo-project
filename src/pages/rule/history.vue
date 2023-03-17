@@ -156,7 +156,6 @@
           <el-table-column
             label="机型"
             align="left" 
-            
             width="180">
             <template slot-scope="scope">
                 <el-select v-model="scope.row.modelConfigList" multiple disabled placeholder="请选择">

@@ -19,7 +19,7 @@
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-        <el-button size="mini" @click="handleAdd()" v-has="'grey:devadd'">添加</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'ttsgrey:add'">添加</el-button>
       </div>
       
       
@@ -77,12 +77,12 @@
                 <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="'grey:devupdate'">编辑</el-button>
+                  v-has="'ttsgrey:update'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="'grey:devdel'">删除</el-button>
+                  v-has="'ttsgrey:devdel'">删除</el-button>
               </template>
           </el-table-column>
       </el-table>

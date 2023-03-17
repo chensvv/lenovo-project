@@ -2,13 +2,13 @@
     <div class="table height-85">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/outer/list'}">技能管理</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/skill/applist'}">技能管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
             <div class="form-input height50">
-                <el-form-item label="歌手名称" prop="name">
+                <el-form-item label="歌曲名称" prop="name">
                     <el-input v-model.trim="searchItem.name" clearable></el-input>
                 </el-form-item>
             </div>
@@ -247,7 +247,7 @@ export default {
                 name:"",
             },
             addRules:{
-                songName: [{ required: true, message: '请输入歌手名称', trigger: 'change' }],
+                songName: [{ required: true, message: '请输入歌曲名称', trigger: 'change' }],
                 songMid: [{ required: true, message: '请输入QQ音乐MID', trigger: 'change' }],
                 songId: [{ required: true, message: '请输入QQ音乐ID', trigger: 'change' }],
                 songAlbumId:[{ required: true, message: '请输入对应专辑ID', trigger: 'change' }],
@@ -255,7 +255,7 @@ export default {
                 songSource:[{ required: true, message: '请选择歌曲来源', trigger: 'change' }]
             },
             editRules:{
-                songName: [{ required: true, message: '请输入歌手名称', trigger: 'change' }],
+                songName: [{ required: true, message: '请输入歌曲名称', trigger: 'change' }],
                 songMid: [{ required: true, message: '请输入QQ音乐MID', trigger: 'change' }],
                 songId: [{ required: true, message: '请输入QQ音乐ID', trigger: 'change' }],
                 songAlbumId:[{ required: true, message: '请输入对应专辑ID', trigger: 'change' }],

@@ -435,7 +435,6 @@ export default {
             duration:1500
         });
       }else{
-        console.log(ids.join(','))
         this.exportBtnLoading = true
         let batchParams = {
           ids:ids
