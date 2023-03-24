@@ -133,9 +133,9 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="添加时间" prop="createTime" align="center"  :formatter="formTime" min-width="120">
+            <el-table-column label="添加时间" prop="createTime" align="center"  :formatter="formTime" width="130">
             </el-table-column>
-            <el-table-column label="修改时间" prop="updateTime" align="center"  :formatter="formTime2" min-width="120">
+            <el-table-column label="修改时间" prop="updateTime" align="center"  :formatter="formTime2" width="130">
             </el-table-column>
       </el-table>
       <el-pagination

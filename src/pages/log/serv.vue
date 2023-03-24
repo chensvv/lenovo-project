@@ -63,7 +63,7 @@
               </el-table-column>
               <el-table-column label="计算时间" prop="dur" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="入库时间" prop="createTime" align="left"  :formatter="formTime" min-width="120">
+              <el-table-column label="入库时间" prop="createTime" align="left"  :formatter="formTime" width="130">
               </el-table-column>
           </el-table>
       <!-- <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table> -->

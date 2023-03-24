@@ -113,9 +113,9 @@
                             prop="updateTime"
                             align="center" 
                             :formatter="formTime2"
-                            min-with="140">
+                            with="130">
                         </el-table-column>
-                        <el-table-column label="操作" align="center" v-if="commandIsshow">
+                        <el-table-column label="操作" align="center" width="80" v-if="commandIsshow">
                             <template slot-scope="scope">
                                 <el-button
                                 size="mini"
@@ -166,9 +166,9 @@
                             prop="updateTime"
                             align="center"
                             :formatter="formTime2"
-                            min-width="120">
+                            width="130">
                         </el-table-column>
-                        <el-table-column label="操作" align="center"  v-if="norunIsshow">
+                        <el-table-column label="操作" align="center" width="80" v-if="norunIsshow">
                             <template slot-scope="scope">
                                 <el-button
                                 size="mini"
@@ -234,16 +234,16 @@
                             prop="createTime"
                             align="center"
                             :formatter="formTime"
-                            min-with="140">
+                            with="130">
                         </el-table-column>
                         <el-table-column
                             label="修改时间"
                             prop="updateTime"
                             align="center"
                             :formatter="formTime2"
-                            min-width="120">
+                            width="130">
                         </el-table-column>
-                        <el-table-column label="操作" align="center" min-width="!30" v-if="originaIsshow">
+                        <el-table-column label="操作" align="center" width="130" v-if="originaIsshow">
                             <template slot-scope="scope">
                                 <el-button
                                 size="mini"

@@ -120,7 +120,7 @@
               </div>
           </template>
         </el-table-column>
-        <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" min-width="120"></el-table-column>
+        <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" width="130"></el-table-column>
       </el-table>
       <el-pagination
         @size-change="handleSizeChange"

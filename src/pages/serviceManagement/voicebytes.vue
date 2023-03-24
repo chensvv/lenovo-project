@@ -189,14 +189,14 @@
                 label="添加时间"
                 prop="createTime"
                 align="center"
-                min-width="120"
+                width="130"
                 :formatter="formTime">
             </el-table-column>
             <el-table-column
                 label="修改时间"
                 prop="updateTime"
                 align="center"
-                min-width="120"
+                width="130"
                 :formatter="formTime2">
             </el-table-column>
         </el-table>

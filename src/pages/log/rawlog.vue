@@ -114,8 +114,8 @@
               </div>
           </template>
         </el-table-column>
-        <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" min-width="120"></el-table-column>
-        <el-table-column label="原始日志" align="center"  v-if="isshow">
+        <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" width="130"></el-table-column>
+        <el-table-column label="原始日志" align="center" width="80" v-if="isshow">
           <template slot-scope="scope">
             <span slot @click="handleInfo(scope.$index, scope.row)" class="cur-info" v-has="'asr:rawview'">
               <i class="el-icon-search icon"></i>
@@ -141,7 +141,7 @@
               <li v-if="isLastPage != true" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
               <li v-if="currentPage+1 < 3 && isLastPage !=true" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
               <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
-              <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
+              <li><button :disabled="isLastPage == true? true: false" @click="turnToPage(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
           </ul>
       </div>
     </div>
@@ -195,7 +195,6 @@ export default {
       listLoading:true,
       isshow:true,
       isPageNumberError:false,
-      lastPage:0,
       MaxId:"",
       MinId:"",
       nextPage:"",
@@ -277,7 +276,6 @@ export default {
         var ts = this;
         var pageNum = parseInt(pageNum);
         if(pageNum == -1){
-            ts.lastPage = -1
             ts.getList(pageNum)
         }else{
             // ts.currentPage = pageNum
@@ -286,7 +284,6 @@ export default {
                 ts.isPageNumberError = true;
                 return false;
             }else{
-                ts.lastPage = 0
                 ts.getList(pageNum)
                 ts.isPageNumberError = false;
             }
@@ -337,9 +334,6 @@ export default {
           this.isLastPage = res.data.data.lastPage
           this.lastCurrentPage = res.data.data.currentPage
           this.currentPage = res.data.data.currentPage
-          if(res.data.data.lastPage == true){
-              this.lastPage = -1
-          }
         }else{
             this.$message({
                 message:res.data.errorMessage,

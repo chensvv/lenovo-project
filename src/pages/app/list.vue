@@ -107,9 +107,9 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="来自" prop="source" align="center"></el-table-column>
-                <el-table-column label="更新时间" prop="updateTime" align="center" min-width="120"></el-table-column>
-                <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime" min-width="120"></el-table-column>
-                <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
+                <el-table-column label="更新时间" prop="updateTime" align="center" width="130"></el-table-column>
+                <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime" width="130"></el-table-column>
+                <el-table-column label="操作" width="130" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

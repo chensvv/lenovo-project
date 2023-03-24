@@ -125,16 +125,16 @@
                     prop="buildTime"
                     :formatter="formTime"
                     align="center"
-                    min-width="120">
+                    width="130">
                 </el-table-column>
                 <el-table-column
                     label="添加时间"
                     prop="createTime"
                     :formatter="formTime2"
                     align="center"
-                    min-width="120">
+                    width="130">
                 </el-table-column>
-                <el-table-column label="操作" min-width="230" align="center"  v-if="isshow">
+                <el-table-column label="操作" width="240" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

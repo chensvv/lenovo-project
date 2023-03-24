@@ -20,7 +20,7 @@
                         <div class="tooltips-wrap" v-for="item in inform.data" :key="item.id">
                             <span class="pocont" v-if="inform.manager == '1'" @click="goPage(item.url)">{{item.dataType}}有新增数据需要你审核</span>
                             <span class="pocont" v-if="inform.manager == '2'" @click="goPage(item.url)">你添加的{{item.dataType}}数据已被审核，审批{{item.status == 1 ? '通过' : '拒绝'}}</span>
-                            <el-button size="mini" @click="informBtn(item.id)">标记已读</el-button>
+                            <el-button size="mini" @click="informBtn(item.ids)">标记已读</el-button>
                         </div>
                         <div class="hintnull" v-if="informCount == 0">
                             <span>暂无通知</span>
@@ -173,15 +173,24 @@ export default {
         },
         informBtn(id){
             let paramsID = {
-                id:id
+                ids:id
             }
             activitiRead(paramsID).then(res=>{
-                this.$message({
-                    message:'通知已读',
-                    type:"success",
-                    duration:1000
-                });
-                this.getactivitiNotice()
+                if(res.data.code == 200){
+                    this.$message({
+                        message:'通知已读',
+                        type:"success",
+                        duration:1500
+                    });
+                    this.getactivitiNotice()
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:"error",
+                        duration:1500
+                    });
+                }
+                
             })
         },
         goPage(url){

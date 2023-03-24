@@ -97,9 +97,9 @@
               prop="it"
               align="center"
               :formatter="formTime"
-              min-width="120">
+              width="130">
           </el-table-column>
-          <el-table-column label="操作" align="center" min-width="130" v-if="btnshow">
+          <el-table-column label="操作" align="center" width="130" v-if="btnshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"

@@ -132,7 +132,7 @@
               prop="createTime"
               align="center"
               :formatter="formTime"
-              min-width="120">
+              width="130">
           </el-table-column>
           <el-table-column label="添加到待发布" align="center" min-width="80" v-if="issueshow">
               <template slot-scope="scope">
@@ -142,7 +142,7 @@
                   v-has="'showmode:toBeReleased'">{{scope.row.publishStatus == 0 ? '添加' : '撤回'}}</el-button>
               </template>
           </el-table-column>
-          <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
+          <el-table-column label="操作" width="130" align="center"  v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"

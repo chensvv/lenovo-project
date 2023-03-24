@@ -50,7 +50,7 @@
               </el-table-column>
               <el-table-column label="设备文本" prop="tai" align="left"  :show-overflow-tooltip="true">
               </el-table-column>
-              <el-table-column label="音频文件" align="center"  v-if="isshow">
+              <el-table-column label="音频文件" align="center" width="80" v-if="isshow">
                 <template slot-scope="scope">
                     <span 
                     slot 

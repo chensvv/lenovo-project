@@ -99,8 +99,8 @@
               </div>
           </template>
         </el-table-column>
-        <el-table-column label="插入时间" prop="createTime" align="center"  :formatter="formTime" min-width="140"></el-table-column>
-        <el-table-column label="调用时间" prop="startTime" align="center"  :formatter="formTime2" min-width="140"></el-table-column>
+        <el-table-column label="插入时间" prop="createTime" align="center"  :formatter="formTime" width="130"></el-table-column>
+        <el-table-column label="调用时间" prop="startTime" align="center"  :formatter="formTime2" width="130"></el-table-column>
       </el-table>
       <el-pagination
         @size-change="handleSizeChange"

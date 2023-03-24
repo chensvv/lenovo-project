@@ -37,7 +37,7 @@
               prop="createTime"
               align="center"
               :formatter="formTime"
-              min-width="120">
+              width="130">
           </el-table-column>
           <el-table-column label="灰度" align="center"  v-if="isshow">
               <template slot-scope="scope">
@@ -52,7 +52,7 @@
                 <span>{{scope.row.isGray == '0' ? '不灰度' : '灰度'}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" min-width="130" v-if="issueshow">
+          <el-table-column label="操作" align="center" width="130" v-if="issueshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"

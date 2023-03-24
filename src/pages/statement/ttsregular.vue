@@ -90,7 +90,7 @@
               prop="createTime"
               align="center" 
               :formatter="formTime2"
-              min-wdth="120"
+              width="130"
               sortable="custom">
           </el-table-column>
           <el-table-column
@@ -98,10 +98,10 @@
               prop="updateTime"
               align="center" 
               :formatter="formTime"
-              min-width="120"
+              width="130"
               sortable="custom">
           </el-table-column>
-          <el-table-column label="操作" align="center" min-width="130" v-if="isshow">
+          <el-table-column label="操作" align="center" width="130" v-if="isshow">
               <template slot-scope="scope">
                   <el-button
                   size="mini"

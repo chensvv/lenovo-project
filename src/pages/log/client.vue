@@ -64,7 +64,7 @@
                   </div>
               </template>
             </el-table-column>
-            <el-table-column label="客户端类型" prop="dtp" align="center" sortable="custom">
+            <el-table-column label="客户端类型" prop="dtp" align="center" header-align="center" sortable="custom">
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -76,31 +76,7 @@
                   </div>
               </template>
             </el-table-column>
-            <!-- <el-table-column label="客户端ip" prop="uip" align="center">
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.uip" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.uip }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.uip }}
-                  </div>
-              </template>
-            </el-table-column>
-            <el-table-column label="客户端位置" prop="upos" align="center">
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.upos" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.upos }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.upos }}
-                  </div>
-              </template>
-            </el-table-column> -->
-            <el-table-column label="客户端版本" prop="ver" align="center" sortable="custom">
+            <el-table-column label="客户端版本" prop="ver" align="center" header-align="center" sortable="custom">
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -160,7 +136,7 @@
                   </div>
               </template>
             </el-table-column>
-            <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" min-width="140"></el-table-column>
+            <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" width="130"></el-table-column>
           </el-table>
           <!-- <el-pagination
             @size-change="handleSizeChangeC"
@@ -180,7 +156,7 @@
                     <li v-if="isLastPageC != true" class="unum" @click="turnToPageC(currentPageC+1)">{{currentPageC+1}}</li>
                     <li v-if="currentPageC+1 < 3 && isLastPageC !=true" class="unum" @click="turnToPageC(currentPageC+2)">{{currentPageC+2}}</li>
                     <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
-                    <li><button :disabled="lastPageC!= 0 && isLastPageC == true? true: false" @click="turnToPageC(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
+                    <li><button :disabled="isLastPageC == true ? true: false" @click="turnToPageC(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
                 </ul>
             </div>
         </el-tab-pane>
@@ -202,108 +178,6 @@
             </el-table-column>
             <el-table-column label="服务端识别耗时" prop="ixad" align="center">
             </el-table-column>
-            <!-- <el-table-column label="服务端其他总延时" prop="ixod" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="服务端其他总延时" placement="top">
-                  <span slot class="headlips">服务端其他总延时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixod" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.ixod }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.ixod }}
-                  </div>
-              </template>
-            </el-table-column> -->
-            <!-- <el-table-column label="最后一个包的客户端耗时" prop="lpcd" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="最后一个包的客户端耗时" placement="top">
-                  <span slot class="headlips">最后一个包的客户端耗时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.lpcd" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.lpcd }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.lpcd }}
-                  </div>
-              </template>
-            </el-table-column>
-            <el-table-column label="最后一个包的服务端耗时" prop="lpsd" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="最后一个包的服务端耗时" placement="top">
-                  <span slot class="headlips">最后一个包的服务端耗时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.lpsd" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.lpsd }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.lpsd }}
-                  </div>
-              </template>
-            </el-table-column>
-            <el-table-column label="最后一个包的网络延时" prop="lpnd" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="最后一个包的网络延时" placement="top">
-                  <span slot class="headlips">最后一个包的网络延时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.lpnd" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.lpnd }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.lpnd }}
-                  </div>
-              </template>
-            </el-table-column>
-            <el-table-column label="最后一个包的服务端语音识别耗时" prop="lpad" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="最后一个包的服务端语音识别耗时" placement="top">
-                  <span slot class="headlips">最后一个包的服务端语音识别耗时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.lpad" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.lpad }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.lpad }}
-                  </div>
-              </template>
-            </el-table-column>
-            <el-table-column label="最后一个包的服务端其他总延时" prop="lpod" align="center">
-              <template slot="header">
-                <el-tooltip effect="dark" content="最后一个包的服务端其他总延时" placement="top">
-                  <span slot class="headlips">最后一个包的服务端其他总延时</span>
-                </el-tooltip>
-              </template>
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.lpod" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.lpod }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.lpod }}
-                  </div>
-              </template>
-            </el-table-column> -->
             <el-table-column label="执行状态" prop="stat" align="center" min-width="90">
               <template slot-scope="scope">
                 <span
@@ -330,7 +204,7 @@
                   </div>
               </template>
             </el-table-column>
-            <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" min-width="140"></el-table-column>
+            <el-table-column label="插入时间" prop="it" align="center"  :formatter="formTime" width="130"></el-table-column>
           </el-table>
           <!-- <el-pagination
             @size-change="handleSizeChangeS"
@@ -351,7 +225,7 @@
                     <li v-if="currentPageS+1 < 3 && isLastPageS != true" class="unum" @click="turnToPageS(currentPageS+2)">{{currentPageS+2}}</li>
 
                     <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
-                    <li><button :disabled="lastPageS!= 0 && isLastPageS == true? true: false" @click="turnToPageS(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
+                    <li><button :disabled="isLastPageS == true? true: false" @click="turnToPageS(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
                 </ul>
             </div>
         </el-tab-pane>
@@ -390,7 +264,6 @@ export default {
       CpageSize: 10, //默认每页条数
       CtotalCount: 1, // 总条数
       isPageNumberErrorC:false,
-      lastPageC:0,
       MaxIdC:"",
       MinIdC:"",
       nextPageC:"",
@@ -405,7 +278,6 @@ export default {
       ClistLoading:true,
       SlistLoading:true,
       isPageNumberErrorS:false,
-      lastPageS:0,
       MaxIdS:"",
       MinIdS:"",
       nextPageS:"",
@@ -485,7 +357,6 @@ export default {
         var ts = this;
         var pageNum = parseInt(pageNum);
         if(pageNum == -1){
-            ts.lastPageC = -1
             ts.getList(pageNum)
         }else{
             if (!pageNum || pageNum < 1) {
@@ -493,7 +364,6 @@ export default {
                 ts.isPageNumberErrorC = true;
                 return false;
             }else{
-                ts.lastPageC = 0
                 ts.getList(pageNum);
                 ts.isPageNumberErrorC = false;
             }
@@ -503,7 +373,6 @@ export default {
         var ts = this;
         var pageNum = parseInt(pageNum);
         if(pageNum == -1){
-            ts.lastPageS = -1
             ts.getSList(pageNum)
         }else{
             if (!pageNum || pageNum < 1) {
@@ -511,7 +380,6 @@ export default {
                 ts.isPageNumberErrorS = true;
                 return false;
             }else{
-                ts.lastPageS = 0
                 ts.getSList(pageNum);
                 ts.isPageNumberErrorS = false;
             }
@@ -522,11 +390,10 @@ export default {
         prop:column.prop,
         order:column.order
       }
-      console.log(this.column)
       this.getList(this.lastCurrentPageC)
     },
     getList(pageNum) {
-      this.ClistLoading = false
+      this.ClistLoading = true
       let Cparams = {
           startStr: this.searchItem.refreshTime,
           endStr: this.searchItem.putTime,
@@ -543,7 +410,6 @@ export default {
         };
         Cparams.sign = deleteParams(Cparams)
         clientList(Cparams).then(res => {
-          console.log(res.data.data)
           this.ClistLoading = false
           if(res.data.code == 200){
             this.clientList = res.data.data.data;
@@ -553,9 +419,6 @@ export default {
             this.currentPageC = res.data.data.currentPage
             this.MaxIdC = Math.max.apply(Math, this.clientList.map(function(o) {return o.id}))
             this.MinIdC = Math.min.apply(Math, this.clientList.map(function(o) {return o.id}))
-            if(res.data.lastPage == true){
-                this.lastPageC = -1
-            }
           }else{
               this.$message({
                   message:res.data.errorMessage,
@@ -568,7 +431,7 @@ export default {
         })
       },
       getSList(pageNum){
-        this.SlistLoading = false
+        this.SlistLoading = true
         let Sparams = {
           pgstr:this.nextPageS,
           pcstr:this.SpageSize,
@@ -588,9 +451,6 @@ export default {
             this.currentPageS = res.data.data.currentPage
             this.MaxIdS = Math.max.apply(Math, this.serverList.map(function(o) {return o.id}))
             this.MinIdS = Math.min.apply(Math, this.serverList.map(function(o) {return o.id}))
-            if(res.data.lastPage == true){
-                this.lastPageS = -1
-            }
           }
         }).catch(()=>{
           this.SlistLoading = false

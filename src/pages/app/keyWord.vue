@@ -100,9 +100,9 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="查询时间" prop="searchDate" align="center" :formatter="formTime" min-width="120"></el-table-column>
-                <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime2" min-width="120"></el-table-column>
-                <el-table-column label="操作" min-width="130" align="center"  v-if="isshow">
+                <el-table-column label="查询时间" prop="searchDate" align="center" :formatter="formTime" width="130"></el-table-column>
+                <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime2" width="130"></el-table-column>
+                <el-table-column label="操作" width="130" align="center"  v-if="isshow">
                     <template slot-scope="scope">
                         <el-button
                         size="mini"

@@ -65,17 +65,17 @@
                 prop="sta"
                 align="center"
                 :formatter="formState"
-                sortable="custom">
+                sortable="custom"
+                width="100">
             </el-table-column>
             <el-table-column
                 label="更新/入库时间"
                 prop="it"
                 align="center"
-                min-width="120"
-                width="150"
+                width="130"
                 :formatter="formTime">
             </el-table-column>
-            <el-table-column label="操作" align="center" min-width="190" v-if="isshow">
+            <el-table-column label="操作" align="center" width="180" v-if="isshow">
                 <template slot-scope="scope">
                   <el-button
                     size="mini"

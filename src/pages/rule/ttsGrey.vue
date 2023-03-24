@@ -70,9 +70,9 @@
               prop="it"
               align="center"
               :formatter="formTime"
-              min-width="120">
+              width="130">
           </el-table-column>
-          <el-table-column label="操作" align="center" min-width="190" v-if="isshow">
+          <el-table-column label="操作" align="center" width="130" v-if="isshow">
               <template slot-scope="scope">
                 <el-button
                   size="mini"
@@ -82,7 +82,7 @@
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="'ttsgrey:devdel'">删除</el-button>
+                  v-has="'ttsgrey:del'">删除</el-button>
               </template>
           </el-table-column>
       </el-table>

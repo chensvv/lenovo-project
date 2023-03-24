@@ -17,6 +17,14 @@
         <el-form-item label="所属excel文件" prop="excel">
           <el-input v-model.trim="searchItem.excel" clearable></el-input>
         </el-form-item>
+        <el-form-item label="状态" prop="status">
+          <el-select v-model.trim="searchItem.status" placeholder="--" clearable>
+              <el-option label="未审核" value="0"></el-option>
+              <el-option label="通过" value="1"></el-option>
+              <el-option label="拒绝" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+        
       </div>
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
@@ -87,11 +95,14 @@
           <el-table-column
               label="状态"
               prop="otherstatus"
-              align="center">
+              align="center"
+              width="90">
               <template slot-scope="scope">
-                  <span>{{scope.row.otherstatus == 0 ? '未审批' : 
-                            scope.row.otherstatus == 1 ? '审批通过' : 
-                            scope.row.otherstatus == 2 ? '审批拒绝' : ''}}</span>
+                  <span 
+                  :class="scope.row.otherstatus == 1 ? 'tag-s' : scope.row.otherstatus == 2 ? 'tag-d' :'tag-i'"
+                  >{{scope.row.otherstatus == 0 ? '未审批' : 
+                            scope.row.otherstatus == 1 ? '通过' : 
+                            scope.row.otherstatus == 2 ? '拒绝' : ''}}</span>
               </template>
           </el-table-column>
           <el-table-column
@@ -99,16 +110,16 @@
               prop="createTime"
               align="center"
               :formatter="formTime"
-              min-width="120">
+              width="130">
           </el-table-column>
           <el-table-column
               label="更新时间"
               prop="updateTime"
               align="center"
               :formatter="formTime2"
-              min-width="120">
+              width="130">
           </el-table-column>
-          <el-table-column label="操作" align="center" min-width="130" v-if="btnshow">
+          <el-table-column label="操作" align="center" width="180" v-if="btnshow">
               <template slot-scope="scope">
                 <el-popconfirm
                   :hide-icon="true"
@@ -122,6 +133,7 @@
                   slot="reference" 
                   size="mini"
                   :disabled="scope.row.otherstatus == 0 ? false : true"
+                  v-if="scope.row.otherstatus == 0"
                   v-has="'activiti:pass'">{{scope.row.otherstatus == 0 ? '审批' : 
                             scope.row.otherstatus == 1 ? '审批通过' : 
                             scope.row.otherstatus == 2 ? '审批拒绝' : ''}}</el-button>
@@ -271,7 +283,8 @@ export default {
       searchItem:{//搜索数据组
         excel:"",
         speak:"",
-        answer:""
+        answer:"",
+        status:""
       },
       addRules:{
         speak:[{ required: true, message: '请输入问题', trigger: 'change' }],
@@ -704,7 +717,8 @@ export default {
         pcstr:this.pageSize,
         q:this.searchItem.speak,
         a:this.searchItem.answer,
-        ex:this.searchItem.excel
+        ex:this.searchItem.excel,
+        status:this.searchItem.status
       }
       params.sign = deleteParams(params)
       this.list = []
