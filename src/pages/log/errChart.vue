@@ -7,14 +7,15 @@
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
             <div class="form-input height50">
-                <el-form-item label="选择日期" prop="startTime">
+                <el-form-item label="日期" prop="startTime">
                 <el-date-picker 
                     type="date" 
                     placeholder="选择日期" 
                     v-model="searchItem.startTime" 
                     :picker-options="pickerOptions"
                     style="width: 100%;"
-                    value-format="yyyy-MM-dd"></el-date-picker>
+                    value-format="yyyy-MM-dd"
+                    :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))"></el-date-picker>
                 </el-form-item>
             </div>
             <div class="form-btn">

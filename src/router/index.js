@@ -362,7 +362,7 @@ const router = new Router({
         {
           path: '/servlog/list',
           component: () => import('@/pages/graph/servloglist'),
-          meta: {title: 'NL领域统计',needLogin:true}
+          meta: {title: 'NLP领域统计',needLogin:true}
         },
         {
           path: '/sysLog/list',
@@ -463,6 +463,11 @@ const router = new Router({
           path: '/iot/log/list',
           component: () => import('@/pages/iot/log'),
           meta: {title: '设备日志',needLogin:true}
+        },
+        {
+          path: '/nlulog/list',
+          component: () => import('@/pages/nlu/nlulog'),
+          meta: {title: '运营日志分析',needLogin:true}
         },
         {
           path: '/user/checkpass',

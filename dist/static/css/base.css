@@ -479,10 +479,10 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   padding: 14px 0 0;
   height: 30px;
 }
-
+/* 
 .el-range-editor--mini.el-input__inner {
   height: 30px !important;
-}
+} */
 
 .carousel .el-button+.el-button {
   margin-left: 0;
@@ -1408,4 +1408,10 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .hintnull{
   width: 100%;
   text-align: center;
+}
+.date-form .el-form-item__content{
+  width: auto;
+}
+.date-form .el-date-editor.el-input__inner{
+  width: 250px;
 }

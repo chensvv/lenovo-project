@@ -61,7 +61,7 @@ export default {
             var xArraylength = Xdata.length
             myChart.setOption({
               title: { 
-                  text: 'NL领域统计',
+                  text: 'NLP领域统计',
                   left:'center'
               },
               tooltip: {

@@ -17,19 +17,20 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <span class="label-time">选择日期</span>
-            <el-date-picker
-                v-model="pickerVal"
-                type="daterange"
-                align="right"
-                size="mini"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                :picker-options="pickerOptions"
-                value-format="yyyy-MM-dd"
-                @change="dateChangebirthday">
-            </el-date-picker>
+            <el-form-item label="日期" prop="pickerVal" class="date-form">
+                <el-date-picker
+                    v-model="searchItem.pickerVal"
+                    type="daterange"
+                    align="center"
+                    size="mini"
+                    range-separator="至"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期"
+                    :picker-options="pickerOptions"
+                    value-format="yyyy-MM-dd"
+                    :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
+                </el-date-picker>
+            </el-form-item>
           </div>
           
             <div class="form-btn">
@@ -59,12 +60,10 @@ export default {
           }
         },
         searchItem:{
-            startTime:'',
-            endTime:'',
-            username:''
+          pickerVal:[],
+          username:''
         },
         list: [],
-        pickerVal:[],
         usernameList:[],
         seaBtnLoading:false,
         loading:true
@@ -113,8 +112,8 @@ export default {
     getChartsData(){
         // 基于准备好的dom，初始化echarts实例
         let paramsList = {
-          startStr:this.searchItem.startTime,
-          endStr:this.searchItem.endTime,
+          startStr:this.searchItem.pickerVal[0],
+          endStr:this.searchItem.pickerVal[1],
           userName:this.searchItem.username
         }
         paramsList.sign = deleteParams(paramsList)

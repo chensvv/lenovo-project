@@ -10,23 +10,19 @@
         <el-form-item label="用户" prop="userName">
           <el-input v-model.trim="searchItem.userName" clearable></el-input>
         </el-form-item>
-        <el-form-item label="起始时间" prop="refreshTime">
-            <el-date-picker 
-            type="date" 
-            placeholder="选择日期" 
-            v-model="searchItem.refreshTime" 
-            :picker-options="pickerOptions"
-            style="width: 100%;"
-            value-format="yyyy-MM-dd"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="结束时间" prop="putTime">
-            <el-date-picker 
-            type="date" 
-            placeholder="选择日期" 
-            v-model="searchItem.putTime" 
-            :picker-options="pickerOptions"
-            style="width: 100%;"
-            value-format="yyyy-MM-dd"></el-date-picker>
+        <el-form-item label="日期" prop="pickerVal" class="date-form">
+            <el-date-picker
+                v-model="searchItem.pickerVal"
+                type="daterange"
+                align="center"
+                size="mini"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                :picker-options="pickerOptions"
+                value-format="yyyy-MM-dd"
+                :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
+            </el-date-picker>
         </el-form-item>
       </div>
       <div class="form-btn">
@@ -137,8 +133,7 @@ export default {
       totalClass:'8',
       searchItem:{//搜索数据组
         userName:"",
-        refreshTime:"",
-        putTime:""
+        pickerVal:[]
       },
       column:{
           prop:'',
@@ -233,8 +228,8 @@ export default {
       this.listLoading = true
       let params = {
         userName:this.searchItem.userName,
-        startStr:this.searchItem.refreshTime,
-        endStr:this.searchItem.putTime,
+        startStr:this.searchItem.pickerVal[0],
+        endStr:this.searchItem.pickerVal[1],
         pgstr:this.nextPage,
         pcstr:this.pageSize,
         maxId:this.MaxId,

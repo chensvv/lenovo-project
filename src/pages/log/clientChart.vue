@@ -7,24 +7,25 @@
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
           <div class="form-input height50">
-            <span class="label-time">选择日期</span>
-            <el-date-picker
-                v-model="pickerVal"
-                type="daterange"
-                align="right"
-                size="mini"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-                :picker-options="pickerOptions"
-                value-format="yyyy-MM-dd"
-                @change="dateChangebirthday">
-            </el-date-picker>
+            <el-form-item label="日期" prop="pickerVal" class="date-form">
+                <el-date-picker
+                    v-model="searchItem.pickerVal"
+                    type="daterange"
+                    align="center"
+                    size="mini"
+                    range-separator="至"
+                    start-placeholder="开始日期"
+                    end-placeholder="结束日期"
+                    :picker-options="pickerOptions"
+                    value-format="yyyy-MM-dd"
+                    :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
+                </el-date-picker>
+            </el-form-item>
           </div>
           
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm()">重置</el-button>
+                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
             </div>
         </el-form>
         <div class="table-box" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
@@ -49,8 +50,7 @@ export default {
           }
         },
         searchItem:{
-            startTime:'',
-            endTime:'',
+            pickerVal:[]
         },
         pickerVal:[],
         list: [],
@@ -63,10 +63,8 @@ export default {
     this.getChartsData()
   },
   methods: {
-    resetForm() {
-      this.searchItem = {
-        startTime:''
-      }
+    resetForm(searchItem) {
+      this.$refs[searchItem].resetFields();
       this.getChartsData()
     },
     onSubmit(){

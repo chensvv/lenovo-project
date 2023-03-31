@@ -29,23 +29,19 @@
                 <el-form-item label="resultName" prop="resultName">
                     <el-input v-model.trim="searchItem.resultName" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="起始时间" prop="refreshTime">
-                <el-date-picker 
-                    type="date" 
-                    placeholder="选择日期" 
-                    v-model="searchItem.refreshTime" 
-                    :picker-options="pickerOptions"
-                    style="width: 100%;"
-                    value-format="yyyy-MM-dd"></el-date-picker>
-                </el-form-item>
-                <el-form-item label="结束时间" prop="putTime">
-                    <el-date-picker 
-                        type="date" 
-                        placeholder="选择日期" 
-                        v-model="searchItem.putTime" 
+                <el-form-item label="日期" prop="pickerVal" class="date-form">
+                    <el-date-picker
+                        v-model="searchItem.pickerVal"
+                        type="daterange"
+                        align="center"
+                        size="mini"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
                         :picker-options="pickerOptions"
-                        style="width: 100%;"
-                        value-format="yyyy-MM-dd"></el-date-picker>
+                        value-format="yyyy-MM-dd"
+                        :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
+                    </el-date-picker>
                 </el-form-item>
             </div>
             
@@ -205,8 +201,7 @@ export default {
                 appId:"",
                 bodyName:"",
                 resultName:"",
-                refreshTime:"",
-                putTime:""
+                pickerVal:[]
             },
             lastNone:'',
             infoItem:[],
@@ -309,8 +304,8 @@ export default {
             let params = {
                 lenovoid:this.searchItem.lenovoid,
                 logType:this.searchItem.logType,
-                startStr:this.searchItem.refreshTime,
-                endStr:this.searchItem.putTime,
+                startStr:this.searchItem.pickerVal[0],
+                endStr:this.searchItem.pickerVal[1],
                 appId:this.searchItem.appId,
                 bodyName:this.searchItem.bodyName,
                 resultName:this.searchItem.resultName,

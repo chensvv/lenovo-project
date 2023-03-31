@@ -18,24 +18,18 @@
               </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="起始时间" prop="refreshTime">
-            <el-date-picker 
-                type="date" 
-                placeholder="选择日期" 
-                v-model="searchItem.refreshTime" 
+        <el-form-item label="日期" prop="pickerVal" class="date-form">
+            <el-date-picker
+                v-model="searchItem.pickerVal"
+                type="daterange"
+                align="center"
+                size="mini"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
                 :picker-options="pickerOptions"
-                style="width: 100%;"
-                value-format="yyyy-MM-dd">
-            </el-date-picker>
-        </el-form-item>
-        <el-form-item label="结束时间" prop="putTime">
-            <el-date-picker 
-                type="date" 
-                placeholder="选择日期" 
-                v-model="searchItem.putTime"
-                :picker-options="pickerOptions"
-                style="width: 100%;"
-                value-format="yyyy-MM-dd">
+                value-format="yyyy-MM-dd"
+                :default-value="new Date(new Date() - 24*60*60*30*1000)">
             </el-date-picker>
         </el-form-item>
       </div>
@@ -223,9 +217,8 @@ export default {
         appname:""
       },
       searchItem:{//搜索数据组
-        putTime:"",
         channelVal:"",
-        refreshTime:""
+        pickerVal:[]
       },
       addResRules:{
         resType:[{ required: true, message: '请选择资源类型', trigger: 'blur' }],
@@ -464,8 +457,8 @@ export default {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        startStr:this.searchItem.refreshTime,
-        endStr: this.searchItem.putTime,
+        startStr:this.searchItem.pickerVal[0],
+        endStr: this.searchItem.pickerVal[1],
         channel: this.searchItem.channelVal
       }
       params.sign = deleteParams(params)

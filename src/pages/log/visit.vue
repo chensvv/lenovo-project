@@ -17,20 +17,18 @@
                         <el-option v-for="item in opList" :key="item.id" :label="item.label" :value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="选择时间" prop="pickerVal" class="picker-form">
+                <el-form-item label="日期" prop="pickerVal" class="date-form">
                     <el-date-picker
-                        :clearable="true"
-                        v-model="pickerVal"
+                        v-model="searchItem.pickerVal"
                         type="daterange"
                         align="center"
                         size="mini"
-                        class="data-picker"
                         range-separator="至"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期"
                         :picker-options="pickerOptions"
                         value-format="yyyy-MM-dd"
-                        @change="dateChangebirthday">
+                        :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
                     </el-date-picker>
                 </el-form-item>
             </div>
@@ -159,8 +157,7 @@ export default {
             },
             searchItem:{
                 page:"",
-                refreshTime:"",
-                putTime:"",
+                pickerVal:[],
                 type:""
             },
             list:[],
@@ -206,11 +203,6 @@ export default {
                 checkTime(date.getHours())+':'+
                 checkTime(date.getMinutes())
         },
-        dateChangebirthday(val) {
-            if (val == null) val = []
-                this.searchItem.refreshTime = val[0]
-                this.searchItem.putTime = val[1]
-        },
         getPages(){
             visitPages().then(res=>{
                 this.pageList = res.data
@@ -219,8 +211,8 @@ export default {
         getList() {
             this.listLoading = true
             let params={
-                startStr:this.searchItem.refreshTime,
-                endStr:this.searchItem.putTime,
+                startStr:this.searchItem.pickerVal[0],
+                endStr:this.searchItem.pickerVal[1],
                 page:this.searchItem.page,
                 type:this.searchItem.type,
                 pgstr:this.currentPage,
@@ -246,9 +238,6 @@ export default {
         },
         resetForm(searchItem) {
             this.$refs[searchItem].resetFields();
-            this.pickerVal = []
-            this.searchItem.refreshTime = ''
-            this.searchItem.putTime = ''
             this.currentPage = 1
             this.searchItem.type = this.opList[0].id
             this.getList()

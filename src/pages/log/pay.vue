@@ -11,20 +11,18 @@
         <el-form-item label="用户ID" prop="lenovoid">
           <el-input v-model.trim="searchItem.lenovoid" clearable></el-input>
         </el-form-item>
-        <el-form-item label="选择时间" prop="pickerVal" class="picker-form">
+        <el-form-item label="日期" prop="pickerVal" class="date-form">
             <el-date-picker
-                :clearable="true"
-                v-model="pickerVal"
+                v-model="searchItem.pickerVal"
                 type="daterange"
                 align="center"
                 size="mini"
-                class="data-picker"
                 range-separator="至"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期"
                 :picker-options="pickerOptions"
                 value-format="yyyy-MM-dd"
-                @change="dateChangebirthday">
+                :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
             </el-date-picker>
         </el-form-item>
       </div>
@@ -186,8 +184,7 @@ export default {
       pickerVal: [],
       searchItem:{//搜索数据组
         lenovoid:"",
-        startTime:"",
-        endTime:""
+        pickerVal:[]
       },
       // 分页
       currentPage: 1, //默认显示第几页
@@ -301,8 +298,8 @@ export default {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
         lenovoid:this.searchItem.lenovoid,
-        startStr:this.searchItem.startTime,
-        endStr:this.searchItem.endTime,
+        startStr:this.searchItem.pickerVal[0],
+        endStr:this.searchItem.pickerVal[1],
       }
       params.sign = deleteParams(params)
       payList(params).then(res => {

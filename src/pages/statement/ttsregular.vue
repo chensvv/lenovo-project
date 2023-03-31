@@ -11,23 +11,19 @@
         <el-form-item label="说法" prop="regular">
           <el-input v-model.trim="searchItem.regular" clearable></el-input>
         </el-form-item>
-        <el-form-item label="起始时间" prop="startStr">
-            <el-date-picker 
-                type="date" 
-                placeholder="选择日期" 
-                v-model="searchItem.startStr" 
+        <el-form-item label="日期" prop="pickerVal" class="date-form">
+            <el-date-picker
+                v-model="searchItem.pickerVal"
+                type="daterange"
+                align="center"
+                size="mini"
+                range-separator="至"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
                 :picker-options="pickerOptions"
-                style="width: 100%;"
-                value-format="yyyy-MM-dd"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="结束时间" prop="endStr">
-            <el-date-picker 
-                type="date" 
-                placeholder="选择日期" 
-                v-model="searchItem.endStr"
-                :picker-options="pickerOptions"
-                style="width: 100%;"
-                value-format="yyyy-MM-dd"></el-date-picker>
+                value-format="yyyy-MM-dd"
+                :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
+            </el-date-picker>
         </el-form-item>
       </div>
       <div class="form-btn">
@@ -248,8 +244,7 @@ export default {
       },
       searchItem:{//搜索数据组
         regular:"",
-        startStr:"",
-        endStr:""
+        pickerVal:[]
       },
       addRules:{
         regular:[{ required: true, message: '请输入匹配规则', trigger: 'change' }],
@@ -615,8 +610,8 @@ export default {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
         regular:this.searchItem.regular,
-        startStr:this.searchItem.startStr,
-        endStr:this.searchItem.endStr,
+        startStr:this.searchItem.pickerVal[0],
+        endStr:this.searchItem.pickerVal[1],
         fieldName: this.column.prop,
         order:this.column.order == 'ascending' ? '0' : ''
       }

@@ -16,7 +16,21 @@
                         <el-option label="百度" value="baidu"></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="起始时间" prop="refreshTime">
+                <el-form-item label="日期" prop="pickerVal" class="date-form">
+                    <el-date-picker
+                        v-model="searchItem.pickerVal"
+                        type="daterange"
+                        align="center"
+                        size="mini"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :picker-options="pickerOptions"
+                        value-format="yyyy-MM-dd"
+                        :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
+                    </el-date-picker>
+                </el-form-item>
+                <!-- <el-form-item label="起始时间" prop="refreshTime">
                     <el-date-picker 
                         type="date" 
                         placeholder="选择日期" 
@@ -33,7 +47,7 @@
                         :picker-options="pickerOptions"
                         style="width: 100%;"
                         value-format="yyyy-MM-dd"></el-date-picker>
-                </el-form-item>
+                </el-form-item> -->
             </div>
             
             <div class="form-btn">
@@ -106,7 +120,7 @@
                         </div>
                     </template>
                 </el-table-column>
-                <el-table-column label="来自" prop="source" align="center"></el-table-column>
+                <el-table-column label="来源" prop="source" align="center"></el-table-column>
                 <el-table-column label="更新时间" prop="updateTime" align="center" width="130"></el-table-column>
                 <el-table-column label="入库时间" prop="createTime" align="center" :formatter="formTime" width="130"></el-table-column>
                 <el-table-column label="操作" width="130" align="center"  v-if="isshow">
@@ -256,11 +270,12 @@ export default {
             list: [],
             perList:[],
             totalClass:'8',
+            // pickerVal:[],
             searchItem:{//搜索数据组
                 appName:"",
                 source:"",
-                refreshTime:"",
-                putTime:""
+                pickerVal:[],
+                
             },
             addRules:{
                 name:[{ required: true, message: '请输入应用名', trigger: 'change' }],
@@ -335,6 +350,12 @@ export default {
         }
     },
     methods: {
+        changeInitCalendarRange() {
+            let element = document.querySelector("button.el-picker-panel__icon-btn.el-icon-arrow-left");
+            console.log(element)
+            if (element) element.click();
+
+        },
         onShowNameTipsMouseenter(e) {
             var target = e.target;
             let textLength = target.clientWidth;
@@ -375,6 +396,10 @@ export default {
             this.currentPage = val
             // console.log(`当前页: ${val}`);
             this.getList();
+        },
+        dateChangebirthday(val) {
+            this.searchItem.startTime = val[0]
+            this.searchItem.endTime = val[1]
         },
         openFun(addList){
             this.$nextTick(() => {
@@ -556,8 +581,8 @@ export default {
             let params = {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
-                startStr:this.searchItem.refreshTime,
-                endStr:this.searchItem.putTime,
+                startStr:this.searchItem.pickerVal[0],
+                endStr:this.searchItem.pickerVal[1],
                 appname:this.searchItem.appName,
                 source:this.searchItem.source,
                 fieldName: this.column.prop,
