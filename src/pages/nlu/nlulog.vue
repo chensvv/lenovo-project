@@ -10,9 +10,30 @@
                 <el-form-item label="文本指令" prop="asrres">
                     <el-input v-model.trim="searchItem.asrres" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="意图" prop="intent">
+                <!-- <el-form-item label="意图" prop="intent">
                     <el-input v-model.trim="searchItem.intent" clearable></el-input>
-                </el-form-item>
+                </el-form-item> -->
+                <el-popover
+                    placement="right"
+                    width="300"
+                    trigger="click"
+                    title="详细日志"
+                    popper-class="popkey"
+                    v-model="visiblepop"
+                    @show="popverShow"
+                    @hide="popverHide"
+                    >
+                    <div class="as" v-loading="popLoading" element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)"></div>
+                    <div  v-for="(item , i) in keyList" :key="i" class="keyLabel">
+                        <el-form-item :label="item.value" :prop="item.key">
+                            <el-input v-model.trim="searchKey[item.key]" clearable></el-input>
+                        </el-form-item>
+                    </div>
+                    <!-- <el-button >click 激活</el-button> -->
+                    <el-form-item label="意图" prop="intent" slot="reference">
+                        <el-input v-model.trim="searchItem.intent" clearable v-debounce-input="getLoginfoKey" @input="intentInput"></el-input>
+                    </el-form-item>
+                </el-popover>
                 <el-form-item label="日期" prop="pickerVal" class="date-form">
                     <el-date-picker
                         v-model="searchItem.pickerVal"
@@ -103,37 +124,16 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column
-                label="耗时"
-                prop="parrotUseTime"
-                align="center">
-                <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.parrotUseTime" placement="top">
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.parrotUseTime }}
-                        </div>
-                    </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.parrotUseTime }}
-                    </div>
-                </template>
-            </el-table-column>
-            <el-table-column
-                label="详细日志"
-                prop="logInfo"
-                align="center">
-                <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.logInfo" placement="top">
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.logInfo }}
-                        </div>
-                    </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.logInfo }}
-                    </div>
-                </template>
-            </el-table-column>
+            
             <el-table-column label="添加时间" prop="createTime" align="center" :formatter="formTime" width="130"></el-table-column>
+            <el-table-column label="操作" align="center" width="130">
+                <template slot-scope="scope">
+                    <el-button
+                    size="mini"
+                    @click="rowClick(scope.$index, scope.row)"
+                    v-has="'nlulog:detail'">详情</el-button>
+                </template>
+            </el-table-column>
         </el-table>
         <el-pagination
             @size-change="handleSizeChange"
@@ -144,20 +144,41 @@
             :total="totalCount"
         ></el-pagination>
         </div>
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose" class="aksk-info">
+            <el-descriptions>
+                <!-- <el-descriptions-item label="lenovoId">{{infoList.lenovoId}}</el-descriptions-item>
+                <el-descriptions-item label="用户名">{{infoList.userName}}</el-descriptions-item>
+                <el-descriptions-item label="ASR可访问次数">{{infoList.userDailyCloudasrCount == -99 ? '∞' : infoList.userDailyCloudasrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS可访问次数">{{infoList.userDailyCloudttsCount == -99 ? '∞' : infoList.userDailyCloudttsCount}}</el-descriptions-item>
+                <el-descriptions-item label="ASR历史使用次数">{{infoList.historyUseAsr}}</el-descriptions-item>
+                <el-descriptions-item label="TTS历史使用次数">{{infoList.historyUseTts}}</el-descriptions-item>
+                <el-descriptions-item label="ASR当日使用次数">{{infoList.usedAsrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS当日使用次数">{{infoList.usedTTSCount}}</el-descriptions-item>
+                <el-descriptions-item label="ASR剩余可访问次数">{{infoList.remainAsrCount == -99 ? '∞' : infoList.remainAsrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS剩余可访问次数">{{infoList.remainTTSCount == -99 ? '∞' : infoList.remainTTSCount}}</el-descriptions-item>
+                <el-descriptions-item label="会议监控权限">{{infoList.meetingService =='1' ? "是" : "否"}}</el-descriptions-item>
+                <el-descriptions-item label="历史AK">{{infoList.oldLenovoKey}}</el-descriptions-item>
+                <el-descriptions-item label="历史SK">{{infoList.oldSecretKey}}</el-descriptions-item>
+                <el-descriptions-item label="历史AK、SK过期时间">{{infoList.oldTimeOut}}</el-descriptions-item> -->
+            </el-descriptions>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="handleConfirm()">关闭</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-import {nlulogList} from '@/config/api'
+import {nlulogList, nlulogDict} from '@/config/api'
 export default {
     data(){
         return{
             pickerOptions: {
                 disabledDate(time) {
-                let times = Date.now() - 24 * 60 * 60 * 1000;
-                return time.getTime() > times;
+                let times = Date.now();
+                    return time.getTime() > times;
                 },
             },
             searchItem:{
@@ -165,16 +186,43 @@ export default {
                 asrres:"",
                 intent:""
             },
+            searchKey:[
+                // key1:"",
+                // key2:"",
+                // key3:"",
+                // key4:"",
+                // key5:"",
+                // key6:"",
+                // key7:"",
+                // key8:"",
+                // key9:"",
+                // key10:"",
+                // key11:"",
+                // key12:"",
+                // key13:"",
+                // key14:"",
+                // key15:"",
+                // key16:"",
+                // key17:"",
+                // key18:"",
+                // key19:"",
+                // key20:""
+            ],
             list:[],
+            infoList:[],
+            keyList:[],
             perList:[],
             totalClass:'8',
+            timer:null,
             // 分页
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
             showTitle:true,
             btnLoading:false,
-            listLoading:true
+            listLoading:true,
+            popLoading:false,
+            visiblepop:false
         }
     },
     created() {
@@ -183,6 +231,19 @@ export default {
             this.perList.push(Object.values(t).join())
         })
         this.getList();
+    },
+    directives:{
+        'debounce-input':{
+            inserted(el, binding){
+                let timeOut
+                el.addEventListener('input', ()=>{
+                    clearTimeout(timeOut)
+                    timeOut = setTimeout(()=>{
+                        binding.value()
+                    }, parseInt(binding.arg) || 300)
+                })
+            }
+        }
     },
     methods:{
         onShowNameTipsMouseenter(e) {
@@ -207,6 +268,7 @@ export default {
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
+            this.searchKey = []
             this.currentPage = 1
             this.getList();
         },
@@ -229,6 +291,58 @@ export default {
             // console.log(`当前页: ${val}`);
             this.getList();
         },
+        popverShow(){
+            // if(this.keyList.length == 0){
+            //     this.popLoading = true
+            // }
+            this.getLoginfoKey()
+        },
+        popverHide(){
+            // this.popLoading = false
+            // this.getLoginfoKey()
+        },
+        // intentFocus(){
+        //     this.visiblepop = true
+        // },
+        // intentBlur(){
+        //     this.visiblepop = false
+        // },
+        intentInput(){
+            this.searchKey = []
+        },
+        rowClick(index, row){
+            let dP = {
+                key:row.intent
+            }
+            nlulogDict(dP).then(res=>{
+                this.infoList = res.data.data
+                this.infoList.forEach(item=>{
+                    item[item.key] = row[item.key];
+                })
+                console.log(this.infoList)
+            })
+        },
+        getLoginfoKey(){
+            // if(this.searchItem.intent != ''){
+                let dictParams = {
+                    key: this.searchItem.intent
+                }
+                nlulogDict(dictParams).then(res=>{
+                    if(res.data.code == 200){
+                        this.keyList = res.data.data
+                        if(res.data.data != null){
+                            this.popLoading = false
+                        }else{
+                            this.popLoading = true
+                        }
+                    }else{
+                        this.keyList = []
+                        this.popLoading = true
+                    }
+                    
+                })
+            // }
+        },
         getList() {
             this.listLoading = true
             let params = {
@@ -236,6 +350,28 @@ export default {
                 pcstr:this.pageSize,
                 startStr:this.searchItem.pickerVal[0],
                 endStr:this.searchItem.pickerVal[1],
+                intent:this.searchItem.intent,
+                asrres:this.searchItem.asrres,
+                key1:this.searchKey.key1,
+                key2:this.searchKey.key2,
+                key3:this.searchKey.key3,
+                key4:this.searchKey.key4,
+                key5:this.searchKey.key5,
+                key6:this.searchKey.key6,
+                key7:this.searchKey.key7,
+                key8:this.searchKey.key8,
+                key9:this.searchKey.key9,
+                key10:this.searchKey.key10,
+                key11:this.searchKey.key11,
+                key12:this.searchKey.key12,
+                key13:this.searchKey.key13,
+                key14:this.searchKey.key14,
+                key15:this.searchKey.key15,
+                key16:this.searchKey.key16,
+                key17:this.searchKey.key17,
+                key18:this.searchKey.key18,
+                key19:this.searchKey.key19,
+                key20:this.searchKey.key20
             }
             params.sign = deleteParams(params)
             nlulogList(params).then(res => {
@@ -254,8 +390,15 @@ export default {
             }).catch(()=>{
                 this.listLoading = false
             })
+        },
+        getData(a, b) {
+            var list = b.map(item => {
+                var obj = a.find(i => Object.keys(item).includes(i.key)) || {}
+                return {...obj, ...item}        
+            })
+            return list
         }
-}
+    }
 }
 </script>
 

@@ -80,7 +80,6 @@
                     node-key="id"
                     :props="defaultProps"
                     ref="tree"
-                    :check-strictly='true'
                     @check-change="getChecked"
                     :default-checked-keys="selectedKeys">
                 </el-tree>
@@ -343,7 +342,7 @@ export default {
           this.addBtnLoading = true
           roleAdd(addParams).then(res=>{
             this.addBtnLoading = false
-            if(res.status == 200){
+            if(res.data.code == 200){
                 this.$message({
                     message:'添加成功',
                     type:"success",

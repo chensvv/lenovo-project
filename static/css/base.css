@@ -927,6 +927,7 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .flex-align .el-table th.is-sortable>.cell{
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 /* .el-table .caret-wrapper{
   width: 20px;
@@ -934,6 +935,16 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .el-table .sort-caret{
   left: 5px;
 } */
+.keyLabel label{
+  width: 100% !important;
+  text-align: left;
+}
+.popkey{
+  min-height: 100px;
+}
+.popkey .as .el-loading-mask{
+  margin-top: 25px;
+}
 
 
 @media (min-width: 768px) {

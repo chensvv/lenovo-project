@@ -13,7 +13,7 @@ let proURL = 'https://voice.lenovomm.com'
 // axios 配置
 // eslint-disable-next-line camelcase
 const service_head = axios.create({
-  // baseURL: '/api',
+  // baseURL: process.env.BASE_API,
   baseURL: proURL,
   // timeout: 15000, // 请求超时时间
   withCredentials: false,

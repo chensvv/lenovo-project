@@ -159,7 +159,7 @@ export default {
     return {
       pickerOptions: {
           disabledDate(time) {
-              let times = Date.now() - 24 * 60 * 60 * 1000;
+              let times = Date.now();
               return time.getTime() > times;
           },
       },

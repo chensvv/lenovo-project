@@ -58,7 +58,7 @@
                   </div>
               </template>
             </el-table-column>
-            <el-table-column label="客户端类型" prop="dtp" align="center" header-align="center" sortable="custom">
+            <el-table-column label="客户端类型" prop="dtp" align="center" sortable="custom">
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -70,7 +70,7 @@
                   </div>
               </template>
             </el-table-column>
-            <el-table-column label="客户端版本" prop="ver" align="center" header-align="center" sortable="custom">
+            <el-table-column label="客户端版本" prop="ver" align="center" sortable="custom">
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -237,7 +237,7 @@ export default {
     return {
       pickerOptions: {
           disabledDate(time) {
-            let times = Date.now() - 24 * 60 * 60 * 1000;
+            let times = Date.now();
             return time.getTime() > times;
           },
       },

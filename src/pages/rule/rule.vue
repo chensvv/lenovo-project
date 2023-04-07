@@ -70,15 +70,15 @@
             </el-table-column>
             <el-table-column
               label="状态"
-              prop="otherstatus"
+              prop="status"
               align="center"
               width="90">
               <template slot-scope="scope">
                   <span
-                  :class="scope.row.otherstatus == 1 ? 'tag-s' : scope.row.otherstatus == 2 ? 'tag-d' :'tag-i'"
-                  >{{scope.row.otherstatus == 0 ? '未审批' : 
-                            scope.row.otherstatus == 1 ? '通过' : 
-                            scope.row.otherstatus == 2 ? '拒绝' : ''}}</span>
+                  :class="scope.row.status == 1 ? 'tag-s' : scope.row.status == 2 ? 'tag-d' :'tag-i'"
+                  >{{scope.row.status == 0 ? '未审批' : 
+                            scope.row.status == 1 ? '通过' : 
+                            scope.row.status == 2 ? '拒绝' : ''}}</span>
               </template>
           </el-table-column>
             <el-table-column
@@ -108,20 +108,22 @@
                       <el-button 
                       slot="reference" 
                       size="mini"
-                      :disabled="scope.row.otherstatus == 0 ? false : true"
-                      v-if="scope.row.otherstatus == 0"
-                      v-has="'activiti:pass'">{{scope.row.otherstatus == 0 ? '审批' : 
-                                scope.row.otherstatus == 1 ? '审批通过' : 
-                                scope.row.otherstatus == 2 ? '审批拒绝' : ''}}</el-button>
+                      :disabled="scope.row.status == 0  || scope.row.isMe == 1 ? false : true"
+                      v-if="scope.row.status == 0"
+                      v-has="'activiti:pass'">{{scope.row.status == 0 ? '审批' : 
+                                scope.row.status == 1 ? '审批通过' : 
+                                scope.row.status == 2 ? '审批拒绝' : ''}}</el-button>
                     </el-popconfirm>
                     <el-button
                     size="mini"
                     @click="handleEdit(scope.$index, scope.row)"
+                    :disabled="scope.row.isMe == 1 ? false : true"
                     v-has="'rule:update'">编辑</el-button>
                     <el-button
                     size="mini"
                     type="danger"
                     @click="handleDel(scope.$index, scope.row)"
+                    :disabled="scope.row.isMe == 1 ? false : true"
                     v-has="'rule:delete'">删除</el-button>
                 </template>
             </el-table-column>
@@ -325,7 +327,7 @@ export default {
     handleAuditPass(index, row){
       console.log(row)
       let auditParams = {
-        id:row.otherid,
+        id:row.actvId,
         status:1
       }
       activitiPass(auditParams).then(res=>{
@@ -347,7 +349,7 @@ export default {
     },
     handleAuditReject(index, row){
       let auditParams = {
-        id:row.otherid,
+        id:row.actvId,
         status:2
       }
       activitiPass(auditParams).then(res=>{
@@ -542,11 +544,12 @@ export default {
       ruleList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){
-          res.data.data.map((item,index)=>{
-            item.data.otherstatus = item.other.status
-            item.data.otherid = item.other.id
-            this.list.push(item.data)
-          })
+          // res.data.data.map((item,index)=>{
+          //   item.data.status = item.other.status
+          //   item.data.otherid = item.other.id
+          //   this.list.push(item.data)
+          // })
+          this.list = res.data.data
           this.totalCount = res.data.count
           this.totalClass = res.data.data.length
         }else{

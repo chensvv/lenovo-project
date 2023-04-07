@@ -3224,3 +3224,26 @@ export function nlulogList (data) {
     }
   })
 }
+
+export function nlulogDict (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/dict',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function servDownload (ixid,svr,time) {
+  return fetch.FileDownload({
+    url: '/lasf-mgr/servlog/downLoad?ixid='+ixid+'&svr='+svr+'&uip='+time,
+    method: 'get',
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

@@ -13,9 +13,9 @@ module.exports = {
     proxyTable: {
       '/api': {
             changeOrigin: true, //改变源
-            target: 'http://10.110.148.59:8085', //源地址
+            target: 'http://10.110.148.57:8085', //源地址
             pathRewrite: {
-              '^/api': '' //路径重写
+              '^/api': '/lasf-mgr' //路径重写
             }
           }
     },

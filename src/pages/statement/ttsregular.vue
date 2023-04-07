@@ -217,7 +217,7 @@ export default {
     return {
       pickerOptions: {
           disabledDate(time) {
-              let times = Date.now() - 24 * 60 * 60 * 1000;
+              let times = Date.now();
               return time.getTime() > times;
           },
       },
@@ -423,16 +423,16 @@ export default {
       req.send(formData);
     },
     handleDel(index, row) {
-      let delParams = {
+      let delsParams = {
         id:row.id
       }
-      delParams.sign = delParams
+      delsParams.sign = deleteParams(delsParams)
       this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-          delRegular(delParams).then(res=>{
+          delRegular(delsParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
                     message:'删除成功',

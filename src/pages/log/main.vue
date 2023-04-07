@@ -123,7 +123,7 @@
                 </template>
             </el-table-column> -->
             
-            <el-table-column label="DTP" prop="dtp" align="center" sortable="custom">
+            <el-table-column label="客户端类型" prop="dtp" align="center" sortable="custom">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.dtp" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -135,7 +135,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="VER" prop="ver" align="center" sortable="custom">
+            <el-table-column label="客户端版本" prop="ver" align="center" sortable="custom">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -162,7 +162,7 @@
                 </template>
             </el-table-column> -->
             <el-table-column
-                label="STAT"
+                label="状态"
                 prop="stat"
                 align="center" 
                 >
@@ -172,7 +172,7 @@
                     >{{scope.row.stat}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="L1C" prop="l1c" align="center">
+            <el-table-column label="一级返回" prop="l1c" align="center">
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.l1c" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
@@ -184,7 +184,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="IT" prop="it" align="center"  :formatter="formTime" width="130">
+            <el-table-column label="添加时间" prop="it" align="center"  :formatter="formTime" width="130">
             </el-table-column>
             <el-table-column label="操作" align="center"  width="130" v-if="isshow">
                     <template slot-scope="scope">
@@ -245,7 +245,7 @@
                 <el-descriptions-item label="引擎类型">{{infoList.egt}}</el-descriptions-item>
                 <el-descriptions-item label="运营商类型">{{infoList.cnwp}}</el-descriptions-item>
                 <el-descriptions-item label="描述">{{infoList.dsc}}</el-descriptions-item>
-                <el-descriptions-item label="时间">{{infoList.it}}</el-descriptions-item>
+                <el-descriptions-item label="添加时间">{{infoList.it}}</el-descriptions-item>
                 <el-descriptions-item label="规则匹配时间">{{infoList.nlpd}}</el-descriptions-item>
                 <el-descriptions-item label="参数解析时间">{{infoList.sppd}}</el-descriptions-item>
                 <el-descriptions-item label="一级返回">{{infoList.l1c}}</el-descriptions-item>
@@ -260,7 +260,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
-import {logList, logDown, logInfo} from '@/config/api'
+import {logList, logDown, logInfo, servDownload} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 import downUrl from '@/config/http'
 export default {
@@ -268,7 +268,7 @@ export default {
         return{
             pickerOptions: {
                 disabledDate(time) {
-                    let times = Date.now() - 24 * 60 * 60 * 1000;
+                    let times = Date.now();
                     return time.getTime() > times;
                 },
             },
@@ -477,8 +477,20 @@ export default {
             let date = new Date(row.it)
             let time = checkTime(date.getFullYear())+'-'+checkTime((date.getMonth()+1))+'-'+checkTime(date.getDate())
             
-            let openUrl = downUrl.proURL + '/lasf-mgr/servlog/downLoad?ixid='+row.ixid+'&svr='+row.svr+'&uip='+time
-            window.open(openUrl)
+            // let openUrl = downUrl.proURL + '/lasf-mgr/servlog/downLoad?ixid='+row.ixid+'&svr='+row.svr+'&uip='+time
+            
+            servDownload(row.ixid, row.svr, time).then(res=>{
+                console.log(res)
+                // let blobUrl = new Blob([res.data])
+                // let a = document.createElement('a');
+                // let url = window.URL.createObjectURL(blobUrl);
+                // let filename = row.filePath
+                // a.href = url;
+                // a.download = filename;
+                // a.click();
+                // window.URL.revokeObjectURL(url);
+            })
+            // window.open(openUrl)
             // logDown(dParams).then(res=>{
             //     if(res.data.code == '400'){
             //         this.$message({
