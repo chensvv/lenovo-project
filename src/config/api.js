@@ -3247,3 +3247,51 @@ export function servDownload (ixid,svr,time) {
     }
   })
 }
+
+export function clientlog (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/servlog/clientlog',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function statistics (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/servlog/statistics',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function clientStatistic (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/log/client/statistic',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlulogIntent (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/intent',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

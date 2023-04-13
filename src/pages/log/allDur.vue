@@ -87,11 +87,11 @@ export default {
       this.seaBtnLoading = false
     },
     computedPosition(length,xArraylength) {
-        if(xArraylength>=24){
-            return length <= 24 ? this.end = 50 : this.end = (100 -   Math.floor(50 / length * 100));
-        }else{
-            return 100;//小于24条数据显示全部
-        }
+      if(xArraylength>=24){
+        return length <= 24 ? this.end = 50 : this.end = (100 - Math.floor(50 / length * 100));
+      }else{
+        return 100;//小于24条数据显示全部
+      }
     },
     getChartsData(){
         // 基于准备好的dom，初始化echarts实例
@@ -122,11 +122,11 @@ export default {
                   }
               },
               grid:{
-                 x:'5%', //左上角x轴距盒子边框的距离
-                 y:'10%', //左上角Y轴距盒子边框的距离
-                  x2:'5%',//右下角x轴距盒子边框的距离
-                 y2:'15%',//右下角Y轴距盒子边框的距离
-                 borderWidth:1
+                x:'5%', //左上角x轴距盒子边框的距离
+                y:'10%', //左上角Y轴距盒子边框的距离
+                x2:'5%',//右下角x轴距盒子边框的距离
+                y2:'15%',//右下角Y轴距盒子边框的距离
+                borderWidth:1
               },
               yAxis: {
                 minInterval : 1,
@@ -157,14 +157,14 @@ export default {
                   }
               }],
               dataZoom: [
-                    {
-                        type: 'slider',
-                        show: true,
-                        handleSize: 2,
-                        height: '15px',
-                        start:0 ,
-                        end: this.computedPosition(1,xArraylength)
-                    }
+                  {
+                    type: 'slider',
+                    show: true,
+                    handleSize: 2,
+                    height: '15px',
+                    start:0 ,
+                    end: this.computedPosition(1,xArraylength)
+                  }
                 ]
             })
         })

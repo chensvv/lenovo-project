@@ -25,13 +25,16 @@
                     >
                     <div class="as" v-loading="popLoading" element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)"></div>
                     <div  v-for="(item , i) in keyList" :key="i" class="keyLabel">
-                        <el-form-item :label="item.value" :prop="item.key">
+                        <el-form-item :label="item.desc" :prop="item.key">
                             <el-input v-model.trim="searchKey[item.key]" clearable></el-input>
                         </el-form-item>
                     </div>
                     <!-- <el-button >click 激活</el-button> -->
                     <el-form-item label="意图" prop="intent" slot="reference">
-                        <el-input v-model.trim="searchItem.intent" clearable v-debounce-input="getLoginfoKey" @input="intentInput"></el-input>
+                        <!-- <el-input v-model.trim="searchItem.intent" clearable v-debounce-input="getLoginfoKey" @input="intentInput"></el-input> -->
+                        <el-select v-model="searchItem.intent" placeholder="--" clearable @change="intentChange" @visible-change="visibleChange">
+                            <el-option v-for="(item,index) in intentList" :key="index" :label="item.key" :value="item.key"></el-option>
+                        </el-select>
                     </el-form-item>
                 </el-popover>
                 <el-form-item label="日期" prop="pickerVal" class="date-form">
@@ -146,20 +149,16 @@
         </div>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="详情" :visible.sync="infoVisible" width="40%" top="10vh" :before-close="handleClose" class="aksk-info">
             <el-descriptions>
-                <!-- <el-descriptions-item label="lenovoId">{{infoList.lenovoId}}</el-descriptions-item>
-                <el-descriptions-item label="用户名">{{infoList.userName}}</el-descriptions-item>
-                <el-descriptions-item label="ASR可访问次数">{{infoList.userDailyCloudasrCount == -99 ? '∞' : infoList.userDailyCloudasrCount}}</el-descriptions-item>
-                <el-descriptions-item label="TTS可访问次数">{{infoList.userDailyCloudttsCount == -99 ? '∞' : infoList.userDailyCloudttsCount}}</el-descriptions-item>
-                <el-descriptions-item label="ASR历史使用次数">{{infoList.historyUseAsr}}</el-descriptions-item>
-                <el-descriptions-item label="TTS历史使用次数">{{infoList.historyUseTts}}</el-descriptions-item>
-                <el-descriptions-item label="ASR当日使用次数">{{infoList.usedAsrCount}}</el-descriptions-item>
-                <el-descriptions-item label="TTS当日使用次数">{{infoList.usedTTSCount}}</el-descriptions-item>
-                <el-descriptions-item label="ASR剩余可访问次数">{{infoList.remainAsrCount == -99 ? '∞' : infoList.remainAsrCount}}</el-descriptions-item>
-                <el-descriptions-item label="TTS剩余可访问次数">{{infoList.remainTTSCount == -99 ? '∞' : infoList.remainTTSCount}}</el-descriptions-item>
-                <el-descriptions-item label="会议监控权限">{{infoList.meetingService =='1' ? "是" : "否"}}</el-descriptions-item>
-                <el-descriptions-item label="历史AK">{{infoList.oldLenovoKey}}</el-descriptions-item>
-                <el-descriptions-item label="历史SK">{{infoList.oldSecretKey}}</el-descriptions-item>
-                <el-descriptions-item label="历史AK、SK过期时间">{{infoList.oldTimeOut}}</el-descriptions-item> -->
+                <el-descriptions-item label="Uid">{{infoData.uid}}</el-descriptions-item>
+                <el-descriptions-item label="文本指令">{{infoData.asrres}}</el-descriptions-item>
+                <el-descriptions-item label="处理分支">{{infoData.nluApproach}}</el-descriptions-item>
+                <el-descriptions-item label="意图">{{infoData.intent}}</el-descriptions-item>
+                <template v-for="(item, i) in infoList">
+                        <!-- {{item.value}}:{{item[item.key]}} -->
+                            <el-descriptions-item :label="item.desc" :key="i">{{item[item.key]}}</el-descriptions-item>
+                        
+                </template>
+                
             </el-descriptions>
             <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="handleConfirm()">关闭</el-button>
@@ -171,7 +170,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-import {nlulogList, nlulogDict} from '@/config/api'
+import {nlulogList, nlulogDict, nlulogIntent} from '@/config/api'
 export default {
     data(){
         return{
@@ -210,6 +209,13 @@ export default {
             ],
             list:[],
             infoList:[],
+            intentList:[],
+            infoData:{
+                uid:"",
+                asrres:"",
+                nluApproach:"",
+                intent:"",
+            },
             keyList:[],
             perList:[],
             totalClass:'8',
@@ -222,7 +228,8 @@ export default {
             btnLoading:false,
             listLoading:true,
             popLoading:false,
-            visiblepop:false
+            visiblepop:false,
+            infoVisible:false
         }
     },
     created() {
@@ -231,6 +238,7 @@ export default {
             this.perList.push(Object.values(t).join())
         })
         this.getList();
+        this.getIntentList()
     },
     directives:{
         'debounce-input':{
@@ -307,6 +315,12 @@ export default {
         // intentBlur(){
         //     this.visiblepop = false
         // },
+        intentChange(){
+            this.getLoginfoKey()
+        },
+        visibleChange(){
+            this.visiblepop = true
+        },
         intentInput(){
             this.searchKey = []
         },
@@ -319,11 +333,24 @@ export default {
                 this.infoList.forEach(item=>{
                     item[item.key] = row[item.key];
                 })
-                console.log(this.infoList)
             })
+            this.infoData = {
+                uid:row.userId,
+                asrres:row.asrres,
+                nluApproach:row.nluApproach,
+                intent:row.intent,
+            }
+            this.infoVisible = true
+        },
+        handleClose(){
+            this.infoVisible = false
+        },
+        handleConfirm(){
+            this.infoVisible = false
         },
         getLoginfoKey(){
             // if(this.searchItem.intent != ''){
+                
                 let dictParams = {
                     key: this.searchItem.intent
                 }
@@ -342,6 +369,12 @@ export default {
                     
                 })
             // }
+        },
+        getIntentList(){
+            nlulogIntent().then(res=>{
+                this.intentList = res.data.data
+                console.log(this.intentList)
+            })
         },
         getList() {
             this.listLoading = true

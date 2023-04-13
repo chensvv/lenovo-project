@@ -1,6 +1,6 @@
-* {
+/* * {
   touch-action: pan-y;
-}
+} */
 
 html::-webkit-scrollbar, body::-webkit-scrollbar, div::-webkit-scrollbar {
   width: 5px;

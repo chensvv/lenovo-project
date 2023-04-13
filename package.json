@@ -16,7 +16,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cropperjs": "^1.5.9",
-    "default-passive-events": "^1.0.10",
     "echarts": "^4.5.0",
     "element-ui": "^2.15.6",
     "js-base64": "^3.6.1",
