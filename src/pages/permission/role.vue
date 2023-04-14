@@ -222,7 +222,6 @@ export default {
           // this.$nextTick(()=>{
             roleEcho(echoParams).then(res=>{
                   this.$refs.tree.setCheckedKeys(res.data.ids)
-                  console.log('123：'+res.data.ids)
               // this.selectedKeys = res.data.ids
             })
           // })
@@ -382,13 +381,13 @@ export default {
     getChecked(data,isChecked){
       if(isChecked){
         // console.log('选中后：'+this.$refs.tree.getCheckedKeys().concat(this.getAllIds(data)))
-        console.log('getHalfCheckedKeys:'+this.$refs.tree.getHalfCheckedKeys())
+        // console.log('getHalfCheckedKeys:'+this.$refs.tree.getHalfCheckedKeys())
         this.$refs.tree.setCheckedKeys(this.$refs.tree.getCheckedKeys().concat(this.getAllIds(data)))
         // this.selectedKeys = 
         // this.getAllId(data)
       }else{
-        console.log('取消选中的所有getkeys：'+this.$refs.tree.getCheckedKeys())
-        console.log('取消选中的集合：'+this.getAllIds(data))
+        // console.log('取消选中的所有getkeys：'+this.$refs.tree.getCheckedKeys())
+        // console.log('取消选中的集合：'+this.getAllIds(data))
         this.$refs.tree.setCheckedKeys(this.removal(this.$refs.tree.getCheckedKeys(),this.getAllIds(data)))
         // this.selectedKeys = this.removal(this.selectedKeys,this.getAllIds(data).map(String))
         

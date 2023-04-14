@@ -699,21 +699,46 @@ export default {
                 ixid:row.ixid
             }
             clientlog(clientParams).then(res=>{
-                console.log(res.data.data)
-                this.clientInfo = {
-                    uid:res.data.data.uid,
-                    dtp:res.data.data.dtp,
-                    ver:res.data.data.ver,
-                    svr:res.data.data.svr,
-                    stat:res.data.data.stat,
-                    cltd:res.data.data.cltd,
-                    rcn:res.data.data.rcn,
-                    ixcd:res.data.data.ixcd,
-                    ixsd:res.data.data.ixsd,
-                    ixnd:res.data.data.ixnd,
-                    ixad:res.data.data.ixad,
-                    it:new Date(res.data.data.it).getFullYear()+'-'+checkTime(new Date(res.data.data.it).getMonth()+1)+'-'+checkTime(new Date(res.data.data.it).getDate())+' '+checkTime(new Date(res.data.data.it).getHours())+':'+checkTime(new Date(res.data.data.it).getMinutes())
+                if(res.data.code == 200){
+                    if(res.data.data !=null){
+                        this.clientInfo = {
+                            uid:res.data.data.uid,
+                            dtp:res.data.data.dtp,
+                            ver:res.data.data.ver,
+                            svr:res.data.data.svr,
+                            stat:res.data.data.stat,
+                            cltd:res.data.data.cltd,
+                            rcn:res.data.data.rcn,
+                            ixcd:res.data.data.ixcd,
+                            ixsd:res.data.data.ixsd,
+                            ixnd:res.data.data.ixnd,
+                            ixad:res.data.data.ixad,
+                            it:new Date(res.data.data.it).getFullYear()+'-'+checkTime(new Date(res.data.data.it).getMonth()+1)+'-'+checkTime(new Date(res.data.data.it).getDate())+' '+checkTime(new Date(res.data.data.it).getHours())+':'+checkTime(new Date(res.data.data.it).getMinutes())
+                        }
+                    }else{
+                        this.clientInfo = {
+                            uid:"",
+                            dtp:"",
+                            ver:"",
+                            svr:"",
+                            stat:"",
+                            cltd:"",
+                            rcn:"",
+                            ixcd:"",
+                            ixsd:"",
+                            ixnd:"",
+                            ixad:"",
+                            it:''
+                        }
+                    }
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:'error',
+                        duration:1500
+                    });
                 }
+                
             })
         },
         handleDown(index,row){

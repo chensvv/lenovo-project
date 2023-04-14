@@ -279,6 +279,7 @@ export default {
     border-radius: 10px;
     width: 20%;
     min-width: 270px;
+    max-width: 300px;
 }
 
 .login-box .form-title{
