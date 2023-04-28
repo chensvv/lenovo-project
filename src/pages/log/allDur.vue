@@ -37,7 +37,12 @@
 import {allDurList} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 import {checkTime} from '@/utils/timer.js'
-let echarts = require('echarts/lib/echarts')
+const echarts = require('echarts/lib/echarts');
+require('echarts/lib/chart/line');
+require('echarts/lib/component/grid');
+require('echarts/lib/component/title');
+require('echarts/lib/component/dataZoom');
+require('echarts/lib/component/tooltip');
 export default {
   data() {
     let vue = this
@@ -110,7 +115,10 @@ export default {
                   left:'center'
               },
               tooltip: {
-                trigger: 'item',
+                trigger: 'axis',
+                axisPointer: {
+                    type: ''
+                },
                 formatter: "{b}:00 <br/>{a} : {c}ms"
               },
               xAxis: {
@@ -139,7 +147,6 @@ export default {
                   name: '平均时间',
                   type: 'line',
                   data: res.data.data.visit,
-                  color:"#409eff",
                   barMaxWidth: 60, // 最大宽度
                   itemStyle: {
                     normal: {
@@ -161,7 +168,7 @@ export default {
                     type: 'slider',
                     show: true,
                     handleSize: 2,
-                    height: '15px',
+                    height: '15',
                     start:0 ,
                     end: this.computedPosition(1,xArraylength)
                   }

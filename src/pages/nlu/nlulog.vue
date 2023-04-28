@@ -2,7 +2,7 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/app/list'}">应用搜索</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/nlulog/list'}">运营日志分析</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
@@ -26,7 +26,7 @@
                     <div class="as" v-loading="popLoading" element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)"></div>
                     <div  v-for="(item , i) in keyList" :key="i" class="keyLabel">
                         <el-form-item :label="item.desc" :prop="item.key">
-                            <el-input v-model.trim="searchKey[item.key]" clearable></el-input>
+                            <el-input v-model.trim="searchKey[item.key]"></el-input>
                         </el-form-item>
                     </div>
                     <!-- <el-button >click 激活</el-button> -->
@@ -37,17 +37,25 @@
                         </el-select>
                     </el-form-item>
                 </el-popover>
-                <el-form-item label="日期" prop="pickerVal" class="date-form">
+                <el-form-item label="parrot耗时" prop="parrotmin" class="parrotinput">
+                    <el-input v-model.trim="searchItem.parrotmin" clearable>
+                    </el-input> - 
+                    <el-input v-model.trim="searchItem.parrotmax" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="时间类别" prop="key3">
+                    <el-input v-model.trim="searchItem.key3" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="日期" prop="pickerVal" class="nludate-form">
                     <el-date-picker
                         v-model="searchItem.pickerVal"
-                        type="daterange"
+                        type="datetimerange"
                         align="center"
                         size="mini"
                         range-separator="至"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期"
                         :picker-options="pickerOptions"
-                        value-format="yyyy-MM-dd"
+                        value-format="yyyy-MM-dd HH:mm:ss"
                         :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
                     </el-date-picker>
                 </el-form-item>
@@ -183,30 +191,12 @@ export default {
             searchItem:{
                 pickerVal:[],
                 asrres:"",
-                intent:""
+                intent:"",
+                key3:"",
+                parrotmin:"",
+                parrotmax:""
             },
-            searchKey:[
-                // key1:"",
-                // key2:"",
-                // key3:"",
-                // key4:"",
-                // key5:"",
-                // key6:"",
-                // key7:"",
-                // key8:"",
-                // key9:"",
-                // key10:"",
-                // key11:"",
-                // key12:"",
-                // key13:"",
-                // key14:"",
-                // key15:"",
-                // key16:"",
-                // key17:"",
-                // key18:"",
-                // key19:"",
-                // key20:""
-            ],
+            searchKey:[],
             list:[],
             infoList:[],
             intentList:[],
@@ -316,17 +306,18 @@ export default {
         //     this.visiblepop = false
         // },
         intentChange(){
+            this.searchKey = []
             this.getLoginfoKey()
         },
         visibleChange(){
             this.visiblepop = true
         },
         intentInput(){
-            this.searchKey = []
+            
         },
         rowClick(index, row){
             let dP = {
-                key:row.intent
+                intent:row.intent
             }
             nlulogDict(dP).then(res=>{
                 this.infoList = res.data.data
@@ -352,7 +343,7 @@ export default {
             // if(this.searchItem.intent != ''){
                 
                 let dictParams = {
-                    key: this.searchItem.intent
+                    intent: this.searchItem.intent
                 }
                 nlulogDict(dictParams).then(res=>{
                     if(res.data.code == 200){
@@ -366,14 +357,15 @@ export default {
                         this.keyList = []
                         this.popLoading = true
                     }
-                    
+                }).catch(err=>{
+                    this.keyList = []
+                    this.popLoading = true
                 })
             // }
         },
         getIntentList(){
             nlulogIntent().then(res=>{
                 this.intentList = res.data.data
-                console.log(this.intentList)
             })
         },
         getList() {
@@ -385,6 +377,9 @@ export default {
                 endStr:this.searchItem.pickerVal[1],
                 intent:this.searchItem.intent,
                 asrres:this.searchItem.asrres,
+                useTimeS:this.searchItem.parrotmin,
+                useTimeE:this.searchItem.parrotmax,
+                timeType:this.searchItem.key3,
                 key1:this.searchKey.key1,
                 key2:this.searchKey.key2,
                 key3:this.searchKey.key3,
@@ -399,12 +394,7 @@ export default {
                 key12:this.searchKey.key12,
                 key13:this.searchKey.key13,
                 key14:this.searchKey.key14,
-                key15:this.searchKey.key15,
-                key16:this.searchKey.key16,
-                key17:this.searchKey.key17,
-                key18:this.searchKey.key18,
-                key19:this.searchKey.key19,
-                key20:this.searchKey.key20
+                key15:this.searchKey.key15
             }
             params.sign = deleteParams(params)
             nlulogList(params).then(res => {

@@ -110,7 +110,6 @@
 <script>
 import {clientTotal,engineOffline,engineOnline} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
-let echarts = require('echarts/lib/echarts')
 export default {
   data() {
     return {

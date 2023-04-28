@@ -62,7 +62,7 @@ service_head.interceptors.response.use(response => {
       //   center: true,
       //   callback: action => {
         store.commit('set_userinfo','1')
-        console.log(store.getters.get_userinfo)
+        // console.log(store.getters.get_userinfo)
           sessionStorage.clear()
           router.replace('/login')
           

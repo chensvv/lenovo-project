@@ -318,8 +318,12 @@ import {checkTime} from '@/utils/timer.js'
 import {logList, logDown, logInfo, servDownload, statistics, clientlog} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 import downUrl from '@/config/http'
-let echarts = require('echarts/lib/echarts')
-require('echarts/lib/component/legend')
+const echarts = require('echarts/lib/echarts');
+require('echarts/lib/chart/line');
+require('echarts/lib/component/title');
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/grid');
+require('echarts/lib/component/legend');
 export default {
     data(){
         let vue = this
@@ -582,9 +586,9 @@ export default {
                         },
                         tooltip: {
                             trigger: 'axis',
-                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                                type: ''        // 默认为直线，可选为：'line' | 'shadow'
-                            }
+                            axisPointer: {
+                                type: ''
+                            },
                         },
                         legend: {
                             orient:'horizontal',

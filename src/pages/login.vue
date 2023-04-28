@@ -239,8 +239,16 @@ export default {
         },
         getImgCode(){
             logImgCode().then(res=>{
-                this.limgCode = 'data:image/png;base64,'+res.data.data.imgage
-                this.uuid = res.data.data.uuid
+                if(res.data.code == 200){
+                    this.limgCode = 'data:image/png;base64,'+res.data.data.imgage
+                    this.uuid = res.data.data.uuid
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:"error",
+                        duration:2000
+                    });
+                }
             })
         },
         register(){

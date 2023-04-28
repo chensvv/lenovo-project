@@ -464,11 +464,16 @@ const router = new Router({
           component: () => import('@/pages/iot/log'),
           meta: {title: '设备日志',needLogin:true}
         },
-        {
-          path: '/nlulog/list',
-          component: () => import('@/pages/nlu/nlulog'),
-          meta: {title: '运营日志分析',needLogin:true}
-        },
+        // {
+        //   path: '/nlulog/list',
+        //   component: () => import('@/pages/nlu/nlulog'),
+        //   meta: {title: '运营日志分析',needLogin:true}
+        // },
+        // {
+        //   path: '/nlulog/statistic',
+        //   component: () => import('@/pages/nlu/nluStatistics'),
+        //   meta: {title: '运营日志统计',needLogin:true}
+        // },
         {
           path: '/user/checkpass',
           component: () => import('@/pages/checkpass'),
