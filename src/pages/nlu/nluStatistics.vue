@@ -8,17 +8,24 @@
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
           <div class="form-input height70">
             <el-form-item label="数据类型" prop="type">
-                <el-select v-model.trim="searchItem.type" placeholder="每天统计数" @change="typeChange">
+                <el-select v-model.trim="searchItem.type" ref="typeValue" placeholder="每天统计数" @change="typeChange">
                     <el-option v-for="(item,index) in typeList" :key="index" :label="item.label" :value="item.id"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="意图" prop="intent" v-if="searchItem.type == 1 || searchItem.type == 3 || searchItem.type == 4">
-                <el-select v-model.trim="searchItem.intent" placeholder="">
+            <el-form-item label="意图" prop="intent" v-if="searchItem.type == 1 || searchItem.type == 3">
+                <el-select v-model.trim="searchItem.intent" placeholder="" @change="intentChange" clearable>
                     <el-option v-for="(item,index) in intentList" :key="index" :label="item.key" :value="item.key"></el-option>
                 </el-select>
             </el-form-item>
+            <el-form-item label="意图" prop="intent" v-if="searchItem.type == 4">
+                <el-select v-model.trim="searchItem.intent" placeholder="" @change="intentChange" clearable>
+                    <el-option v-for="(item,index) in intentKeyList" :key="index" :label="item" :value="item"></el-option>
+                </el-select>
+            </el-form-item>
             <el-form-item label="key" prop="key1" v-if="searchItem.type == 4">
-                <el-input v-model.trim="searchItem.key1" clearable>
+                <el-select v-model.trim="searchItem.key1" placeholder="" clearable :loading="keyListLoading" @visible-change="keyChange">
+                    <el-option v-for="(item,index) in topKeyList" :key="index" :label="item" :value="item"></el-option>
+                </el-select>
             </el-form-item>
             <el-form-item label="日期" prop="pickerVal" class="nludate-form">
                 <el-date-picker
@@ -48,12 +55,13 @@
 </template>
 
 <script>
-import {nlulogStatistic, nlulogIntent} from '@/config/api'
+import {nlulogStatistic, nlulogDict, nluTop20KeyIntent, nluTop20Key} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
 import {checkTime} from '@/utils/timer.js'
 const echarts = require('echarts/lib/echarts')
 require('echarts/lib/chart/line')
 require('echarts/lib/chart/bar')
+require('echarts/lib/chart/pie')
 require('echarts/lib/component/grid')
 require('echarts/lib/component/title')
 require('echarts/lib/component/legend')
@@ -96,22 +104,26 @@ export default {
             {id:1, label:"每天统计数"},
             {id:2, label:"每个intent的数量"},
             {id:3, label:"每小时统计数"},
-            {id:4, label:"前20 key的数量"}
+            {id:4, label:"前20 key的数量"},
+            {id:5, label:"导航类别分布比例"}
         ],
         intentList:[],
+        topKeyList:[],
+        intentKeyList:[],
         dataTime: 3600 * 1000 * 24 * 15,
         list: [],
         pickerVal:[],
         seaBtnLoading:false,
+        keyListLoading:false,
         loading:true
     };
   },
   created(){
     this.searchItem.type = this.typeList[0].id
     this.getIntentList()
+    this.getIntentKeyList()
   },
   mounted() {
-    
     this.getChartsData()
   },
   methods: {
@@ -124,15 +136,39 @@ export default {
       this.getChartsData()
       this.seaBtnLoading = false
     },
+    intentChange(){
+        this.searchItem.key1=""
+    },
     typeChange(){
         this.searchItem.pickerVal = []
         this.searchItem.intent=""
         this.searchItem.key1=""
     },
     getIntentList(){
-        nlulogIntent().then(res=>{
+        let p = {
+            pid:1
+        }
+        nlulogDict(p).then(res=>{
             this.intentList = res.data.data
         })
+    },
+    getIntentKeyList(){
+        nluTop20KeyIntent().then(res=>{
+            this.intentKeyList = res.data.data
+        })
+    },
+    keyChange(istrue){
+        if(istrue){
+            this.keyListLoading = true
+            let keyParams = {
+                intent:this.searchItem.intent
+            }
+            nluTop20Key(keyParams).then(res=>{
+                this.keyListLoading = false
+                this.topKeyList = res.data.data
+            })
+        }
+        
     },
     computedPosition(length,xArraylength) {
       if(xArraylength>=24){
@@ -154,6 +190,29 @@ export default {
         let myChart = echarts.init(this.$refs.myChart)
         nlulogStatistic(paramsList).then(res=>{
             this.loading = false
+            let pieData = []
+            let itemStyles = {
+                normal: {
+                    label: {
+                        show: true, //开启显示
+                        position: 'top', //在上方显示
+                        textStyle: { //数值样式
+                            color: 'black',
+                            fontSize: 16,
+                            formatter: "{value} ",
+
+                        }
+                    }
+                }
+            }
+            if(this.$refs.typeValue.selected.value == 5){
+                res.data.data.columnName.forEach((item, i) => {
+                    pieData.push({
+                        name:item,
+                        value:res.data.data.counts[i]
+                    })
+                });
+            }
             if(res.data.code == 200){
                 myChart.setOption({
                     title: { 
@@ -161,19 +220,20 @@ export default {
                         left:'center'
                     },
                     tooltip: {
-                        trigger: 'axis',
+                        trigger: this.$refs.typeValue.selected.value == 5 ? 'item' :'axis',
                         axisPointer: {
                             type: ''
                         },
                     },
                     toolbox: {
-                        show: true,
+                        show: this.$refs.typeValue.selected.value == 5 ? false : true,
                         right:"50",
                         feature: {
                             magicType: { type: ['line', 'bar'] }
                         }
                     },
                     xAxis: {
+                        show:this.$refs.typeValue.selected.value == 5 ? false : true,
                         type:'category',
                         boundaryGap: false,
                         data: res.data.data.columnName,
@@ -181,6 +241,12 @@ export default {
                             rotate:20,
                             formatter:'{value}'
                         }
+                    },
+                    legend: {
+                        show: this.$refs.typeValue.selected.value == 5 ? true : false,
+                        top:'5%',
+                        orient: 'horizontal',
+                        left: 'center'
                     },
                     grid:{
                         // x:'5%', //左上角x轴距盒子边框的距离
@@ -190,6 +256,7 @@ export default {
                         borderWidth:1
                     },
                     yAxis: {
+                        show:this.$refs.typeValue.selected.value == 5 ? false : true,
                         minInterval : 1,
                         type: 'value',
                         axisLabel:{
@@ -198,23 +265,11 @@ export default {
                     },
                     series: [{
                         name: res.data.data.title,
-                        type: 'line',
-                        data: res.data.data.counts,
+                        type: this.$refs.typeValue.selected.value == 5 ? 'pie' : 'line',
+                        data: this.$refs.typeValue.selected.value == 5 ? pieData : res.data.data.counts,
+                        radius: '50%',
                         barMaxWidth: 60, // 最大宽度
-                        itemStyle: {
-                            normal: {
-                                label: {
-                                    show: true, //开启显示
-                                    position: 'top', //在上方显示
-                                    textStyle: { //数值样式
-                                        color: 'black',
-                                        fontSize: 16,
-                                        formatter: "{value} ",
-
-                                    }
-                                }
-                            }
-                        }
+                        itemStyle: this.$refs.typeValue.selected.value == 5 ? {} : itemStyles
                     }],
                     //   dataZoom: [
                     //       {

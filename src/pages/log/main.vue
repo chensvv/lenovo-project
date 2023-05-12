@@ -88,7 +88,8 @@
                     v-loading="listLoading"
                     @sort-change="sortChange"
                     element-loading-text="拼命加载中"
-                    element-loading-spinner="el-icon-loading">
+                    element-loading-spinner="el-icon-loading"
+                    :key="activeName">
                     <el-table-column label="UID" prop="uid" align="center">
                         <template slot-scope="scope">
                             <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.uid" placement="top">
@@ -242,7 +243,7 @@
                         <ul class="pagination">
                             <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
                             <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
-                            <li v-if="isLastPage != false && currentPage !=1" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+                            <li v-if="isLastPage != false && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
                             <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
                             <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
                             <li v-if="isLastPage != true" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
@@ -475,9 +476,9 @@ export default {
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
-            this.currentPage = ''
-            this.maxId = ''
-            this.minId = ''
+            // this.currentPage = 1
+            this.MaxId = ''
+            this.MinId = ''
             this.getList(1)
         },
         resetStat(formName) {
@@ -610,11 +611,6 @@ export default {
                             x2:'5%',//右下角x轴距盒子边框的距离
                             y2:'10%',//右下角Y轴距盒子边框的距离
                             borderWidth:1
-                        },
-                        toolbox: {
-                            feature: {
-                                saveAsImage: {}
-                            }
                         },
                         yAxis: {
                             type: 'value',
@@ -785,7 +781,7 @@ export default {
         },
         onSubmit(){
             this.btnLoading = true
-            this.currentPage = ''
+            // this.currentPage = ''
             this.getList(1)
             this.btnLoading = false
         },

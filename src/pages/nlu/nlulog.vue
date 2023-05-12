@@ -10,9 +10,11 @@
                 <el-form-item label="文本指令" prop="asrres">
                     <el-input v-model.trim="searchItem.asrres" clearable></el-input>
                 </el-form-item>
-                <!-- <el-form-item label="意图" prop="intent">
-                    <el-input v-model.trim="searchItem.intent" clearable></el-input>
-                </el-form-item> -->
+                <el-form-item label="处理分支" prop="pid">
+                    <el-select v-model="searchItem.pid" ref="approachId" :loading="roachLoading" placeholder="--" @change="roachChange">
+                        <el-option v-for="(item,index) in pidList" :key="index" :label="item.key" :value="item.id"></el-option>
+                    </el-select>
+                </el-form-item>
                 <el-popover
                     placement="right"
                     width="300"
@@ -32,8 +34,8 @@
                     <!-- <el-button >click 激活</el-button> -->
                     <el-form-item label="意图" prop="intent" slot="reference">
                         <!-- <el-input v-model.trim="searchItem.intent" clearable v-debounce-input="getLoginfoKey" @input="intentInput"></el-input> -->
-                        <el-select v-model="searchItem.intent" placeholder="--" clearable @change="intentChange" @visible-change="visibleChange">
-                            <el-option v-for="(item,index) in intentList" :key="index" :label="item.key" :value="item.key"></el-option>
+                        <el-select v-model="searchItem.intent" placeholder="--" ref="intent" clearable @change="intentChange" @visible-change="visibleChange" @clear="intentClear">
+                            <el-option v-for="(item,index) in intentList" :key="index" :label="item.key" :value="item.id"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-popover>
@@ -42,9 +44,7 @@
                     </el-input> - 
                     <el-input v-model.trim="searchItem.parrotmax" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="时间类别" prop="key3">
-                    <el-input v-model.trim="searchItem.key3" clearable></el-input>
-                </el-form-item>
+                
                 <el-form-item label="日期" prop="pickerVal" class="nludate-form">
                     <el-date-picker
                         v-model="searchItem.pickerVal"
@@ -178,7 +178,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-import {nlulogList, nlulogDict, nlulogIntent} from '@/config/api'
+import {nlulogList, nlulogDict, nlulogDetail} from '@/config/api'
 export default {
     data(){
         return{
@@ -192,7 +192,7 @@ export default {
                 pickerVal:[],
                 asrres:"",
                 intent:"",
-                key3:"",
+                pid:"",
                 parrotmin:"",
                 parrotmax:""
             },
@@ -208,6 +208,7 @@ export default {
             },
             keyList:[],
             perList:[],
+            pidList:[],
             totalClass:'8',
             timer:null,
             // 分页
@@ -219,7 +220,8 @@ export default {
             listLoading:true,
             popLoading:false,
             visiblepop:false,
-            infoVisible:false
+            infoVisible:false,
+            roachLoading:false
         }
     },
     created() {
@@ -227,8 +229,12 @@ export default {
         perArr.map(t=>{
             this.perList.push(Object.values(t).join())
         })
-        this.getList();
-        this.getIntentList()
+        this.$nextTick(()=>{
+            this.getList();
+            this.getroachList()
+            
+        })
+        
     },
     directives:{
         'debounce-input':{
@@ -305,21 +311,51 @@ export default {
         // intentBlur(){
         //     this.visiblepop = false
         // },
-        intentChange(){
-            this.searchKey = []
-            this.getLoginfoKey()
+        getroachList(){
+            let dictParams = {
+                pid: 0
+            }
+            nlulogDict(dictParams).then(res=>{
+                if(res.data.code == 200){
+                    this.pidList = res.data.data
+                    this.searchItem.pid = this.pidList[0].id
+                    this.$nextTick(()=>{
+                        this.getIntentList(this.$refs.approachId.selected.value)
+                    })
+                }
+            }).catch(err=>{
+            })
         },
-        visibleChange(){
+        roachChange(val){
+            // if(!istrue){
+                this.intentList = []
+                this.keyList = []
+                this.searchItem.intent = ''
+                this.getIntentList(val)
+            // }
+        },
+        intentChange(val){
+            this.searchKey = []
+            this.getLoginfoKey(val)
+        },
+        visibleChange(istrue){
+            if(istrue){
+                this.getLoginfoKey(this.$refs.intent.selected.value)
+            }
             this.visiblepop = true
+        },
+        intentClear(){
+
         },
         intentInput(){
             
         },
         rowClick(index, row){
             let dP = {
-                intent:row.intent
+                intent:row.intent,
+                nluApproach:row.nluApproach
             }
-            nlulogDict(dP).then(res=>{
+            nlulogDetail(dP).then(res=>{
                 this.infoList = res.data.data
                 this.infoList.forEach(item=>{
                     item[item.key] = row[item.key];
@@ -339,33 +375,44 @@ export default {
         handleConfirm(){
             this.infoVisible = false
         },
-        getLoginfoKey(){
+        getLoginfoKey(val){
+            // console.log(val == "")
             // if(this.searchItem.intent != ''){
-                
-                let dictParams = {
-                    intent: this.searchItem.intent
-                }
-                nlulogDict(dictParams).then(res=>{
-                    if(res.data.code == 200){
-                        this.keyList = res.data.data
-                        if(res.data.data != null){
-                            this.popLoading = false
+                if(val != undefined && val != ""){
+                    let dictParams = {
+                        pid: val
+                    }
+                    nlulogDict(dictParams).then(res=>{
+                        if(res.data.code == 200){
+                            this.keyList = res.data.data
+                            if(res.data.data != null){
+                                this.popLoading = false
+                            }else{
+                                this.popLoading = true
+                            }
                         }else{
+                            this.keyList = []
                             this.popLoading = true
                         }
-                    }else{
+                    }).catch(err=>{
                         this.keyList = []
                         this.popLoading = true
-                    }
-                }).catch(err=>{
+                    })
+                }else{
                     this.keyList = []
                     this.popLoading = true
-                })
+                }
+                
             // }
         },
-        getIntentList(){
-            nlulogIntent().then(res=>{
-                this.intentList = res.data.data
+        getIntentList(val){
+            let intentParams = {
+                pid:val
+            }
+            nlulogDict(intentParams).then(res=>{
+                if(res.data.code == 200){
+                    this.intentList = res.data.data
+                }
             })
         },
         getList() {
@@ -375,11 +422,11 @@ export default {
                 pcstr:this.pageSize,
                 startStr:this.searchItem.pickerVal[0],
                 endStr:this.searchItem.pickerVal[1],
-                intent:this.searchItem.intent,
+                intent:this.$refs.intent.selected.label,
                 asrres:this.searchItem.asrres,
                 useTimeS:this.searchItem.parrotmin,
                 useTimeE:this.searchItem.parrotmax,
-                timeType:this.searchItem.key3,
+                nluApproach:this.$refs.approachId.selected.label,
                 key1:this.searchKey.key1,
                 key2:this.searchKey.key2,
                 key3:this.searchKey.key3,

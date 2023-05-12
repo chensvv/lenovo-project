@@ -3307,3 +3307,111 @@ export function nlulogStatistic (data) {
     }
   })
 }
+
+export function nluTop20Key (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/top20Key/key',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluTop20KeyIntent (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/top20Key/intent',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlulogDetail (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/dict/detail',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/add',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/update',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/delete',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordType (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/types',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordImport (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/import',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

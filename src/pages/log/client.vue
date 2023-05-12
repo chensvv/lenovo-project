@@ -94,8 +94,9 @@
             v-loading="ClistLoading" 
             @sort-change="sortChange"
             element-loading-text="拼命加载中"
-            element-loading-spinner="el-icon-loading">
-            <el-table-column type="index" align="left"  ></el-table-column>
+            element-loading-spinner="el-icon-loading"
+            :key="activeName">
+            <el-table-column type="index" align="left" label="#" width="50"></el-table-column>
             <el-table-column label="UID" prop="uid" align="center">
               <template slot-scope="scope">
                   <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.uid" placement="top">
@@ -194,7 +195,7 @@
                 <ul class="pagination">
                     <li><button :disabled="currentPageC==1? true : false" @click="turnToPageC(1)"><i class="el-icon-d-arrow-left"></i></button></li>
                     <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
-                    <li v-if="isLastPageC != false && currentPageC !=1" class="unum" @click="turnToPageC(currentPageC-2)">{{currentPageC-2}}</li>
+                    <li v-if="isLastPageC != false && currentPageC !=1 && currentPageC - 2 > 0" class="unum" @click="turnToPageC(currentPageC-2)">{{currentPageC-2}}</li>
                     <li v-if="currentPageC-1>0"  class="unum" @click="turnToPageC(currentPageC-1)">{{currentPageC-1}}</li>
                     <li class="active" @click="turnToPageC(currentPageC)">{{currentPageC}}</li>
                     <li v-if="isLastPageC != true" class="unum" @click="turnToPageC(currentPageC+1)">{{currentPageC+1}}</li>
@@ -212,8 +213,9 @@
             style="width: 100%" 
             v-loading="SlistLoading"
             element-loading-text="拼命加载中"
-            element-loading-spinner="el-icon-loading">
-            <el-table-column type="index" align="center" label="#"></el-table-column>
+            element-loading-spinner="el-icon-loading"
+            :key="activeName">
+            <el-table-column type="index" align="center" label="#" width="50"></el-table-column>
             <el-table-column label="客户端总耗时" prop="ixcd" align="center">
             </el-table-column>
             <el-table-column label="服务端总耗时" prop="ixsd" align="center">
@@ -262,7 +264,7 @@
                 <ul class="pagination">
                     <li><button :disabled="currentPageS==1? true : false" @click="turnToPageS(1)"><i class="el-icon-d-arrow-left"></i></button></li>
                     <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
-                    <li v-if="isLastPageS != false && currentPageS != 1" class="unum" @click="turnToPageS(currentPageS-2)">{{currentPageS-2}}</li>
+                    <li v-if="isLastPageS != false && currentPageS != 1 && currentPageS - 2 > 0" class="unum" @click="turnToPageS(currentPageS-2)">{{currentPageS-2}}</li>
                     <li v-if="currentPageS-1>0"  class="unum" @click="turnToPageS(currentPageS-1)">{{currentPageS-1}}</li>
                     <li class="active" @click="turnToPageS(currentPageS)">{{currentPageS}}</li>
                     <li v-if="isLastPageS != true" class="unum" @click="turnToPageS(currentPageS+1)">{{currentPageS+1}}</li>
@@ -402,14 +404,14 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.currentPageC = ''
+      // this.currentPageC = ''
       this.MaxIdC = ''
       this.MinIdC = ''
       this.getList(1)
     },
     resetServ(formName) {
       this.$refs[formName].resetFields();
-      this.currentPageS = ''
+      // this.currentPageS = ''
       this.MaxIdS = ''
       this.MinIdS = ''
       this.getSList(1)
@@ -453,13 +455,13 @@ export default {
     },
     onSubmit() {
       this.seaBtnLoading = true;
-      this.currentPageC = 1
+      // this.currentPageC = 1
       this.getList(1);
       this.seaBtnLoading = false;
     },
     onServ() {
       this.servBtnLoading = true;
-      this.currentPageS = 1
+      // this.currentPageS = 1
       this.getSList(1);
       this.servBtnLoading = false;
     },
@@ -641,11 +643,6 @@ export default {
                     x2:'5%',//右下角x轴距盒子边框的距离
                     y2:'10%',//右下角Y轴距盒子边框的距离
                     borderWidth:1
-                },
-                toolbox: {
-                    feature: {
-                        saveAsImage: {}
-                    }
                 },
                 yAxis: {
                     type: 'value',

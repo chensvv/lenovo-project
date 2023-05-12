@@ -60,7 +60,8 @@
                         style="width: 100%"
                         v-loading="commandListLoading"
                         element-loading-text="拼命加载中"
-                        element-loading-spinner="el-icon-loading">
+                        element-loading-spinner="el-icon-loading"
+                        :key="activeName">
                         <el-table-column type="index" align="center" label="#">
                         </el-table-column>
                         <el-table-column
@@ -143,7 +144,8 @@
                         style="width: 100%"
                         v-loading="norunListLoading"
                         element-loading-text="拼命加载中"
-                        element-loading-spinner="el-icon-loading">
+                        element-loading-spinner="el-icon-loading"
+                        :key="activeName">
                         <el-table-column type="index" align="center" label="#">
                         </el-table-column>
                         <el-table-column
@@ -196,7 +198,8 @@
                         style="width: 100%"
                         v-loading="originaListLoading"
                         element-loading-text="拼命加载中"
-                        element-loading-spinner="el-icon-loading">
+                        element-loading-spinner="el-icon-loading"
+                        :key="activeName">
                         <el-table-column type="index" align="center" label="#">
                         </el-table-column>
                         <el-table-column

@@ -935,6 +935,9 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .el-table .sort-caret{
   left: 5px;
 } */
+.keyLabel{
+  padding-left: 10px;
+}
 .keyLabel label{
   width: 100% !important;
   text-align: left;
@@ -942,7 +945,8 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .popkey{
   min-height: 100px;
   max-height: 350px;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .popkey .as .el-loading-mask{
   margin-top: 25px;

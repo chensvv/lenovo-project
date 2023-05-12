@@ -6,7 +6,6 @@ import {
   Message,MessageBox} from 'element-ui'
   // let proURL = 'http://m.voice.lenovomm.com'
 // eslint-disable-next-line no-unused-vars
-console.log(store.getters.get_userinfo)
 let service = {}
 // let proURL = 'http://10.110.148.57:8085'
 let proURL = 'https://voice.lenovomm.com'
@@ -84,7 +83,7 @@ service_head.interceptors.response.use(response => {
         //   center: true,
         //   callback: action => {
           store.commit('set_userinfo','1')
-          console.log(store.getters.get_userinfo)
+          // console.log(store.getters.get_userinfo)
             sessionStorage.clear()
             router.replace('/login')
             

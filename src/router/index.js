@@ -474,6 +474,11 @@ const router = new Router({
         //   component: () => import('@/pages/nlu/nluStatistics'),
         //   meta: {title: '运营日志统计',needLogin:true}
         // },
+        // {
+        //   path: '/nlu/word/list',
+        //   component: () => import('@/pages/nlu/word'),
+        //   meta: {title: '词元管理',needLogin:true}
+        // },
         {
           path: '/user/checkpass',
           component: () => import('@/pages/checkpass'),
