@@ -4,7 +4,7 @@ import {Base64} from 'js-base64'
 
 export function login (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/login',
+    url: '/velicle-mgr/user/login',
     method: 'post',
     data: data
   })
@@ -12,7 +12,7 @@ export function login (data) {
 
 export function logout (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/logout',
+    url: '/velicle-mgr/user/logout',
     method: 'post',
     data: data,
     headers: {
@@ -24,7 +24,7 @@ export function logout (data) {
 
 export function logImgCode (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/getImgCode',
+    url: '/velicle-mgr/user/getImgCode',
     method: 'post',
     data: data
   })
@@ -32,7 +32,7 @@ export function logImgCode (data) {
 
 export function userMenu (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/getMenu',
+    url: '/velicle-mgr/user/getMenu',
     method: 'post',
     data: data,
     headers: {
@@ -44,7 +44,7 @@ export function userMenu (data) {
 
 export function userList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/list',
+    url: '/velicle-mgr/user/list',
     method: 'post',
     data: data,
     headers: {
@@ -56,7 +56,7 @@ export function userList (data) {
 
 export function userReg (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/add',
+    url: '/velicle-mgr/user/add',
     method: 'post',
     data: data
   })
@@ -64,7 +64,7 @@ export function userReg (data) {
 
 export function userAdd (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/add',
+    url: '/velicle-mgr/user/add',
     method: 'post',
     data: data,
     headers: {
@@ -76,7 +76,7 @@ export function userAdd (data) {
 
 export function userUpd (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/update',
+    url: '/velicle-mgr/user/update',
     method: 'post',
     data: data,
     headers: {
@@ -88,7 +88,7 @@ export function userUpd (data) {
 
 export function userCheckPass (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/updatePassword',
+    url: '/velicle-mgr/user/updatePassword',
     method: 'post',
     data: data,
     headers: {
@@ -100,7 +100,7 @@ export function userCheckPass (data) {
 
 export function userDel (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/del',
+    url: '/velicle-mgr/user/del',
     method: 'post',
     data: data,
     headers: {
@@ -112,7 +112,7 @@ export function userDel (data) {
 
 export function userInfoOne (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/userInfo',
+    url: '/velicle-mgr/user/userInfo',
     method: 'post',
     data: data,
     headers: {
@@ -124,7 +124,7 @@ export function userInfoOne (data) {
 
 export function userRole (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/role/rolelistpage',
+    url: '/velicle-mgr/role/rolelistpage',
     method: 'post',
     data: data,
     headers: {
@@ -136,7 +136,7 @@ export function userRole (data) {
 
 export function userRoleEcho (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/queryRole',
+    url: '/velicle-mgr/user/queryRole',
     method: 'post',
     data: data,
     headers: {
@@ -148,7 +148,7 @@ export function userRoleEcho (data) {
 
 export function userRoleSave (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/user/editRole',
+    url: '/velicle-mgr/user/editRole',
     method: 'post',
     data: data,
     headers: {
@@ -160,7 +160,7 @@ export function userRoleSave (data) {
 
 export function roleList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/role/list',
+    url: '/velicle-mgr/role/list',
     method: 'post',
     data: data,
     headers: {
@@ -172,7 +172,7 @@ export function roleList (data) {
 
 export function roleAdd (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/role/add',
+    url: '/velicle-mgr/role/add',
     method: 'post',
     data: data,
     headers: {
@@ -184,7 +184,7 @@ export function roleAdd (data) {
 
 export function roleDel (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/role/del',
+    url: '/velicle-mgr/role/del',
     method: 'post',
     data: data,
     headers: {
@@ -196,7 +196,7 @@ export function roleDel (data) {
 
 export function roleEcho (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/role/queryOne',
+    url: '/velicle-mgr/role/queryOne',
     method: 'post',
     data: data,
     headers: {
@@ -208,7 +208,7 @@ export function roleEcho (data) {
 
 export function roleUpd (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/role/update',
+    url: '/velicle-mgr/role/update',
     method: 'post',
     data: data,
     headers: {
@@ -220,7 +220,7 @@ export function roleUpd (data) {
 
 export function authList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/Rule/queryone',
+    url: '/velicle-mgr/Rule/queryone',
     method: 'post',
     data: data,
     headers: {
@@ -232,7 +232,7 @@ export function authList (data) {
 
 export function akskList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/userinfo/list',
+    url: '/velicle-mgr/userinfo/list',
     method: 'post',
     data: data,
     headers: {
@@ -244,7 +244,7 @@ export function akskList (data) {
 
 export function akskDetail (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/userinfo/detail',
+    url: '/velicle-mgr/userinfo/detail',
     method: 'post',
     data: data,
     headers: {
@@ -256,7 +256,7 @@ export function akskDetail (data) {
 
 export function modinfy (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/userinfo/modify',
+    url: '/velicle-mgr/userinfo/modify',
     method: 'post',
     data: data,
     headers: {
@@ -268,7 +268,7 @@ export function modinfy (data) {
 
 export function activitiList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/activiti/list',
+    url: '/velicle-mgr/activiti/list',
     method: 'post',
     data: data,
     headers: {
@@ -280,7 +280,7 @@ export function activitiList (data) {
 
 export function activitiPass (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/activiti/pass',
+    url: '/velicle-mgr/activiti/pass',
     method: 'post',
     data: data,
     headers: {
@@ -292,7 +292,7 @@ export function activitiPass (data) {
 
 export function activitinList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/activiti/nlist',
+    url: '/velicle-mgr/activiti/nlist',
     method: 'post',
     data: data,
     headers: {
@@ -304,7 +304,7 @@ export function activitinList (data) {
 
 export function activitiStatus (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/activiti/status',
+    url: '/velicle-mgr/activiti/status',
     method: 'post',
     data: data,
     headers: {
@@ -316,7 +316,7 @@ export function activitiStatus (data) {
 
 export function userinfoUpdate (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/userinfo/update',
+    url: '/velicle-mgr/userinfo/update',
     method: 'post',
     data: data,
     headers: {
@@ -328,7 +328,7 @@ export function userinfoUpdate (data) {
 
 export function authAdd (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/Rule/add',
+    url: '/velicle-mgr/Rule/add',
     method: 'post',
     data: data,
     headers: {
@@ -340,7 +340,7 @@ export function authAdd (data) {
 
 export function authDel (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/Rule/delete',
+    url: '/velicle-mgr/Rule/delete',
     method: 'post',
     data: data,
     headers: {
@@ -352,7 +352,7 @@ export function authDel (data) {
 
 export function authUpdate (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/Rule/update',
+    url: '/velicle-mgr/Rule/update',
     method: 'post',
     data: data,
     headers: {
@@ -364,7 +364,7 @@ export function authUpdate (data) {
 
 export function ruleList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/Rule/fetch',
+    url: '/velicle-mgr/Rule/fetch',
     method: 'post',
     data: data,
     headers: {
@@ -376,7 +376,7 @@ export function ruleList (data) {
 
 export function ruleInfoList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/Rule/queryone',
+    url: '/velicle-mgr/Rule/queryone',
     method: 'post',
     data: data,
     headers: {

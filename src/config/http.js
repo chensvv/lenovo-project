@@ -8,8 +8,8 @@ import {
 // eslint-disable-next-line no-unused-vars
 console.log(store.getters.get_userinfo)
 let service = {}
-let proURL = 'http://10.110.148.57:8085'
-// let proURL = 'https://voice.lenovomm.com'
+// let proURL = 'http://10.110.148.57:8085'
+let proURL = 'https://voice.lenovomm.com'
 // axios 配置
 // eslint-disable-next-line camelcase
 const service_head = axios.create({
