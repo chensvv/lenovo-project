@@ -502,9 +502,8 @@ export default {
                 let blobUrl = new Blob([res.data])
                 let a = document.createElement('a');
                 let url = window.URL.createObjectURL(blobUrl);
-                let filename = '1.zip'
                 a.href = url;
-                a.download = filename;
+                a.download = row.intent+'-'+new Date().toLocaleString().replace(/[:/\s]/g,"")+'.zip';
                 a.click();
                 window.URL.revokeObjectURL(url);
             })
