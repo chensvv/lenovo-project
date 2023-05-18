@@ -376,7 +376,7 @@ export default {
       });
     },
     getParentKey(data,checkData){
-        console.log(data,checkData)
+        // console.log(data,checkData)
     },
     getChecked(data,isChecked){
       if(isChecked){

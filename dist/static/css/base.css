@@ -161,7 +161,7 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   font-size: 12px;
   height: calc(100% - 155px);
 }
-.el-table {
+.table-box .el-table {
   font-size: 12px;
   height: calc(100% - 50px);
   border-left: 1px solid #eee;
@@ -175,44 +175,44 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .el-button+.el-button, a .el-button {
   margin-left: 10px;
 }
-.el-table .cell{
+.table-box .el-table .cell{
   line-height: 28px;
 }
 .el-form-item__content .el-button+.el-button {
   margin-left: 3px;
 }
 
-.el-table__header thead tr th {
+.table-box  .el-table__header thead tr th {
   padding: 0 !important;
   background: #f8f8f9 !important;
 }
 
-.el-table .el-table__cell{
+/* .table-box .el-table .el-table__cell{
   padding: 0;
-}
+} */
 
-.el-table__header-wrapper {
+.table-box .el-table__header-wrapper {
   overflow: hidden;
   height: 30px;
   display: flex;
   align-items: center;
 }
 
-.el-table__header-wrapper .cell{
+.table-box .el-table__header-wrapper .cell{
   white-space: nowrap;
 }
 
-.el-table__body-wrapper {
+.table-box .el-table__body-wrapper {
   height: calc(100% - 30px);
 }
 .rule .el-table__body-wrapper{
   overflow-y: auto;
 }
 .rule .el-table td{
-  padding: 7px 0;
+  padding: 7px 0 !important;
 }
 
-.el-table__body {
+.table-box .el-table__body {
   height: 100%;
 }
 
@@ -227,7 +227,7 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   padding: 0 10px;
 }
 
-.el-table thead {
+.table-box .el-table thead {
   color: #515a6e;
   font-weight: 400;
 }
@@ -865,8 +865,8 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   height: 100%;
 }
 
-.el-table td,
-.el-table th {
+.table-box .el-table td,
+.table-box .el-table th {
   padding: 0;
 }
 
@@ -1449,4 +1449,23 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 }
 .nodata{
   text-align: center;
+}
+.main-box{
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.main-box .create-form{
+  width: 31%;
+}
+.main-box .table-box{
+  width: 65%;
+  max-height: 80%;
+}
+.main-box .form-input{
+  flex-direction: column;
+}
+.gendialog{
+  max-height: 80%;
 }
