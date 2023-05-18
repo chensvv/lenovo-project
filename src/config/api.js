@@ -14,7 +14,7 @@ import {Base64} from 'js-base64'
 // }
 export function appList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/list',
+    url: '/vehicle-mgr/app/list',
     method: 'post',
     data: data,
     headers: {
@@ -26,7 +26,7 @@ export function appList (data) {
 
 export function appAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/add',
+    url: '/vehicle-mgr/app/add',
     method: 'post',
     data: data,
     headers: {
@@ -38,7 +38,7 @@ export function appAdd (data) {
 
 export function appUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/update',
+    url: '/vehicle-mgr/app/update',
     method: 'post',
     data: data,
     headers: {
@@ -50,7 +50,7 @@ export function appUpd (data) {
 
 export function appDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/del',
+    url: '/vehicle-mgr/app/del',
     method: 'post',
     data: data,
     headers: {
@@ -62,7 +62,7 @@ export function appDel (data) {
 
 export function wordList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/keyword',
+    url: '/vehicle-mgr/app/keyword',
     method: 'post',
     data: data,
     headers: {
@@ -74,7 +74,7 @@ export function wordList (data) {
 
 export function keyAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/keywordadd',
+    url: '/vehicle-mgr/app/keywordadd',
     method: 'post',
     data: data,
     headers: {
@@ -86,7 +86,7 @@ export function keyAdd (data) {
 
 export function keyUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/keywordupdate',
+    url: '/vehicle-mgr/app/keywordupdate',
     method: 'post',
     data: data,
     headers: {
@@ -98,7 +98,7 @@ export function keyUpd (data) {
 
 export function keyDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/keyworddel',
+    url: '/vehicle-mgr/app/keyworddel',
     method: 'post',
     data: data,
     headers: {
@@ -110,7 +110,7 @@ export function keyDel (data) {
 
 export function regList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/alireg',
+    url: '/vehicle-mgr/app/alireg',
     method: 'post',
     data: data,
     headers: {
@@ -122,7 +122,7 @@ export function regList (data) {
 
 export function cacheList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/cache',
+    url: '/vehicle-mgr/app/cache',
     method: 'post',
     data: data,
     headers: {
@@ -134,7 +134,7 @@ export function cacheList (data) {
 
 export function cacheDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/cachedel',
+    url: '/vehicle-mgr/app/cachedel',
     method: 'post',
     data: data,
     headers: {
@@ -146,7 +146,7 @@ export function cacheDel (data) {
 
 export function cacheAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/cacheadd',
+    url: '/vehicle-mgr/app/cacheadd',
     method: 'post',
     data: data,
     headers: {
@@ -158,7 +158,7 @@ export function cacheAdd (data) {
 
 export function appNameList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/applist',
+    url: '/vehicle-mgr/app/applist',
     method: 'post',
     data: data,
     headers: {
@@ -170,7 +170,7 @@ export function appNameList (data) {
 
 export function appNameAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/appadd',
+    url: '/vehicle-mgr/app/appadd',
     method: 'post',
     data: data,
     headers: {
@@ -182,7 +182,7 @@ export function appNameAdd (data) {
 
 export function appNameUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/appupdate',
+    url: '/vehicle-mgr/app/appupdate',
     method: 'post',
     data: data,
     headers: {
@@ -194,7 +194,7 @@ export function appNameUpd (data) {
 
 export function appNameDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/app/appdel',
+    url: '/vehicle-mgr/app/appdel',
     method: 'post',
     data: data,
     headers: {
@@ -206,7 +206,7 @@ export function appNameDel (data) {
 
 export function appNameUpFile (data) {
   return fetch.UPFile({
-    url: '/velicle-mgr/app/excel',
+    url: '/vehicle-mgr/app/excel',
     method: 'post',
     data: data,
     headers: {
@@ -218,7 +218,7 @@ export function appNameUpFile (data) {
 
 export function movieList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/movie/list',
+    url: '/vehicle-mgr/movie/list',
     method: 'post',
     data: data,
     headers: {
@@ -230,7 +230,7 @@ export function movieList (data) {
 
 export function movieAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/movie/save',
+    url: '/vehicle-mgr/movie/save',
     method: 'post',
     data: data,
     headers: {
@@ -242,7 +242,7 @@ export function movieAdd (data) {
 
 export function movieUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/movie/update',
+    url: '/vehicle-mgr/movie/update',
     method: 'post',
     data: data,
     headers: {
@@ -254,7 +254,7 @@ export function movieUpd (data) {
 
 export function movieDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/movie/del',
+    url: '/vehicle-mgr/movie/del',
     method: 'post',
     data: data,
     headers: {
@@ -266,7 +266,7 @@ export function movieDel (data) {
 
 export function moviePub (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/movie/pub',
+    url: '/vehicle-mgr/movie/pub',
     method: 'post',
     data: data,
     headers: {
@@ -278,7 +278,7 @@ export function moviePub (data) {
 
 export function askList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ask/list',
+    url: '/vehicle-mgr/ask/list',
     method: 'post',
     data: data,
     headers: {
@@ -290,7 +290,7 @@ export function askList (data) {
 
 export function askAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ask/save',
+    url: '/vehicle-mgr/ask/save',
     method: 'post',
     data: data,
     headers: {
@@ -302,7 +302,7 @@ export function askAdd (data) {
 
 export function askUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ask/update',
+    url: '/vehicle-mgr/ask/update',
     method: 'post',
     data: data,
     headers: {
@@ -314,7 +314,7 @@ export function askUpd (data) {
 
 export function askDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ask/del',
+    url: '/vehicle-mgr/ask/del',
     method: 'post',
     data: data,
     headers: {
@@ -326,7 +326,7 @@ export function askDel (data) {
 
 export function askPub (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ask/pub',
+    url: '/vehicle-mgr/ask/pub',
     method: 'post',
     data: data,
     headers: {
@@ -338,7 +338,7 @@ export function askPub (data) {
 
 export function wasList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/was/weblist',
+    url: '/vehicle-mgr/was/weblist',
     method: 'post',
     data: data,
     headers: {
@@ -350,7 +350,7 @@ export function wasList (data) {
 
 export function wasAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/was/add',
+    url: '/vehicle-mgr/was/add',
     method: 'post',
     data: data,
     headers: {
@@ -362,7 +362,7 @@ export function wasAdd (data) {
 
 export function wasUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/was/update',
+    url: '/vehicle-mgr/was/update',
     method: 'post',
     data: data,
     headers: {
@@ -374,7 +374,7 @@ export function wasUpd (data) {
 
 export function wasDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/was/delete',
+    url: '/vehicle-mgr/was/delete',
     method: 'post',
     data: data,
     headers: {
@@ -386,7 +386,7 @@ export function wasDel (data) {
 
 export function dictList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/dict/list',
+    url: '/vehicle-mgr/dict/list',
     method: 'post',
     data: data,
     headers: {
@@ -398,7 +398,7 @@ export function dictList (data) {
 
 export function dictAddUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/dict/addandUpdate',
+    url: '/vehicle-mgr/dict/addandUpdate',
     method: 'post',
     data: data,
     headers: {
@@ -410,7 +410,7 @@ export function dictAddUpd (data) {
 
 export function dictDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/dict/del',
+    url: '/vehicle-mgr/dict/del',
     method: 'post',
     data: data,
     headers: {
@@ -422,7 +422,7 @@ export function dictDel (data) {
 
 export function cscList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/csc/csc',
+    url: '/vehicle-mgr/csc/csc',
     method: 'post',
     data: data,
     headers: {
@@ -434,7 +434,7 @@ export function cscList (data) {
 
 export function cscAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/csc/add',
+    url: '/vehicle-mgr/csc/add',
     method: 'post',
     data: data,
     headers: {
@@ -446,7 +446,7 @@ export function cscAdd (data) {
 
 export function cscDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/csc/delete',
+    url: '/vehicle-mgr/csc/delete',
     method: 'post',
     data: data,
     headers: {
@@ -459,7 +459,7 @@ export function cscDel (data) {
 // 个性化
 export function channelList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/qa/channelList',
+    url: '/vehicle-mgr/qa/channelList',
     method: 'post',
     data: data,
     headers: {
@@ -471,7 +471,7 @@ export function channelList (data) {
 
 export function channelAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/qa/channelAdd',
+    url: '/vehicle-mgr/qa/channelAdd',
     method: 'post',
     data: data,
     headers: {
@@ -483,7 +483,7 @@ export function channelAdd (data) {
 
 export function channelUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/qa/channelUpdate',
+    url: '/vehicle-mgr/qa/channelUpdate',
     method: 'post',
     data: data,
     headers: {
@@ -495,7 +495,7 @@ export function channelUpd (data) {
 
 export function channelDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/qa/channelDel',
+    url: '/vehicle-mgr/qa/channelDel',
     method: 'post',
     data: data,
     headers: {
@@ -508,7 +508,7 @@ export function channelDel (data) {
 // 定制问答
 export function qaList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/qa/list',
+    url: '/vehicle-mgr/qa/list',
     method: 'post',
     data: data,
     headers: {
@@ -520,7 +520,7 @@ export function qaList (data) {
 
 export function qaSave (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/qa/save',
+    url: '/vehicle-mgr/qa/save',
     method: 'post',
     data: data,
     headers: {
@@ -532,7 +532,7 @@ export function qaSave (data) {
 
 export function qaDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/qa/del',
+    url: '/vehicle-mgr/qa/del',
     method: 'post',
     data: data,
     headers: {
@@ -544,7 +544,7 @@ export function qaDel (data) {
 
 export function qaUpFile (data) {
   return fetch.UPFile({
-    url: '/velicle-mgr/qa/excel',
+    url: '/vehicle-mgr/qa/excel',
     method: 'post',
     data: data,
     headers: {
@@ -556,7 +556,7 @@ export function qaUpFile (data) {
 
 export function qaFile (data) {
   return fetch.UPFile({
-    url: '/velicle-mgr/qa/hand',
+    url: '/vehicle-mgr/qa/hand',
     method: 'post',
     data: data,
     headers: {
@@ -568,7 +568,7 @@ export function qaFile (data) {
 
 export function qaPub (data) {
   return fetch.UPFile({
-    url: '/velicle-mgr/qa/pub',
+    url: '/vehicle-mgr/qa/pub',
     method: 'post',
     data: data,
     headers: {
@@ -581,7 +581,7 @@ export function qaPub (data) {
 // 规则
 export function ruleList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/rule/list',
+    url: '/vehicle-mgr/rule/list',
     method: 'post',
     data: data,
     headers: {
@@ -593,7 +593,7 @@ export function ruleList (data) {
 
 export function ruleAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/rule/save',
+    url: '/vehicle-mgr/rule/save',
     method: 'post',
     data: data,
     headers: {
@@ -605,7 +605,7 @@ export function ruleAdd (data) {
 
 export function ruleUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/rule/updatedata',
+    url: '/vehicle-mgr/rule/updatedata',
     method: 'post',
     data: data,
     headers: {
@@ -617,7 +617,7 @@ export function ruleUpd (data) {
 
 export function ruleDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/rule/delete',
+    url: '/vehicle-mgr/rule/delete',
     method: 'post',
     data: data,
     headers: {
@@ -629,7 +629,7 @@ export function ruleDel (data) {
 
 export function rulePub (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/rule/pub',
+    url: '/vehicle-mgr/rule/pub',
     method: 'post',
     data: data,
     headers: {
@@ -642,7 +642,7 @@ export function rulePub (data) {
 // 灰度发布功能列表
 export function greyList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/grey/funlist',
+    url: '/vehicle-mgr/grey/funlist',
     method: 'post',
     data: data,
     headers: {
@@ -655,7 +655,7 @@ export function greyList (data) {
 // 灰度发布功能列表添加、修改
 export function greyAddUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/grey/funaddandUpdate',
+    url: '/vehicle-mgr/grey/funaddandUpdate',
     method: 'post',
     data: data,
     headers: {
@@ -668,7 +668,7 @@ export function greyAddUpd (data) {
 // 灰度发布功能列表删除
 export function greyDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/grey/fundel',
+    url: '/vehicle-mgr/grey/fundel',
     method: 'post',
     data: data,
     headers: {
@@ -681,7 +681,7 @@ export function greyDel (data) {
 // 灰度发布功能列表配置回显
 export function greyOpt (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/grey/opt',
+    url: '/vehicle-mgr/grey/opt',
     method: 'post',
     data: data,
     headers: {
@@ -694,7 +694,7 @@ export function greyOpt (data) {
 // 灰度发布功能列表配置保存
 export function greyOptSave (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/grey/optsave',
+    url: '/vehicle-mgr/grey/optsave',
     method: 'post',
     data: data,
     headers: {
@@ -707,7 +707,7 @@ export function greyOptSave (data) {
 // 灰度发布机型列表
 export function devList (data) {
   return fetch.service_head({
-    url: 'velicle-mgr/grey/devlist',
+    url: 'vehicle-mgr/grey/devlist',
     method: 'post',
     data: data,
     headers: {
@@ -719,7 +719,7 @@ export function devList (data) {
 
 export function ttsGreyList (data) {
   return fetch.service_head({
-    url: 'velicle-mgr/ttsgrey/devlist',
+    url: 'vehicle-mgr/ttsgrey/devlist',
     method: 'post',
     data: data,
     headers: {
@@ -731,7 +731,7 @@ export function ttsGreyList (data) {
 
 export function ttsGreyDel (data) {
   return fetch.service_head({
-    url: 'velicle-mgr/ttsgrey/ttsdel',
+    url: 'vehicle-mgr/ttsgrey/ttsdel',
     method: 'post',
     data: data,
     headers: {
@@ -744,7 +744,7 @@ export function ttsGreyDel (data) {
 // 灰度发布机型列表添加、删除
 export function devAddUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/grey/devaddandUpdate',
+    url: '/vehicle-mgr/grey/devaddandUpdate',
     method: 'post',
     data: data,
     headers: {
@@ -757,7 +757,7 @@ export function devAddUpd (data) {
 // 灰度发布机型列表删除
 export function devDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/grey/devdel',
+    url: '/vehicle-mgr/grey/devdel',
     method: 'post',
     data: data,
     headers: {
@@ -770,7 +770,7 @@ export function devDel (data) {
 // 灰度发布机型列表配置回显
 export function devOpt (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/grey/optd',
+    url: '/vehicle-mgr/grey/optd',
     method: 'post',
     data: data,
     headers: {
@@ -783,7 +783,7 @@ export function devOpt (data) {
 // 灰度发布机型列表配置保存
 export function devOptSave (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/grey/optdsave',
+    url: '/vehicle-mgr/grey/optdsave',
     method: 'post',
     data: data,
     headers: {
@@ -796,7 +796,7 @@ export function devOptSave (data) {
 // 闲聊
 export function chatList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/chat/list',
+    url: '/vehicle-mgr/chat/list',
     method: 'post',
     data: data,
     headers: {
@@ -808,7 +808,7 @@ export function chatList (data) {
 
 export function chatExport (data) {
   return fetch.ExcelDownload({
-    url: '/velicle-mgr/chat/export',
+    url: '/vehicle-mgr/chat/export',
     method: 'post',
     data: data,
     headers: {
@@ -821,7 +821,7 @@ export function chatExport (data) {
 // 笑话列表
 export function jokeList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/list',
+    url: '/vehicle-mgr/joke/list',
     method: 'post',
     data: data,
     headers: {
@@ -833,7 +833,7 @@ export function jokeList (data) {
 
 export function jokeAddUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/save',
+    url: '/vehicle-mgr/joke/save',
     method: 'post',
     data: data,
     headers: {
@@ -845,7 +845,7 @@ export function jokeAddUpd (data) {
 
 export function jokeDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/del',
+    url: '/vehicle-mgr/joke/del',
     method: 'post',
     data: data,
     headers: {
@@ -857,7 +857,7 @@ export function jokeDel (data) {
 
 export function jokeVeri (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/veri',
+    url: '/vehicle-mgr/joke/veri',
     method: 'post',
     data: data,
     headers: {
@@ -869,7 +869,7 @@ export function jokeVeri (data) {
 
 export function jokeDelBatch (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/delBatch',
+    url: '/vehicle-mgr/joke/delBatch',
     method: 'post',
     data: data,
     headers: {
@@ -881,7 +881,7 @@ export function jokeDelBatch (data) {
 
 export function jokeVeriBatch (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/veriBatch',
+    url: '/vehicle-mgr/joke/veriBatch',
     method: 'post',
     data: data,
     headers: {
@@ -894,7 +894,7 @@ export function jokeVeriBatch (data) {
 // 笑话领域说法
 export function jokePList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/speakList',
+    url: '/vehicle-mgr/joke/speakList',
     method: 'post',
     data: data,
     headers: {
@@ -906,7 +906,7 @@ export function jokePList (data) {
 
 export function jokePAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/speakAdd',
+    url: '/vehicle-mgr/joke/speakAdd',
     method: 'post',
     data: data,
     headers: {
@@ -918,7 +918,7 @@ export function jokePAdd (data) {
 
 export function jokePUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/speakUpdate',
+    url: '/vehicle-mgr/joke/speakUpdate',
     method: 'post',
     data: data,
     headers: {
@@ -930,7 +930,7 @@ export function jokePUpd (data) {
 
 export function jokePDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/speakDel',
+    url: '/vehicle-mgr/joke/speakDel',
     method: 'post',
     data: data,
     headers: {
@@ -942,7 +942,7 @@ export function jokePDel (data) {
 
 export function jokePAIML (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/joke/speakAiml',
+    url: '/vehicle-mgr/joke/speakAiml',
     method: 'post',
     data: data,
     headers: {
@@ -954,7 +954,7 @@ export function jokePAIML (data) {
 
 export function unitList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/unit/list',
+    url: '/vehicle-mgr/unit/list',
     method: 'post',
     data: data,
     headers: {
@@ -966,7 +966,7 @@ export function unitList (data) {
 
 export function unitAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/unit/add',
+    url: '/vehicle-mgr/unit/add',
     method: 'post',
     data: data,
     headers: {
@@ -978,7 +978,7 @@ export function unitAdd (data) {
 
 export function unitUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/unit/update',
+    url: '/vehicle-mgr/unit/update',
     method: 'post',
     data: data,
     headers: {
@@ -990,7 +990,7 @@ export function unitUpd (data) {
 
 export function unitDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/unit/del',
+    url: '/vehicle-mgr/unit/del',
     method: 'post',
     data: data,
     headers: {
@@ -1002,7 +1002,7 @@ export function unitDel (data) {
 
 export function unitPub (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/unit/pub',
+    url: '/vehicle-mgr/unit/pub',
     method: 'post',
     data: data,
     headers: {
@@ -1015,7 +1015,7 @@ export function unitPub (data) {
 // 敏感词
 export function senList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/sen/list',
+    url: '/vehicle-mgr/sen/list',
     method: 'post',
     data: data,
     headers: {
@@ -1027,7 +1027,7 @@ export function senList (data) {
 
 export function senAddUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/sen/save',
+    url: '/vehicle-mgr/sen/save',
     method: 'post',
     data: data,
     headers: {
@@ -1039,7 +1039,7 @@ export function senAddUpd (data) {
 
 export function senDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/sen/del',
+    url: '/vehicle-mgr/sen/del',
     method: 'post',
     data: data,
     headers: {
@@ -1052,7 +1052,7 @@ export function senDel (data) {
 // 敏感词发布
 export function senPub (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/sen/pub',
+    url: '/vehicle-mgr/sen/pub',
     method: 'post',
     data: data,
     headers: {
@@ -1064,7 +1064,7 @@ export function senPub (data) {
 
 export function senExcept (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/sen/update/except',
+    url: '/vehicle-mgr/sen/update/except',
     method: 'post',
     data: data,
     headers: {
@@ -1076,7 +1076,7 @@ export function senExcept (data) {
 
 export function triggerList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/trigger/list',
+    url: '/vehicle-mgr/trigger/list',
     method: 'post',
     data: data,
     headers: {
@@ -1088,7 +1088,7 @@ export function triggerList (data) {
 
 export function triggerZip (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/trigger/zip',
+    url: '/vehicle-mgr/trigger/zip',
     method: 'post',
     data: data,
     headers: {
@@ -1100,7 +1100,7 @@ export function triggerZip (data) {
 
 export function zipList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/trigger/zip/list',
+    url: '/vehicle-mgr/trigger/zip/list',
     method: 'post',
     data: data,
     headers: {
@@ -1112,7 +1112,7 @@ export function zipList (data) {
 
 export function zipDownload (data) {
   return fetch.FileDownload({
-    url: '/velicle-mgr/trigger/download?fileName='+data+'&fileType=zip&userName='+sessionStorage.getItem('username'),
+    url: '/vehicle-mgr/trigger/download?fileName='+data+'&fileType=zip&userName='+sessionStorage.getItem('username'),
     method: 'get',
     headers: {
       't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
@@ -1123,7 +1123,7 @@ export function zipDownload (data) {
 
 export function pcmDownload (data) {
   return fetch.FileDownload({
-    url: '/velicle-mgr/trigger/download?fileName='+data,
+    url: '/vehicle-mgr/trigger/download?fileName='+data,
     method: 'get',
     headers: {
       't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
@@ -1134,7 +1134,7 @@ export function pcmDownload (data) {
 
 export function topKeyWord (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/trigger/topKeyWord',
+    url: '/vehicle-mgr/trigger/topKeyWord',
     method: 'post',
     data: data,
     headers: {
@@ -1146,7 +1146,7 @@ export function topKeyWord (data) {
 
 export function kvList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/kv/list',
+    url: '/vehicle-mgr/kv/list',
     method: 'post',
     data: data,
     headers: {
@@ -1158,7 +1158,7 @@ export function kvList (data) {
 
 export function kvAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/kv/editsave',
+    url: '/vehicle-mgr/kv/editsave',
     method: 'post',
     data: data,
     headers: {
@@ -1170,7 +1170,7 @@ export function kvAdd (data) {
 
 export function kvUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/kv/update',
+    url: '/vehicle-mgr/kv/update',
     method: 'post',
     data: data,
     headers: {
@@ -1182,7 +1182,7 @@ export function kvUpd (data) {
 
 export function kvDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/kv/delete',
+    url: '/vehicle-mgr/kv/delete',
     method: 'post',
     data: data,
     headers: {
@@ -1194,7 +1194,7 @@ export function kvDel (data) {
 
 export function giftDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/gift/status',
+    url: '/vehicle-mgr/gift/status',
     method: 'post',
     data: data,
     headers: {
@@ -1206,7 +1206,7 @@ export function giftDel (data) {
 
 export function engineView (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/kv/engine/view',
+    url: '/vehicle-mgr/kv/engine/view',
     method: 'post',
     data: data,
     headers: {
@@ -1218,7 +1218,7 @@ export function engineView (data) {
 
 export function engineUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/kv/engine/edit',
+    url: '/vehicle-mgr/kv/engine/edit',
     method: 'post',
     data: data,
     headers: {
@@ -1230,7 +1230,7 @@ export function engineUpd (data) {
 
 export function outerList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/outer/list',
+    url: '/vehicle-mgr/outer/list',
     method: 'post',
     data: data,
     headers: {
@@ -1242,7 +1242,7 @@ export function outerList (data) {
 
 export function outerInfo (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/outer/detail',
+    url: '/vehicle-mgr/outer/detail',
     method: 'post',
     data: data,
     headers: {
@@ -1254,7 +1254,7 @@ export function outerInfo (data) {
 
 export function skillList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/applist',
+    url: '/vehicle-mgr/skill/applist',
     method: 'post',
     data: data,
     headers: {
@@ -1266,7 +1266,7 @@ export function skillList (data) {
 
 export function skillAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/appadd',
+    url: '/vehicle-mgr/skill/appadd',
     method: 'post',
     data: data,
     headers: {
@@ -1278,7 +1278,7 @@ export function skillAdd (data) {
 
 export function skillUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/appupdate',
+    url: '/vehicle-mgr/skill/appupdate',
     method: 'post',
     data: data,
     headers: {
@@ -1290,7 +1290,7 @@ export function skillUpd (data) {
 
 export function skillDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/appdelete',
+    url: '/vehicle-mgr/skill/appdelete',
     method: 'post',
     data: data,
     headers: {
@@ -1302,7 +1302,7 @@ export function skillDel (data) {
 
 export function skillInfo (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/appdetail',
+    url: '/vehicle-mgr/skill/appdetail',
     method: 'post',
     data: data,
     headers: {
@@ -1314,7 +1314,7 @@ export function skillInfo (data) {
 
 export function skillDetailAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/functionadd',
+    url: '/vehicle-mgr/skill/functionadd',
     method: 'post',
     data: data,
     headers: {
@@ -1326,7 +1326,7 @@ export function skillDetailAdd (data) {
 
 export function skillDetailDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/functiondelete',
+    url: '/vehicle-mgr/skill/functiondelete',
     method: 'post',
     data: data,
     headers: {
@@ -1338,7 +1338,7 @@ export function skillDetailDel (data) {
 
 export function skillDetailUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/functionupdate',
+    url: '/vehicle-mgr/skill/functionupdate',
     method: 'post',
     data: data,
     headers: {
@@ -1351,7 +1351,7 @@ export function skillDetailUpd (data) {
 // 说法列表
 export function speakList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/speaklist',
+    url: '/vehicle-mgr/skill/speaklist',
     method: 'post',
     data: data,
     headers: {
@@ -1363,7 +1363,7 @@ export function speakList (data) {
 
 export function speakAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/speakadd',
+    url: '/vehicle-mgr/skill/speakadd',
     method: 'post',
     data: data,
     headers: {
@@ -1375,7 +1375,7 @@ export function speakAdd (data) {
 
 export function speakUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/speakupdate',
+    url: '/vehicle-mgr/skill/speakupdate',
     method: 'post',
     data: data,
     headers: {
@@ -1387,7 +1387,7 @@ export function speakUpd (data) {
 
 export function speakDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/speakdelete',
+    url: '/vehicle-mgr/skill/speakdelete',
     method: 'post',
     data: data,
     headers: {
@@ -1399,7 +1399,7 @@ export function speakDel (data) {
 
 export function speakPub (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/speakpublish',
+    url: '/vehicle-mgr/skill/speakpublish',
     method: 'post',
     data: data,
     headers: {
@@ -1412,7 +1412,7 @@ export function speakPub (data) {
 // 答案列表
 export function versionList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/versionlist',
+    url: '/vehicle-mgr/skill/versionlist',
     method: 'post',
     data: data,
     headers: {
@@ -1424,7 +1424,7 @@ export function versionList (data) {
 
 export function versionAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/versionadd',
+    url: '/vehicle-mgr/skill/versionadd',
     method: 'post',
     data: data,
     headers: {
@@ -1436,7 +1436,7 @@ export function versionAdd (data) {
 
 export function versionUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/versionupdate',
+    url: '/vehicle-mgr/skill/versionupdate',
     method: 'post',
     data: data,
     headers: {
@@ -1448,7 +1448,7 @@ export function versionUpd (data) {
 
 export function versionDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/versiondelete',
+    url: '/vehicle-mgr/skill/versiondelete',
     method: 'post',
     data: data,
     headers: {
@@ -1460,7 +1460,7 @@ export function versionDel (data) {
 
 export function versionStr (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/versionstrategy',
+    url: '/vehicle-mgr/skill/versionstrategy',
     method: 'post',
     data: data,
     headers: {
@@ -1473,7 +1473,7 @@ export function versionStr (data) {
 // 技能视频管理
 export function videoList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/videolist',
+    url: '/vehicle-mgr/skill/videolist',
     method: 'post',
     data: data,
     headers: {
@@ -1485,7 +1485,7 @@ export function videoList (data) {
 
 export function videoSelect (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/videoaddpage',
+    url: '/vehicle-mgr/skill/videoaddpage',
     method: 'post',
     data: data,
     headers: {
@@ -1497,7 +1497,7 @@ export function videoSelect (data) {
 
 export function videoAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/videoadd',
+    url: '/vehicle-mgr/skill/videoadd',
     method: 'post',
     data: data,
     headers: {
@@ -1509,7 +1509,7 @@ export function videoAdd (data) {
 
 export function videoUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/videoupdate',
+    url: '/vehicle-mgr/skill/videoupdate',
     method: 'post',
     data: data,
     headers: {
@@ -1521,7 +1521,7 @@ export function videoUpd (data) {
 
 export function videoDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/videodelete',
+    url: '/vehicle-mgr/skill/videodelete',
     method: 'post',
     data: data,
     headers: {
@@ -1533,7 +1533,7 @@ export function videoDel (data) {
 
 export function videoDelBatch (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/videoDelBatch',
+    url: '/vehicle-mgr/skill/videoDelBatch',
     method: 'post',
     data: data,
     headers: {
@@ -1546,7 +1546,7 @@ export function videoDelBatch (data) {
 // 音乐列表
 export function singerList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/singerlist',
+    url: '/vehicle-mgr/skill/music/singerlist',
     method: 'post',
     data: data,
     headers: {
@@ -1558,7 +1558,7 @@ export function singerList (data) {
 
 export function singerAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/addsinger',
+    url: '/vehicle-mgr/skill/music/addsinger',
     method: 'post',
     data: data,
     headers: {
@@ -1570,7 +1570,7 @@ export function singerAdd (data) {
 
 export function singerUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/updatesinger',
+    url: '/vehicle-mgr/skill/music/updatesinger',
     method: 'post',
     data: data,
     headers: {
@@ -1582,7 +1582,7 @@ export function singerUpd (data) {
 
 export function singerDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/deletesinger',
+    url: '/vehicle-mgr/skill/music/deletesinger',
     method: 'post',
     data: data,
     headers: {
@@ -1594,7 +1594,7 @@ export function singerDel (data) {
 
 export function singerPub (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/singerpublish',
+    url: '/vehicle-mgr/skill/music/singerpublish',
     method: 'post',
     data: data,
     headers: {
@@ -1607,7 +1607,7 @@ export function singerPub (data) {
 // 专辑
 export function albumList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/albumlist',
+    url: '/vehicle-mgr/skill/music/albumlist',
     method: 'post',
     data: data,
     headers: {
@@ -1619,7 +1619,7 @@ export function albumList (data) {
 
 export function albumAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/addalbum',
+    url: '/vehicle-mgr/skill/music/addalbum',
     method: 'post',
     data: data,
     headers: {
@@ -1631,7 +1631,7 @@ export function albumAdd (data) {
 
 export function albumUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/updatealbum',
+    url: '/vehicle-mgr/skill/music/updatealbum',
     method: 'post',
     data: data,
     headers: {
@@ -1643,7 +1643,7 @@ export function albumUpd (data) {
 
 export function albumDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/deletealbum',
+    url: '/vehicle-mgr/skill/music/deletealbum',
     method: 'post',
     data: data,
     headers: {
@@ -1656,7 +1656,7 @@ export function albumDel (data) {
 // 歌曲
 export function songList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/songlist',
+    url: '/vehicle-mgr/skill/music/songlist',
     method: 'post',
     data: data,
     headers: {
@@ -1668,7 +1668,7 @@ export function songList (data) {
 
 export function songSelect (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/songaddpage',
+    url: '/vehicle-mgr/skill/music/songaddpage',
     method: 'post',
     data: data,
     headers: {
@@ -1680,7 +1680,7 @@ export function songSelect (data) {
 
 export function songAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/addsong',
+    url: '/vehicle-mgr/skill/music/addsong',
     method: 'post',
     data: data,
     headers: {
@@ -1692,7 +1692,7 @@ export function songAdd (data) {
 
 export function songUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/updatesong',
+    url: '/vehicle-mgr/skill/music/updatesong',
     method: 'post',
     data: data,
     headers: {
@@ -1704,7 +1704,7 @@ export function songUpd (data) {
 
 export function songDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/skill/music/deletesong',
+    url: '/vehicle-mgr/skill/music/deletesong',
     method: 'post',
     data: data,
     headers: {
@@ -1716,7 +1716,7 @@ export function songDel (data) {
 
 export function commandList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/list',
+    url: '/vehicle-mgr/command/list',
     method: 'post',
     data: data,
     headers: {
@@ -1728,7 +1728,7 @@ export function commandList (data) {
 
 export function commandDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/delete',
+    url: '/vehicle-mgr/command/delete',
     method: 'post',
     data: data,
     headers: {
@@ -1740,7 +1740,7 @@ export function commandDel (data) {
 
 export function commandEcho (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/main/list',
+    url: '/vehicle-mgr/command/main/list',
     method: 'post',
     data: data,
     headers: {
@@ -1752,7 +1752,7 @@ export function commandEcho (data) {
 
 export function commandAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/add',
+    url: '/vehicle-mgr/command/add',
     method: 'post',
     data: data,
     headers: {
@@ -1764,7 +1764,7 @@ export function commandAdd (data) {
 
 export function norunList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/norun/list',
+    url: '/vehicle-mgr/command/norun/list',
     method: 'post',
     data: data,
     headers: {
@@ -1776,7 +1776,7 @@ export function norunList (data) {
 
 export function norunAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/norun/add',
+    url: '/vehicle-mgr/command/norun/add',
     method: 'post',
     data: data,
     headers: {
@@ -1788,7 +1788,7 @@ export function norunAdd (data) {
 
 export function norunDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/norun/delete',
+    url: '/vehicle-mgr/command/norun/delete',
     method: 'post',
     data: data,
     headers: {
@@ -1800,7 +1800,7 @@ export function norunDel (data) {
 
 export function originalList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/mainlist',
+    url: '/vehicle-mgr/command/mainlist',
     method: 'post',
     data: data,
     headers: {
@@ -1812,7 +1812,7 @@ export function originalList (data) {
 
 export function originalAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/mainadd',
+    url: '/vehicle-mgr/command/mainadd',
     method: 'post',
     data: data,
     headers: {
@@ -1824,7 +1824,7 @@ export function originalAdd (data) {
 
 export function originalUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/mainupdate',
+    url: '/vehicle-mgr/command/mainupdate',
     method: 'post',
     data: data,
     headers: {
@@ -1836,7 +1836,7 @@ export function originalUpd (data) {
 
 export function originalDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/command/maindelete',
+    url: '/vehicle-mgr/command/maindelete',
     method: 'post',
     data: data,
     headers: {
@@ -1848,7 +1848,7 @@ export function originalDel (data) {
 
 export function clientList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/asr/log/client',
+    url: '/vehicle-mgr/asr/log/client',
     method: 'post',
     data: data,
     headers: {
@@ -1860,7 +1860,7 @@ export function clientList (data) {
 
 export function rawList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/asr/log/rawlog',
+    url: '/vehicle-mgr/asr/log/rawlog',
     method: 'post',
     data: data,
     headers: {
@@ -1872,7 +1872,7 @@ export function rawList (data) {
 
 export function rawView (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/asr/dialog/rawview',
+    url: '/vehicle-mgr/asr/dialog/rawview',
     method: 'post',
     data: data,
     headers: {
@@ -1884,7 +1884,7 @@ export function rawView (data) {
 
 export function oprList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/asr/log/oprlog',
+    url: '/vehicle-mgr/asr/log/oprlog',
     method: 'post',
     data: data,
     headers: {
@@ -1896,7 +1896,7 @@ export function oprList (data) {
 
 export function rvdList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/asr/log/rvdlog',
+    url: '/vehicle-mgr/asr/log/rvdlog',
     method: 'post',
     data: data,
     headers: {
@@ -1908,7 +1908,7 @@ export function rvdList (data) {
 
 export function logList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/servlog/loglist',
+    url: '/vehicle-mgr/servlog/loglist',
     method: 'post',
     data: data,
     headers: {
@@ -1920,7 +1920,7 @@ export function logList (data) {
 
 export function logInfo (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/servlog/detail',
+    url: '/vehicle-mgr/servlog/detail',
     method: 'post',
     data: data,
     headers: {
@@ -1932,7 +1932,7 @@ export function logInfo (data) {
 
 export function asrfList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/asr/log/asrf',
+    url: '/vehicle-mgr/asr/log/asrf',
     method: 'post',
     data: data,
     headers: {
@@ -1944,7 +1944,7 @@ export function asrfList (data) {
 
 export function asrChat (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/asr/log/asrcharts',
+    url: '/vehicle-mgr/asr/log/asrcharts',
     method: 'post',
     data: data,
     headers: {
@@ -1956,7 +1956,7 @@ export function asrChat (data) {
 
 export function servList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/vse/log/serv',
+    url: '/vehicle-mgr/vse/log/serv',
     method: 'post',
     data: data,
     headers: {
@@ -1968,7 +1968,7 @@ export function servList (data) {
 
 export function durChat (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/stat/duration',
+    url: '/vehicle-mgr/stat/duration',
     method: 'post',
     data: data,
     headers: {
@@ -1981,7 +1981,7 @@ export function durChat (data) {
 // 访问量统计
 export function censusList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/census/list',
+    url: '/vehicle-mgr/census/list',
     method: 'post',
     data: data,
     headers: {
@@ -1993,7 +1993,7 @@ export function censusList (data) {
 
 export function censusUserList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/census/userList',
+    url: '/vehicle-mgr/census/userList',
     method: 'post',
     data: data,
     headers: {
@@ -2005,7 +2005,7 @@ export function censusUserList (data) {
 
 export function servlogList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/servlog/list',
+    url: '/vehicle-mgr/servlog/list',
     method: 'post',
     data: data,
     headers: {
@@ -2017,7 +2017,7 @@ export function servlogList (data) {
 
 export function avaterList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/avater/list',
+    url: '/vehicle-mgr/avater/list',
     method: 'post',
     data: data,
     headers: {
@@ -2029,7 +2029,7 @@ export function avaterList (data) {
 
 export function lenKeyList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/lenovokey/list',
+    url: '/vehicle-mgr/lenovokey/list',
     method: 'post',
     data: data,
     headers: {
@@ -2041,7 +2041,7 @@ export function lenKeyList (data) {
 
 export function stateAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/gift/add',
+    url: '/vehicle-mgr/gift/add',
     method: 'post',
     data: data,
     headers: {
@@ -2053,7 +2053,7 @@ export function stateAdd (data) {
 
 export function querySql (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/gift/querySql',
+    url: '/vehicle-mgr/gift/querySql',
     method: 'post',
     data: data,
     headers: {
@@ -2065,7 +2065,7 @@ export function querySql (data) {
 
 export function itemList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/item/list',
+    url: '/vehicle-mgr/item/list',
     method: 'post',
     data: data,
     headers: {
@@ -2077,7 +2077,7 @@ export function itemList (data) {
 
 export function itemSave (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/item/save',
+    url: '/vehicle-mgr/item/save',
     method: 'post',
     data: data,
     headers: {
@@ -2089,7 +2089,7 @@ export function itemSave (data) {
 
 export function itemDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/item/del',
+    url: '/vehicle-mgr/item/del',
     method: 'post',
     data: data,
     headers: {
@@ -2101,7 +2101,7 @@ export function itemDel (data) {
 
 export function itemUpFile (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/item/excel',
+    url: '/vehicle-mgr/item/excel',
     method: 'post',
     data: data,
     headers: {
@@ -2113,7 +2113,7 @@ export function itemUpFile (data) {
 
 export function itemPub (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/item/pub',
+    url: '/vehicle-mgr/item/pub',
     method: 'post',
     data: data,
     headers: {
@@ -2125,7 +2125,7 @@ export function itemPub (data) {
 
 export function avaterChannel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/avater/channelList',
+    url: '/vehicle-mgr/avater/channelList',
     method: 'post',
     data: data,
     headers: {
@@ -2137,7 +2137,7 @@ export function avaterChannel (data) {
 
 export function sourceList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/source/list',
+    url: '/vehicle-mgr/source/list',
     method: 'post',
     data: data,
     headers: {
@@ -2149,7 +2149,7 @@ export function sourceList (data) {
 
 export function sourceExport (data) {
   return fetch.ExcelDownload({
-    url: '/velicle-mgr/source/export',
+    url: '/vehicle-mgr/source/export',
     method: 'post',
     data: data,
     headers: {
@@ -2161,7 +2161,7 @@ export function sourceExport (data) {
 
 export function usernameList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/lenovokey/userNameList',
+    url: '/vehicle-mgr/lenovokey/userNameList',
     method: 'post',
     data: data,
     headers: {
@@ -2173,7 +2173,7 @@ export function usernameList (data) {
 
 export function sourceUserNameList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/source/userNameList',
+    url: '/vehicle-mgr/source/userNameList',
     method: 'post',
     data: data,
     headers: {
@@ -2185,7 +2185,7 @@ export function sourceUserNameList (data) {
 
 export function showModeList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/list',
+    url: '/vehicle-mgr/showmode/list',
     method: 'post',
     data: data,
     headers: {
@@ -2197,7 +2197,7 @@ export function showModeList (data) {
 
 export function showModeAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/add',
+    url: '/vehicle-mgr/showmode/add',
     method: 'post',
     data: data,
     headers: {
@@ -2209,7 +2209,7 @@ export function showModeAdd (data) {
 
 export function showModeUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/update',
+    url: '/vehicle-mgr/showmode/update',
     method: 'post',
     data: data,
     headers: {
@@ -2221,7 +2221,7 @@ export function showModeUpd (data) {
 
 export function showModeDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/delete',
+    url: '/vehicle-mgr/showmode/delete',
     method: 'post',
     data: data,
     headers: {
@@ -2233,7 +2233,7 @@ export function showModeDel (data) {
 
 export function showModeRele (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/toBeReleased',
+    url: '/vehicle-mgr/showmode/toBeReleased',
     method: 'post',
     data: data,
     headers: {
@@ -2245,7 +2245,7 @@ export function showModeRele (data) {
 
 export function configList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/resources/config/list',
+    url: '/vehicle-mgr/resources/config/list',
     method: 'post',
     data: data,
     headers: {
@@ -2257,7 +2257,7 @@ export function configList (data) {
 
 export function configAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/resources/config/add',
+    url: '/vehicle-mgr/resources/config/add',
     method: 'post',
     data: data,
     headers: {
@@ -2269,7 +2269,7 @@ export function configAdd (data) {
 
 export function showModeAll (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/queryRelease',
+    url: '/vehicle-mgr/showmode/queryRelease',
     method: 'post',
     data: data,
     headers: {
@@ -2281,7 +2281,7 @@ export function showModeAll (data) {
 
 export function showModeSave (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/savePublish',
+    url: '/vehicle-mgr/showmode/savePublish',
     method: 'post',
     data: data,
     headers: {
@@ -2293,7 +2293,7 @@ export function showModeSave (data) {
 
 export function showModeImport (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/xmlyImport',
+    url: '/vehicle-mgr/showmode/xmlyImport',
     method: 'post',
     data: data,
     headers: {
@@ -2305,7 +2305,7 @@ export function showModeImport (data) {
 
 export function carouselListEnable (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/carousel/listEnable',
+    url: '/vehicle-mgr/carousel/listEnable',
     method: 'post',
     data: data,
     headers: {
@@ -2317,7 +2317,7 @@ export function carouselListEnable (data) {
 
 export function grayList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/listGray',
+    url: '/vehicle-mgr/showmode/listGray',
     method: 'post',
     data: data,
     headers: {
@@ -2329,7 +2329,7 @@ export function grayList (data) {
 
 export function updGray (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/updGray',
+    url: '/vehicle-mgr/showmode/updGray',
     method: 'post',
     data: data,
     headers: {
@@ -2341,7 +2341,7 @@ export function updGray (data) {
 
 export function deleteGray (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/deleteGray',
+    url: '/vehicle-mgr/showmode/deleteGray',
     method: 'post',
     data: data,
     headers: {
@@ -2353,7 +2353,7 @@ export function deleteGray (data) {
 
 export function grayAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/addGray',
+    url: '/vehicle-mgr/showmode/addGray',
     method: 'post',
     data: data,
     headers: {
@@ -2365,7 +2365,7 @@ export function grayAdd (data) {
 
 export function grayUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/updateGray',
+    url: '/vehicle-mgr/showmode/updateGray',
     method: 'post',
     data: data,
     headers: {
@@ -2377,7 +2377,7 @@ export function grayUpd (data) {
 
 export function historyList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/history',
+    url: '/vehicle-mgr/showmode/history',
     method: 'post',
     data: data,
     headers: {
@@ -2389,7 +2389,7 @@ export function historyList (data) {
 
 export function historyDetails (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/versionDetails',
+    url: '/vehicle-mgr/showmode/versionDetails',
     method: 'post',
     data: data,
     headers: {
@@ -2401,7 +2401,7 @@ export function historyDetails (data) {
 
 export function historyDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/deleteHistory',
+    url: '/vehicle-mgr/showmode/deleteHistory',
     method: 'post',
     data: data,
     headers: {
@@ -2413,7 +2413,7 @@ export function historyDel (data) {
 
 export function listGrays (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/showmode/listGrays',
+    url: '/vehicle-mgr/showmode/listGrays',
     method: 'post',
     data: data,
     headers: {
@@ -2425,7 +2425,7 @@ export function listGrays (data) {
 
 export function allDurList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/allDur/list',
+    url: '/vehicle-mgr/allDur/list',
     method: 'post',
     data: data,
     headers: {
@@ -2437,7 +2437,7 @@ export function allDurList (data) {
 
 export function errChart (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/error/chart',
+    url: '/vehicle-mgr/error/chart',
     method: 'post',
     data: data,
     headers: {
@@ -2449,7 +2449,7 @@ export function errChart (data) {
 
 export function dictExcel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/dict/excel',
+    url: '/vehicle-mgr/dict/excel',
     method: 'post',
     data: data,
     headers: {
@@ -2461,7 +2461,7 @@ export function dictExcel (data) {
 
 export function dictDownload () {
   return fetch.FileDownload({
-    url: '/velicle-mgr/dict/download',
+    url: '/vehicle-mgr/dict/download',
     method: 'post',
     headers: {
       't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
@@ -2472,7 +2472,7 @@ export function dictDownload () {
 
 export function senExcel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/sen/excel',
+    url: '/vehicle-mgr/sen/excel',
     method: 'post',
     data: data,
     headers: {
@@ -2484,7 +2484,7 @@ export function senExcel (data) {
 
 export function downExcel () {
   return fetch.ExcelDownload({
-    url: '/velicle-mgr/sen/export',
+    url: '/vehicle-mgr/sen/export',
     method: 'post',
     headers: {
       't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
@@ -2495,7 +2495,7 @@ export function downExcel () {
 
 export function forumList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/forum/list',
+    url: '/vehicle-mgr/forum/list',
     method: 'post',
     data: data,
     headers: {
@@ -2507,7 +2507,7 @@ export function forumList (data) {
 
 export function forumDetele (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/forum/delete',
+    url: '/vehicle-mgr/forum/delete',
     method: 'post',
     data: data,
     headers: {
@@ -2519,7 +2519,7 @@ export function forumDetele (data) {
 
 export function forumAutoAudit (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/forum/review/status',
+    url: '/vehicle-mgr/forum/review/status',
     method: 'post',
     data: data,
     headers: {
@@ -2531,7 +2531,7 @@ export function forumAutoAudit (data) {
 
 export function forumDetails (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/forum/details',
+    url: '/vehicle-mgr/forum/details',
     method: 'post',
     data: data,
     headers: {
@@ -2543,7 +2543,7 @@ export function forumDetails (data) {
 
 export function forumDelbatch (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/forum/delbatch',
+    url: '/vehicle-mgr/forum/delbatch',
     method: 'post',
     data: data,
     headers: {
@@ -2555,7 +2555,7 @@ export function forumDelbatch (data) {
 
 export function forumReview (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/forum/update/review',
+    url: '/vehicle-mgr/forum/update/review',
     method: 'post',
     data: data,
     headers: {
@@ -2567,7 +2567,7 @@ export function forumReview (data) {
 
 export function forumUpdate (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/forum/update',
+    url: '/vehicle-mgr/forum/update',
     method: 'post',
     data: data,
     headers: {
@@ -2579,7 +2579,7 @@ export function forumUpdate (data) {
 
 export function engineDictList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/engineDict/list',
+    url: '/vehicle-mgr/engineDict/list',
     method: 'post',
     data: data,
     headers: {
@@ -2591,7 +2591,7 @@ export function engineDictList (data) {
 
 export function engineDictAddUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/engineDict/addandUpdate',
+    url: '/vehicle-mgr/engineDict/addandUpdate',
     method: 'post',
     data: data,
     headers: {
@@ -2603,7 +2603,7 @@ export function engineDictAddUpd (data) {
 
 export function engineDictDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/engineDict/del',
+    url: '/vehicle-mgr/engineDict/del',
     method: 'post',
     data: data,
     headers: {
@@ -2615,7 +2615,7 @@ export function engineDictDel (data) {
 
 export function engineDictExcel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/engineDict/excel',
+    url: '/vehicle-mgr/engineDict/excel',
     method: 'post',
     data: data,
     headers: {
@@ -2627,7 +2627,7 @@ export function engineDictExcel (data) {
 
 export function ttsregularList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ttsregular/list',
+    url: '/vehicle-mgr/ttsregular/list',
     method: 'post',
     data: data,
     headers: {
@@ -2639,7 +2639,7 @@ export function ttsregularList (data) {
 
 export function selRegular (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ttsregular/selRegular',
+    url: '/vehicle-mgr/ttsregular/selRegular',
     method: 'post',
     data: data,
     headers: {
@@ -2651,7 +2651,7 @@ export function selRegular (data) {
 
 export function ttsAddAndUpdate (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ttsregular/addAndUpdate',
+    url: '/vehicle-mgr/ttsregular/addAndUpdate',
     method: 'post',
     data: data,
     headers: {
@@ -2663,7 +2663,7 @@ export function ttsAddAndUpdate (data) {
 
 export function delRegular (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ttsregular/delRegular',
+    url: '/vehicle-mgr/ttsregular/delRegular',
     method: 'post',
     data: data,
     headers: {
@@ -2675,7 +2675,7 @@ export function delRegular (data) {
 
 export function delText (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/ttsregular/delText',
+    url: '/vehicle-mgr/ttsregular/delText',
     method: 'post',
     data: data,
     headers: {
@@ -2687,7 +2687,7 @@ export function delText (data) {
 
 export function newsList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/news/list',
+    url: '/vehicle-mgr/news/list',
     method: 'post',
     data: data,
     headers: {
@@ -2699,7 +2699,7 @@ export function newsList (data) {
 
 export function newsAddUpd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/news/addAndUpdate',
+    url: '/vehicle-mgr/news/addAndUpdate',
     method: 'post',
     data: data,
     headers: {
@@ -2711,7 +2711,7 @@ export function newsAddUpd (data) {
 
 export function newsDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/news/delNews',
+    url: '/vehicle-mgr/news/delNews',
     method: 'post',
     data: data,
     headers: {
@@ -2723,7 +2723,7 @@ export function newsDel (data) {
 
 export function audiokeeperList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/audiokeeper/list',
+    url: '/vehicle-mgr/audiokeeper/list',
     method: 'post',
     data: data,
     headers: {
@@ -2735,7 +2735,7 @@ export function audiokeeperList (data) {
 
 export function audiokeeperAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/audiokeeper/add',
+    url: '/vehicle-mgr/audiokeeper/add',
     method: 'post',
     data: data,
     headers: {
@@ -2747,7 +2747,7 @@ export function audiokeeperAdd (data) {
 
 export function audiokeeperExpire (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/audiokeeper/expire',
+    url: '/vehicle-mgr/audiokeeper/expire',
     method: 'post',
     data: data,
     headers: {
@@ -2759,7 +2759,7 @@ export function audiokeeperExpire (data) {
 
 export function socketTotal (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/audiokeeperMigrate/socketTotal',
+    url: '/vehicle-mgr/audiokeeperMigrate/socketTotal',
     method: 'post',
     data: data,
     headers: {
@@ -2771,7 +2771,7 @@ export function socketTotal (data) {
 
 export function clientTotal (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/engine/client/total',
+    url: '/vehicle-mgr/engine/client/total',
     method: 'post',
     data: data,
     headers: {
@@ -2783,7 +2783,7 @@ export function clientTotal (data) {
 
 export function engineOffline (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/engine/offline',
+    url: '/vehicle-mgr/engine/offline',
     method: 'post',
     data: data,
     headers: {
@@ -2795,7 +2795,7 @@ export function engineOffline (data) {
 
 export function engineOnline (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/engine/online',
+    url: '/vehicle-mgr/engine/online',
     method: 'post',
     data: data,
     headers: {
@@ -2807,7 +2807,7 @@ export function engineOnline (data) {
 
 export function migrate (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/audiokeeperMigrate/migrate',
+    url: '/vehicle-mgr/audiokeeperMigrate/migrate',
     method: 'post',
     data: data,
     headers: {
@@ -2819,7 +2819,7 @@ export function migrate (data) {
 
 export function voicebytes (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/audiokeeper/statistics/voicebytes',
+    url: '/vehicle-mgr/audiokeeper/statistics/voicebytes',
     method: 'post',
     data: data,
     headers: {
@@ -2831,7 +2831,7 @@ export function voicebytes (data) {
 
 export function useLog (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/colud/uselog/list',
+    url: '/vehicle-mgr/colud/uselog/list',
     method: 'post',
     data: data,
     headers: {
@@ -2843,7 +2843,7 @@ export function useLog (data) {
 
 export function syslogList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/sysLog/list',
+    url: '/vehicle-mgr/sysLog/list',
     method: 'post',
     data: data,
     headers: {
@@ -2855,7 +2855,7 @@ export function syslogList (data) {
 
 export function videoUpFile (data) {
   return fetch.UPFile({
-    url: '/velicle-mgr/skill/videoexcel',
+    url: '/vehicle-mgr/skill/videoexcel',
     method: 'post',
     data: data,
     headers: {
@@ -2867,7 +2867,7 @@ export function videoUpFile (data) {
 
 export function albumUpFile (data) {
   return fetch.UPFile({
-    url: '/velicle-mgr/skill/music/albumexcel',
+    url: '/vehicle-mgr/skill/music/albumexcel',
     method: 'post',
     data: data,
     headers: {
@@ -2879,7 +2879,7 @@ export function albumUpFile (data) {
 
 export function singerUpFile (data) {
   return fetch.UPFile({
-    url: '/velicle-mgr/skill/music/singerexcel',
+    url: '/vehicle-mgr/skill/music/singerexcel',
     method: 'post',
     data: data,
     headers: {
@@ -2891,7 +2891,7 @@ export function singerUpFile (data) {
 
 export function songUpFile (data) {
   return fetch.UPFile({
-    url: '/velicle-mgr/skill/music/songexcel',
+    url: '/vehicle-mgr/skill/music/songexcel',
     method: 'post',
     data: data,
     headers: {
@@ -2903,7 +2903,7 @@ export function songUpFile (data) {
 
 export function payList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/paydaily/list ',
+    url: '/vehicle-mgr/paydaily/list ',
     method: 'post',
     data: data,
     headers: {
@@ -2915,7 +2915,7 @@ export function payList (data) {
 
 export function payExport (data) {
   return fetch.ExcelDownload({
-    url: '/velicle-mgr/paydaily/export',
+    url: '/vehicle-mgr/paydaily/export',
     method: 'post',
     data: data,
     headers: {
@@ -2927,7 +2927,7 @@ export function payExport (data) {
 
 export function iotList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/iot/list',
+    url: '/vehicle-mgr/iot/list',
     method: 'post',
     data: data,
     headers: {
@@ -2939,7 +2939,7 @@ export function iotList (data) {
 
 export function iotDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/iot/delete',
+    url: '/vehicle-mgr/iot/delete',
     method: 'post',
     data: data,
     headers: {
@@ -2951,7 +2951,7 @@ export function iotDel (data) {
 
 export function iotPull (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/iot/pull',
+    url: '/vehicle-mgr/iot/pull',
     method: 'post',
     data: data,
     headers: {
@@ -2963,7 +2963,7 @@ export function iotPull (data) {
 
 export function triggerBatchDownload (data) {
   return fetch.FileDownload({
-    url: '/velicle-mgr/trigger/batchDownload',
+    url: '/vehicle-mgr/trigger/batchDownload',
     method: 'post',
     data: data,
     headers: {
@@ -2975,7 +2975,7 @@ export function triggerBatchDownload (data) {
 
 export function sceneList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/scene/list ',
+    url: '/vehicle-mgr/scene/list ',
     method: 'post',
     data: data,
     headers: {
@@ -2987,7 +2987,7 @@ export function sceneList (data) {
 
 export function sceneControl (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/scene/control ',
+    url: '/vehicle-mgr/scene/control ',
     method: 'post',
     data: data,
     headers: {
@@ -2999,7 +2999,7 @@ export function sceneControl (data) {
 
 export function audiokeeperRecovery (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/audiokeeper/recovery ',
+    url: '/vehicle-mgr/audiokeeper/recovery ',
     method: 'post',
     data: data,
     headers: {
@@ -3011,7 +3011,7 @@ export function audiokeeperRecovery (data) {
 
 export function iotLogList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/iot/log/list',
+    url: '/vehicle-mgr/iot/log/list',
     method: 'post',
     data: data,
     headers: {
@@ -3023,7 +3023,7 @@ export function iotLogList (data) {
 
 export function iotUpdate (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/iot/update',
+    url: '/vehicle-mgr/iot/update',
     method: 'post',
     data: data,
     headers: {
@@ -3035,7 +3035,7 @@ export function iotUpdate (data) {
 
 export function clientChart (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/log/client/chart',
+    url: '/vehicle-mgr/log/client/chart',
     method: 'post',
     data: data,
     headers: {
@@ -3047,7 +3047,7 @@ export function clientChart (data) {
 
 export function goodsList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/goods/list',
+    url: '/vehicle-mgr/goods/list',
     method: 'post',
     data: data,
     headers: {
@@ -3059,7 +3059,7 @@ export function goodsList (data) {
 
 export function goodsUpdate (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/goods/update',
+    url: '/vehicle-mgr/goods/update',
     method: 'post',
     data: data,
     headers: {
@@ -3071,7 +3071,7 @@ export function goodsUpdate (data) {
 
 export function goodsDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/goods/delete',
+    url: '/vehicle-mgr/goods/delete',
     method: 'post',
     data: data,
     headers: {
@@ -3083,7 +3083,7 @@ export function goodsDel (data) {
 
 export function goodsAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/goods/add',
+    url: '/vehicle-mgr/goods/add',
     method: 'post',
     data: data,
     headers: {
@@ -3095,7 +3095,7 @@ export function goodsAdd (data) {
 
 export function visitList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/visit/list',
+    url: '/vehicle-mgr/visit/list',
     method: 'post',
     data: data,
     headers: {
@@ -3107,7 +3107,7 @@ export function visitList (data) {
 
 export function visitPages (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/visit/pages',
+    url: '/vehicle-mgr/visit/pages',
     method: 'post',
     data: data,
     headers: {
@@ -3119,7 +3119,7 @@ export function visitPages (data) {
 
 export function licenseList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/license/list',
+    url: '/vehicle-mgr/license/list',
     method: 'post',
     data: data,
     headers: {
@@ -3131,7 +3131,7 @@ export function licenseList (data) {
 
 export function licenseAdd (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/license/add',
+    url: '/vehicle-mgr/license/add',
     method: 'post',
     data: data,
     headers: {
@@ -3143,7 +3143,7 @@ export function licenseAdd (data) {
 
 export function licenseUpdate (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/license/update',
+    url: '/vehicle-mgr/license/update',
     method: 'post',
     data: data,
     headers: {
@@ -3155,7 +3155,7 @@ export function licenseUpdate (data) {
 
 export function licenseDel (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/license/delete',
+    url: '/vehicle-mgr/license/delete',
     method: 'post',
     data: data,
     headers: {
@@ -3167,7 +3167,7 @@ export function licenseDel (data) {
 
 export function licenseGen (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/license/generate',
+    url: '/vehicle-mgr/license/generate',
     method: 'post',
     data: data,
     headers: {
@@ -3179,7 +3179,7 @@ export function licenseGen (data) {
 
 export function licenseDown (data) {
   return fetch.FileDownload({
-    url: '/velicle-mgr/license/download',
+    url: '/vehicle-mgr/license/download',
     method: 'post',
     data: data,
     headers: {
@@ -3191,7 +3191,7 @@ export function licenseDown (data) {
 
 export function activitiNotice (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/activiti/notice',
+    url: '/vehicle-mgr/activiti/notice',
     method: 'post',
     data: data,
     headers: {
@@ -3203,7 +3203,7 @@ export function activitiNotice (data) {
 
 export function activitiRead (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/activiti/read',
+    url: '/vehicle-mgr/activiti/read',
     method: 'post',
     data: data,
     headers: {
@@ -3215,7 +3215,7 @@ export function activitiRead (data) {
 
 export function nlulogList (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/nlulog/list',
+    url: '/vehicle-mgr/nlulog/list',
     method: 'post',
     data: data,
     headers: {
@@ -3227,7 +3227,7 @@ export function nlulogList (data) {
 
 export function nlulogDict (data) {
   return fetch.service_head({
-    url: '/velicle-mgr/nlulog/dict',
+    url: '/vehicle-mgr/nlulog/dict',
     method: 'post',
     data: data,
     headers: {
@@ -3239,7 +3239,7 @@ export function nlulogDict (data) {
 
 export function servDownload (ixid,svr,time) {
   return fetch.FileDownload({
-    url: '/velicle-mgr/servlog/downLoad?ixid='+ixid+'&svr='+svr+'&uip='+time,
+    url: '/vehicle-mgr/servlog/downLoad?ixid='+ixid+'&svr='+svr+'&uip='+time,
     method: 'get',
     headers: {
       't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
