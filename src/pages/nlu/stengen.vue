@@ -153,7 +153,7 @@
         :total="totalCount"
       ></el-pagination>
     </div>
-    <el-dialog custom-class="gendialog" :close-on-click-modal="false" :close-on-press-escape="false" title="生成分类" :visible.sync="addVisible" width="80%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
+    <el-dialog custom-class="gendialog" :close-on-click-modal="false" :close-on-press-escape="false" title="生成分类" :visible.sync="addVisible" width="70%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
         <div class="main-box">
             <el-form :model="addList" class="demo-form-inline create-form" label-width="90px" size="mini" :rules="addRules" ref="addList">
                 <el-form-item label="intent" prop="intent">
@@ -361,10 +361,11 @@ export default {
                             if(res.data.code == 200){
                                 this.$message({
                                     message:'已生成分类',
-                                    type:'error',
+                                    type:'success',
                                     duration:2000
                                 });
                                 this.addVisible = false
+                                this.getList()
                             }else{
                                 this.$message({
                                     message:res.data.msg,
@@ -442,7 +443,7 @@ export default {
             let params = {
                 pgstr:this.dialogListCurrentPage,
                 pcstr:this.dialogListPageSize,
-                intent:this.addList.intent
+                type:this.addList.intent
             }
             params.sign = deleteParams(params)
             nluSentenceList(params).then(res => {

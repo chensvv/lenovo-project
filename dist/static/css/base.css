@@ -1457,7 +1457,7 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   justify-content: space-between;
 }
 .main-box .create-form{
-  width: 31%;
+  width: 285px;
 }
 .main-box .table-box{
   width: 65%;

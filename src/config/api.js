@@ -3525,7 +3525,7 @@ export function stenGenDel (data) {
 }
 
 export function stenGenDown (data) {
-  return fetch.service_head({
+  return fetch.FileDownload({
     url: '/lasf-mgr/nlu/stenGen/download',
     method: 'post',
     data: data,
