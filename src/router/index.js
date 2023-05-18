@@ -29,10 +29,6 @@ const router = new Router({
       redirect: '/home'
     },
     {
-      path: '/vehivoice',
-      redirect: '/home'
-    },
-    {
       path: '*',
       redirect: '/404'
     },
