@@ -11,18 +11,19 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-            changeOrigin: true, //改变源
-            target: 'http://10.110.148.57:8085', //源地址
-            pathRewrite: {
-              '^/api': '/lasf-mgr' //路径重写
-            }
-          }
+      '/lasf-mgr': { // 代理
+        target: 'http://10.110.148.57:8085',//后端接口地址
+        // secure: true,  // 如果是https接口，需要配置这个参数
+        changeOrigin: true,//是否允许跨越
+        pathRewrite: {
+          '^/lasf-mgr': '/lasf-mgr',//重写,
+        }
+      },
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
-    port: 7099, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    host: '127.0.0.1', // can be overwritten by process.env.HOST
+    port: 8085, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
@@ -52,6 +53,12 @@ module.exports = {
   },
 
   build: {
+
+    // 配置打包环境
+    prodEnv: require('./prod.env'),
+    testEnv: require('./test.env'),
+    // index: path.resolve(__dirname, '../' + process.env.EVN_CONFIG + '_dist/index.html'),
+    // assetsRoot: path.resolve(__dirname, '../' + process.env.EVN_CONFIG + '_dist'),
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 

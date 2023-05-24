@@ -8,12 +8,13 @@ import {
 // eslint-disable-next-line no-unused-vars
 let service = {}
 // let proURL = 'http://10.110.148.57:8085'
-let proURL = 'https://voice.lenovomm.com'
+// let proURL = 'https://voice.lenovomm.com'
+let proURL = process.env.BASE_API
 // axios 配置
 // eslint-disable-next-line camelcase
 const service_head = axios.create({
-  // baseURL: process.env.BASE_API,
-  baseURL: proURL,
+  baseURL: process.env.BASE_API,
+  // baseURL: proURL,
   // timeout: 15000, // 请求超时时间
   withCredentials: false,
 })
@@ -121,7 +122,8 @@ service_head.interceptors.response.use(response => {
 })
 
 const UPFile = axios.create({
-  baseURL: proURL,
+  // baseURL: proURL,
+  baseURL: process.env.BASE_API,
   // timeout: 15000, // 请求超时时间
   headers: {
     'Content-Type': 'multipart/form-data'
@@ -129,7 +131,8 @@ const UPFile = axios.create({
 })
 
 const FileDownload = axios.create({
-  baseURL: proURL,
+  // baseURL: proURL,
+  baseURL: process.env.BASE_API,
   // timeout: 15000, // 请求超时时间
   headers: {
     'Content-Type': 'application/json; application/octet-stream'
@@ -137,7 +140,8 @@ const FileDownload = axios.create({
   responseType: 'blob'
 })
 const ExcelDownload = axios.create({
-  baseURL: proURL,
+  // baseURL: proURL,
+  baseURL: process.env.BASE_API,
   // timeout: 15000, // 请求超时时间
   responseType: 'blob',
   
