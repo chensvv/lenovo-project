@@ -48,7 +48,9 @@
 import {avaterList,avaterChannel} from '@/config/api'
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-let echarts = require('echarts/lib/echarts')
+const echarts = require('echarts/lib/echarts');
+require('echarts/lib/component/grid');
+require('echarts/lib/chart/bar');
 export default {
   data() {
     let vue = this
@@ -129,11 +131,11 @@ export default {
         this.searchItem.endTime = val[1]
     },
     computedPosition(length,xArraylength) {
-        if(xArraylength>=10){
-            return length <= 10 ? this.end = 50 : this.end = (100 -   Math.floor(50 / length * 100));
-        }else{
-            return 100;//小于十条数据显示全部
-        }
+      if(xArraylength>=10){
+        return length <= 10 ? this.end = 50 : this.end = (100 -   Math.floor(50 / length * 100));
+      }else{
+        return 100;//小于十条数据显示全部
+      }
     },
     getChartsData(){
         // 基于准备好的dom，初始化echarts实例
@@ -159,12 +161,7 @@ export default {
                   text: '事件统计',
                   left:'center'
               },
-              tooltip: {
-                trigger: 'axis',
-                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: ''        // 默认为直线，可选为：'line' | 'shadow'
-                }
-              },
+              tooltip: {},
               xAxis: {
                   data: Xdata,
                   axisLabel:{
@@ -172,11 +169,11 @@ export default {
                   }
               },
               grid:{
-                 x:'5%', //左上角x轴距盒子边框的距离
-                 y:'10%', //左上角Y轴距盒子边框的距离
+                x:'5%', //左上角x轴距盒子边框的距离
+                y:'10%', //左上角Y轴距盒子边框的距离
                   x2:'5%',//右下角x轴距盒子边框的距离
-                 y2:'15%',//右下角Y轴距盒子边框的距离
-                 borderWidth:1
+                y2:'15%',//右下角Y轴距盒子边框的距离
+                borderWidth:1
               },
               yAxis: {
                 minInterval : 1

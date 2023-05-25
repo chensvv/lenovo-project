@@ -112,7 +112,7 @@
           <ul class="pagination">
               <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
               <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
-              <li v-if="isLastPage != false && currentPage !=1" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+              <li v-if="isLastPage != false && currentPage !=1 && currentPage-2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
               <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
               <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
               <li v-if="isLastPage != true" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
@@ -192,14 +192,14 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.currentPage = ''
-      this.maxId = ''
-      this.minId = ''
+      // this.currentPage = ''
+      this.MaxId = ''
+      this.MinId = ''
       this.getList(1)
     },
     onSubmit(){
       this.seaBtnLoading = true
-      this.currentPage = ''
+      // this.currentPage = ''
       this.getList(1)
       this.seaBtnLoading = false
     },

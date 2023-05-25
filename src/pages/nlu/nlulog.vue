@@ -2,7 +2,7 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/app/list'}">应用搜索</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/nlulog/list'}">运营日志分析</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
@@ -10,9 +10,11 @@
                 <el-form-item label="文本指令" prop="asrres">
                     <el-input v-model.trim="searchItem.asrres" clearable></el-input>
                 </el-form-item>
-                <!-- <el-form-item label="意图" prop="intent">
-                    <el-input v-model.trim="searchItem.intent" clearable></el-input>
-                </el-form-item> -->
+                <el-form-item label="处理分支" prop="pid">
+                    <el-select v-model="searchItem.pid" ref="approachId" :loading="roachLoading" placeholder="--" @change="roachChange">
+                        <el-option v-for="(item,index) in pidList" :key="index" :label="item.key" :value="item.id"></el-option>
+                    </el-select>
+                </el-form-item>
                 <el-popover
                     placement="right"
                     width="300"
@@ -25,26 +27,35 @@
                     >
                     <div class="as" v-loading="popLoading" element-loading-spinner="el-icon-loading" element-loading-background="rgba(255, 255, 255, 1)"></div>
                     <div  v-for="(item , i) in keyList" :key="i" class="keyLabel">
-                        <el-form-item :label="item.value" :prop="item.key">
-                            <el-input v-model.trim="searchKey[item.key]" clearable></el-input>
+                        <el-form-item :label="item.desc" :prop="item.key">
+                            <el-input v-model.trim="searchKey[item.key]"></el-input>
                         </el-form-item>
                     </div>
                     <!-- <el-button >click 激活</el-button> -->
                     <el-form-item label="意图" prop="intent" slot="reference">
-                        <el-input v-model.trim="searchItem.intent" clearable v-debounce-input="getLoginfoKey" @input="intentInput"></el-input>
+                        <!-- <el-input v-model.trim="searchItem.intent" clearable v-debounce-input="getLoginfoKey" @input="intentInput"></el-input> -->
+                        <el-select v-model="searchItem.intent" placeholder="--" ref="intent" clearable @change="intentChange" @visible-change="visibleChange" @clear="intentClear">
+                            <el-option v-for="(item,index) in intentList" :key="index" :label="item.key" :value="item.id"></el-option>
+                        </el-select>
                     </el-form-item>
                 </el-popover>
-                <el-form-item label="日期" prop="pickerVal" class="date-form">
+                <el-form-item label="parrot耗时" prop="parrotmin" class="parrotinput">
+                    <el-input v-model.trim="searchItem.parrotmin" clearable>
+                    </el-input> - 
+                    <el-input v-model.trim="searchItem.parrotmax" clearable></el-input>
+                </el-form-item>
+                
+                <el-form-item label="日期" prop="pickerVal" class="nludate-form">
                     <el-date-picker
                         v-model="searchItem.pickerVal"
-                        type="daterange"
+                        type="datetimerange"
                         align="center"
                         size="mini"
                         range-separator="至"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期"
                         :picker-options="pickerOptions"
-                        value-format="yyyy-MM-dd"
+                        value-format="yyyy-MM-dd HH:mm:ss"
                         :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
                     </el-date-picker>
                 </el-form-item>
@@ -152,7 +163,7 @@
                 <el-descriptions-item label="意图">{{infoData.intent}}</el-descriptions-item>
                 <template v-for="(item, i) in infoList">
                         <!-- {{item.value}}:{{item[item.key]}} -->
-                            <el-descriptions-item :label="item.value" :key="i">{{item[item.key]}}</el-descriptions-item>
+                            <el-descriptions-item :label="item.desc" :key="i">{{item[item.key]}}</el-descriptions-item>
                         
                 </template>
                 
@@ -168,7 +179,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-import {nlulogList, nlulogDict} from '@/config/api'
+import {nlulogList, nlulogDict, nlulogDetail} from '@/config/api'
 export default {
     data(){
         return{
@@ -181,32 +192,15 @@ export default {
             searchItem:{
                 pickerVal:[],
                 asrres:"",
-                intent:""
+                intent:"",
+                pid:"",
+                parrotmin:"",
+                parrotmax:""
             },
-            searchKey:[
-                // key1:"",
-                // key2:"",
-                // key3:"",
-                // key4:"",
-                // key5:"",
-                // key6:"",
-                // key7:"",
-                // key8:"",
-                // key9:"",
-                // key10:"",
-                // key11:"",
-                // key12:"",
-                // key13:"",
-                // key14:"",
-                // key15:"",
-                // key16:"",
-                // key17:"",
-                // key18:"",
-                // key19:"",
-                // key20:""
-            ],
+            searchKey:[],
             list:[],
             infoList:[],
+            intentList:[],
             infoData:{
                 uid:"",
                 asrres:"",
@@ -215,6 +209,7 @@ export default {
             },
             keyList:[],
             perList:[],
+            pidList:[],
             totalClass:'8',
             timer:null,
             // 分页
@@ -226,7 +221,8 @@ export default {
             listLoading:true,
             popLoading:false,
             visiblepop:false,
-            infoVisible:false
+            infoVisible:false,
+            roachLoading:false
         }
     },
     created() {
@@ -234,7 +230,12 @@ export default {
         perArr.map(t=>{
             this.perList.push(Object.values(t).join())
         })
-        this.getList();
+        this.$nextTick(()=>{
+            this.getList();
+            this.getroachList()
+            
+        })
+        
     },
     directives:{
         'debounce-input':{
@@ -311,14 +312,51 @@ export default {
         // intentBlur(){
         //     this.visiblepop = false
         // },
-        intentInput(){
+        getroachList(){
+            let dictParams = {
+                pid: 0
+            }
+            nlulogDict(dictParams).then(res=>{
+                if(res.data.code == 200){
+                    this.pidList = res.data.data
+                    this.searchItem.pid = this.pidList[0].id
+                    this.$nextTick(()=>{
+                        this.getIntentList(this.$refs.approachId.selected.value)
+                    })
+                }
+            }).catch(err=>{
+            })
+        },
+        roachChange(val){
+            // if(!istrue){
+                this.intentList = []
+                this.keyList = []
+                this.searchItem.intent = ''
+                this.getIntentList(val)
+            // }
+        },
+        intentChange(val){
             this.searchKey = []
+            this.getLoginfoKey(val)
+        },
+        visibleChange(istrue){
+            if(istrue){
+                this.getLoginfoKey(this.$refs.intent.selected.value)
+            }
+            this.visiblepop = true
+        },
+        intentClear(){
+
+        },
+        intentInput(){
+            
         },
         rowClick(index, row){
             let dP = {
-                key:row.intent
+                intent:row.intent,
+                nluApproach:row.nluApproach
             }
-            nlulogDict(dP).then(res=>{
+            nlulogDetail(dP).then(res=>{
                 this.infoList = res.data.data
                 this.infoList.forEach(item=>{
                     item[item.key] = row[item.key];
@@ -338,26 +376,45 @@ export default {
         handleConfirm(){
             this.infoVisible = false
         },
-        getLoginfoKey(){
+        getLoginfoKey(val){
+            // console.log(val == "")
             // if(this.searchItem.intent != ''){
-                let dictParams = {
-                    key: this.searchItem.intent
-                }
-                nlulogDict(dictParams).then(res=>{
-                    if(res.data.code == 200){
-                        this.keyList = res.data.data
-                        if(res.data.data != null){
-                            this.popLoading = false
+                if(val != undefined && val != ""){
+                    let dictParams = {
+                        pid: val
+                    }
+                    nlulogDict(dictParams).then(res=>{
+                        if(res.data.code == 200){
+                            this.keyList = res.data.data
+                            if(res.data.data != null){
+                                this.popLoading = false
+                            }else{
+                                this.popLoading = true
+                            }
                         }else{
+                            this.keyList = []
                             this.popLoading = true
                         }
-                    }else{
+                    }).catch(err=>{
                         this.keyList = []
                         this.popLoading = true
-                    }
-                    
-                })
+                    })
+                }else{
+                    this.keyList = []
+                    this.popLoading = true
+                }
+                
             // }
+        },
+        getIntentList(val){
+            let intentParams = {
+                pid:val
+            }
+            nlulogDict(intentParams).then(res=>{
+                if(res.data.code == 200){
+                    this.intentList = res.data.data
+                }
+            })
         },
         getList() {
             this.listLoading = true
@@ -366,8 +423,11 @@ export default {
                 pcstr:this.pageSize,
                 startStr:this.searchItem.pickerVal[0],
                 endStr:this.searchItem.pickerVal[1],
-                intent:this.searchItem.intent,
+                intent:this.$refs.intent.selected.label,
                 asrres:this.searchItem.asrres,
+                useTimeS:this.searchItem.parrotmin,
+                useTimeE:this.searchItem.parrotmax,
+                nluApproach:this.$refs.approachId.selected.label,
                 key1:this.searchKey.key1,
                 key2:this.searchKey.key2,
                 key3:this.searchKey.key3,
@@ -382,12 +442,7 @@ export default {
                 key12:this.searchKey.key12,
                 key13:this.searchKey.key13,
                 key14:this.searchKey.key14,
-                key15:this.searchKey.key15,
-                key16:this.searchKey.key16,
-                key17:this.searchKey.key17,
-                key18:this.searchKey.key18,
-                key19:this.searchKey.key19,
-                key20:this.searchKey.key20
+                key15:this.searchKey.key15
             }
             params.sign = deleteParams(params)
             nlulogList(params).then(res => {

@@ -141,7 +141,7 @@
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="'showmode:update'">详情</el-button>
+                  v-has="'showmode:update'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"

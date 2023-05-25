@@ -33,7 +33,11 @@
 import {errChart} from '@/config/api'
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-let echarts = require('echarts/lib/echarts')
+const echarts = require('echarts/lib/echarts');
+require('echarts/lib/component/title');
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/legend');
+require('echarts/lib/chart/pie');
 export default {
   data() {
     let vue = this
@@ -89,10 +93,7 @@ export default {
                             fontSize: 14
                         }
                     },
-                    tooltip : {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
+                    tooltip : {},
                     series : [
                         {
                             name: '数据条数',
@@ -122,10 +123,7 @@ export default {
                             fontSize: 16
                         }
                     },
-                    tooltip : {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
+                    tooltip : {},
                     series : [
                         {
                             name: '数据条数',

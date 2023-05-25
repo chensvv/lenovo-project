@@ -472,6 +472,26 @@ const router = new Router({
           meta: {title: '运营日志分析',needLogin:true}
         },
         {
+          path: '/nlulog/statistic',
+          component: () => import('@/pages/nlu/nluStatistics'),
+          meta: {title: '运营日志统计',needLogin:true}
+        },
+        {
+          path: '/nlu/word/list',
+          component: () => import('@/pages/nlu/word'),
+          meta: {title: '词元管理',needLogin:true}
+        },
+        {
+          path: '/nlu/sentence/list',
+          component: () => import('@/pages/nlu/sentence'),
+          meta: {title: '句式管理',needLogin:true}
+        },
+        {
+          path: '/nlu/stengen/list',
+          component: () => import('@/pages/nlu/stengen'),
+          meta: {title: '数据生成',needLogin:true}
+        },
+        {
           path: '/user/checkpass',
           component: () => import('@/pages/checkpass'),
           meta: {title: '修改密码',needLogin:true}

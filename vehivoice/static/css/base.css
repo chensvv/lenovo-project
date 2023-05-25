@@ -1,6 +1,6 @@
-* {
+/* * {
   touch-action: pan-y;
-}
+} */
 
 html::-webkit-scrollbar, body::-webkit-scrollbar, div::-webkit-scrollbar {
   width: 5px;
@@ -161,7 +161,7 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   font-size: 12px;
   height: calc(100% - 155px);
 }
-.el-table {
+.table-box .el-table {
   font-size: 12px;
   height: calc(100% - 50px);
   border-left: 1px solid #eee;
@@ -175,44 +175,44 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .el-button+.el-button, a .el-button {
   margin-left: 10px;
 }
-.el-table .cell{
+.table-box .el-table .cell{
   line-height: 28px;
 }
 .el-form-item__content .el-button+.el-button {
   margin-left: 3px;
 }
 
-.el-table__header thead tr th {
+.table-box  .el-table__header thead tr th {
   padding: 0 !important;
   background: #f8f8f9 !important;
 }
 
-.el-table .el-table__cell{
+/* .table-box .el-table .el-table__cell{
   padding: 0;
-}
+} */
 
-.el-table__header-wrapper {
+.table-box .el-table__header-wrapper {
   overflow: hidden;
   height: 30px;
   display: flex;
   align-items: center;
 }
 
-.el-table__header-wrapper .cell{
+.table-box .el-table__header-wrapper .cell{
   white-space: nowrap;
 }
 
-.el-table__body-wrapper {
+.table-box .el-table__body-wrapper {
   height: calc(100% - 30px);
 }
 .rule .el-table__body-wrapper{
   overflow-y: auto;
 }
 .rule .el-table td{
-  padding: 7px 0;
+  padding: 7px 0 !important;
 }
 
-.el-table__body {
+.table-box .el-table__body {
   height: 100%;
 }
 
@@ -227,7 +227,7 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   padding: 0 10px;
 }
 
-.el-table thead {
+.table-box .el-table thead {
   color: #515a6e;
   font-weight: 400;
 }
@@ -865,8 +865,8 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   height: 100%;
 }
 
-.el-table td,
-.el-table th {
+.table-box .el-table td,
+.table-box .el-table th {
   padding: 0;
 }
 
@@ -935,15 +935,24 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .el-table .sort-caret{
   left: 5px;
 } */
+.keyLabel{
+  padding-left: 10px;
+}
 .keyLabel label{
   width: 100% !important;
   text-align: left;
 }
 .popkey{
   min-height: 100px;
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .popkey .as .el-loading-mask{
   margin-top: 25px;
+}
+.popkey .infopicker{
+  width: 100%;
 }
 
 
@@ -1425,4 +1434,44 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 }
 .date-form .el-date-editor.el-input__inner{
   width: 250px;
+}
+.nludate-form .el-form-item__content{
+  width: 320px;
+}
+.nludate-form .el-date-editor.el-input__inner{
+  width: 100%;
+}
+.parrotinput .el-form-item__content{
+  width: 200px;
+}
+.parrotinput .el-form-item__content .el-input{
+  width: 45%;
+}
+.nodata{
+  text-align: center;
+}
+.main-box{
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.main-box .create-form{
+  width: 285px;
+}
+.main-box .table-box{
+  width: 65%;
+  max-height: 80%;
+}
+.main-box .form-input{
+  flex-direction: column;
+}
+.gendialog{
+  max-height: 80%;
+}
+.intent-form .el-form-item__content{
+  display: flex;
+}
+.intent-form .el-form-item__content .el-button{
+  margin-left: 10px;
 }

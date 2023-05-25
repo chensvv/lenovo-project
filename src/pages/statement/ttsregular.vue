@@ -360,29 +360,29 @@ export default {
       var req = new XMLHttpRequest();
       var formData
       if(a == 'add'){
-        if(proURL.proURL.indexOf('8085') != '-1'){
-          formData = 'text='+this.addList.liju+'&user=2'
-        }else{
+        // if(proURL.proURL.indexOf('8085') != '-1'){
+        //   formData = 'text='+this.addList.liju+'&user=2'
+        // }else{
           formData = 'text='+this.addList.liju+'&user=10140802691'
-        }
+        // }
       }else{
-        if(proURL.proURL.indexOf('8085') != '-1'){
-          formData = 'text='+this.currentItem.liju+'&user=2'
-        }else{
+        // if(proURL.proURL.indexOf('8085') != '-1'){
+        //   formData = 'text='+this.currentItem.liju+'&user=2'
+        // }else{
           formData = 'text='+this.currentItem.liju+'&user=10140802691'
-        }
+        // }
       }
-      if(proURL.proURL.indexOf('8085') != '-1'){
-        req.open("POST", proURL.proURL+'/lasf/cloudtts', true);
-        req.setRequestHeader('channel', 'cloudasr')
-        req.setRequestHeader('lenovokey','LENOVO-VOICE-2t6588161u3bcba')
-        req.setRequestHeader('secretkey','28A5E16C525F2442E9DAA64CB5208AA7')
-      }else{
-        req.open("POST", proURL.proURL+'/website/cloudtts', true); // grab our audio file
+      // if(proURL.proURL.indexOf('8085') != '-1'){
+      //   req.open("POST", proURL.proURL+'/lasf/cloudtts', true);
+      //   req.setRequestHeader('channel', 'cloudasr')
+      //   req.setRequestHeader('lenovokey','LENOVO-VOICE-2t6588161u3bcba')
+      //   req.setRequestHeader('secretkey','28A5E16C525F2442E9DAA64CB5208AA7')
+      // }else{
+        req.open("POST", 'https://voice.lenovomm.com/website/cloudtts', true); // grab our audio file
         req.setRequestHeader('channel', 'cloudasr')
         req.setRequestHeader('lenovokey','LENOVO-VOICE-25c705e83m8865da1l7ac6d')
         req.setRequestHeader('secretkey','266AC5CAC135A2221A0D8D9CBC896F4F')
-      }
+      // }
       req.setRequestHeader('content-type', 'application/x-www-form-urlencoded')
       req.responseType = "arraybuffer";   // needs to be specific type to work
       req.overrideMimeType('text/xml; charset = utf-8')

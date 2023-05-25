@@ -3247,3 +3247,291 @@ export function servDownload (ixid,svr,time) {
     }
   })
 }
+
+export function clientlog (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/servlog/clientlog',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function statistics (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/servlog/statistics',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function clientStatistic (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/asr/log/client/statistic',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlulogIntent (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/intent',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlulogStatistic (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/statistic',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluTop20Key (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/top20Key/key',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluTop20KeyIntent (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/top20Key/intent',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlulogDetail (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlulog/dict/detail',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/add',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/update',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/delete',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordType (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/types',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluWordImport (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/word/import',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluSentenceList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/sentence/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluSentenceAdd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/sentence/add',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluSentenceUpd (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/sentence/update',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluSentenceDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/sentence/delete',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluSentenceType (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/sentence/types',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluSentenceImport (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/sentence/import',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluStengenList (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/stenGen/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluStengenGenerator (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/stenGen/generator',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function stenGenDel (data) {
+  return fetch.service_head({
+    url: '/lasf-mgr/nlu/stenGen/delete',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function stenGenDown (data) {
+  return fetch.FileDownload({
+    url: '/lasf-mgr/nlu/stenGen/download',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

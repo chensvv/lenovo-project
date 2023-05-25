@@ -48,7 +48,9 @@
 import {avaterList,avaterChannel} from '@/config/api'
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-let echarts = require('echarts/lib/echarts')
+const echarts = require('echarts/lib/echarts');
+require('echarts/lib/component/grid');
+require('echarts/lib/chart/bar');
 export default {
   data() {
     let vue = this
@@ -161,12 +163,7 @@ export default {
                   text: '用户统计',
                   left:'center'
               },
-              tooltip: {
-                trigger: 'axis',
-                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: ''        // 默认为直线，可选为：'line' | 'shadow'
-                }
-              },
+              tooltip: {},
               xAxis: {
                   data: Xdata,
                   axisLabel:{
@@ -174,11 +171,11 @@ export default {
                   }
               },
               grid:{
-                 x:'5%', //左上角x轴距盒子边框的距离
-                 y:'10%', //左上角Y轴距盒子边框的距离
+                x:'5%', //左上角x轴距盒子边框的距离
+                y:'10%', //左上角Y轴距盒子边框的距离
                   x2:'5%',//右下角x轴距盒子边框的距离
-                 y2:'15%',//右下角Y轴距盒子边框的距离
-                 borderWidth:1
+                y2:'15%',//右下角Y轴距盒子边框的距离
+                borderWidth:1
               },
               yAxis: {
                 minInterval : 1

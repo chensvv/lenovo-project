@@ -1,11 +1,11 @@
 <template>
     <div class="login">
         <div class="login_background">
-            <img src="../../static/images/login1.png" alt="">
+            <img src="../../static/images/vehi.svg" alt="">
         </div>
             <div class="login-box">
                     <div class="loginn" v-if="loginShow">
-                        <span class="form-title">联想语音管理系统</span>
+                        <span class="form-title">联想车载语音管理系统</span>
                         <el-form :label-position="'left'" :model="loginForm" :rules="loginRules" ref="loginForm" @submit.native.prevent>
                             <el-form-item prop="username" :error="loginUserErr">
                                 <el-input type="text" v-model.trim="loginForm.username" placeholder="用户名" prefix-icon="el-icon-user" auto-complete="off" clearable></el-input>
@@ -31,7 +31,7 @@
                         </el-form>
                     </div>
                     <div class="register" v-else key="register">
-                        <span class="form-title">联想语音管理系统</span>
+                        <span class="form-title">联想车载语音管理系统</span>
                         <el-form :label-position="'left'" :model="regForm" :rules="regRules" ref="regForm" @submit.native.prevent>
                             <el-form-item prop="username" :error="regUserErr">
                                 <el-input style="position:fixed; bottom:-9999px"></el-input>
@@ -239,8 +239,16 @@ export default {
         },
         getImgCode(){
             logImgCode().then(res=>{
-                this.limgCode = 'data:image/png;base64,'+res.data.data.imgage
-                this.uuid = res.data.data.uuid
+                if(res.data.code == 200){
+                    this.limgCode = 'data:image/png;base64,'+res.data.data.imgage
+                    this.uuid = res.data.data.uuid
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:"error",
+                        duration:2000
+                    });
+                }
             })
         },
         register(){
@@ -279,6 +287,7 @@ export default {
     border-radius: 10px;
     width: 20%;
     min-width: 270px;
+    max-width: 300px;
 }
 
 .login-box .form-title{

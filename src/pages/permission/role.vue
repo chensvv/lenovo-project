@@ -78,9 +78,11 @@
                     :data="treeData"
                     show-checkbox
                     node-key="id"
+                    :check-strictly="checkStrictlyEdit"
                     :props="defaultProps"
                     ref="tree"
                     @check-change="getChecked"
+                    @check="getParentKey"
                     :default-checked-keys="selectedKeys">
                 </el-tree>
             </el-form-item>
@@ -167,7 +169,8 @@ export default {
       addBtnLoading:false,
       editBtnLoading:false,
       listLoading:false,
-      isshow:true
+      isshow:true,
+      checkStrictlyEdit:true
     };
   },
   created() {
@@ -205,6 +208,8 @@ export default {
       this.getList();
     },
     handleEdit(index, row) {
+      this.editVisible = true
+      this.checkStrictlyEdit = true
       let echoParams = {
         id:row.id,
       }
@@ -213,11 +218,15 @@ export default {
           roleCode:row.roleCode,
           roleName:row.roleName
         };
-      this.getTree()
-      roleEcho(echoParams).then(res=>{
-        this.selectedKeys = res.data.ids
-      })
-      this.editVisible = true
+        this.getTree()
+          // this.$nextTick(()=>{
+            roleEcho(echoParams).then(res=>{
+                  this.$refs.tree.setCheckedKeys(res.data.ids)
+              // this.selectedKeys = res.data.ids
+            })
+          // })
+          // this.selectedKeys = JSON.parse(JSON.stringify(this.selectedKeys))
+      
     },
     handleDel(index, row) {
       let delParams = {
@@ -273,11 +282,12 @@ export default {
       this.addVisible = false
     },
     editHandleConfirm(currentItem) {
+      // console.log(this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys()))
       let updParams = {
         roleId:this.currentItem.id,
         roleName:this.currentItem.roleName,
         roleCode:this.currentItem.roleCode,
-        ids:this.selectedKeys
+        ids:this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys())
       }
       let logParams = {
           userName:sessionStorage.getItem('username')
@@ -334,7 +344,7 @@ export default {
       let addParams = {
         roleCode:this.addList.roleCode,
         roleName:this.addList.roleName,
-        ids:this.selectedKeysAdd
+        ids:this.$refs.treeAdd.getCheckedKeys().concat(this.$refs.treeAdd.getHalfCheckedKeys())
       }
       addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
@@ -365,11 +375,46 @@ export default {
         }
       });
     },
-    getChecked(){
-      this.selectedKeys = this.$refs.tree.getCheckedKeys()
+    getParentKey(data,checkData){
+        // console.log(data,checkData)
+    },
+    getChecked(data,isChecked){
+      if(isChecked){
+        // console.log('选中后：'+this.$refs.tree.getCheckedKeys().concat(this.getAllIds(data)))
+        // console.log('getHalfCheckedKeys:'+this.$refs.tree.getHalfCheckedKeys())
+        this.$refs.tree.setCheckedKeys(this.$refs.tree.getCheckedKeys().concat(this.getAllIds(data)))
+        // this.selectedKeys = 
+        // this.getAllId(data)
+      }else{
+        // console.log('取消选中的所有getkeys：'+this.$refs.tree.getCheckedKeys())
+        // console.log('取消选中的集合：'+this.getAllIds(data))
+        this.$refs.tree.setCheckedKeys(this.removal(this.$refs.tree.getCheckedKeys(),this.getAllIds(data)))
+        // this.selectedKeys = this.removal(this.selectedKeys,this.getAllIds(data).map(String))
+        
+      }
+      
+        // for(let i in data){
+        //   console.log(i)
+        // }
+        // console.log('getCheckedKeys:'+this.$refs.tree.getCheckedKeys())
+        // console.log('getHalfCheckedKeys:'+this.$refs.tree.getHalfCheckedKeys())
+        // console.log('getCheckedKeys:'+ this.$refs.tree.getCheckedKeys())
+        // this.selectedKeys = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys())
+        // console.log(this.selectedKeys)
     },
     getCheckedAdd(){
-      this.selectedKeysAdd = this.$refs.treeAdd.getCheckedKeys()
+      // this.selectedKeysAdd = this.$refs.treeAdd.getCheckedKeys()
+    },
+    getAllIds(obj) {
+      let ids = []
+      JSON.stringify(obj, function(key, value){
+          key === 'id' && ids.push(value)
+          return value
+      })
+      return ids
+    },
+    removal(a, b){
+      return a.filter(item => !b.includes(item))
     },
     getList() {
       this.listLoading = true

@@ -31,8 +31,12 @@
 
 <script>
 import {socketTotal,migrate} from '@/config/api'
-let echarts = require('echarts/lib/echarts')
 import {deleteParams} from '@/utils/deleteParams.js'
+const echarts = require('echarts/lib/echarts');
+require('echarts/lib/component/grid');
+require('echarts/lib/chart/bar');
+require('echarts/lib/component/title');
+require('echarts/lib/component/tooltip');
 export default {
   data() {
     let vue = this
@@ -153,11 +157,11 @@ export default {
                 //   }
               },
               grid:{
-                 x:'5%', //左上角x轴距盒子边框的距离
-                 y:'10%', //左上角Y轴距盒子边框的距离
-                  x2:'5%',//右下角x轴距盒子边框的距离
-                 y2:'15%',//右下角Y轴距盒子边框的距离
-                 borderWidth:1
+                x:'5%', //左上角x轴距盒子边框的距离
+                y:'10%', //左上角Y轴距盒子边框的距离
+                x2:'5%',//右下角x轴距盒子边框的距离
+                y2:'15%',//右下角Y轴距盒子边框的距离
+                borderWidth:1
               },
               yAxis: {
                 minInterval : 1
@@ -166,7 +170,6 @@ export default {
                   name: '数据条数',
                   type: 'bar',
                   data: Ydata,
-                  color:"#409eff",
                   barMaxWidth: 60, // 最大宽度
                   itemStyle: {
                     normal: {
@@ -180,17 +183,7 @@ export default {
                         }
                     }
                   }
-              }],
-              // dataZoom: [
-              //       {
-              //           type: 'slider',
-              //           show: true,
-              //           handleSize: 2,
-              //           height: '15px',
-              //           start:0 ,
-              //           end: this.computedPosition(1,xArraylength)
-              //       }
-              //   ]
+              }]
             })
         })
     },

@@ -32,15 +32,6 @@ import '../static/css/base.css'
 
 import store from './store/index'
 
-// 引入柱状图组件
-require('echarts/lib/chart/bar')
-require('echarts/lib/chart/line')
-require('echarts/lib/chart/pie')
-// 引入提示框和title组件
-require('echarts/lib/component/tooltip')
-require('echarts/lib/component/title')
-require('echarts/lib/component/dataZoom')
-
 const has = Vue.directive('has', {
   inserted: function (el, binding) {
     // 获取按钮权限

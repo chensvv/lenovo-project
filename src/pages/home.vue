@@ -6,7 +6,7 @@
                 <div class="head_logo">
                     <img src="../../static/images/logo_img.png" alt="" class="logo_img">
                 </div>
-                <span class="logo_txt">联想语音管理系统</span>
+                <span class="logo_txt">联想车载语音管理系统</span>
             </div>
             <div class="fr">
                 <el-popover
