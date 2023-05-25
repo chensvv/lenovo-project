@@ -8,7 +8,7 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" label-width="90px" size="mini">
       <div class="form-input height50">
-        <el-form-item label="类型" prop="type">
+        <el-form-item label="类别" prop="type">
             <el-select v-model="searchItem.type" placeholder="--">
                 <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
             </el-select>
@@ -51,7 +51,7 @@
               </template>
           </el-table-column>
           <el-table-column
-              label="类型"
+              label="类别"
               prop="type"
               align="center">
               <template slot-scope="scope">
@@ -98,11 +98,14 @@
 
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="名词" prop="word">
-          <el-input type="text" v-model.trim="currentItem.word" auto-complete="off"></el-input>
+        <el-form-item label="类别" prop="type">
+          <!-- <el-input type="text" v-model.trim="currentItem.type" auto-complete="off"></el-input> -->
+          <el-select v-model="currentItem.type" placeholder="--">
+              <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="类型" prop="type">
-          <el-input type="text" v-model.trim="currentItem.type" auto-complete="off"></el-input>
+        <el-form-item label="内容" prop="word">
+          <el-input type="text" v-model.trim="currentItem.word" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -112,11 +115,14 @@
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
+        <el-form-item label="类型" prop="type">
+          <!-- <el-input type="text" v-model.trim="addList.type" auto-complete="off"></el-input> -->
+          <el-select v-model="addList.type" placeholder="--">
+              <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="名词" prop="word">
           <el-input type="text" v-model.trim="addList.word" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="类型" prop="type">
-          <el-input type="text" v-model.trim="addList.type" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

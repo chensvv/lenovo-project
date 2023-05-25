@@ -1469,3 +1469,9 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .gendialog{
   max-height: 80%;
 }
+.intent-form .el-form-item__content{
+  display: flex;
+}
+.intent-form .el-form-item__content .el-button{
+  margin-left: 10px;
+}

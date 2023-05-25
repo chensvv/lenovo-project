@@ -487,7 +487,7 @@ const router = new Router({
         {
           path: '/nlu/stengen/list',
           component: () => import('@/pages/nlu/stengen'),
-          meta: {title: '生成分类',needLogin:true}
+          meta: {title: '数据生成',needLogin:true}
         },
         {
           path: '/user/checkpass',

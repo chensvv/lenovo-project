@@ -17,7 +17,7 @@
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-        <el-button size="mini" @click="handleAdd()" v-has="'stenGen:generator'">生成分类</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'stenGen:generator'">生成数据</el-button>
       </div>
     </el-form>
     <div class="table-box">
@@ -156,13 +156,14 @@
     <el-dialog custom-class="gendialog" :close-on-click-modal="false" :close-on-press-escape="false" title="生成分类" :visible.sync="addVisible" width="70%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
         <div class="main-box">
             <el-form :model="addList" class="demo-form-inline create-form" label-width="90px" size="mini" :rules="addRules" ref="addList">
-                <el-form-item label="intent" prop="intent">
+                <el-form-item label="intent" prop="intent" class="intent-form">
                     <el-select v-model="addList.intent" placeholder="--" @change="intentChange">
                         <el-option v-for="(item,index) in intentList" :key="index" :label="item" :value="item"></el-option>
                     </el-select>
+                    <el-button size="mini" @click="saveId">保存</el-button>
                 </el-form-item>
                 <el-form-item label="type" prop="type">
-                    <el-select v-model="addList.type" placeholder="--">
+                    <el-select v-model="addList.type" placeholder="--" @change="typeChange">
                         <el-option v-for="(item,index) in typeList" :key="index" :label="item.value" :value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
@@ -185,17 +186,20 @@
                 <el-table
                     :data="dialogList"
                     :class="this.dialogListTotalClass <= '7' ? 'limitWidth' :''"
+                    ref="dialogTable"
                     stripe
                     style="width: 100%"
                     v-loading="dialogListLoading"
                     element-loading-text="拼命加载中"
                     element-loading-spinner="el-icon-loading"
                     @select-all="selectAll"
-                    @selection-change="handleSelectionChange">
+                    @selection-change="handleSelectionChange"
+                    :row-key="getRowKeys">
                     <el-table-column
                     type="selection"
                     width="50"
-                    align="center">
+                    align="center"
+                    :reserve-selection="true">
                     </el-table-column>
                     <el-table-column
                         label="句式"
@@ -225,7 +229,7 @@
         </div>
         <span slot="footer" class="dialog-footer">
             <el-button @click="addHandleClose">取 消</el-button>
-            <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">生成分类</el-button>
+            <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">生成数据</el-button>
         </span>
     </el-dialog>
   </div>
@@ -243,6 +247,7 @@ export default {
             dialogList: [],
             intentList:[],
             sels:[],
+            selsAll:[],
             searchItem:{
                 type:""
             },
@@ -278,7 +283,7 @@ export default {
             pageSize: 10,   //默认每页条数
             totalCount:1,     // 总条数
             dialogListCurrentPage: 1, //默认显示第几页
-            dialogListPageSize: 7,   //默认每页条数
+            dialogListPageSize: 5,   //默认每页条数
             dialogListTotalCount:1,     // 总条数
             showTitle:true,
             seaBtnLoading:false,
@@ -336,11 +341,16 @@ export default {
             this.seaBtnLoading = false
         },
         addHandleConfirm(addList){
+            if(this.sels.length == 0){
+                this.sels = this.$refs.dialogTable.selection
+            }else{
+                this.sels.concat(this.$refs.dialogTable.selection)
+            }
             this.$refs[addList].validate((valid) => {
                 if (valid) {
                     if(this.sels.length == 0){
                         this.$message({
-                                message:'请选择右侧数据',
+                                message:'请选择句式数据',
                                 type:'error',
                                 duration:2000
                             });
@@ -348,8 +358,8 @@ export default {
                         this.addBtnLoading = true
                         let genParams = {
                             type:this.addList.type,
-                            intent:this.addList.intent,
-                            sentenceId:this.sels != '-1' ? this.sels.map(item => item.id)+"" : this.sels,
+                            // intent:this.addList.intent,
+                            sentenceId:this.sels.map(item => item.id)+"",
                             tag:this.addList.tag,
                             subNer:this.addList.subNer,
                             wordNum:this.addList.wordNum,
@@ -365,6 +375,9 @@ export default {
                                     duration:2000
                                 });
                                 this.addVisible = false
+                                this.sels = []
+                                this.dialogList = []
+                                this.$refs.dialogTable.clearSelection()
                                 this.getList()
                             }else{
                                 this.$message({
@@ -410,21 +423,47 @@ export default {
                 }
             })
         },
-        selectAll(selection){
-            if(selection.length != 0){
-                this.sels = "-1"
+        typeChange(val){
+            if(val == 1){
+                this.addRules.subNer[0].required = false
+                this.addRules.desc[0].required = false
+                this.addRules.tag[0].required = true
+            }else if(val == 2){
+                this.addRules.tag[0].required = false
+                this.addRules.subNer[0].required = true
+                this.addRules.desc[0].required = true
             }else{
-                this.sels = []
-            }
+                this.addRules.subNer[0].required = true
+                this.addRules.desc[0].required = true
+                this.addRules.tag[0].required = true
+            }           
         },
-        handleSelectionChange(val){
-            this.sels = val
+        // selectAll(selection){
+        //     this.sels.push(...selection)
+        //     this.sels =  Array.from(new Set(this.sels.map(JSON.stringify))).map(JSON.parse)
+        //     console.log(this.sles)
+        // },
+        // handleSelectionChange(val){
+        //     this.sels.push(...val)
+        //     this.sels =  Array.from(new Set(this.sels.map(JSON.stringify))).map(JSON.parse)
+        //     console.log(this.sels)
+        // },
+        saveId(){
+            if(this.sels.length == 0){
+                this.sels = this.$refs.dialogTable.selection
+            }else{
+                this.sels.concat(this.$refs.dialogTable.selection)
+            }
+            
+        },
+        getRowKeys(row){
+            return row.id
         },
         getIntentList(){
             let p = {}
             nluSentenceType(p).then(res=>{
                 if(res.data.code == 200){
-                this.intentList = res.data.data
+                    this.intentList = res.data.data
                 }
             })
         },
@@ -433,6 +472,9 @@ export default {
         },
         addHandleClose(){
             this.addVisible = false
+            this.sels = []
+            this.dialogList = []
+            this.$refs.dialogTable.clearSelection()
         },
         intentChange() {
             this.dialogListCurrentPage = 1
