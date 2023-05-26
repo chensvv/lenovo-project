@@ -3250,7 +3250,7 @@ export function servDownload (ixid,svr,time) {
 
 export function clientlog (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/servlog/clientlog',
+    url: '/vehicle-mgr/servlog/clientlog',
     method: 'post',
     data: data,
     headers: {
@@ -3262,7 +3262,7 @@ export function clientlog (data) {
 
 export function statistics (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/servlog/statistics',
+    url: '/vehicle-mgr/servlog/statistics',
     method: 'post',
     data: data,
     headers: {
@@ -3274,7 +3274,7 @@ export function statistics (data) {
 
 export function clientStatistic (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/asr/log/client/statistic',
+    url: '/vehicle-mgr/asr/log/client/statistic',
     method: 'post',
     data: data,
     headers: {
@@ -3286,7 +3286,7 @@ export function clientStatistic (data) {
 
 export function nlulogIntent (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlulog/intent',
+    url: '/vehicle-mgr/nlulog/intent',
     method: 'post',
     data: data,
     headers: {
@@ -3298,7 +3298,7 @@ export function nlulogIntent (data) {
 
 export function nlulogStatistic (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlulog/statistic',
+    url: '/vehicle-mgr/nlulog/statistic',
     method: 'post',
     data: data,
     headers: {
@@ -3310,7 +3310,7 @@ export function nlulogStatistic (data) {
 
 export function nluTop20Key (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlulog/top20Key/key',
+    url: '/vehicle-mgr/nlulog/top20Key/key',
     method: 'post',
     data: data,
     headers: {
@@ -3322,7 +3322,7 @@ export function nluTop20Key (data) {
 
 export function nluTop20KeyIntent (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlulog/top20Key/intent',
+    url: '/vehicle-mgr/nlulog/top20Key/intent',
     method: 'post',
     data: data,
     headers: {
@@ -3334,7 +3334,7 @@ export function nluTop20KeyIntent (data) {
 
 export function nlulogDetail (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlulog/dict/detail',
+    url: '/vehicle-mgr/nlulog/dict/detail',
     method: 'post',
     data: data,
     headers: {
@@ -3346,7 +3346,7 @@ export function nlulogDetail (data) {
 
 export function nluWordList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/word/list',
+    url: '/vehicle-mgr/nlu/word/list',
     method: 'post',
     data: data,
     headers: {
@@ -3358,7 +3358,7 @@ export function nluWordList (data) {
 
 export function nluWordAdd (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/word/add',
+    url: '/vehicle-mgr/nlu/word/add',
     method: 'post',
     data: data,
     headers: {
@@ -3370,7 +3370,7 @@ export function nluWordAdd (data) {
 
 export function nluWordUpd (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/word/update',
+    url: '/vehicle-mgr/nlu/word/update',
     method: 'post',
     data: data,
     headers: {
@@ -3382,7 +3382,7 @@ export function nluWordUpd (data) {
 
 export function nluWordDel (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/word/delete',
+    url: '/vehicle-mgr/nlu/word/delete',
     method: 'post',
     data: data,
     headers: {
@@ -3394,7 +3394,7 @@ export function nluWordDel (data) {
 
 export function nluWordType (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/word/types',
+    url: '/vehicle-mgr/nlu/word/types',
     method: 'post',
     data: data,
     headers: {
@@ -3406,7 +3406,7 @@ export function nluWordType (data) {
 
 export function nluWordImport (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/word/import',
+    url: '/vehicle-mgr/nlu/word/import',
     method: 'post',
     data: data,
     headers: {
@@ -3418,7 +3418,7 @@ export function nluWordImport (data) {
 
 export function nluSentenceList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/sentence/list',
+    url: '/vehicle-mgr/nlu/sentence/list',
     method: 'post',
     data: data,
     headers: {
@@ -3430,7 +3430,7 @@ export function nluSentenceList (data) {
 
 export function nluSentenceAdd (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/sentence/add',
+    url: '/vehicle-mgr/nlu/sentence/add',
     method: 'post',
     data: data,
     headers: {
@@ -3442,7 +3442,7 @@ export function nluSentenceAdd (data) {
 
 export function nluSentenceUpd (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/sentence/update',
+    url: '/vehicle-mgr/nlu/sentence/update',
     method: 'post',
     data: data,
     headers: {
@@ -3454,7 +3454,7 @@ export function nluSentenceUpd (data) {
 
 export function nluSentenceDel (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/sentence/delete',
+    url: '/vehicle-mgr/nlu/sentence/delete',
     method: 'post',
     data: data,
     headers: {
@@ -3466,7 +3466,7 @@ export function nluSentenceDel (data) {
 
 export function nluSentenceType (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/sentence/types',
+    url: '/vehicle-mgr/nlu/sentence/types',
     method: 'post',
     data: data,
     headers: {
@@ -3478,7 +3478,7 @@ export function nluSentenceType (data) {
 
 export function nluSentenceImport (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/sentence/import',
+    url: '/vehicle-mgr/nlu/sentence/import',
     method: 'post',
     data: data,
     headers: {
@@ -3490,7 +3490,7 @@ export function nluSentenceImport (data) {
 
 export function nluStengenList (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/stenGen/list',
+    url: '/vehicle-mgr/nlu/stenGen/list',
     method: 'post',
     data: data,
     headers: {
@@ -3502,7 +3502,7 @@ export function nluStengenList (data) {
 
 export function nluStengenGenerator (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/stenGen/generator',
+    url: '/vehicle-mgr/nlu/stenGen/generator',
     method: 'post',
     data: data,
     headers: {
@@ -3514,7 +3514,7 @@ export function nluStengenGenerator (data) {
 
 export function stenGenDel (data) {
   return fetch.service_head({
-    url: '/lasf-mgr/nlu/stenGen/delete',
+    url: '/vehicle-mgr/nlu/stenGen/delete',
     method: 'post',
     data: data,
     headers: {
@@ -3526,7 +3526,7 @@ export function stenGenDel (data) {
 
 export function stenGenDown (data) {
   return fetch.FileDownload({
-    url: '/lasf-mgr/nlu/stenGen/download',
+    url: '/vehicle-mgr/nlu/stenGen/download',
     method: 'post',
     data: data,
     headers: {
