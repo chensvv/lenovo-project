@@ -1475,3 +1475,9 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .intent-form .el-form-item__content .el-button{
   margin-left: 10px;
 }
+/* .login-content input::-webkit-input-placeholder{
+  color:#67a1fa;
+} */
+.lr-btn{
+  text-align: center;
+}
