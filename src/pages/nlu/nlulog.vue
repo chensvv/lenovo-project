@@ -323,6 +323,12 @@ export default {
                     this.$nextTick(()=>{
                         this.getIntentList(this.$refs.approachId.selected.value)
                     })
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:'error',
+                        duration:1500
+                    });
                 }
             }).catch(err=>{
             })
