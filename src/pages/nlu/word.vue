@@ -2,7 +2,7 @@
   <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">词元句式管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">nlu数据管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
@@ -21,6 +21,7 @@
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'nlu:word:add'">添加</el-button>
+        <el-button size="mini" @click="handleLabel()" v-has="'nlu:word:genlabel'" :loading="labelLoading">生成label</el-button>
         <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'nlu:word:import'">导入文件</el-button>
       </div>
     </el-form>
@@ -164,7 +165,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-import {nluWordList, nluWordAdd, nluWordUpd, nluWordDel, nluWordType, nluWordImport} from '@/config/api'
+import {nluWordList, nluWordAdd, nluWordUpd, nluWordDel, nluWordType, nluWordImport, nluWordGenlabel} from '@/config/api'
 export default {
   data() {
     return {
@@ -208,6 +209,7 @@ export default {
       addBtnLoading:false,
       editBtnLoading:false,
       listLoading:true,
+      labelLoading:false,
       isshow:true
     };
   },
@@ -281,6 +283,45 @@ export default {
           this.typeList = res.data.data
         }
       })
+    },
+    handleLabel(){
+      if(this.searchItem.type ==""){
+        this.$message({
+            message:'请选择类别',
+            type:"error",
+            duration:1500
+        });
+      }else{
+        this.labelLoading = true
+        let labelParams = {
+          type:this.searchItem.type
+        }
+        nluWordGenlabel(labelParams).then(res=>{
+          if(res.data.code == 200){
+              this.$message({
+                  message:'已生成',
+                  type:"success",
+                  duration:1500
+              });
+              this.getList();
+          }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1500
+            });
+          }
+        })
+        setTimeout(()=>{
+          this.$message({
+              message:'label生成中，请等候',
+              type:"success",
+              duration:1500
+          });
+          this.labelLoading = false
+        },2000)
+      }
+      
     },
     handleDel(index, row) {
       let delParams = {

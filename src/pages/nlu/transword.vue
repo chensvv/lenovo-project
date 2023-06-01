@@ -8,20 +8,17 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" label-width="90px" size="mini">
       <div class="form-input height50">
-        <el-form-item label="类别" prop="type">
-            <el-select v-model="searchItem.type" placeholder="--">
+        <el-form-item label="表达式" prop="expression">
+            <el-select v-model="searchItem.expression" placeholder="--">
                 <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
             </el-select>
-        </el-form-item>
-        <el-form-item label="句式" prop="sentence">
-            <el-input v-model.trim="searchItem.sentence" clearable></el-input>
         </el-form-item>
       </div>
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-        <el-button size="mini" @click="handleAdd()" v-has="'nlu:sentence:add'">添加</el-button>
-        <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'nlu:sentence:import'">导入文件</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'nlu:transWord:add'">添加</el-button>
+        <el-button size="mini" @click="handleLabel()" v-has="'nlu:transWord:genTranWord'" :loading="labelLoading">生成词转换文件</el-button>
       </div>
     </el-form>
     <div class="table-box">
@@ -36,32 +33,32 @@
           <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
-              label="句式"
-              prop="sentence"
+              label="表达式"
+              prop="expression"
               align="center">
               <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sentence" placement="top">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.expression" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.sentence }}
+                      {{ scope.row.expression }}
                       </div>
                   </el-tooltip>
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.sentence }}
+                      {{ scope.row.expression }}
                   </div>
               </template>
           </el-table-column>
           <el-table-column
-              label="类别"
-              prop="type"
+              label="值"
+              prop="value"
               align="center">
               <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.type" placement="top">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.value" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.type }}
+                      {{ scope.row.value }}
                       </div>
                   </el-tooltip>
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.type }}
+                      {{ scope.row.value }}
                   </div>
               </template>
           </el-table-column>
@@ -77,12 +74,12 @@
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="'nlu:sentence:update'">编辑</el-button>
+                  v-has="'nlu:transWord:update'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="'nlu:sentence:delete'">删除</el-button>
+                  v-has="'nlu:transWord:delete'">删除</el-button>
               </template>
           </el-table-column>
       </el-table>
@@ -98,14 +95,14 @@
 
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="类别" prop="type">
-          <!-- <el-input type="text" v-model.trim="currentItem.type" auto-complete="off"></el-input> -->
-          <el-select v-model="currentItem.type" placeholder="--">
+        <el-form-item label="表达式" prop="expression">
+          <el-input type="text" v-model.trim="currentItem.expression" auto-complete="off"></el-input>
+          <!-- <el-select v-model="currentItem.type" placeholder="--">
               <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form-item>
-        <el-form-item label="句式" prop="sentence">
-          <el-input type="text" v-model.trim="currentItem.sentence" auto-complete="off"></el-input>
+        <el-form-item label="值" prop="value">
+          <el-input type="text" v-model.trim="currentItem.value" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -115,14 +112,14 @@
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="类别" prop="type">
-          <!-- <el-input type="text" v-model.trim="addList.type" auto-complete="off"></el-input> -->
-          <el-select v-model="addList.type" placeholder="--">
+        <el-form-item label="表达式" prop="expression">
+          <el-input type="text" v-model.trim="addList.expression" auto-complete="off"></el-input>
+          <!-- <el-select v-model="addList.type" placeholder="--">
               <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form-item>
-        <el-form-item label="句式" prop="sentence">
-          <el-input type="text" v-model.trim="addList.sentence" auto-complete="off"></el-input>
+        <el-form-item label="值" prop="value">
+          <el-input type="text" v-model.trim="addList.value" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -130,41 +127,13 @@
         <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="上传文件" :visible.sync="uploadVisible" width="40%" top="10vh" class="eldialog" :before-close="closeFile">
-      <el-form class="eldialogForm">
-        <el-form-item label >
-          <el-upload
-            class="upload-demo"
-            drag
-            :before-upload="beforeUpload"
-            :http-request="uploadFile"
-            :on-exceed="handleExceed2"
-            :limit="1"
-            multiple
-            ref="upload"
-            action
-          >
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">
-              将文件拖到此处，或
-              <em>点击上传</em>
-            </div>
-            <div class="el-upload__tip" slot="tip">只能上传Excel文件，且每次只能上传一个文件</div>
-          </el-upload>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="closeFile()">取 消</el-button>
-        <el-button type="primary" @click="postFile()" :loading="fileBtnLoading">确 定</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-import {nluSentenceList, nluSentenceAdd, nluSentenceUpd, nluSentenceDel, nluSentenceType, nluSentenceImport} from '@/config/api'
+import {nluTranswordList, nluTranswordAdd, nluTranswordUpdate, nluTranswordDelete, nluTranswordTypes, nluTranswordGen} from '@/config/api'
 export default {
   data() {
     return {
@@ -174,31 +143,27 @@ export default {
       totalClass:'8',
       currentItem: {//编辑数据组
         id:"",
-        sentence:"",
-        type:""
+        value:"",
+        expression:""
       },
       addList: {//添加数据组
-        sentence:"",
-        type:""
+        value:"",
+        expression:""
       },
       searchItem:{//搜索数据组
-        sentence:"",
-        type:""
+        expression:""
       },
       addRules:{
-        sentence:[{ required: true, message: '请输入句式', trigger: 'change' }],
-        type:[{ required: true, message: '请输入类型', trigger: 'change' }],
+        expression:[{ required: true, message: '请输入表达式', trigger: 'change' }],
+        value:[{ required: true, message: '请输入值', trigger: 'change' }],
         
       },
       editRules:{
-        sentence:[{ required: true, message: '请输入句式', trigger: 'blur' }], 
-        type:[{ required: true, message: '请输入类型', trigger: 'blur' }], 
+        expression:[{ required: true, message: '请输入表达式', trigger: 'blur' }], 
+        value:[{ required: true, message: '请输入值', trigger: 'blur' }], 
       },
       editVisible: false,
       addVisible: false,
-      uploadVisible: false,
-      fileBtnLoading: false,
-      file: [],//文件上传
       // 分页
       currentPage: 1, //默认显示第几页
       pageSize: 10,   //默认每页条数
@@ -208,6 +173,7 @@ export default {
       addBtnLoading:false,
       editBtnLoading:false,
       listLoading:true,
+      labelLoading:false,
       isshow:true
     };
   },
@@ -220,7 +186,7 @@ export default {
         this.getTypeList()
     },
     mounted(){
-        if(this.perList.indexOf('nlu:sentence:update') == -1 && this.perList.indexOf('nlu:sentence:delete') == -1){
+        if(this.perList.indexOf('nlu:transWord:update') == -1 && this.perList.indexOf('nlu:transWord:delete') == -1){
             this.isshow = false
         }
     },
@@ -270,17 +236,51 @@ export default {
       this.editVisible = true;
       this.currentItem = {
         id:row.id,
-        sentence: row.sentence,
-        type:row.type
+        expression: row.expression,
+        value:row.value
       };
     },
     getTypeList(){
       let p = {}
-      nluSentenceType(p).then(res=>{
+      nluTranswordTypes(p).then(res=>{
         if(res.data.code == 200){
           this.typeList = res.data.data
         }
       })
+    },
+    handleLabel(){
+      if(this.searchItem.expression ==""){
+        this.$message({
+            message:'请选择表达式',
+            type:"error",
+            duration:1500
+        });
+      }else{
+        this.labelLoading = true
+        let labelParams = {
+          expression:this.searchItem.expression
+        }
+        nluTranswordGen(labelParams).then(res=>{
+            this.labelLoading = false
+          if(res.data.code == 200){
+              this.$message({
+                  message:'已生成',
+                  type:"success",
+                  duration:1500
+              });
+              this.getList();
+          }else{
+            this.$message({
+                message:res.data.errorMessage,
+                type:"error",
+                duration:1500
+            });
+          }
+        }).catch(err=>{
+            this.labelLoading = false
+        })
+      }
+      
     },
     handleDel(index, row) {
       let delParams = {
@@ -292,7 +292,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-          nluSentenceDel(delParams).then(res=>{
+          nluTranswordDelete(delParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
                     message:'删除成功',
@@ -336,14 +336,14 @@ export default {
     editHandleConfirm(currentItem) {
       let updParams = {
         id:this.currentItem.id,
-        sentence:this.currentItem.sentence,
-        type:this.currentItem.type
+        expression:this.currentItem.expression,
+        value:this.currentItem.value
       }
       updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
-          nluSentenceUpd(updParams).then(res=>{
+          nluTranswordUpdate(updParams).then(res=>{
                 this.editBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
@@ -373,14 +373,14 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        sentence:this.addList.sentence,
-        type:this.addList.type,
+        value:this.addList.value,
+        expression:this.addList.expression,
         sign:this.$md5(`appName=${this.addList.appName}`)
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
-          nluSentenceAdd(addParams).then(res=>{
+          nluTranswordAdd(addParams).then(res=>{
                 this.addBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
@@ -405,72 +405,6 @@ export default {
         }
       });
     },
-    importExcel(){
-        this.uploadVisible = true
-    },
-    //上传excel表格
-    beforeUpload(file) {
-      // const isText = file.type === "application/vnd.ms-excel";
-      // const isTextComputer =
-      //   file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      // if (!isText && !isTextComputer) {
-      //   this.$message.error("上传文件必须是Excel格式!");
-      // }
-      // return isText || isTextComputer;
-      // const extension = file.name.split('.')[1] === 'xls'
-      // const extension2 = file.name.split('.')[1] === 'xlsx'
-      // const isText = file.type === "application/vnd.ms-excel";
-      // const isTextComputer = file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      // if (!isText && !isTextComputer) {
-      //   this.$message.error("上传文件必须是Excel格式!");
-      // }
-      // if (!extension && !extension2) {
-      //     this.$message.warning('上传文件必须是Excel格式!')
-      //     return false
-      // }
-      // return extension || extension2;
-    },
-    // 上传文件个数超过定义的数量
-    handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`);
-    },
-    uploadFile(item) {
-      this.file = item.file;
-    },
-    postFile() {
-      if(this.file == ''){
-        this.$message.warning('请选择要上传的文件！')
-        return false
-      }else{
-        const fileObj = this.file;
-        var fileData = new FormData();
-        fileData.append("ex", fileObj);
-        this.fileBtnLoading = true;
-        nluSentenceImport(fileData).then(res => {
-                  this.fileBtnLoading = false
-              if(res.data.code == 200){
-                  this.$message({
-                      message:res.data.msg,
-                      type:"success",
-                      duration:1500
-                  });
-                  this.$refs.upload.clearFiles()
-                  this.uploadVisible = false
-                  this.getList()
-              }else{
-                  this.$message({
-                      message:res.data.errorMessage,
-                      type:"error",
-                      duration:1500
-                  });
-              }
-
-        }).catch(err => {
-          this.fileBtnLoading = false
-        })
-      }
-      
-    },
     closeFile() {
         this.$refs.upload.clearFiles()
         this.uploadVisible = false;
@@ -480,11 +414,10 @@ export default {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        sentence:this.searchItem.sentence,
-        type:this.searchItem.type
+        expression:this.searchItem.expression
       }
       params.sign = deleteParams(params)
-      nluSentenceList(params).then(res => {
+      nluTranswordList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){
           this.list = res.data.data;

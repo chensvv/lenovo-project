@@ -2,26 +2,27 @@
   <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">nlu数据管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/nlu/expression/list'}">nlu数据管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" label-width="90px" size="mini">
       <div class="form-input height50">
-        <el-form-item label="类别" prop="type">
-            <el-select v-model="searchItem.type" placeholder="--">
+        <el-form-item label="值" prop="type">
+          <el-input v-model.trim="searchItem.type" clearable></el-input>
+            <!-- <el-select v-model="searchItem.type" placeholder="--">
                 <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
-            </el-select>
+            </el-select> -->
         </el-form-item>
-        <el-form-item label="句式" prop="sentence">
-            <el-input v-model.trim="searchItem.sentence" clearable></el-input>
+        <el-form-item label="表达式" prop="expression">
+            <el-input v-model.trim="searchItem.expression" clearable></el-input>
         </el-form-item>
       </div>
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
-        <el-button size="mini" @click="handleAdd()" v-has="'nlu:sentence:add'">添加</el-button>
-        <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'nlu:sentence:import'">导入文件</el-button>
+        <el-button size="mini" @click="handleAdd()" v-has="'nlu:expression:add'">添加</el-button>
+        <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'nlu:expression:import'">导入文件</el-button>
       </div>
     </el-form>
     <div class="table-box">
@@ -36,32 +37,32 @@
           <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
-              label="句式"
-              prop="sentence"
+              label="表达式"
+              prop="expression"
               align="center">
               <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.sentence" placement="top">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.expression" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.sentence }}
+                      {{ scope.row.expression }}
                       </div>
                   </el-tooltip>
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.sentence }}
+                      {{ scope.row.expression }}
                   </div>
               </template>
           </el-table-column>
           <el-table-column
-              label="类别"
-              prop="type"
+              label="值"
+              prop="value"
               align="center">
               <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.type" placement="top">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.value" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.type }}
+                      {{ scope.row.value }}
                       </div>
                   </el-tooltip>
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.type }}
+                      {{ scope.row.value }}
                   </div>
               </template>
           </el-table-column>
@@ -77,12 +78,12 @@
                   <el-button
                   size="mini"
                   @click="handleEdit(scope.$index, scope.row)"
-                  v-has="'nlu:sentence:update'">编辑</el-button>
+                  v-has="'nlu:expression:update'">编辑</el-button>
                   <el-button
                   size="mini"
                   type="danger"
                   @click="handleDel(scope.$index, scope.row)"
-                  v-has="'nlu:sentence:delete'">删除</el-button>
+                  v-has="'nlu:expression:delete'">删除</el-button>
               </template>
           </el-table-column>
       </el-table>
@@ -98,14 +99,14 @@
 
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="类别" prop="type">
-          <!-- <el-input type="text" v-model.trim="currentItem.type" auto-complete="off"></el-input> -->
-          <el-select v-model="currentItem.type" placeholder="--">
+        <el-form-item label="值" prop="type">
+          <el-input type="text" v-model.trim="currentItem.type" auto-complete="off"></el-input>
+          <!-- <el-select v-model="currentItem.type" placeholder="--">
               <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form-item>
-        <el-form-item label="句式" prop="sentence">
-          <el-input type="text" v-model.trim="currentItem.sentence" auto-complete="off"></el-input>
+        <el-form-item label="表达式" prop="expression">
+          <el-input type="text" v-model.trim="currentItem.expression" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -115,14 +116,14 @@
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="类别" prop="type">
-          <!-- <el-input type="text" v-model.trim="addList.type" auto-complete="off"></el-input> -->
-          <el-select v-model="addList.type" placeholder="--">
+        <el-form-item label="值" prop="type">
+          <el-input type="text" v-model.trim="addList.type" auto-complete="off"></el-input>
+          <!-- <el-select v-model="addList.type" placeholder="--">
               <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form-item>
-        <el-form-item label="句式" prop="sentence">
-          <el-input type="text" v-model.trim="addList.sentence" auto-complete="off"></el-input>
+        <el-form-item label="表达式" prop="expression">
+          <el-input type="text" v-model.trim="addList.expression" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -164,7 +165,7 @@
 <script>
 import {checkTime} from '@/utils/timer.js'
 import {deleteParams} from '@/utils/deleteParams.js'
-import {nluSentenceList, nluSentenceAdd, nluSentenceUpd, nluSentenceDel, nluSentenceType, nluSentenceImport} from '@/config/api'
+import {nluExpressionList, nluExpressionAdd, nluExpressionUpd, nluExpressionDel, nluExpressionType, nluExpressionImport} from '@/config/api'
 export default {
   data() {
     return {
@@ -174,25 +175,25 @@ export default {
       totalClass:'8',
       currentItem: {//编辑数据组
         id:"",
-        sentence:"",
+        expression:"",
         type:""
       },
       addList: {//添加数据组
-        sentence:"",
+        expression:"",
         type:""
       },
       searchItem:{//搜索数据组
-        sentence:"",
+        expression:"",
         type:""
       },
       addRules:{
-        sentence:[{ required: true, message: '请输入句式', trigger: 'change' }],
-        type:[{ required: true, message: '请输入类型', trigger: 'change' }],
+        expression:[{ required: true, message: '请输入表达式', trigger: 'change' }],
+        type:[{ required: true, message: '请输入值', trigger: 'change' }],
         
       },
       editRules:{
-        sentence:[{ required: true, message: '请输入句式', trigger: 'blur' }], 
-        type:[{ required: true, message: '请输入类型', trigger: 'blur' }], 
+        expression:[{ required: true, message: '请输入表达式', trigger: 'blur' }], 
+        type:[{ required: true, message: '请输入值', trigger: 'blur' }], 
       },
       editVisible: false,
       addVisible: false,
@@ -217,10 +218,10 @@ export default {
             this.perList.push(Object.values(t).join())
         })
         this.getList();
-        this.getTypeList()
+        // this.getTypeList()
     },
     mounted(){
-        if(this.perList.indexOf('nlu:sentence:update') == -1 && this.perList.indexOf('nlu:sentence:delete') == -1){
+        if(this.perList.indexOf('nlu:expression:update') == -1 && this.perList.indexOf('nlu:expression:delete') == -1){
             this.isshow = false
         }
     },
@@ -270,13 +271,13 @@ export default {
       this.editVisible = true;
       this.currentItem = {
         id:row.id,
-        sentence: row.sentence,
-        type:row.type
+        expression: row.expression,
+        type:row.value
       };
     },
     getTypeList(){
       let p = {}
-      nluSentenceType(p).then(res=>{
+      nluExpressionType(p).then(res=>{
         if(res.data.code == 200){
           this.typeList = res.data.data
         }
@@ -292,7 +293,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-          nluSentenceDel(delParams).then(res=>{
+          nluExpressionDel(delParams).then(res=>{
             if(res.data.code == 200){
                 this.$message({
                     message:'删除成功',
@@ -336,14 +337,14 @@ export default {
     editHandleConfirm(currentItem) {
       let updParams = {
         id:this.currentItem.id,
-        sentence:this.currentItem.sentence,
-        type:this.currentItem.type
+        expression:this.currentItem.expression,
+        value:this.currentItem.type
       }
       updParams.sign = deleteParams(updParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
-          nluSentenceUpd(updParams).then(res=>{
+          nluExpressionUpd(updParams).then(res=>{
                 this.editBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
@@ -373,14 +374,14 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        sentence:this.addList.sentence,
-        type:this.addList.type,
+        expression:this.addList.expression,
+        value:this.addList.type,
         sign:this.$md5(`appName=${this.addList.appName}`)
       }
       this.$refs[addList].validate((valid) => {
         if (valid) {
           this.addBtnLoading = true
-          nluSentenceAdd(addParams).then(res=>{
+          nluExpressionAdd(addParams).then(res=>{
                 this.addBtnLoading = false
             if(res.data.code == 200){
                 this.$message({
@@ -446,7 +447,7 @@ export default {
         var fileData = new FormData();
         fileData.append("ex", fileObj);
         this.fileBtnLoading = true;
-        nluSentenceImport(fileData).then(res => {
+        nluExpressionImport(fileData).then(res => {
                   this.fileBtnLoading = false
               if(res.data.code == 200){
                   this.$message({
@@ -480,11 +481,11 @@ export default {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        sentence:this.searchItem.sentence,
-        type:this.searchItem.type
+        expression:this.searchItem.expression,
+        value:this.searchItem.type
       }
       params.sign = deleteParams(params)
-      nluSentenceList(params).then(res => {
+      nluExpressionList(params).then(res => {
         this.listLoading = false
         if(res.data.code == 200){
           this.list = res.data.data;

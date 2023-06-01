@@ -190,6 +190,11 @@ const router = new Router({
           meta: {title: '灰度配置',needLogin:true}
         },
         {
+          path: '/nlpgrey/list',
+          component: () => import('@/pages/rule/nlpgrey'),
+          meta: {title: 'nlp灰度',needLogin:true}
+        },
+        {
           path: '/kv/list',
           component: () => import('@/pages/lasf-kv/kv'),
           meta: {title: 'KV列表',needLogin:true}
@@ -488,6 +493,16 @@ const router = new Router({
           path: '/nlu/stengen/list',
           component: () => import('@/pages/nlu/stengen'),
           meta: {title: '数据生成',needLogin:true}
+        },
+        {
+          path: '/nlu/expression/list',
+          component: () => import('@/pages/nlu/expression'),
+          meta: {title: '表达式管理',needLogin:true}
+        },
+        {
+          path: '/nlu/transword/list',
+          component: () => import('@/pages/nlu/transword'),
+          meta: {title: '词转换列表',needLogin:true}
         },
         {
           path: '/user/checkpass',

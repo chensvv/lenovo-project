@@ -2,7 +2,7 @@
   <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">词元句式管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">nlu数据管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
