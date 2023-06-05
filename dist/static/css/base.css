@@ -1475,3 +1475,13 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .intent-form .el-form-item__content .el-button{
   margin-left: 10px;
 }
+.display-flex{
+  display: flex;
+  align-items: center;
+}
+.display-flex .el-form-item{
+  margin-bottom: 0 !important;
+}
+.gendialog .el-dialog__body{
+  padding: 10px 20px 0;
+}

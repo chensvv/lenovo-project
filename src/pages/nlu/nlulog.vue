@@ -229,12 +229,7 @@ export default {
         perArr.map(t=>{
             this.perList.push(Object.values(t).join())
         })
-        this.$nextTick(()=>{
-            this.getList();
-            this.getroachList()
-            
-        })
-        
+        this.getroachList()
     },
     directives:{
         'debounce-input':{
@@ -321,6 +316,7 @@ export default {
                     this.searchItem.pid = this.pidList[0].id
                     this.$nextTick(()=>{
                         this.getIntentList(this.$refs.approachId.selected.value)
+                        this.getList();
                     })
                 }
             }).catch(err=>{
