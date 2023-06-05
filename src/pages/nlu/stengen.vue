@@ -2,7 +2,7 @@
   <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">词元句式管理</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">nlu数据管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
@@ -160,7 +160,7 @@
                     <el-select v-model="addList.intent" placeholder="--" @change="intentChange">
                         <el-option v-for="(item,index) in intentList" :key="index" :label="item" :value="item"></el-option>
                     </el-select>
-                    <el-button size="mini" @click="saveId">保存</el-button>
+                    <el-button size="mini" @click="saveId('addList')">保存</el-button>
                 </el-form-item>
                 <el-form-item label="type" prop="type">
                     <el-select v-model="addList.type" placeholder="--" @change="typeChange">
@@ -183,6 +183,17 @@
                 </el-form-item>
             </el-form>
             <div class="table-box">
+                <el-form :inline="true" ref="GenSeaItem" :model="GenSeaItem" class="display-flex height50 demo-form-inline" label-width="50px" size="mini">
+                <div class="form-input">
+                    <el-form-item label="句式" prop="sentence">
+                        <el-input v-model.trim="GenSeaItem.sentence" clearable></el-input>
+                    </el-form-item>
+                </div>
+                <div class="form-btn">
+                    <el-button size="mini" type="primary" @click="onSearch" :loading="seaGenLoading">查询</el-button>
+                    <el-button size="mini" @click="resetGen('GenSeaItem')">重置</el-button>
+                </div>
+                </el-form>
                 <el-table
                     :data="dialogList"
                     :class="this.dialogListTotalClass <= '7' ? 'limitWidth' :''"
@@ -227,7 +238,33 @@
                 ></el-pagination>
             </div>
         </div>
+        <el-dialog
+            width="45%"
+            title="保存的数据"
+            :visible.sync="innerVisible"
+            append-to-body>
+            <el-table
+                :data="genList"
+                style="width: 100%">
+                <el-table-column prop="intent" label="intent" align="center"></el-table-column>
+                <el-table-column prop="type" label="type" align="center">
+                    <template slot-scope="scope">
+                        <span>{{ scope.row.type == 1 ? '分类数据' : scope.row.type == 2 ? 'ner数据' : '全部数据' }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="tag" label="分类标签" align="center"></el-table-column>
+                <el-table-column prop="sentenceTxt" label="句式" :show-overflow-tooltip="true" align="center"></el-table-column>
+                <el-table-column prop="subNer" label="是否切割" align="center">
+                    <template slot-scope="scope">
+                        <span>{{ scope.row.subNer == 1 ? '是' : '否'}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="wordNum" label="词元数" align="center"></el-table-column>
+                <el-table-column prop="desc" label="描述" :show-overflow-tooltip="true" align="center"></el-table-column>
+                </el-table>
+        </el-dialog>
         <span slot="footer" class="dialog-footer">
+            <el-button @click="saveData">已保存数据</el-button>
             <el-button @click="addHandleClose">取 消</el-button>
             <el-button type="primary" @click="addHandleConfirm('addList')" :loading="addBtnLoading">生成数据</el-button>
         </span>
@@ -248,8 +285,13 @@ export default {
             intentList:[],
             sels:[],
             selsAll:[],
+            genList:[],
+            saveGenParams:[],
             searchItem:{
                 type:""
+            },
+            GenSeaItem:{
+                sentence:""
             },
             subNerList:[
                 {id:0, value:'不切割'},
@@ -277,21 +319,22 @@ export default {
                 wordNum:[{ required: true, message: '请输入词元数', trigger: 'change' }],
                 subNer:[{ required: true, message: '请选择是否切割', trigger: 'change' }],
                 desc:[{ required: true, message: '请输入描述', trigger: 'change' }],
-                
             },
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
-            totalCount:1,     // 总条数
+            totalCount:0,     // 总条数
             dialogListCurrentPage: 1, //默认显示第几页
             dialogListPageSize: 5,   //默认每页条数
-            dialogListTotalCount:1,     // 总条数
+            dialogListTotalCount:0,     // 总条数
             showTitle:true,
             seaBtnLoading:false,
+            seaGenLoading:false,
             addBtnLoading:false,
             listLoading:false,
             dialogListLoading:false,
             downloading:false,
             addVisible:false,
+            innerVisible:false,
             isshow:true
         };
     },
@@ -334,11 +377,22 @@ export default {
             this.currentPage = 1
             this.getList()
         },
+        resetGen(formName) {
+            this.$refs[formName].resetFields();
+            this.dialogListCurrentPage = 1
+            this.seaGenLoading()
+        },
         onSubmit(){
             this.seaBtnLoading = true
             this.currentPage = 1
             this.getList()
             this.seaBtnLoading = false
+        },
+        onSearch(){
+            this.seaGenLoading = true
+            this.dialogListCurrentPage = 1
+            this.getIntentChangeList()
+            this.seaGenLoading = false
         },
         addHandleConfirm(addList){
             if(this.sels.length == 0){
@@ -348,7 +402,7 @@ export default {
             }
             this.$refs[addList].validate((valid) => {
                 if (valid) {
-                    if(this.sels.length == 0){
+                    if(this.sels.length == 0 && this.saveGenParams.length == 0){
                         this.$message({
                                 message:'请选择句式数据',
                                 type:'error',
@@ -356,17 +410,20 @@ export default {
                             });
                     }else{
                         this.addBtnLoading = true
-                        let genParams = {
-                            type:this.addList.type,
-                            // intent:this.addList.intent,
-                            sentenceId:this.sels.map(item => item.id)+"",
-                            tag:this.addList.tag,
-                            subNer:this.addList.subNer,
-                            wordNum:this.addList.wordNum,
-                            desc:this.addList.desc
+                        if(this.saveGenParams.length == 0){
+                            let genParams = {
+                                type:this.addList.type,
+                                intent:this.addList.intent,
+                                sentenceId:this.sels.map(item => item.id)+"",
+                                tag:this.addList.tag,
+                                subNer:this.addList.subNer,
+                                wordNum:this.addList.wordNum,
+                                desc:this.addList.desc
+                            }
+                            this.saveGenParams.push(genParams)
                         }
-                        genParams.sign = deleteParams(genParams)
-                        nluStengenGenerator(genParams).then(res=>{
+                        // genParams.sign = deleteParams(genParams)
+                        nluStengenGenerator(this.saveGenParams).then(res=>{
                             this.addBtnLoading = false
                             if(res.data.code == 200){
                                 this.$message({
@@ -377,6 +434,8 @@ export default {
                                 this.addVisible = false
                                 this.sels = []
                                 this.dialogList = []
+                                this.saveGenParams == []
+                                this.dialogListTotalCount = 0
                                 this.$refs.dialogTable.clearSelection()
                                 this.getList()
                             }else{
@@ -389,6 +448,7 @@ export default {
                         }).catch(err=>{
                             this.addBtnLoading = false
                         })
+                        
                     }
                 } else {
                     return false;
@@ -400,7 +460,6 @@ export default {
             this.currentPage = 1
             this.getList();
         },
-        
         handleCurrentChange(val) {
             this.currentPage = val
             // console.log(`当前页: ${val}`);
@@ -448,13 +507,54 @@ export default {
         //     this.sels =  Array.from(new Set(this.sels.map(JSON.stringify))).map(JSON.parse)
         //     console.log(this.sels)
         // },
-        saveId(){
+        saveId(addList){
             if(this.sels.length == 0){
                 this.sels = this.$refs.dialogTable.selection
             }else{
                 this.sels.concat(this.$refs.dialogTable.selection)
             }
-            
+            this.$refs[addList].validate((valid) => {
+                if (valid) {
+                    if(this.sels.length == 0){
+                        this.$message({
+                                message:'请选择句式数据',
+                                type:'error',
+                                duration:2000
+                            });
+                    }else{
+                        let genParams = {
+                            type:this.addList.type,
+                            intent:this.addList.intent,
+                            sentenceId:this.sels.map(item => item.id)+"",
+                            tag:this.addList.tag,
+                            subNer:this.addList.subNer,
+                            wordNum:this.addList.wordNum,
+                            desc:this.addList.desc
+                        }
+                        let genParamsList = {
+                            type:this.addList.type,
+                            intent:this.addList.intent,
+                            sentenceId:this.sels.map(item => item.id)+"",
+                            sentenceTxt:this.sels.map(item => item.sentence)+",",
+                            tag:this.addList.tag,
+                            subNer:this.addList.subNer,
+                            wordNum:this.addList.wordNum,
+                            desc:this.addList.desc
+                        }
+                        this.saveGenParams.push(genParams)
+                        this.genList.push(genParamsList)
+                        this.sels = []
+                        this.$refs.dialogTable.clearSelection()
+                        this.$message({
+                            message:'已保存',
+                            type:'success',
+                            duration:2000
+                        });
+                    }
+                } else {
+                    return false;
+                }
+            })
         },
         getRowKeys(row){
             return row.id
@@ -474,6 +574,7 @@ export default {
             this.addVisible = false
             this.sels = []
             this.dialogList = []
+            this.dialogListTotalCount = 0
             this.$refs.dialogTable.clearSelection()
         },
         intentChange() {
@@ -485,7 +586,8 @@ export default {
             let params = {
                 pgstr:this.dialogListCurrentPage,
                 pcstr:this.dialogListPageSize,
-                type:this.addList.intent
+                type:this.addList.intent,
+                sentence:this.GenSeaItem.sentence
             }
             params.sign = deleteParams(params)
             nluSentenceList(params).then(res => {
@@ -550,6 +652,9 @@ export default {
                 a.click();
                 window.URL.revokeObjectURL(url);
             })
+        },
+        saveData(){
+            this.innerVisible = true
         },
         getList(){
             this.listLoading = true

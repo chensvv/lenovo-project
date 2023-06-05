@@ -3404,6 +3404,18 @@ export function nluWordType (data) {
   })
 }
 
+export function nluWordGenlabel (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/word/genLabel',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
 export function nluWordImport (data) {
   return fetch.service_head({
     url: '/vehicle-mgr/nlu/word/import',
@@ -3527,6 +3539,210 @@ export function stenGenDel (data) {
 export function stenGenDown (data) {
   return fetch.FileDownload({
     url: '/vehicle-mgr/nlu/stenGen/download',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluExpressionList (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/expression/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluExpressionAdd (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/expression/add',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluExpressionUpd (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/expression/update',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluExpressionDel (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/expression/delete',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluExpressionType (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/expression/types',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluExpressionImport (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/expression/import',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlpGreyList (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlpgrey/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlpGreySave (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlpgrey/save',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlpGreyUpdate (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlpgrey/update',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlpGreyDelete (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlpgrey/delete',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nlpGreyType (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlpgrey/type',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluTranswordList (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/transWord/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluTranswordAdd (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/transWord/add',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluTranswordUpdate (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/transWord/update',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluTranswordDelete (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/transWord/delete',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluTranswordTypes (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/transWord/tranWordTypes',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}
+
+export function nluTranswordGen (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/nlu/transWord/genTranWord',
     method: 'post',
     data: data,
     headers: {
