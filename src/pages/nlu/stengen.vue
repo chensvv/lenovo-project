@@ -33,16 +33,16 @@
           </el-table-column>
           <el-table-column
               label="intent"
-              prop="intent"
+              prop="intents"
               align="center">
               <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.intent" placement="top">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.intents" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.intent }}
+                      {{ scope.row.intents }}
                       </div>
                   </el-tooltip>
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.intent }}
+                      {{ scope.row.intents }}
                   </div>
               </template>
           </el-table-column>
