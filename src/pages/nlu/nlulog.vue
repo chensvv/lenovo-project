@@ -7,6 +7,9 @@
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
             <div class="form-input height70">
+                <el-form-item label="用户ID" prop="userId">
+                    <el-input v-model.trim="searchItem.userId" clearable></el-input>
+                </el-form-item>
                 <el-form-item label="文本指令" prop="asrres">
                     <el-input v-model.trim="searchItem.asrres" clearable></el-input>
                 </el-form-item>
@@ -195,7 +198,8 @@ export default {
                 intent:"",
                 pid:"",
                 parrotmin:"",
-                parrotmax:""
+                parrotmax:"",
+                userId:""
             },
             searchKey:[],
             list:[],
@@ -423,6 +427,7 @@ export default {
             let params = {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
+                userId:this.searchItem.userId,
                 startStr:this.searchItem.pickerVal[0],
                 endStr:this.searchItem.pickerVal[1],
                 intent:this.$refs.intent.selected.label,
