@@ -68,11 +68,11 @@
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.userDailyCloudasrCount  == -99 ? '∞' : scope.row.userDailyCloudasrCount}}
+                        {{ scope.row.userDailyCloudasrCount  <= -99 ? '∞' : scope.row.userDailyCloudasrCount}}
                         </div>
                     </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle" :class="scope.row.userDailyCloudasrCount == -99 ? 'fontSize30' : ''">
-                        {{ scope.row.userDailyCloudasrCount == -99 ? '∞' : scope.row.userDailyCloudasrCount}}
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle" :class="scope.row.userDailyCloudasrCount <= -99 ? 'fontSize30' : ''">
+                        {{ scope.row.userDailyCloudasrCount <= -99 ? '∞' : scope.row.userDailyCloudasrCount}}
                     </div>
                 </template>
             </el-table-column>
@@ -88,11 +88,11 @@
                 <template slot-scope="scope">
                     <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.userDailyCloudttsCount == -99 ? '∞' : scope.row.userDailyCloudttsCount}}
+                        {{ scope.row.userDailyCloudttsCount <= -99 ? '∞' : scope.row.userDailyCloudttsCount}}
                         </div>
                     </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle" :class="scope.row.userDailyCloudttsCount == -99 ? 'fontSize30' : ''">
-                        {{ scope.row.userDailyCloudttsCount == -99 ? '∞' : scope.row.userDailyCloudttsCount}}
+                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle" :class="scope.row.userDailyCloudttsCount <= -99 ? 'fontSize30' : ''">
+                        {{ scope.row.userDailyCloudttsCount <= -99 ? '∞' : scope.row.userDailyCloudttsCount}}
                     </div>
                 </template>
             </el-table-column>
@@ -233,14 +233,14 @@
             <el-descriptions>
                 <el-descriptions-item label="lenovoId">{{infoList.lenovoId}}</el-descriptions-item>
                 <el-descriptions-item label="用户名">{{infoList.userName}}</el-descriptions-item>
-                <el-descriptions-item label="ASR可访问次数">{{infoList.userDailyCloudasrCount == -99 ? '∞' : infoList.userDailyCloudasrCount}}</el-descriptions-item>
-                <el-descriptions-item label="TTS可访问次数">{{infoList.userDailyCloudttsCount == -99 ? '∞' : infoList.userDailyCloudttsCount}}</el-descriptions-item>
+                <el-descriptions-item label="ASR可访问次数">{{infoList.userDailyCloudasrCount <= -99 ? '∞' : infoList.userDailyCloudasrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS可访问次数">{{infoList.userDailyCloudttsCount <= -99 ? '∞' : infoList.userDailyCloudttsCount}}</el-descriptions-item>
                 <el-descriptions-item label="ASR历史使用次数">{{infoList.historyUseAsr}}</el-descriptions-item>
                 <el-descriptions-item label="TTS历史使用次数">{{infoList.historyUseTts}}</el-descriptions-item>
                 <el-descriptions-item label="ASR当日使用次数">{{infoList.usedAsrCount}}</el-descriptions-item>
                 <el-descriptions-item label="TTS当日使用次数">{{infoList.usedTTSCount}}</el-descriptions-item>
-                <el-descriptions-item label="ASR剩余可访问次数">{{infoList.remainAsrCount == -99 ? '∞' : infoList.remainAsrCount}}</el-descriptions-item>
-                <el-descriptions-item label="TTS剩余可访问次数">{{infoList.remainTTSCount == -99 ? '∞' : infoList.remainTTSCount}}</el-descriptions-item>
+                <el-descriptions-item label="ASR剩余可访问次数">{{infoList.remainAsrCount <= -99 ? '∞' : infoList.remainAsrCount}}</el-descriptions-item>
+                <el-descriptions-item label="TTS剩余可访问次数">{{infoList.remainTTSCount <= -99 ? '∞' : infoList.remainTTSCount}}</el-descriptions-item>
                 <el-descriptions-item label="会议监控权限">{{infoList.meetingService =='1' ? "是" : "否"}}</el-descriptions-item>
                 <el-descriptions-item label="历史AK">{{infoList.oldLenovoKey}}</el-descriptions-item>
                 <el-descriptions-item label="历史SK">{{infoList.oldSecretKey}}</el-descriptions-item>
@@ -468,8 +468,8 @@ export default {
                 meetingService:row.meetingService == '1' ? true : false,
                 asrService:row.userService == '1' || row.userService == '3'? true : false,
                 ttsService:row.userService == '2' || row.userService == '3'? true : false,
-                asrChecked: row.userDailyCloudasrCount == -99 ? true : false,
-                ttsChecked: row.userDailyCloudttsCount == -99 ? true : false,
+                asrChecked: row.userDailyCloudasrCount <= -99 ? true : false,
+                ttsChecked: row.userDailyCloudttsCount <= -99 ? true : false,
                 userStatus: row.userStatus == 0 ? false : true
             };
         },
