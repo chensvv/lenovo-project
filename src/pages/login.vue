@@ -324,21 +324,20 @@ export default {
     padding: 0 30px;
 }
 .login-box .btn_item .el-form-item__content button{
-    width: 60%;
+    width: 45%;
     border-radius: 20px;
 }
 .register_btn{
-    display: block;
-    width: 60%;
+    display: inline-block;
+    width: 45%;
     background: #fff;
     border: 1px solid #dcdfe6;
     border-radius: 20px;
     text-align: center;
-    margin-top: 10px;
     height: 38px;
     line-height: 38px;
     cursor: pointer;
-    margin: 10px auto 0;
+    float: right;
 }
 
 .fadeOutLeft-enter-active, .fadeOutLeft-leave-active {
