@@ -39,7 +39,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       uglifyOptions: {
         compress: {
           warnings: false,
-          drop_debugger: true,
+          drop_debugger: false,
           drop_console: false
         }
       },
@@ -71,6 +71,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         : config.build.index,
       template: 'index.html',
       inject: true,
+      favicon: 'static/images/favicon.ico',
       minify: {
         removeComments: true,
         collapseWhitespace: true,

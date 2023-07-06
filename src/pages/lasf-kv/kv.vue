@@ -1,12 +1,12 @@
 <template>
-    <div class="table height-85">
+    <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/kv/list'}">LASF KV</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
     
-    <el-form :inline="true" class="demo-form-inline height50 width130" size="mini" style="float:right;">
+    <el-form :inline="true" class="demo-form-inline height70 width130" size="mini" style="float:right;">
         <div class="form-btn">
             <!-- <el-button size="mini" @click="handleState()">报表配置</el-button> -->
             <el-button size="mini" @click="handleAdd()" v-has="'kv:editsave'">添加</el-button>

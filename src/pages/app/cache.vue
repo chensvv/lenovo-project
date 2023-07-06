@@ -34,7 +34,6 @@
             
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
                 <el-button size="mini" @click="handleAdd()" v-has="'app:cacheadd'">添加</el-button>
             </div>
             
@@ -289,11 +288,6 @@ export default {
         },
         aliasVal(row,column){
             return row.isAlias == true ? '是' : '否'
-        },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.currentPage = 1
-            this.getList();
         },
         onSubmit(){
             this.btnLoading = true

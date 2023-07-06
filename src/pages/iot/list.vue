@@ -14,7 +14,6 @@
             </div>
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
             </div>
             
         </el-form>
@@ -336,11 +335,6 @@ export default {
                 res += chars[id];
             }
             return res;
-        },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.currentPage = 1
-            this.getList();
         },
         onSubmit(){
             this.seaBtnLoading = true

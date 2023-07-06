@@ -1,5 +1,5 @@
 <template>
-    <div class="table height-85">
+    <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/skill/applist'}">技能管理</el-breadcrumb-item>
@@ -8,7 +8,7 @@
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
     
-    <el-form :inline="true" class="demo-form-inline height50 width130" size="mini">
+    <el-form :inline="true" class="demo-form-inline height70 width130" size="mini">
         <div class="d_t">
             <span class="d_title">{{skillDetail.appName}}  >></span><span>{{skillDetail.functionName}}</span>
         </div>

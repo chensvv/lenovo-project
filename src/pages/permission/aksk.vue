@@ -1,19 +1,18 @@
 <template>
-    <div class="table height-85">
+    <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/permission/role'}">权限管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
-            <div class="form-input height50">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+            <div class="form-input height70">
                 <el-form-item label="用户名" prop="userName">
                     <el-input v-model.trim="searchItem.userName" clearable></el-input>
                 </el-form-item>
             </div>
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
             </div>
         </el-form>
         <div class="table-box flex-align">
@@ -445,11 +444,6 @@ export default {
         },
         meeting(row, column){
             return row.meetingService == '1' ? "是" : "否"
-        },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.currentPage = 1
-            this.getList()
         },
         closeFun(currentItem){
             this.$nextTick(() => {

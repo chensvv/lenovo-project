@@ -1,13 +1,13 @@
 <template>
-  <div class="table height-85">
+  <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/forum/list'}">说法配置</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline width130 height50" size="mini" style="padding-left:10px;">
-      <div class="form-input height50">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline width130 height70" size="mini" style="padding-left:10px;">
+      <div class="form-input height70">
         <el-form-item label="说法" prop="regular">
           <el-input v-model.trim="searchItem.regular" clearable></el-input>
         </el-form-item>
@@ -28,7 +28,6 @@
       </div>
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'ttsregular:add'">添加</el-button>
         <el-button size="mini" type="danger" @click="handleDelRedis()" v-has="'ttsregular:delete'">删除redis缓存</el-button>
       </div>
@@ -323,11 +322,6 @@ export default {
     },
     formState(row, column){
       return row.isFlag == 'true' ? "是" : "否"
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      this.currentPage = 1
-      this.getList()
     },
     onSubmit(){
       this.seaBtnLoading = true

@@ -51,11 +51,11 @@
             
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+                <!-- <el-button size="mini" @click="resetForm('searchItem')">重置</el-button> -->
             </div>
         </el-form>
-        <el-form v-if="statForm" :inline="true" ref="searchStat" :model="searchStat" label-width="90px" class="demo-form-inline height100 width130" size="mini">
-            <div class="form-input height100">
+        <el-form v-if="statForm" :inline="true" ref="searchStat" :model="searchStat" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+            <div class="form-input height70">
                 <el-form-item label="日期" prop="pickerVal" class="date-form">
                     <el-date-picker
                         v-model="searchStat.pickerVal"
@@ -222,33 +222,17 @@
                                 size="mini"
                                 @click="rowClient(scope.$index, scope.row)"
                                 v-has="'servlog:clientlog'">上报日志</el-button>
-                                <!-- <el-button
-                                size="mini"
-                                icon="el-icon-download"
-                                @click="handleDown(scope.$index, scope.row)"
-                                v-has="'servlog:downLoad'"></el-button> -->
                             </template>
                         </el-table-column>
                     </el-table>
-                    <!-- <i-table :list="list" :options="options" :columns="columns" :operates="operates"></i-table> -->
-                    <!-- <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page.sync="currentPage"
-                        :page-size="pageSize"
-                        layout="total, prev, pager, next, jumper"
-                        :total="totalCount"
-                    ></el-pagination> -->
                     <div class="pagination-wrap" v-cloak>
                         <ul class="pagination">
                             <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
-                            <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
                             <li v-if="isLastPage != false && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
                             <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
                             <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
                             <li v-if="isLastPage != true" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
                             <li v-if="currentPage+1 < 3 && isLastPage!=true" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
-                            <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
                             <li><button :disabled="isLastPage == true? true: false" @click="turnToPage(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
                         </ul>
                     </div>
@@ -474,13 +458,13 @@ export default {
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
         },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-            // this.currentPage = 1
-            this.MaxId = ''
-            this.MinId = ''
-            this.getList(1)
-        },
+        // resetForm(formName) {
+        //     this.$refs[formName].resetFields();
+        //     // this.currentPage = 1
+        //     this.MaxId = ''
+        //     this.MinId = ''
+        //     this.getList(1)
+        // },
         resetStat(formName) {
             this.$refs[formName].resetFields();
             this.getChartsData()

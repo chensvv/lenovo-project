@@ -1,13 +1,13 @@
 <template>
-  <div class="table height-85">
+  <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">nlu数据管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height50 width130" label-width="90px" size="mini">
-      <div class="form-input height50">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" label-width="90px" size="mini">
+      <div class="form-input height70">
         <el-form-item label="表达式" prop="expression">
             <el-select v-model="searchItem.expression" placeholder="--">
                 <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
@@ -16,7 +16,6 @@
       </div>
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'nlu:transWord:add'">添加</el-button>
         <el-button size="mini" @click="handleLabel()" v-has="'nlu:transWord:genTranWord'" :loading="labelLoading">生成词转换文件</el-button>
       </div>
@@ -210,11 +209,6 @@ export default {
         checkTime(date.getDate())+' '+
         checkTime(date.getHours())+':'+
         checkTime(date.getMinutes())
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      this.currentPage = 1
-      this.getList()
     },
     onSubmit(){
       this.seaBtnLoading = true

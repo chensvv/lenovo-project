@@ -31,7 +31,6 @@
             </div>
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
                 <el-button size="mini" @click="handleAdd()" v-has="'app:keywordadd'">添加</el-button>
             </div>
             
@@ -112,14 +111,17 @@
                     </template>
                 </el-table-column>
             </el-table>
-        <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage"
-            :page-size="pageSize"
-            layout="total, prev, pager, next, jumper"
-            :total="totalCount"
-        ></el-pagination>
+            <div class="pagination-wrap" v-cloak>
+                <ul class="pagination">
+                    <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                    <li v-if="currentPage == getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+                    <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
+                    <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+                    <li v-if="currentPage != getpageNum(totalCount)" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
+                    <li v-if="currentPage+1 < 3 && currentPage != getpageNum(totalCount)" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+                    <li><button :disabled="currentPage == getpageNum(totalCount)? true: false" @click="turnToPage(getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                </ul>
+            </div>
         </div>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="addRules" :model="addList" ref="addList">
@@ -160,6 +162,7 @@
 
 <script>
 import {checkTime} from '@/utils/timer.js'
+import {getpageNum} from '@/utils/pagination.js'
 import {deleteParams} from '@/utils/deleteParams.js'
 import {wordList,keyAdd,keyUpd,keyDel} from '@/config/api'
 export default {
@@ -171,6 +174,7 @@ export default {
             return time.getTime() > times;
             },
         },
+        getpageNum:getpageNum,
         list: [],
         perList:[],
         totalClass:'8',
@@ -258,11 +262,6 @@ methods: {
           checkTime(date.getDate())+' '+
           checkTime(date.getHours())+':'+
           checkTime(date.getMinutes())
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      this.currentPage = 1
-      this.getList();
     },
     onSubmit(){
       this.btnLoading = true
@@ -422,6 +421,21 @@ methods: {
             order:column.order
         }
         this.getList()
+    },
+    turnToPage(pageNum){
+        var ts = this;
+        var pageNum = parseInt(pageNum);
+        if(pageNum == -1){
+            ts.getList(pageNum)
+        }else{
+            ts.currentPage = pageNum
+            if (!pageNum || pageNum < 1) {
+                console.log('页码输入有误！');
+                return false;
+            }else{
+                ts.getList(pageNum)
+            }
+        }
     },
     getList() {
         this.listLoading = true

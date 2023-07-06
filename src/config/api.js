@@ -3751,3 +3751,15 @@ export function nluTranswordGen (data) {
     }
   })
 }
+
+export function ttslogList (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/ttslog/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

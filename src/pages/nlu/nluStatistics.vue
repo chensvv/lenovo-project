@@ -45,7 +45,6 @@
           </div>
           <div class="form-btn">
               <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-              <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
           </div>
         </el-form>
         <div class="table-box" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
@@ -127,10 +126,6 @@ export default {
     this.getChartsData()
   },
   methods: {
-    resetForm(searchItem) {
-      this.$refs[searchItem].resetFields();
-      this.getChartsData()
-    },
     onSubmit(){
       this.seaBtnLoading = true
       this.getChartsData()

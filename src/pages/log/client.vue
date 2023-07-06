@@ -30,7 +30,6 @@
       </div>
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
       </div>
     </el-form>
     <el-form v-if="servForm" :inline="true" ref="searchServ" :model="searchServ" label-width="90px" class="demo-form-inline height70 width130" size="mini">
@@ -121,30 +120,6 @@
                   </div>
               </template>
             </el-table-column>
-            <el-table-column label="客户端版本" prop="ver" align="center" sortable="custom">
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ver" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.ver }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.ver }}
-                  </div>
-              </template>
-            </el-table-column>
-            <el-table-column label="服务端地址" prop="svr" align="center">
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.svr" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.svr }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.svr }}
-                  </div>
-              </template>
-            </el-table-column>
             <el-table-column label="执行状态" prop="stat" align="center">
               <template slot-scope="scope">
                 <span
@@ -194,13 +169,11 @@
           <div class="pagination-wrap" v-cloak>
                 <ul class="pagination">
                     <li><button :disabled="currentPageC==1? true : false" @click="turnToPageC(1)"><i class="el-icon-d-arrow-left"></i></button></li>
-                    <!-- <li><button :disabled="currentPage==1? true : false" @click="turnToPage(currentPage-1)"><i class="el-icon-arrow-left"></i></button></li> -->
                     <li v-if="isLastPageC != false && currentPageC !=1 && currentPageC - 2 > 0" class="unum" @click="turnToPageC(currentPageC-2)">{{currentPageC-2}}</li>
                     <li v-if="currentPageC-1>0"  class="unum" @click="turnToPageC(currentPageC-1)">{{currentPageC-1}}</li>
                     <li class="active" @click="turnToPageC(currentPageC)">{{currentPageC}}</li>
                     <li v-if="isLastPageC != true" class="unum" @click="turnToPageC(currentPageC+1)">{{currentPageC+1}}</li>
                     <li v-if="currentPageC+1 < 3 && isLastPageC !=true" class="unum" @click="turnToPageC(currentPageC+2)">{{currentPageC+2}}</li>
-                    <!-- <li><button :disabled="lastPage!= 0 && isLastPage == true? true: false" @click="turnToPage(currentPage+1)" ><i class="el-icon-arrow-right"></i></button></li> -->
                     <li><button :disabled="isLastPageC == true ? true: false" @click="turnToPageC(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
                 </ul>
             </div>
@@ -401,13 +374,6 @@ export default {
         } else {
             this.showTitle = true;
         }
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      // this.currentPageC = ''
-      this.MaxIdC = ''
-      this.MinIdC = ''
-      this.getList(1)
     },
     resetServ(formName) {
       this.$refs[formName].resetFields();

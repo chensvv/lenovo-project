@@ -1,13 +1,13 @@
 <template>
-    <div class="table height-85">
+    <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/skill/applist'}">技能管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         
-        <el-form v-if="commandForm" :inline="true" ref="commandSearchItem" :model="commandSearchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
-            <div class="form-input height50">
+        <el-form v-if="commandForm" :inline="true" ref="commandSearchItem" :model="commandSearchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+            <div class="form-input height70">
                 <el-form-item label="用户query" prop="command">
                     <el-input v-model.trim="commandSearchItem.command" clearable></el-input>
                 </el-form-item>
@@ -15,15 +15,14 @@
             
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="commandOnSubmit" :loading="commandSeaBtnLoading">查询</el-button>
-                <el-button size="mini" @click="commandResetForm('commandSearchItem')">重置</el-button>
                 <el-button size="mini" @click="commandHandleAdd()" v-has="'command:add'">添加</el-button>
                 <!-- <el-button size="mini" @click="handleSong()" v-has="'command:norun:list'">指令忽略管理</el-button>
                 <el-button size="mini" @click="handleOriginal()" v-has="'command:mainlist'">原始指令管理</el-button> -->
             </div>
             
         </el-form>
-        <el-form v-if="norunForm" :inline="true" ref="norunSearchItem" :model="norunSearchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
-            <div class="form-input height50">
+        <el-form v-if="norunForm" :inline="true" ref="norunSearchItem" :model="norunSearchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+            <div class="form-input height70">
                 <el-form-item label="用户query" prop="command">
                     <el-input v-model.trim="norunSearchItem.command" clearable></el-input>
                 </el-form-item>
@@ -31,13 +30,12 @@
             
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="norunOnSubmit" :loading="norunSeaBtnLoading">查询</el-button>
-                <el-button size="mini" @click="norunResetForm('norunSearchItem')">重置</el-button>
                 <el-button size="mini" @click="norunHandleAdd()" v-has="'command:norun:add'">添加</el-button>
             </div>
             
         </el-form>
-        <el-form v-if="originaForm" :inline="true" ref="originaSearchItem" :model="originaSearchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
-            <div class="form-input height50">
+        <el-form v-if="originaForm" :inline="true" ref="originaSearchItem" :model="originaSearchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+            <div class="form-input height70">
                 <el-form-item label="用户query" prop="command">
                     <el-input v-model.trim="originaSearchItem.command" clearable></el-input>
                 </el-form-item>
@@ -45,7 +43,6 @@
             
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="originaOnSubmit" :loading="originaSeaBtnLoading">查询</el-button>
-                <el-button size="mini" @click="originaResetForm('originaSearchItem')">重置</el-button>
                 <el-button size="mini" @click="originaHandleAdd()" v-has="'command:mainadd'">添加</el-button>
             </div>
             
@@ -471,21 +468,6 @@ export default {
                     checkTime(date.getDate())+' '+
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
-        },
-        commandResetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.commandCurrentPage = 1
-            this.getCommandList();
-        },
-        norunResetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.norunCurrentPage = 1
-            this.getNorunList();
-        },
-        originaResetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.originaCurrentPage = 1
-            this.getOriginaList();
         },
         commandOnSubmit(){
             this.commandSeaBtnLoading = true

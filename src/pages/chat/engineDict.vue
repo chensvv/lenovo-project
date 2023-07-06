@@ -42,7 +42,6 @@
             </div>
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
                 <el-button size="mini" @click="handleAdd()" v-has="'enginedict:add'">添加</el-button>
                 <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'enginedict:excel'">导入数据</el-button>
             </div>
@@ -349,11 +348,6 @@ export default {
                     checkTime(date.getDate())+' '+
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
-        },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.currentPage = 1
-            this.getList();
         },
         onSubmit(){
             this.seaBtnLoading = true

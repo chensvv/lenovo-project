@@ -48,7 +48,6 @@
         </div>
         <div class="form-btn-block" >
           <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-          <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
           <el-button size="mini" @click="dataPack" :loading="zipBtnLoading" v-has="'trigger:zip'">数据打包</el-button>
           <el-button size="mini" @click="packResult" v-has="'trigger:zip:list'">打包结果</el-button>
           <el-button icon="el-icon-download" size="mini" @click="exportBatch" :loading="exportBtnLoading" v-has="'trigger:batchDownload'">批量导出</el-button>
@@ -374,13 +373,6 @@ export default {
         a.click();
         window.URL.revokeObjectURL(url);
       })
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      // this.currentPage = ''
-      this.MaxId = ''
-      this.MinId = ''
-      this.getList(1)
     },
     onSubmit(){
       this.seaBtnLoading = true

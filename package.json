@@ -52,6 +52,7 @@
     "cross-env": "^7.0.3",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",
+    "default-passive-events": "^2.0.0",
     "echarts": "^5.4.2",
     "element-ui": "^2.15.13",
     "eslint": "^4.15.0",

@@ -66,7 +66,6 @@
             
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
             </div>
             
         </el-form>
@@ -269,12 +268,6 @@ export default {
                     checkTime(date.getDate())+' '+
                     checkTime(date.getHours())+':'+
                     checkTime(date.getMinutes())
-        },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.searchKey = []
-            this.currentPage = 1
-            this.getList();
         },
         onSubmit(){
             this.btnLoading = true

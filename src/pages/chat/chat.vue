@@ -1,12 +1,12 @@
 <template>
-  <div class="table height-85">
+  <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/csc/csc'}">闲聊数据</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
-      <div class="form-input height50">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+      <div class="form-input height70">
         <el-form-item label="问题" prop="question">
           <el-input v-model.trim="searchItem.question" clearable></el-input>
         </el-form-item>
@@ -28,7 +28,6 @@
       
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-tooltip class="item" effect="dark" content="导出数据默认导出全部数据，如需自定义请在左侧选择起始时间和结束时间或者输入问题导出" placement="top-end">
           <el-button size="mini" @click="exportFile()" icon="el-icon-download" :loading="fileBtnLoading" v-has="'chat:export'">导出数据</el-button>
         </el-tooltip>
@@ -189,13 +188,6 @@ export default {
           checkTime(date.getDate())+' '+
           checkTime(date.getHours())+':'+
           checkTime(date.getMinutes())
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      // this.currentPage = ''
-      this.MaxId = ''
-      this.MinId = ''
-      this.getList(1)
     },
     onSubmit(){
       this.seaBtnLoading = true

@@ -1,13 +1,13 @@
 <template>
-    <div class="table height-85">
+    <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/skill/applist'}">技能管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" size="mini">
-            <div class="form-input height50">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+            <div class="form-input height70">
                 <el-form-item label="歌手名称" prop="name">
                     <el-input v-model.trim="searchItem.name" clearable></el-input>
                 </el-form-item>
@@ -15,7 +15,6 @@
             
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
                 <el-button size="mini" @click="handleAdd()" v-has="'skill:music:addsinger'">添加</el-button>
                 <el-button size="mini" icon="el-icon-upload" @click="importExcel()">导入数据</el-button>
                 <el-button size="mini" @click="handlePub()" :loading="pubBtnLoading" v-has="'skill:music:singerpublish'">发布</el-button>
@@ -296,11 +295,6 @@ export default {
             } else {
                 this.showTitle = true;
             }
-        },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.currentPage = 1
-            this.getList();
         },
         onSubmit(){
             this.seaBtnLoading = true

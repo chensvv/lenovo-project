@@ -1,11 +1,11 @@
 <template>
-    <div class="table height-85">
+    <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/audiokeeper/list'}">服务管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" label-width="90px" class="demo-form-inline height50 width130" size="mini" style="padding-left:10px;">
+        <el-form :inline="true" label-width="90px" class="demo-form-inline height70 width130" size="mini" style="padding-left:10px;">
             <div class="form-btn">
                 <el-button size="mini" @click="handleAdd()" v-has="'audiokeeper:add'">添加</el-button>
                 <el-button size="mini" @click="handleRecovery()" v-has="'audiokeeper:add'">恢复</el-button>

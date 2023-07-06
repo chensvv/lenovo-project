@@ -52,7 +52,7 @@
             
             <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+                <!-- <el-button size="mini" @click="resetForm('searchItem')">重置</el-button> -->
                 <el-button size="mini" @click="handleAdd()" v-has="'app:add'">添加</el-button>
             </div>
             
@@ -377,11 +377,11 @@ export default {
                 checkTime(date.getHours())+':'+
                 checkTime(date.getMinutes())
         },
-        resetForm(formName) {
-            this.$refs[formName].resetFields();
-            this.currentPage = 1
-            this.getList();
-        },
+        // resetForm(formName) {
+        //     this.$refs[formName].resetFields();
+        //     this.currentPage = 1
+        //     this.getList();
+        // },
         onSubmit(){
             this.currentPage = 1
             this.btnLoading = true

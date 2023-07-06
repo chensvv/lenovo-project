@@ -42,7 +42,6 @@
           
       <div class="form-btn">
         <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-tooltip class="item" effect="dark" content="请在左侧选择起始时间和结束时间或者选择类型导出" placement="top-end">
           <el-button size="mini" @click="exportFile()" icon="el-icon-download" :loading="fileBtnLoading" v-has="'source:export'">导出数据</el-button>
         </el-tooltip>
@@ -203,13 +202,6 @@ export default {
         } else {
             this.showTitle = true;
         }
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-      // this.currentPage = ''
-      this.MaxId = ''
-      this.MinId = ''
-      this.getList(1)
     },
     formTime(row, column) {
       var timer = row.createTime;

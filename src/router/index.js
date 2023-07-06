@@ -258,7 +258,7 @@ const router = new Router({
         },
         {
           path: '/permission/auth',
-          component: () => import('@/pages/permission/auth'),
+          component: () => import('@/pages/permission/user'),
           meta: {title: '用户管理',needLogin:true}
         },
         {
@@ -368,7 +368,7 @@ const router = new Router({
         },
         {
           path: '/servlog/list',
-          component: () => import('@/pages/graph/servloglist'),
+          component: () => import('@/pages/graph/servlog'),
           meta: {title: 'NLP领域统计',needLogin:true}
         },
         {
@@ -504,6 +504,11 @@ const router = new Router({
         {
           path: '/nlu/transword/list',
           component: () => import('@/pages/nlu/transword'),
+          meta: {title: '词转换列表',needLogin:true}
+        },
+        {
+          path: '/ttslog/list',
+          component: () => import('@/pages/log/ttslog'),
           meta: {title: '词转换列表',needLogin:true}
         },
         {

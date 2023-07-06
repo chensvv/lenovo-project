@@ -8,7 +8,7 @@ import router from './router'
 // import { message } from './utils/message'
 import 'babel-polyfill'
 // eslint-disable-next-line import/no-duplicates
-// import 'default-passive-events'
+import 'default-passive-events'
 Vue.config.productionTip = false
 Vue.config.devtools = true;
 
