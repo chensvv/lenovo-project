@@ -222,7 +222,7 @@ export default {
       if(this.perList.indexOf('history:updateGray') == -1){
           this.isshow = false
       }
-      if(this.perList.indexOf('history:details') == -1){
+      if(this.perList.indexOf('history:details') == -1 && this.perList.indexOf('history:delete') == -1){
           this.issueshow = false
       }
   },

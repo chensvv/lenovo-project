@@ -192,7 +192,7 @@ export default {
       this.getList();
   },
   mounted(){
-      if(this.perList.indexOf('grey:devupdate') == -1 && this.perList.indexOf('grey:devdel') == -1 && this.perList.indexOf('grey:dev') == -1){
+      if(this.perList.indexOf('ttsgrey:update') == -1 && this.perList.indexOf('ttsgrey:del') == -1){
           this.isshow = false
       }
   },

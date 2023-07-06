@@ -269,7 +269,7 @@ export default {
     if(this.perList.indexOf('user:data') == -1){
       this.isshow = false
     }
-    if(this.perList.indexOf('rule:update') == -1 && this.perList.indexOf('rule:delete') == -1){
+    if(this.perList.indexOf('rule:update') == -1 && this.perList.indexOf('rule:delete') == -1 && this.perList.indexOf('activiti:pass') == -1){
       this.btnshow = false
     }
   },

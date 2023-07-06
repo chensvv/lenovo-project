@@ -235,6 +235,11 @@ export default {
         })
         this.getroachList()
     },
+    mounted(){
+        if(this.perList.indexOf('nlulog:detail') == -1){
+            this.isshow = false
+        }
+    },
     directives:{
         'debounce-input':{
             inserted(el, binding){

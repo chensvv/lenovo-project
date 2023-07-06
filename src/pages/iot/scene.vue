@@ -135,7 +135,7 @@ export default {
         this.getList();
     },
     mounted(){
-        if(this.perList.indexOf('iot:pull') == -1 && this.perList.indexOf('iot:delete') == -1 && this.perList.indexOf('iot:info') == -1){
+        if(this.perList.indexOf('scene:control') == -1){
             this.isshow = false
         }
     },

@@ -86,13 +86,13 @@
                   size="mini"
                   type="danger"
                   @click="handleOff(scope.$index, scope.row)"
-                  v-has="'forum:details'">否决</el-button>
+                  v-has="'forum:update'">否决</el-button>
                 <el-button
                   v-if="scope.row.invalidate == 2 || scope.row.invalidate == 0"
                   size="mini"
                   type="danger"
                   @click="handleUpdate(scope.$index, scope.row)"
-                  v-has="'forum:details'">审批</el-button>
+                  v-has="'forum:update'">审批</el-button>
                   <el-button
                   size="mini"
                   @click="handleInfo(scope.$index, scope.row)"
@@ -157,7 +157,7 @@ export default {
     this.getStatus()
   },
   mounted(){
-    if(this.perList.indexOf('forum:details') == -1 && this.perList.indexOf('forum:delete') == -1){
+    if(this.perList.indexOf('forum:details') == -1 && this.perList.indexOf('forum:delete') == -1 && this.perList.indexOf('forum:update') == -1){
             this.btnshow = false
         }
   },

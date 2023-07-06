@@ -181,7 +181,7 @@ export default {
       this.getTypeList()
   },
   mounted(){
-      if(this.perList.indexOf('qa:channelUpdate') == -1 && this.perList.indexOf('qa:channelDel') == -1){
+      if(this.perList.indexOf('nlpgrey:update') == -1 && this.perList.indexOf('nlpgrey:delete') == -1){
           this.isshow = false
       }
   },

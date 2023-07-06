@@ -260,7 +260,7 @@ export default {
       this.getChannelList()
   },
   mounted(){
-      if(this.perList.indexOf('showmode:update') == -1){
+      if(this.perList.indexOf('showmode:update') == -1 && this.perList.indexOf('showmode:delete') == -1){
           this.isshow = false
       }
       if(this.perList.indexOf('showmode:toBeReleased') == -1){
