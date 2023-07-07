@@ -509,7 +509,12 @@ const router = new Router({
         {
           path: '/ttslog/list',
           component: () => import('@/pages/log/ttslog'),
-          meta: {title: '词转换列表',needLogin:true}
+          meta: {title: '语音合成日报表',needLogin:true}
+        },
+        {
+          path: '/asrlog/list',
+          component: () => import('@/pages/log/asrlog'),
+          meta: {title: '识别明细报表',needLogin:true}
         },
         {
           path: '/user/checkpass',

@@ -2,7 +2,7 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/qa/list'}">规则定义</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/asr/log/client'}">日志管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
@@ -10,8 +10,8 @@
       <div class="form-input height70">
         <el-form-item label="状态" prop="status">
           <el-select v-model.trim="searchItem.status" placeholder="--" clearable>
-              <el-option label="成功" value="SUCCESS"></el-option>
-              <el-option label="失败" value="FAILED"></el-option>
+              <el-option label="成功" value="success"></el-option>
+              <el-option label="失败" value="failed"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="日期" prop="pickerVal" class="nludate-form">
@@ -97,8 +97,8 @@
               width="50">
                 <template slot-scope="scope">
                     <span
-                    :class="scope.row.status === 'SUCCESS' ? 'tag-s' :'tag-d'"
-                    >{{scope.row.status == 'SUCCESS' ? '成功' :'失败'}}</span>
+                    :class="scope.row.status === 'success' ? 'tag-s' :'tag-d'"
+                    >{{scope.row.status == 'success' ? '成功' :'失败'}}</span>
                 </template>
           </el-table-column>
           <el-table-column

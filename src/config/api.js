@@ -3763,3 +3763,15 @@ export function ttslogList (data) {
     }
   })
 }
+
+export function asrlogList (data) {
+  return fetch.service_head({
+    url: '/vehicle-mgr/asrlog/list',
+    method: 'post',
+    data: data,
+    headers: {
+      't': Base64.decode(JSON.parse(sessionStorage.getItem('token')).t),
+      'u':sessionStorage.getItem('username')
+    }
+  })
+}

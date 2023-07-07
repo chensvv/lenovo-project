@@ -869,6 +869,10 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .table-box .el-table th {
   padding: 0;
 }
+.table-box.ruletable .el-table td,
+.table-box.ruletable .el-table th {
+  padding: 12px 0;
+}
 
 .el-button--mini {
   padding: 5px 8px;

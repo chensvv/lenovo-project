@@ -7,29 +7,51 @@
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" size="mini" style="padding-left:50px;">
             <el-form-item class="sub-btn">
-                <el-button type="primary" @click="handleAdd(1,0)" size="mini" :loading="btnLoading" v-has="'Rule:add'">增加一级菜单</el-button>
+                <el-button type="primary" @click="handleAdd(1,0)" size="mini" :loading="btnLoading" v-has="'Rule:add'">添加一级菜单</el-button>
             </el-form-item>
         </el-form>
-        <div class="table-box">
+        <div class="table-box ruletable" ref="tables">
             <el-table
                 :data="list"
                 :class="this.totalClass <= '7' ? 'limitWidth' :''"
-                stripe
+                :max-height="tableHeight"
+                row-key="id"
+                :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
                 v-laoding="listLoading"
                 element-loading-text="拼命加载中"
                 element-loading-spinner="el-icon-loading">
                 <el-table-column
                     prop="ruleName"
-                    label="一级菜单权限名称">
+                    label="权限名称">
                 </el-table-column>
-                <el-table-column label="操作" align="center"  width="180" v-if="isshow">
+                <el-table-column
+                    prop="ruleCode"
+                    label="权限标识">
+                </el-table-column>
+                <el-table-column
+                    prop="url"
+                    label="路径">
+                </el-table-column>
+                <el-table-column label="操作" align="center" v-if="isshow">
                     <template slot-scope="scope">
-                      <el-button
+                        <el-button
+                            size="mini"
+                            @click.native.stop="handleAdd(scope.$index, scope.row)"
+                            v-has="'Rule:add'"
+                            v-if="scope.row.menutype == 1"
+                        >添加二级菜单</el-button>
+                        <el-button
+                            size="mini"
+                            @click.native.stop="handleAdd(scope.$index, scope.row)"
+                            v-has="'Rule:add'"
+                            v-if="scope.row.menutype == 2"
+                        >添加按钮权限</el-button>
+                      <!-- <el-button
                             size="mini"
                             @click.native.stop="handleInfo(scope.$index, scope.row)"
                             v-has="'Rule:add'"
                             v-if="scope.row.menutype != 3"
-                        >详情</el-button>
+                        >详情</el-button> -->
                         <el-button
                             size="mini"
                             @click.native.stop="handleEdit(scope.$index, scope.row)"
@@ -44,20 +66,29 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage"
-            :page-size="pageSize"
-            layout="total, prev, pager, next, jumper"
-            :total="totalCount"
-        ></el-pagination>
+            <div class="pagination-wrap" v-cloak>
+                <ul class="pagination">
+                    <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                    <li v-if="currentPage == this.getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+                    <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
+                    <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+                    <li v-if="currentPage != this.getpageNum(totalCount)" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
+                    <li v-if="currentPage+1 < 3 && currentPage != this.getpageNum(totalCount) && this.getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+                    <li><button :disabled="currentPage == this.getpageNum(totalCount)? true: false" @click="turnToPage(this.getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                </ul>
+            </div>
         </div>
         
-        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增一级菜单权限" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
+        <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" :title="addTitle" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="addRules" :model="addList" ref="addList">
-                <el-form-item label="菜单名称" prop="ruleName">
+                <el-form-item label="权限名称" prop="ruleName">
                     <el-input type="text" v-model.trim="addList.ruleName" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="权限标识" prop="ruleCode" v-if="codeshow">
+                    <el-input type="text" v-model.trim="addList.ruleCode" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="url" prop="url" v-if="urlshow">
+                    <el-input type="text" v-model.trim="addList.url" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -67,8 +98,14 @@
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
             <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
-                <el-form-item label="菜单名称" prop="ruleName">
+                <el-form-item label="权限名称" prop="ruleName">
                     <el-input type="text" v-model.trim="currentItem.ruleName" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="权限标识" prop="ruleCode" v-if="codeshow">
+                    <el-input type="text" v-model.trim="currentItem.ruleCode" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="url" prop="url" v-if="urlshow">
+                    <el-input type="text" v-model.trim="currentItem.url" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -82,10 +119,12 @@
 <script>
 import { ruleList, userMenu, authAdd, authDel, authUpdate} from '@/config/adminApi'
 import {deleteParams} from '@/utils/deleteParams.js'
+import {getpageNum} from '@/utils/pagination.js'
 export default {
     inject:['reload'],
     data() {
         return {
+            getpageNum:getpageNum,
             list:[],
             totalClass:'8',
             expands:[],
@@ -109,10 +148,14 @@ export default {
                 icon:''
             },
             addRules:{
-                ruleName:[{ required: true, message: '请输入菜单名称', trigger: 'change' }]
+                ruleName:[{ required: true, message: '请输入权限名称', trigger: 'change' }],
+                ruleCode:[{ required: true, message: '请输入权限标识', trigger: 'change' }],
+                url:[{ required: true, message: '请输入url', trigger: 'change' }]
             },
             editRules:{
-                ruleName:[{ required: true, message: '请输入菜单名称', trigger: 'change' }]
+                ruleName:[{ required: true, message: '请输入权限名称', trigger: 'change' }],
+                ruleCode:[{ required: true, message: '请输入权限标识', trigger: 'change' }],
+                url:[{ required: true, message: '请输入url', trigger: 'change' }]
             },
             currentPage: 1, //默认显示第几页
             pageSize: 10,   //默认每页条数
@@ -125,11 +168,20 @@ export default {
             ruleCodeAuth:false,
             urlAuth:false,
             isshow:true,
-            addTitle:''
+            urlshow:true,
+            codeshow:true,
+            addTitle:'',
+            tableHeight:0
         };
     },
     created() {
         this.getList();
+    },
+    mounted(){
+        setTimeout(()=>{
+            this.tableHeight = this.$refs.tables.offsetHeight - 50
+        },0)
+        console.log(this.$refs.tables.offsetHeight)
     },
     methods: {
         openFun(addList){
@@ -177,6 +229,19 @@ export default {
                 ruleName:'',
                 url:'',
                 icon: row == 0 ? 'el-icon-tickets' : row.menutype == 3 ? ' ' : 'el-icon-document'
+            }
+            if(row.menutype == 0 || row == 0){
+                this.addTitle = '新增一级菜单权限'
+                this.urlshow = false
+                this.codeshow = false
+            }else if(row.menutype == 1){
+                this.addTitle = '新增二级菜单权限'
+                this.urlshow = true
+                this.codeshow = true
+            }else{
+                this.addTitle = '新增按钮权限'
+                this.urlshow = false
+                this.codeshow = true
             }
             this.addVisible = true
         },
@@ -268,6 +333,16 @@ export default {
                 url:row.url,
                 icon: row.icon
             };
+            if(row.menutype == 1){
+                this.urlshow = false
+                this.codeshow = false
+            }else if(row.menutype == 2){
+                this.urlshow = true
+                this.codeshow = true
+            }else{
+                this.urlshow = false
+                this.codeshow = true
+            }
             this.editVisible = true;
         },
         editHandleConfirm(currentItem) {
@@ -398,6 +473,21 @@ export default {
             }).catch((err) => {
                 console.log(err);
             });
+        },
+        turnToPage(pageNum){
+            var ts = this;
+            var pageNum = parseInt(pageNum);
+            if(pageNum == -1){
+                ts.getList(pageNum)
+            }else{
+                ts.currentPage = pageNum
+                if (!pageNum || pageNum < 1) {
+                    console.log('页码输入有误！');
+                    return false;
+                }else{
+                    ts.getList(pageNum)
+                }
+            }
         },
         getList() {
             this.listLoading = true

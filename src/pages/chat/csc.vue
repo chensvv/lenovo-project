@@ -92,14 +92,17 @@
                 </template>
             </el-table-column>
       </el-table>
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-size="pageSize"
-        layout="total, prev, pager, next, jumper"
-        :total="totalCount"
-      ></el-pagination>
+      <div class="pagination-wrap" v-cloak>
+          <ul class="pagination">
+              <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+              <li v-if="currentPage == this.getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+              <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
+              <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+              <li v-if="currentPage != this.getpageNum(totalCount)" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
+              <li v-if="currentPage+1 < 3 && currentPage != this.getpageNum(totalCount) && this.getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+              <li><button :disabled="currentPage == this.getpageNum(totalCount)? true: false" @click="turnToPage(this.getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+          </ul>
+      </div>
     </div>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
@@ -124,9 +127,11 @@
 <script>
 import {cscList, cscAdd, cscDel} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
+import {getpageNum} from '@/utils/pagination.js'
 export default {
   data() {
     return {
+      getpageNum:getpageNum,
       list: [],
       perList:[],
       totalClass:'8',
@@ -275,6 +280,21 @@ export default {
           return false;
         }
       });
+    },
+    turnToPage(pageNum){
+        var ts = this;
+        var pageNum = parseInt(pageNum);
+        if(pageNum == -1){
+            ts.getList(pageNum)
+        }else{
+            ts.currentPage = pageNum
+            if (!pageNum || pageNum < 1) {
+                console.log('页码输入有误！');
+                return false;
+            }else{
+                ts.getList(pageNum)
+            }
+        }
     },
     getList() {
       this.listLoading = true

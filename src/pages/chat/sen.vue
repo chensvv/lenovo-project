@@ -86,14 +86,17 @@
                     </template>
                 </el-table-column>
             </el-table>
-        <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :current-page.sync="currentPage"
-            :page-size="pageSize"
-            layout="total, prev, pager, next, jumper"
-            :total="totalCount"
-        ></el-pagination>
+        <div class="pagination-wrap" v-cloak>
+            <ul class="pagination">
+                <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                <li v-if="currentPage == this.getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+                <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
+                <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+                <li v-if="currentPage != this.getpageNum(totalCount)" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
+                <li v-if="currentPage+1 < 3 && currentPage != this.getpageNum(totalCount) && this.getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+                <li><button :disabled="currentPage == this.getpageNum(totalCount)? true: false" @click="turnToPage(this.getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+            </ul>
+        </div>
     </div>
 
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
@@ -169,9 +172,11 @@
 import {checkTime} from '@/utils/timer.js'
 import {senList, senAddUpd, senDel, senPub, senExcel, downExcel, senExcept} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
+import {getpageNum} from '@/utils/pagination.js'
 export default {
   data() {
     return {
+      getpageNum:getpageNum,
       list: [],
       perList:[],
       totalClass:'8',
@@ -481,59 +486,74 @@ export default {
         })
     },
     importExcel(){
-            this.uploadVisible = true
-        },
-        beforeUpload(file) {
-            const extension = file.name.split('.')[1] === 'xls'
-            const extension2 = file.name.split('.')[1] === 'xlsx'
-            if (!extension && !extension2) {
-                this.$message.warning('上传文件必须是Excel格式!')
-                return false
-            }
-            return extension || extension2;
-        },
-        // 上传文件个数超过定义的数量
-        handleExceed(files, fileList) {
-            this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`);
-        },
-        uploadFile(item) {
-            this.file = item.file;
-        },
-        postFile() {
-            if(this.file == ''){
-                this.$message.warning('请选择要上传的文件！')
-                return false
+        this.uploadVisible = true
+    },
+    beforeUpload(file) {
+        const extension = file.name.split('.')[1] === 'xls'
+        const extension2 = file.name.split('.')[1] === 'xlsx'
+        if (!extension && !extension2) {
+            this.$message.warning('上传文件必须是Excel格式!')
+            return false
+        }
+        return extension || extension2;
+    },
+    // 上传文件个数超过定义的数量
+    handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 1 个文件，请删除后继续上传`);
+    },
+    uploadFile(item) {
+        this.file = item.file;
+    },
+    postFile() {
+        if(this.file == ''){
+            this.$message.warning('请选择要上传的文件！')
+            return false
+        }else{
+            const fileObj = this.file;
+            var fileData = new FormData();
+            fileData.append("file", fileObj);
+            this.fileBtnLoading = true;
+            senExcel(fileData).then(res => {
+                this.fileBtnLoading = false
+                if(res.data.code == 200){
+                    this.$message({
+                        message:res.data.msg,
+                        type:"success",
+                    });
+                    this.$refs.upload.clearFiles()
+                    this.uploadVisible = false
+                    this.getList()
+                }else{
+                    this.$message({
+                        message:res.data.errorMessage,
+                        type:"error",
+                        duration:1500
+                    });
+                }
+            }).catch(err => {
+                this.fileBtnLoading = false
+            })
+        }
+    },
+    closeFile() {
+        this.$refs.upload.clearFiles()
+        this.uploadVisible = false;
+    },
+    turnToPage(pageNum){
+        var ts = this;
+        var pageNum = parseInt(pageNum);
+        if(pageNum == -1){
+            ts.getList(pageNum)
+        }else{
+            ts.currentPage = pageNum
+            if (!pageNum || pageNum < 1) {
+                console.log('页码输入有误！');
+                return false;
             }else{
-                const fileObj = this.file;
-                var fileData = new FormData();
-                fileData.append("file", fileObj);
-                this.fileBtnLoading = true;
-                senExcel(fileData).then(res => {
-                    this.fileBtnLoading = false
-                    if(res.data.code == 200){
-                        this.$message({
-                            message:res.data.msg,
-                            type:"success",
-                        });
-                        this.$refs.upload.clearFiles()
-                        this.uploadVisible = false
-                        this.getList()
-                    }else{
-                        this.$message({
-                            message:res.data.errorMessage,
-                            type:"error",
-                            duration:1500
-                        });
-                    }
-                }).catch(err => {
-                    this.fileBtnLoading = false
-                })
+                ts.getList(pageNum)
             }
-        },
-        closeFile() {
-            this.$refs.upload.clearFiles()
-            this.uploadVisible = false;
-        },
+        }
+    },
     getList() {
       this.listLoading = true
       let params = {

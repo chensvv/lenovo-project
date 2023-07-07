@@ -124,14 +124,17 @@
                             </template>
                         </el-table-column>
                     </el-table>
-                    <el-pagination
-                        @size-change="commandHandleSizeChange"
-                        @current-change="commandHandleCurrentChange"
-                        :current-page.sync="commandCurrentPage"
-                        :page-size="commandPageSize"
-                        layout="total, prev, pager, next, jumper"
-                        :total="commandTotalCount"
-                    ></el-pagination>
+                    <div class="pagination-wrap" v-cloak>
+                        <ul class="pagination">
+                            <li><button :disabled="commandCurrentPage==1? true : false" @click="commandTurnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                            <li v-if="commandCurrentPage == this.getpageNum(commandTotalCount) && commandCurrentPage !=1 && commandCurrentPage - 2 > 0" class="unum" @click="commandTurnToPage(commandCurrentPage-2)" v-text="commandCurrentPage-2"></li>
+                            <li v-if="commandCurrentPage-1>0"  class="unum" @click="commandTurnToPage(commandCurrentPage-1)" v-text="commandCurrentPage-1"></li>
+                            <li class="active" @click="commandTurnToPage(commandCurrentPage)" v-text="commandCurrentPage"></li>
+                            <li v-if="commandCurrentPage != this.getpageNum(commandTotalCount)" class="unum" @click="commandTurnToPage(commandCurrentPage+1)" v-text="commandCurrentPage+1"></li>
+                            <li v-if="commandCurrentPage+1 < 3 && commandCurrentPage != this.getpageNum(commandTotalCount) && this.getpageNum(commandTotalCount) >=3" class="unum" @click="commandTurnToPage(commandCurrentPage+2)" v-text="commandCurrentPage+2"></li>
+                            <li><button :disabled="commandCurrentPage == this.getpageNum(commandTotalCount)? true: false" @click="commandTurnToPage(this.getpageNum(commandTotalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                        </ul>
+                    </div>
                 </el-tab-pane>
                 <el-tab-pane label="指令忽略管理" name="norun">
                     <el-table
@@ -178,14 +181,17 @@
                             </template>
                         </el-table-column>
                     </el-table>
-                    <el-pagination
-                        @size-change="norunHandleSizeChange"
-                        @current-change="norunHandleCurrentChange"
-                        :current-page.sync="norunCurrentPage"
-                        :page-size="norunPageSize"
-                        layout="total, prev, pager, next, jumper"
-                        :total="norunTotalCount"
-                    ></el-pagination>
+                    <div class="pagination-wrap" v-cloak>
+                        <ul class="pagination">
+                            <li><button :disabled="norunCurrentPage==1? true : false" @click="norunTurnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                            <li v-if="norunCurrentPage == this.getpageNum(norunTotalCount) && norunCurrentPage !=1 && norunCurrentPage - 2 > 0" class="unum" @click="norunTurnToPage(norunCurrentPage-2)" v-text="norunCurrentPage-2"></li>
+                            <li v-if="norunCurrentPage-1>0"  class="unum" @click="norunTurnToPage(norunCurrentPage-1)" v-text="norunCurrentPage-1"></li>
+                            <li class="active" @click="norunTurnToPage(norunCurrentPage)" v-text="norunCurrentPage"></li>
+                            <li v-if="norunCurrentPage != this.getpageNum(norunTotalCount)" class="unum" @click="norunTurnToPage(norunCurrentPage+1)" v-text="norunCurrentPage+1"></li>
+                            <li v-if="norunCurrentPage+1 < 3 && norunCurrentPage != this.getpageNum(norunTotalCount) && this.getpageNum(norunTotalCount) >=3" class="unum" @click="norunTurnToPage(norunCurrentPage+2)" v-text="norunCurrentPage+2"></li>
+                            <li><button :disabled="norunCurrentPage == this.getpageNum(norunTotalCount)? true: false" @click="norunTurnToPage(this.getpageNum(norunTotalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                        </ul>
+                    </div>
                 </el-tab-pane>
                 <el-tab-pane label="原始指令管理" name="origina">
                     <el-table
@@ -257,14 +263,17 @@
                             </template>
                         </el-table-column>
                     </el-table>
-                <el-pagination
-                    @size-change="originaHandleSizeChange"
-                    @current-change="originaHandleCurrentChange"
-                    :current-page.sync="originaCurrentPage"
-                    :page-size="originaPageSize"
-                    layout="total, prev, pager, next, jumper"
-                    :total="originaTotalCount"
-                ></el-pagination>
+                    <div class="pagination-wrap" v-cloak>
+                        <ul class="pagination">
+                            <li><button :disabled="originaCurrentPage==1? true : false" @click="originaTurnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                            <li v-if="originaCurrentPage == this.getpageNum(originaTotalCount) && originaCurrentPage !=1 && originaCurrentPage - 2 > 0" class="unum" @click="originaTurnToPage(originaCurrentPage-2)" v-text="originaCurrentPage-2"></li>
+                            <li v-if="originaCurrentPage-1>0"  class="unum" @click="originaTurnToPage(originaCurrentPage-1)" v-text="originaCurrentPage-1"></li>
+                            <li class="active" @click="originaTurnToPage(originaCurrentPage)" v-text="originaCurrentPage"></li>
+                            <li v-if="originaCurrentPage != this.getpageNum(originaTotalCount)" class="unum" @click="originaTurnToPage(originaCurrentPage+1)" v-text="originaCurrentPage+1"></li>
+                            <li v-if="originaCurrentPage+1 < 3 && originaCurrentPage != this.getpageNum(originaTotalCount) && this.getpageNum(originaTotalCount) >=3" class="unum" @click="originaTurnToPage(originaCurrentPage+2)" v-text="originaCurrentPage+2"></li>
+                            <li><button :disabled="originaCurrentPage == this.getpageNum(originaTotalCount)? true: false" @click="originaTurnToPage(this.getpageNum(originaTotalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                        </ul>
+                    </div>
                 </el-tab-pane>
             </el-tabs>
         </div>
@@ -334,9 +343,11 @@
 import {checkTime} from '@/utils/timer.js'
 import {commandList, commandDel, commandEcho, commandAdd, norunList, norunDel, norunAdd,originalList,originalAdd,originalUpd,originalDel} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
+import {getpageNum} from '@/utils/pagination.js'
 export default {
     data() {
         return {
+            getpageNum:getpageNum,
             commandList: [],
             norunList: [],
             originaList: [],
@@ -824,6 +835,51 @@ export default {
                 this.originaForm = false
                 this.norunForm = false
                 this.commandForm = true
+            }
+        },
+        commandTurnToPage(pageNum){
+            var ts = this;
+            var pageNum = parseInt(pageNum);
+            if(pageNum == -1){
+                ts.getCommandList(pageNum)
+            }else{
+                ts.commandCurrentPage = pageNum
+                if (!pageNum || pageNum < 1) {
+                    console.log('页码输入有误！');
+                    return false;
+                }else{
+                    ts.getCommandList(pageNum)
+                }
+            }
+        },
+        norunTurnToPage(pageNum){
+            var ts = this;
+            var pageNum = parseInt(pageNum);
+            if(pageNum == -1){
+                ts.getNorunList(pageNum)
+            }else{
+                ts.norunCurrentPage = pageNum
+                if (!pageNum || pageNum < 1) {
+                    console.log('页码输入有误！');
+                    return false;
+                }else{
+                    ts.getNorunList(pageNum)
+                }
+            }
+        },
+        originaTurnToPage(pageNum){
+            var ts = this;
+            var pageNum = parseInt(pageNum);
+            if(pageNum == -1){
+                ts.getOriginaList(pageNum)
+            }else{
+                ts.originaCurrentPage = pageNum
+                if (!pageNum || pageNum < 1) {
+                    console.log('页码输入有误！');
+                    return false;
+                }else{
+                    ts.getOriginaList(pageNum)
+                }
             }
         },
         getCommandList() {
