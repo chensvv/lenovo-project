@@ -224,9 +224,9 @@ export default {
           this.totalClass = res.data.data.data.length
         }else{
             this.$message({
-                message:res.data.errorMessage,
+                message:res.data.code+'：'+res.data.msg,
                 type:'error',
-                duration:1500
+                duration:2000
             });
         }
       }).catch(()=>{

@@ -470,7 +470,7 @@ export default {
             });
         }else{
             this.$message({
-                message:res.data.errorMessage,
+                message:res.data.code+'：'+res.data.msg,
                 type:"error",
                 duration:1500
             });
@@ -478,7 +478,7 @@ export default {
       }).catch(error=>{
         this.zipBtnLoading = false
         this.$message({
-            message:res.data.message,
+            message:res.data.msg,
             type:"error",
             duration:1500
         });
@@ -604,7 +604,7 @@ export default {
           this.currentPage = res.data.data.currentPage
         }else{
             this.$message({
-                message:res.data.errorMessage,
+                message:res.data.code+'：'+res.data.msg,
                 type:'error',
                 duration:1500
             });

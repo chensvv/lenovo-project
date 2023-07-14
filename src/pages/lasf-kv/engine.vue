@@ -80,7 +80,7 @@ export default {
                 this.$message({
                     message:'修改成功',
                     type:"success",
-                    duration:1500
+                    duration:2000
                 });
                 this.getList()
                 this.editBtnLoading = false
@@ -88,9 +88,9 @@ export default {
             }else{
               this.editBtnLoading = false
                 this.$message({
-                    message:res.data.errorMessage,
+                    message:res.data.code+'：'+res.data.msg,
                     type:"error",
-                    duration:1500
+                    duration:2000
                 });
             }
           }).catch(err => {
@@ -114,9 +114,9 @@ export default {
           this.list = res.data;
         }else{
             this.$message({
-                message:res.data.errorMessage,
+                message:res.data.code+'：'+res.data.msg,
                 type:'error',
-                duration:1500
+                duration:2000
             });
         }
       })

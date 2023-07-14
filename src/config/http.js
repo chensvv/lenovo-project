@@ -96,21 +96,24 @@ service_head.interceptors.response.use(response => {
     case 500:
       Message.closeAll()
       Message.error({
-        message: '请稍后重试！'
+        message: error.response.status+'：请稍后重试！',
+        duration:2000
       })
       // sessionStorage.clear()
       break
     case 404:
       Message.closeAll()
       Message.error({
-        message: '请稍后重试！'
+        message: error.response.status+'：请稍后重试！',
+        duration:2000
       })
         // sessionStorage.clear()
       break
     case 504:
       Message.closeAll()
       Message.error({
-        message: '连接超时，请稍后重试！'
+        message: error.response.status+'：连接超时，请稍后重试！',
+        duration:2000
       })
         // sessionStorage.clear()
       break

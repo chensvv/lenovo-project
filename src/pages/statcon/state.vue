@@ -63,7 +63,7 @@ export default {
                             this.$message({
                                 message:'请求成功',
                                 type:"success",
-                                duration:1500
+                                duration:2000
                             });
                             this.seaBtnLoading = false
                             sessionStorage.removeItem('menuData')
@@ -74,17 +74,17 @@ export default {
                                     this.reload();
                                 }else{
                                     this.$message({
-                                        message:res.data.errorMessage,
+                                        message:res.data.code+'：'+res.data.msg,
                                         type:"error",
-                                        duration:1500
+                                        duration:2000
                                     });
                                 }
                             })
                         }else{
                             this.$message({
-                                message:res.data.errorMessage,
+                                message:res.data.code+'：'+res.data.msg,
                                 type:"error",
-                                duration:1500
+                                duration:2000
                             });
                         } 
                         

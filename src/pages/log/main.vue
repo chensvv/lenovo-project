@@ -538,9 +538,9 @@ export default {
                     this.currentPage = res.data.data.currentPage
                 }else{
                     this.$message({
-                        message:res.data.errorMessage,
+                        message:res.data.code+'：'+res.data.msg,
                         type:'error',
-                        duration:1500
+                        duration:2000
                     });
                 }
             }).catch(()=>{
@@ -634,9 +634,9 @@ export default {
                     })
                 }else{
                     this.$message({
-                        message:res.data.msg,
+                        message:res.data.code+'：'+res.data.msg,
                         type:'error',
-                        duration:1500
+                        duration:2000
                     });
                 }
             })
@@ -717,9 +717,9 @@ export default {
                     }
                 }else{
                     this.$message({
-                        message:res.data.errorMessage,
+                        message:res.data.code+'：'+res.data.msg,
                         type:'error',
-                        duration:1500
+                        duration:2000
                     });
                 }
                 
@@ -746,9 +746,9 @@ export default {
             // logDown(dParams).then(res=>{
             //     if(res.data.code == '400'){
             //         this.$message({
-            //                 message:res.data.errorMessage,
+            //                 message:res.data.code+'：'+res.data.msg,
             //                 type:"error",
-            //                 duration:1500
+            //                 duration:2000
             //             });
             //     }
             // })

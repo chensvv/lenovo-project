@@ -97,12 +97,12 @@
         <div class="pagination-wrap" v-cloak>
             <ul class="pagination">
                 <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
-                <li v-if="currentPage == this.getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+                <li v-if="currentPage == getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
                 <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
                 <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
-                <li v-if="currentPage != this.getpageNum(totalCount)" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
-                <li v-if="currentPage+1 < 3 && currentPage != this.getpageNum(totalCount) && this.getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
-                <li><button :disabled="currentPage == this.getpageNum(totalCount)? true: false" @click="turnToPage(this.getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                <li v-if="currentPage != getpageNum(totalCount) && getpageNum(totalCount) !=0" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
+                <li v-if="currentPage+1 < 3 && currentPage != getpageNum(totalCount) && getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+                <li><button :disabled="currentPage == getpageNum(totalCount) || getpageNum(totalCount) == 0? true: false" @click="turnToPage(getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
             </ul>
         </div>
       </div>
@@ -261,9 +261,9 @@ export default {
           this.totalClass = res.data.data.length
         }else{
             this.$message({
-                message:res.data.errorMessage,
+                message:res.data.code+'：'+res.data.msg,
                 type:'error',
-                duration:1500
+                duration:2000
             });
         }
       }).catch(()=>{
@@ -310,7 +310,7 @@ export default {
         this.$message({
             message:'请选择要删除的数据',
             type:"warning",
-            duration:1500
+            duration:2000
         });
       }else{
         let delsParams = {
@@ -327,14 +327,14 @@ export default {
                 this.$message({
                   message:'删除成功',
                   type:"success",
-                  duration:1500
+                  duration:2000
                 });
                 this.getList();
               }else{
                 this.$message({
-                  message:res.data.errorMessage,
+                  message:res.data.code+'：'+res.data.msg,
                   type:"error",
-                  duration:1500
+                  duration:2000
                 });
               }
             })
@@ -350,7 +350,7 @@ export default {
         this.$message({
             message:'请选择要审核的数据',
             type:"warning",
-            duration:1500
+            duration:2000
         });
       }else{
         let veriParams = {
@@ -362,14 +362,14 @@ export default {
               this.$message({
                   message:'审核成功',
                   type:"success",
-                  duration:1500
+                  duration:2000
               });
               this.getList()
           }else{
               this.$message({
-                  message:res.data.errorMessage,
+                  message:res.data.code+'：'+res.data.msg,
                   type:"error",
-                  duration:1500
+                  duration:2000
               });
           }
         }).catch(err => {
@@ -390,14 +390,14 @@ export default {
             this.$message({
                 message:'审核成功',
                 type:"success",
-                duration:1500
+                duration:2000
             });
             this.getList()
         }else{
             this.$message({
-                message:res.data.errorMessage,
+                message:res.data.code+'：'+res.data.msg,
                 type:"error",
-                duration:1500
+                duration:2000
             });
         }
       }).catch(err => {
@@ -429,15 +429,15 @@ export default {
                 this.$message({
                     message:'编辑成功',
                     type:"success",
-                    duration:1500
+                    duration:2000
                 });
                 this.getList()
                 this.editVisible = false
             }else{
                 this.$message({
-                    message:res.data.errorMessage,
+                    message:res.data.code+'：'+res.data.msg,
                     type:"error",
-                    duration:1500
+                    duration:2000
                 });
             } 
           }).catch(err => {
@@ -463,14 +463,14 @@ export default {
               this.$message({
                 message:'删除成功',
                 type:"success",
-                duration:1500
+                duration:2000
               });
               this.getList();
             }else{
               this.$message({
-                message:res.data.errorMessage,
+                message:res.data.code+'：'+res.data.msg,
                 type:"error",
-                duration:1500
+                duration:2000
               });
             }
           })
@@ -499,15 +499,15 @@ export default {
                   this.$message({
                     message:'添加成功',
                     type:"success",
-                    duration:1500
+                    duration:2000
                   });
                   this.getList();
                   this.addVisible = false
               }else{
                   this.$message({
-                      message:res.data.errorMessage,
+                      message:res.data.code+'：'+res.data.msg,
                       type:"error",
-                      duration:1500
+                      duration:2000
                   });
                   
               } 

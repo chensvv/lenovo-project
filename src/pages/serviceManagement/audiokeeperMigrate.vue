@@ -108,14 +108,14 @@ export default {
                 this.$message({
                     message:'迁移成功',
                     type:"success",
-                    duration:1500
+                    duration:2000
                 });
                 this.addVisible = false
             }else{
                 this.$message({
-                    message:res.data.errorMessage,
+                    message:res.data.code+'：'+res.data.msg,
                     type:"error",
-                    duration:1500
+                    duration:2000
                 });
             }
           }).catch(err => {

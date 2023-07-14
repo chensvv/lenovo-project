@@ -127,14 +127,17 @@
                     </template>
                 </el-table-column>
             </el-table>
-            <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page.sync="currentPage"
-                :page-size="pageSize"
-                layout="total, prev, pager, next, jumper"
-                :total="totalCount"
-            ></el-pagination>
+            <div class="pagination-wrap" v-cloak>
+                <ul class="pagination">
+                    <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
+                    <li v-if="currentPage == getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
+                    <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
+                    <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+                    <li v-if="currentPage != getpageNum(totalCount) && getpageNum(totalCount) !=0" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
+                    <li v-if="currentPage+1 < 3 && currentPage != getpageNum(totalCount) && getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+                    <li><button :disabled="currentPage == getpageNum(totalCount) || getpageNum(totalCount) == 0 ? true : false" @click="turnToPage(getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                </ul>
+            </div>
         </div>
 
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
@@ -295,9 +298,11 @@
 import {checkTime} from '@/utils/timer.js'
 import {videoList, videoDel, videoUpd, videoAdd, videoSelect, videoDelBatch, videoUpFile} from '@/config/api'
 import {deleteParams} from '@/utils/deleteParams.js'
+import {getpageNum} from '@/utils/pagination.js'
 export default {
     data() {
         return {
+            getpageNum:getpageNum,
             list: [],
             perList:[],
             sels:[],
@@ -489,9 +494,9 @@ export default {
                         this.getList()
                     }else{
                         this.$message({
-                            message:res.data.errorMessage,
+                            message:res.data.code+'：'+res.data.msg,
                             type:"error",
-                            duration:1500
+                            duration:2000
                         });
                     }
                 }).catch(err=>{
@@ -547,14 +552,14 @@ export default {
                         this.$message({
                             message:'删除成功',
                             type:"success",
-                            duration:1500
+                            duration:2000
                         });
                         this.getList();
                     }else{
                         this.$message({
-                            message:res.data.errorMessage,
+                            message:res.data.code+'：'+res.data.msg,
                             type:"error",
-                            duration:1500
+                            duration:2000
                         });
                     }
                     
@@ -569,7 +574,7 @@ export default {
                 this.$message({
                     message:'请选择要删除的数据',
                     type:"warning",
-                    duration:1500
+                    duration:2000
                 });
             }else{
                 let delsParams = {
@@ -586,14 +591,14 @@ export default {
                             this.$message({
                                 message:'删除成功',
                                 type:"success",
-                                duration:1500
+                                duration:2000
                             });
                         this.getList();
                         }else{
                             this.$message({
-                                message:res.data.errorMessage,
+                                message:res.data.code+'：'+res.data.msg,
                                 type:"error",
-                                duration:1500
+                                duration:2000
                             });
                         }
                     })
@@ -654,15 +659,15 @@ export default {
                             this.$message({
                                 message:'编辑成功',
                                 type:"success",
-                                duration:1500
+                                duration:2000
                             });
                             this.getList()
                             this.editVisible = false
                         }else{
                             this.$message({
-                                message:res.data.errorMessage,
+                                message:res.data.code+'：'+res.data.msg,
                                 type:"error",
-                                duration:1500
+                                duration:2000
                             });
                         }
                         
@@ -711,15 +716,15 @@ export default {
                             this.$message({
                                 message:'添加成功',
                                 type:"success",
-                                duration:1500
+                                duration:2000
                             });
                             this.getList();
                             this.addVisible = false
                         }else{
                             this.$message({
-                                message:res.data.errorMessage,
+                                message:res.data.code+'：'+res.data.msg,
                                 type:"error",
-                                duration:1500
+                                duration:2000
                             });
                         }
                         
@@ -739,6 +744,21 @@ export default {
             console.log(this.column)
             this.getList()
         },
+        turnToPage(pageNum){
+            var ts = this;
+            var pageNum = parseInt(pageNum);
+            if(pageNum == -1){
+                ts.getList(pageNum)
+            }else{
+                ts.currentPage = pageNum
+                if (!pageNum || pageNum < 1) {
+                    console.log('页码输入有误！');
+                    return false;
+                }else{
+                    ts.getList(pageNum)
+                }
+            }
+        },
         getList() {
             this.listLoading = true
             let params = {
@@ -757,9 +777,9 @@ export default {
                     this.totalClass = res.data.data.length
                 }else{
                     this.$message({
-                        message:res.data.errorMessage,
+                        message:res.data.code+'：'+res.data.msg,
                         type:'error',
-                        duration:1500
+                        duration:2000
                     });
                 }
             }).catch(()=>{

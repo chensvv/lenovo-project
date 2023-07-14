@@ -524,9 +524,9 @@ export default {
             this.MinIdC = Math.min.apply(Math, this.clientList.map(function(o) {return o.id}))
           }else{
               this.$message({
-                  message:res.data.errorMessage,
+                  message:res.data.code+'：'+res.data.msg,
                   type:'error',
-                  duration:1500
+                  duration:2000
               });
           }
         }).catch(()=>{
@@ -668,9 +668,9 @@ export default {
               })
             }else{
               this.$message({
-                  message:res.data.msg,
+                  message:res.data.code+'：'+res.data.msg,
                   type:'error',
-                  duration:1500
+                  duration:2000
               });
             }
         })

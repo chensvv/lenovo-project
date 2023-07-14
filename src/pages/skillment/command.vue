@@ -127,12 +127,12 @@
                     <div class="pagination-wrap" v-cloak>
                         <ul class="pagination">
                             <li><button :disabled="commandCurrentPage==1? true : false" @click="commandTurnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
-                            <li v-if="commandCurrentPage == this.getpageNum(commandTotalCount) && commandCurrentPage !=1 && commandCurrentPage - 2 > 0" class="unum" @click="commandTurnToPage(commandCurrentPage-2)" v-text="commandCurrentPage-2"></li>
+                            <li v-if="commandCurrentPage == getpageNum(commandTotalCount) && commandCurrentPage !=1 && commandCurrentPage - 2 > 0" class="unum" @click="commandTurnToPage(commandCurrentPage-2)" v-text="commandCurrentPage-2"></li>
                             <li v-if="commandCurrentPage-1>0"  class="unum" @click="commandTurnToPage(commandCurrentPage-1)" v-text="commandCurrentPage-1"></li>
                             <li class="active" @click="commandTurnToPage(commandCurrentPage)" v-text="commandCurrentPage"></li>
-                            <li v-if="commandCurrentPage != this.getpageNum(commandTotalCount)" class="unum" @click="commandTurnToPage(commandCurrentPage+1)" v-text="commandCurrentPage+1"></li>
-                            <li v-if="commandCurrentPage+1 < 3 && commandCurrentPage != this.getpageNum(commandTotalCount) && this.getpageNum(commandTotalCount) >=3" class="unum" @click="commandTurnToPage(commandCurrentPage+2)" v-text="commandCurrentPage+2"></li>
-                            <li><button :disabled="commandCurrentPage == this.getpageNum(commandTotalCount)? true: false" @click="commandTurnToPage(this.getpageNum(commandTotalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                            <li v-if="commandCurrentPage != getpageNum(commandTotalCount) && getpageNum(commandTotalCount) !=0 " class="unum" @click="commandTurnToPage(commandCurrentPage+1)" v-text="commandCurrentPage+1"></li>
+                            <li v-if="commandCurrentPage+1 < 3 && commandCurrentPage != getpageNum(commandTotalCount) && getpageNum(commandTotalCount) >=3" class="unum" @click="commandTurnToPage(commandCurrentPage+2)" v-text="commandCurrentPage+2"></li>
+                            <li><button :disabled="commandCurrentPage == getpageNum(commandTotalCount) || getpageNum(commandTotalCount) == 0 ? true: false" @click="commandTurnToPage(getpageNum(commandTotalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
                         </ul>
                     </div>
                 </el-tab-pane>
@@ -184,12 +184,12 @@
                     <div class="pagination-wrap" v-cloak>
                         <ul class="pagination">
                             <li><button :disabled="norunCurrentPage==1? true : false" @click="norunTurnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
-                            <li v-if="norunCurrentPage == this.getpageNum(norunTotalCount) && norunCurrentPage !=1 && norunCurrentPage - 2 > 0" class="unum" @click="norunTurnToPage(norunCurrentPage-2)" v-text="norunCurrentPage-2"></li>
+                            <li v-if="norunCurrentPage == getpageNum(norunTotalCount) && norunCurrentPage !=1 && norunCurrentPage - 2 > 0" class="unum" @click="norunTurnToPage(norunCurrentPage-2)" v-text="norunCurrentPage-2"></li>
                             <li v-if="norunCurrentPage-1>0"  class="unum" @click="norunTurnToPage(norunCurrentPage-1)" v-text="norunCurrentPage-1"></li>
                             <li class="active" @click="norunTurnToPage(norunCurrentPage)" v-text="norunCurrentPage"></li>
-                            <li v-if="norunCurrentPage != this.getpageNum(norunTotalCount)" class="unum" @click="norunTurnToPage(norunCurrentPage+1)" v-text="norunCurrentPage+1"></li>
-                            <li v-if="norunCurrentPage+1 < 3 && norunCurrentPage != this.getpageNum(norunTotalCount) && this.getpageNum(norunTotalCount) >=3" class="unum" @click="norunTurnToPage(norunCurrentPage+2)" v-text="norunCurrentPage+2"></li>
-                            <li><button :disabled="norunCurrentPage == this.getpageNum(norunTotalCount)? true: false" @click="norunTurnToPage(this.getpageNum(norunTotalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                            <li v-if="norunCurrentPage != getpageNum(norunTotalCount) && getpageNum(norunTotalCount) !=0" class="unum" @click="norunTurnToPage(norunCurrentPage+1)" v-text="norunCurrentPage+1"></li>
+                            <li v-if="norunCurrentPage+1 < 3 && norunCurrentPage != getpageNum(norunTotalCount) && getpageNum(norunTotalCount) >=3" class="unum" @click="norunTurnToPage(norunCurrentPage+2)" v-text="norunCurrentPage+2"></li>
+                            <li><button :disabled="norunCurrentPage == getpageNum(norunTotalCount) || getpageNum(norunTotalCount) == 0 ? true: false" @click="norunTurnToPage(getpageNum(norunTotalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
                         </ul>
                     </div>
                 </el-tab-pane>
@@ -266,12 +266,12 @@
                     <div class="pagination-wrap" v-cloak>
                         <ul class="pagination">
                             <li><button :disabled="originaCurrentPage==1? true : false" @click="originaTurnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
-                            <li v-if="originaCurrentPage == this.getpageNum(originaTotalCount) && originaCurrentPage !=1 && originaCurrentPage - 2 > 0" class="unum" @click="originaTurnToPage(originaCurrentPage-2)" v-text="originaCurrentPage-2"></li>
+                            <li v-if="originaCurrentPage == getpageNum(originaTotalCount) && originaCurrentPage !=1 && originaCurrentPage - 2 > 0" class="unum" @click="originaTurnToPage(originaCurrentPage-2)" v-text="originaCurrentPage-2"></li>
                             <li v-if="originaCurrentPage-1>0"  class="unum" @click="originaTurnToPage(originaCurrentPage-1)" v-text="originaCurrentPage-1"></li>
                             <li class="active" @click="originaTurnToPage(originaCurrentPage)" v-text="originaCurrentPage"></li>
-                            <li v-if="originaCurrentPage != this.getpageNum(originaTotalCount)" class="unum" @click="originaTurnToPage(originaCurrentPage+1)" v-text="originaCurrentPage+1"></li>
-                            <li v-if="originaCurrentPage+1 < 3 && originaCurrentPage != this.getpageNum(originaTotalCount) && this.getpageNum(originaTotalCount) >=3" class="unum" @click="originaTurnToPage(originaCurrentPage+2)" v-text="originaCurrentPage+2"></li>
-                            <li><button :disabled="originaCurrentPage == this.getpageNum(originaTotalCount)? true: false" @click="originaTurnToPage(this.getpageNum(originaTotalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
+                            <li v-if="originaCurrentPage != getpageNum(originaTotalCount) && getpageNum(originaTotalCount) !=0" class="unum" @click="originaTurnToPage(originaCurrentPage+1)" v-text="originaCurrentPage+1"></li>
+                            <li v-if="originaCurrentPage+1 < 3 && originaCurrentPage != getpageNum(originaTotalCount) && getpageNum(originaTotalCount) >=3" class="unum" @click="originaTurnToPage(originaCurrentPage+2)" v-text="originaCurrentPage+2"></li>
+                            <li><button :disabled="originaCurrentPage == getpageNum(originaTotalCount) || getpageNum(originaTotalCount) == 0? true: false" @click="originaTurnToPage(getpageNum(originaTotalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
                         </ul>
                     </div>
                 </el-tab-pane>
@@ -543,14 +543,14 @@ export default {
                         this.$message({
                             message:'删除成功',
                             type:"success",
-                            duration:1500
+                            duration:2000
                         });
                         this.getCommandList();
                     }else{
                         this.$message({
-                            message:res.data.errorMessage,
+                            message:res.data.code+'：'+res.data.msg,
                             type:"error",
-                            duration:1500
+                            duration:2000
                         });
                     }
                     
@@ -574,14 +574,14 @@ export default {
                         this.$message({
                             message:'删除成功',
                             type:"success",
-                            duration:1500
+                            duration:2000
                         });
                         this.getNorunList();
                     }else{
                         this.$message({
-                            message:res.data.errorMessage,
+                            message:res.data.code+'：'+res.data.msg,
                             type:"error",
-                            duration:1500
+                            duration:2000
                         });
                     }
                     
@@ -605,14 +605,14 @@ export default {
                         this.$message({
                             message:'删除成功',
                             type:"success",
-                            duration:1500
+                            duration:2000
                         });
                         this.getOriginaList();
                     }else{
                         this.$message({
-                            message:res.data.errorMessage,
+                            message:res.data.code+'：'+res.data.msg,
                             type:"error",
-                            duration:1500
+                            duration:2000
                         });
                     }
                     
@@ -697,15 +697,15 @@ export default {
                             this.$message({
                                 message:'编辑成功',
                                 type:"success",
-                                duration:1500
+                                duration:2000
                             });
                             this.getOriginaList()
                             this.editVisible = false
                         }else{
                             this.$message({
-                                message:res.data.errorMessage,
+                                message:res.data.code+'：'+res.data.msg,
                                 type:"error",
-                                duration:1500
+                                duration:2000
                             });
                         }
                         
@@ -732,15 +732,15 @@ export default {
                             this.$message({
                                 message:'添加成功',
                                 type:"success",
-                                duration:1500
+                                duration:2000
                             });
                             this.getCommandList();
                             this.commandAddVisible = false
                         }else{
                             this.$message({
-                                message:res.data.errorMessage,
+                                message:res.data.code+'：'+res.data.msg,
                                 type:"error",
-                                duration:1500
+                                duration:2000
                             });
                         }
                         
@@ -766,15 +766,15 @@ export default {
                             this.$message({
                                 message:'添加成功',
                                 type:"success",
-                                duration:1500
+                                duration:2000
                             });
                             this.getNorunList();
                             this.norunAddVisible = false
                         }else{
                             this.$message({
-                                message:res.data.errorMessage,
+                                message:res.data.code+'：'+res.data.msg,
                                 type:"error",
-                                duration:1500
+                                duration:2000
                             });
                         }
                         
@@ -802,15 +802,15 @@ export default {
                             this.$message({
                                 message:'添加成功',
                                 type:"success",
-                                duration:1500
+                                duration:2000
                             });
                             this.getOriginaList();
                             this.originaAddVisible = false
                         }else{
                             this.$message({
-                                message:res.data.errorMessage,
+                                message:res.data.code+'：'+res.data.msg,
                                 type:"error",
-                                duration:1500
+                                duration:2000
                             });
                         }
                         
@@ -899,9 +899,9 @@ export default {
                 }else{
                     Message.closeAll()
                     this.$message({
-                        message:res.data.errorMessage,
+                        message:res.data.code+'：'+res.data.msg,
                         type:'error',
-                        duration:1500
+                        duration:2000
                     });
                 }
             }).catch(()=>{
@@ -925,9 +925,9 @@ export default {
                 }else{
                     Message.closeAll()
                     this.$message({
-                        message:res.data.errorMessage,
+                        message:res.data.code+'：'+res.data.msg,
                         type:'error',
-                        duration:1500
+                        duration:2000
                     });
                 }
             }).catch(()=>{
@@ -951,9 +951,9 @@ export default {
                 }else{
                     Message.closeAll()
                     this.$message({
-                        message:res.data.errorMessage,
+                        message:res.data.code+'：'+res.data.msg,
                         type:'error',
-                        duration:1500
+                        duration:2000
                     });
                 }
             }).catch(()=>{
