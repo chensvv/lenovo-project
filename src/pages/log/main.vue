@@ -102,30 +102,6 @@
                             </div>
                         </template>
                     </el-table-column>
-                    <!-- <el-table-column label="ID" prop="id" align="center">
-                        <template slot-scope="scope">
-                            <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.id" placement="top">
-                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                                {{ scope.row.id }}
-                                </div>
-                            </el-tooltip>
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                                {{ scope.row.id }}
-                            </div>
-                        </template>
-                    </el-table-column> -->
-                    <!-- <el-table-column label="IXID" prop="ixid" align="center">
-                        <template slot-scope="scope">
-                            <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixid" placement="top">
-                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                                {{ scope.row.ixid }}
-                                </div>
-                            </el-tooltip>
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                                {{ scope.row.ixid }}
-                            </div>
-                        </template>
-                    </el-table-column> -->
                     <el-table-column label="DID" prop="did" align="center">
                         <template slot-scope="scope">
                             <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.did" placement="top">
@@ -138,16 +114,6 @@
                             </div>
                         </template>
                     </el-table-column>
-                    <!-- <el-table-column label="CODEC" prop="codec" align="center">
-                        <template slot-scope="scope">
-                            <span>{{scope.row.codec == '7' ? 'Speex 16k' : 
-                                    scope.row.codec == '3' ? 'Speex 8k' : 
-                                    scope.row.codec == '5' ? 'Pcm 16k' : 
-                                    scope.row.codec == '1' ? 'Pcm 8k' : 
-                                    scope.row.codec == '4' ? 'Bv32 16k' : 
-                                    scope.row.codec == '0' ? 'Bv32 8k' : '未知'}}</span>
-                        </template>
-                    </el-table-column> -->
                     
                     <el-table-column label="客户端类型" prop="dtp" align="center" sortable="custom">
                         <template slot-scope="scope">
@@ -175,18 +141,6 @@
                     </el-table-column>
                     <el-table-column label="VDM" prop="vdm" align="center">
                     </el-table-column>
-                    <!-- <el-table-column label="APP" prop="app" align="center">
-                        <template slot-scope="scope">
-                            <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.app" placement="top">
-                                <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                                {{ scope.row.app }}
-                                </div>
-                            </el-tooltip>
-                            <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                                {{ scope.row.app }}
-                            </div>
-                        </template>
-                    </el-table-column> -->
                     <el-table-column
                         label="状态"
                         prop="stat"

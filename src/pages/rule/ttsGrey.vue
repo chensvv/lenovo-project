@@ -99,10 +99,10 @@
 
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
       <el-form :label-position="'right'" label-width="120px" :rules="editRules" :model="currentItem" ref="currentItem">
-        <el-form-item label="机型名称" prop="name">
+        <el-form-item label="机型名称" prop="name" class="mintextarea">
           <el-input type="textarea" v-model="currentItem.name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="机型UA" prop="code">
+        <el-form-item label="机型UA" prop="code" class="mintextarea">
           <el-input type="textarea" v-model="currentItem.code" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="时效" prop="et">
@@ -116,10 +116,10 @@
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
       <el-form :label-position="'right'" label-width="100px" :rules="addRules" :model="addList" ref="addList">
-        <el-form-item label="机型名称" prop="name">
+        <el-form-item label="机型名称" prop="name" class="mintextarea">
           <el-input type="textarea" v-model="addList.name" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="机型UA" prop="code">
+        <el-form-item label="机型UA" prop="code" class="mintextarea">
           <el-input type="textarea" v-model="addList.code" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="时效" prop="et">

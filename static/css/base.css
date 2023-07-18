@@ -2,14 +2,14 @@
   touch-action: pan-y;
 } */
 
-html::-webkit-scrollbar, body::-webkit-scrollbar, div::-webkit-scrollbar {
+/* html::-webkit-scrollbar, body::-webkit-scrollbar, div::-webkit-scrollbar {
   width: 5px;
 }
 html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   opacity: 0.2;
-}
+} */
 
 .el-dialog__wrapper {
   min-width: 1200px;
@@ -1493,4 +1493,7 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   /* display: flex;
   align-items: center;
   justify-content: space-between; */
+}
+.mintextarea .el-textarea__inner{
+  min-height: 44px;
 }

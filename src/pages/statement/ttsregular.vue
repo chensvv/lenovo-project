@@ -362,13 +362,15 @@ export default {
         // if(proURL.proURL.indexOf('8085') != '-1'){
         //   formData = 'text='+this.addList.liju+'&user=2'
         // }else{
-          formData = 'text='+this.addList.liju+'&user=10140802691'
+          // formData = 'text='+this.addList.liju+'&user=10140802691'
+          formData = 'text='+encodeURI(this.addList.liju)+'&user=10140802691&speed=5&volume=9&pitch=5&speaker=db4'
         // }
       }else{
         // if(proURL.proURL.indexOf('8085') != '-1'){
         //   formData = 'text='+this.currentItem.liju+'&user=2'
         // }else{
-          formData = 'text='+this.currentItem.liju+'&user=10140802691'
+          // formData = 'text='+this.currentItem.liju+'&user=10140802691'
+          formData = 'text='+encodeURI(this.currentItem.liju)+'&user=10140802691&speed=5&volume=9&pitch=5&speaker=db4'
         // }
       }
       // if(proURL.proURL.indexOf('8085') != '-1'){

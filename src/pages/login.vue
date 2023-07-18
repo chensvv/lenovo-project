@@ -191,11 +191,11 @@ export default {
                             })
                         }else if(res.data.code == 400){
                             this.getImgCode()
-                            this.loginPsdErr = res.data.errorMessage
+                            this.loginPsdErr = res.data.msg
                             
                         }else{
                             this.getImgCode()
-                            this.loginImgCodeErr = res.data.errorMessage
+                            this.loginImgCodeErr = res.data.msg
                         }
                     }).catch(err=>{
                         this.getImgCode()
@@ -227,10 +227,10 @@ export default {
                             this.loginShow = !this.loginShow
                         }else if(res.data.code == 400){
                             this.getImgCode()
-                            this.regUserErr = res.data.errorMessage
+                            this.regUserErr = res.data.msg
                         }else{
                             this.getImgCode()
-                            this.regCodeErr = res.data.errorMessage
+                            this.regCodeErr = res.data.msg
                         }
                         
                     }).catch(err=>{
@@ -253,7 +253,7 @@ export default {
                     this.uuid = res.data.data.uuid
                 }else{
                     this.$message({
-                        message:res.data.errorMessage,
+                        message:res.data.msg,
                         type:"error",
                         duration:2000
                     });
