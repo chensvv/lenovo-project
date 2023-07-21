@@ -191,11 +191,13 @@ export default {
           this.totalCount = res.data.data.total
           this.totalClass = res.data.data.data.length
         }else{
-            this.$message({
-                message:res.data.code+'：'+res.data.msg,
-                type:'error',
-                duration:2000
-            });
+            if(res.data.code != undefined){
+                this.$message({
+                    message:res.data.code+'：'+res.data.msg,
+                    type:'error',
+                    duration:2000
+                });
+            }
         }
       }).catch(()=>{
         this.listLoading = false

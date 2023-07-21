@@ -189,13 +189,13 @@ export default {
                                 sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                                 this.$router.push('/')
                             })
-                        }else if(res.data.code == 400){
+                        }else if(res.data.code == 803){
                             this.getImgCode()
                             this.loginPsdErr = res.data.msg
                             
                         }else{
                             this.getImgCode()
-                            this.loginImgCodeErr = res.data.msg
+                            this.loginImgCodeErr = res.data.msg+'，请联系管理员'
                         }
                     }).catch(err=>{
                         this.getImgCode()
@@ -224,6 +224,7 @@ export default {
                                 type:"success",
                                 duration:2000
                             });
+                            this.getImgCode()
                             this.loginShow = !this.loginShow
                         }else if(res.data.code == 400){
                             this.getImgCode()
@@ -274,7 +275,7 @@ export default {
     background-image: linear-gradient(225deg,#3ccdff 0%,#93c4ff 50%,rgb(101, 189, 240) 100%);
     width: 100%;
     height: 100%;
-    min-width: 1200px;
+    min-width: 700px;
     display: flex;
     align-items: center;
     justify-content: space-around;

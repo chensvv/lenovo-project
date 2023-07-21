@@ -140,6 +140,10 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   font-size: 12px;
   height: calc(100% - 35px);
 }
+.height-40 .table-box{
+  font-size: 12px;
+  height: calc(100% - 40px);
+}
 
 .height-85 .table-box {
   font-size: 12px;
@@ -166,6 +170,9 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
   height: calc(100% - 50px);
   border-left: 1px solid #eee;
   border-right: 1px solid #eee;
+}
+.asrlogtable .el-table {
+  height: 100%;
 }
 .workflow .el-table{
   height: calc(100% - 82px);
@@ -1496,4 +1503,10 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 }
 .mintextarea .el-textarea__inner{
   min-height: 44px;
+}
+.table-expand .el-form-item__label{
+  padding-right: 5px;
+}
+.table-expand .el-form-item__label, .table-expand .el-form-item__content{
+  line-height: normal;
 }

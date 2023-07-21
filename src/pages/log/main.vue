@@ -491,11 +491,13 @@ export default {
                     this.lastCurrentPage = res.data.data.currentPage
                     this.currentPage = res.data.data.currentPage
                 }else{
-                    this.$message({
-                        message:res.data.code+'：'+res.data.msg,
-                        type:'error',
-                        duration:2000
-                    });
+                    if(res.data.code != undefined){
+                        this.$message({
+                            message:res.data.code+'：'+res.data.msg,
+                            type:'error',
+                            duration:2000
+                        });
+                    }
                 }
             }).catch(()=>{
                 this.listLoading = false
@@ -512,7 +514,7 @@ export default {
             let myChart = echarts.init(this.$refs.myChart)
             statistics(paramsList).then(res=>{
                 this.chartLoading = false
-                if(res.data.code = 200){
+                if(res.data.code == 200){
                     let xData = res.data.data.date
                     let countYes = res.data.data.countYes
                     let countNo = res.data.data.countNo
@@ -565,33 +567,16 @@ export default {
                                 type: 'line',
                                 data: countNo
                             },
-                            // {
-                            //     name: '数据条数',
-                            //     type: 'bar',
-                            //     data: res.data.data.visit,
-                            //     color:"#409eff",
-                            //     barMaxWidth: 60, // 最大宽度
-                            //     itemStyle: {
-                            //         normal: {
-                            //             label: {
-                            //                 show: true, //开启显示
-                            //                 position: 'top', //在上方显示
-                            //                 textStyle: { //数值样式
-                            //                     color: 'black',
-                            //                     fontSize: 16
-                            //                 }
-                            //             }
-                            //         }
-                            //     }
-                            // }
                         ]
                     })
                 }else{
-                    this.$message({
-                        message:res.data.code+'：'+res.data.msg,
-                        type:'error',
-                        duration:2000
-                    });
+                    if(res.data.code != undefined){
+                        this.$message({
+                            message:res.data.code+'：'+res.data.msg,
+                            type:'error',
+                            duration:2000
+                        });
+                    }
                 }
             })
         },
@@ -670,11 +655,13 @@ export default {
                         }
                     }
                 }else{
-                    this.$message({
-                        message:res.data.code+'：'+res.data.msg,
-                        type:'error',
-                        duration:2000
-                    });
+                    if(res.data.code != undefined){
+                        this.$message({
+                            message:res.data.code+'：'+res.data.msg,
+                            type:'error',
+                            duration:2000
+                        });
+                    }
                 }
                 
             })

@@ -8,7 +8,13 @@
     
     <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="101px" class="demo-form-inline height70 width130" size="mini">
       <div class="form-input height70">
-        <el-form-item label="状态" prop="status">
+        <el-form-item label="用户id" prop="uid">
+          <el-input v-model.trim="searchItem.uid" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="识别会话id" prop="ixid">
+          <el-input v-model.trim="searchItem.ixid" clearable></el-input>
+        </el-form-item>
+        <el-form-item label="是否成功识别" prop="status">
           <el-select v-model.trim="searchItem.status" placeholder="--" clearable>
               <el-option label="成功" value="success"></el-option>
               <el-option label="失败" value="failed"></el-option>
@@ -46,52 +52,37 @@
           <el-table-column type="index" align="center" label="#">
           </el-table-column>
           <el-table-column
-              label="ixid"
-              prop="ixid"
+              label="用户id"
+              prop="uid"
               align="center">
               <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixid" placement="top">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.uid" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.ixid }}
+                      {{ scope.row.uid }}
                       </div>
                   </el-tooltip>
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.ixid }}
+                      {{ scope.row.uid }}
                   </div>
               </template>
           </el-table-column>
           <el-table-column
-              label="lenovokey"
-              prop="lenovokey"
-              align="left">
+              label="识别会话id"
+              prop="ixidString"
+              align="center">
               <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.lenovokey" placement="top">
+                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.ixidString" placement="top">
                       <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.lenovokey }}
+                      {{ scope.row.ixidString }}
                       </div>
                   </el-tooltip>
                   <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.lenovokey }}
+                      {{ scope.row.ixidString }}
                   </div>
               </template>
           </el-table-column>
           <el-table-column
-              label="secretkey"
-              prop="secretkey"
-              align="left">
-              <template slot-scope="scope">
-                  <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.secretkey" placement="top">
-                      <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                      {{ scope.row.secretkey }}
-                      </div>
-                  </el-tooltip>
-                  <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                      {{ scope.row.secretkey }}
-                  </div>
-              </template>
-          </el-table-column>
-          <el-table-column
-              label="包序号"
+              label="识别交互次数"
               prop="pidx"
               align="center">
               <template slot-scope="scope">
@@ -114,7 +105,7 @@
                 </template>
           </el-table-column>
           <el-table-column
-              label="是否结束"
+              label="是否尾包"
               prop="over"
               align="center">
                 <template slot-scope="scope">
@@ -122,18 +113,17 @@
                 </template>
           </el-table-column>
           <el-table-column
-              label="耗时"
-              prop="useTime"
+              label="最大请求时间"
+              prop="maxUseTime"
               align="center">
                 <template slot-scope="scope">
-                    <span>{{scope.row.useTime}}ms</span>
+                    <span>{{scope.row.maxUseTime}}ms</span>
                 </template>
           </el-table-column>
           <el-table-column
-              label="状态"
+              label="识别请求状态"
               prop="status"
-              align="center"
-              width="50">
+              align="center">
                 <template slot-scope="scope">
                     <span
                     :class="scope.row.status === 'success' ? 'tag-s' :'tag-d'"
@@ -144,16 +134,24 @@
               label="添加时间"
               prop="createTime"
               align="center"
-              :formatter="formTime">
+              :formatter="formTime"
+              min-width="130">
           </el-table-column>
-          
+          <el-table-column label="操作" align="center">
+                    <template slot-scope="scope">
+                        <el-button
+                        size="mini"
+                        @click="handleInfo(scope.$index, scope.row)"
+                        v-has="'app:keywordupdate'">明细</el-button>
+                    </template>
+                </el-table-column>
       </el-table>
       <div class="pagination-wrap" v-cloak>
             <ul class="pagination">
                 <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
                 <li v-if="isLastPage != false && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
                 <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
-                <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+                <li class="active" @click="turnToPage(currentPage)" v-text="currentPage" ref="page"></li>
                 <li v-if="isLastPage != true" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
                 <li v-if="currentPage+1 < 3 && isLastPage!=true" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
                 <li><button :disabled="isLastPage == true? true: false" @click="turnToPage(-1)"><i class="el-icon-d-arrow-right"></i></button></li>
@@ -172,14 +170,16 @@ export default {
     return {
         pickerOptions: {
             disabledDate(time) {
-            let times = Date.now();
-            return time.getTime() > times;
+              let times = Date.now();
+              return time.getTime() > times;
             },
         },
       list: [],
       perList:[],
       totalClass:'8',
       searchItem:{//搜索数据组
+        uid:"",
+        ixid:"",
         status:"",
         pickerVal:[]
       },
@@ -198,7 +198,12 @@ export default {
     perArr.map(t=>{
       this.perList.push(Object.values(t).join())
     })
-    this.getList();
+    if(this.$route.params.page==undefined){
+         this.getList()
+    }else{
+        this.getList(this.$route.params.page)
+    }
+    
   },
   methods: {
     onShowNameTipsMouseenter(e) {
@@ -277,9 +282,20 @@ export default {
             }
         }
     },
+    handleInfo(index, row){
+      this.$router.push({
+                name:'asrlogdetail',
+                params:{
+                    ixid:row.ixidString,
+                    page:this.$refs.page.innerHTML
+                }
+            })
+    },
     getList(pageNum) {
       this.listLoading = true
       let params = {
+        uid:this.searchItem.uid,
+        ixid:this.searchItem.ixid,
         nextPage:pageNum == 1 || pageNum == undefined ? 1 : pageNum,
         pcstr:this.pageSize,
         status:this.searchItem.status,
@@ -296,11 +312,13 @@ export default {
           this.totalClass = res.data.data.data.length
           this.currentPage = res.data.data.currentPage
         }else{
-            this.$message({
-                message:res.data.code+'：'+res.data.msg,
-                type:'error',
-                duration:2000
-            });
+            if(res.data.code != undefined){
+                this.$message({
+                    message:res.data.code+'：'+res.data.msg,
+                    type:'error',
+                    duration:2000
+                });
+            }
         }
       }).catch(()=>{
         this.listLoading = false

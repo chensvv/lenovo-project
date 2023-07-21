@@ -192,7 +192,7 @@ export default {
         };
     },
     created() {
-        this.appId = this.$route.query.appId
+        this.appId = this.$route.params.appId
       let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
       perArr.map(t=>{
           this.perList.push(Object.values(t).join())
@@ -259,11 +259,13 @@ export default {
                         });
                         this.getList();
                     }else{
-                        this.$message({
-                            message:res.data.code+'：'+res.data.msg,
-                            type:"error",
-                            duration:2000
-                        });
+                        if(res.data.code != undefined){
+                            this.$message({
+                                message:res.data.code+'：'+res.data.msg,
+                                type:'error',
+                                duration:2000
+                            });
+                        }
                     }
                 })
             }).catch(err => {
@@ -312,11 +314,13 @@ export default {
                             this.getList()
                             this.editVisible = false
                         }else{
-                            this.$message({
-                                message:res.data.code+'：'+res.data.msg,
-                                type:"error",
-                                duration:2000
-                            });
+                            if(res.data.code != undefined){
+                                this.$message({
+                                    message:res.data.code+'：'+res.data.msg,
+                                    type:'error',
+                                    duration:2000
+                                });
+                            }
                         }
                     }).catch(err => {
                         this.editBtnLoading = false
@@ -349,11 +353,13 @@ export default {
                             this.getList();
                             this.addVisible = false
                         }else{
-                            this.$message({
-                                message:res.data.code+'：'+res.data.msg,
-                                type:"error",
-                                duration:2000
-                            });
+                            if(res.data.code != undefined){
+                                this.$message({
+                                    message:res.data.code+'：'+res.data.msg,
+                                    type:'error',
+                                    duration:2000
+                                });
+                            }
                         }
                     }).catch(err => {
                         this.addBtnLoading = false
@@ -394,11 +400,13 @@ export default {
                     this.totalCount = res.data.count
                     this.totalClass = res.data.data.functions.length
                 }else{
-                    this.$message({
-                        message:res.data.code+'：'+res.data.msg,
-                        type:'error',
-                        duration:2000
-                    });
+                    if(res.data.code != undefined){
+                        this.$message({
+                            message:res.data.code+'：'+res.data.msg,
+                            type:'error',
+                            duration:2000
+                        });
+                    }
                 }
             }).catch(()=>{
                 this.listLoading = false
@@ -406,8 +414,8 @@ export default {
         },
         handleInfo(index, row) {
             this.$router.push({
-                path:'/lasf-kv/skill/detail/speak',
-                query:{
+                name:'speak',
+                params:{
                     functionId:row.id,
                     appId:row.appId
                 }

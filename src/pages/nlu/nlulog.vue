@@ -322,11 +322,13 @@ export default {
                         this.getList();
                     })
                 }else{
-                    this.$message({
-                        message:res.data.code+'：'+res.data.msg,
-                        type:'error',
-                        duration:2000
-                    });
+                    if(res.data.code != undefined){
+                        this.$message({
+                            message:res.data.code+'：'+res.data.msg,
+                            type:'error',
+                            duration:2000
+                        });
+                    }
                 }
             }).catch(err=>{
             })
@@ -367,11 +369,13 @@ export default {
                         item[item.key] = row[item.key];
                     })
                 }else{
-                    this.$message({
-                        message:res.data.code+'：'+res.data.msg,
-                        type:'error',
-                        duration:2000
-                    });
+                    if(res.data.code != undefined){
+                        this.$message({
+                            message:res.data.code+'：'+res.data.msg,
+                            type:'error',
+                            duration:2000
+                        });
+                    }
                 }
                 
             })
@@ -407,11 +411,13 @@ export default {
                         }else{
                             this.keyList = []
                             this.popLoading = true
-                            this.$message({
-                                message:res.data.code+'：'+res.data.msg,
-                                type:'error',
-                                duration:2000
-                            });
+                            if(res.data.code != undefined){
+                                this.$message({
+                                    message:res.data.code+'：'+res.data.msg,
+                                    type:'error',
+                                    duration:2000
+                                });
+                            }
                         }
                     }).catch(err=>{
                         this.keyList = []
@@ -432,11 +438,13 @@ export default {
                 if(res.data.code == 200){
                     this.intentList = res.data.data
                 }else{
-                    this.$message({
-                        message:res.data.code+'：'+res.data.msg,
-                        type:'error',
-                        duration:2000
-                    });
+                    if(res.data.code != undefined){
+                        this.$message({
+                            message:res.data.code+'：'+res.data.msg,
+                            type:'error',
+                            duration:2000
+                        });
+                    }
                 }
             })
         },
@@ -492,11 +500,13 @@ export default {
                     this.totalCount = res.data.count
                     this.totalClass = res.data.data.length
                 }else{
-                    this.$message({
-                        message:res.data.code+'：'+res.data.msg,
-                        type:'error',
-                        duration:2000
-                    });
+                    if(res.data.code != undefined){
+                        this.$message({
+                            message:res.data.code+'：'+res.data.msg,
+                            type:'error',
+                            duration:2000
+                        });
+                    }
                 }
             }).catch(()=>{
                 this.listLoading = false

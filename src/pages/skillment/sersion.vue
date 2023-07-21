@@ -4,7 +4,7 @@
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/skill/applist'}">技能管理</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/skill/applist'}">应用列表</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/lasf-kv/skill/detail',query:{functionId:this.functionId, appId:this.appId}}">应用详情</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'skilldetail',params:{functionId:this.functionId, appId:this.appId}}">应用详情</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
     
@@ -14,7 +14,7 @@
         </div>
         <div class="form-btn">
             <el-button size="mini" @click="handleAdd()" v-has="'skill:versionadd'">添加</el-button>
-            <router-link :to="{ path: '/lasf-kv/skill/detail/speak',query:{functionId:this.functionId, appId:this.appId}}">
+            <router-link :to="{ name: 'speak',params:{functionId:this.functionId, appId:this.appId}}">
                 <el-button size="mini">说法列表</el-button>
             </router-link>
         </div>
@@ -202,8 +202,8 @@ export default {
     };
   },
   created() {
-      this.appId = this.$route.query.appId
-      this.functionId = this.$route.query.functionId
+      this.appId = this.$route.params.appId
+      this.functionId = this.$route.params.functionId
       let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
       perArr.map(t=>{
           this.perList.push(Object.values(t).join())
@@ -279,11 +279,13 @@ export default {
                 });
                 this.getList();
             }else{
-                this.$message({
-                    message:res.data.code+'：'+res.data.msg,
-                    type:"error",
-                    duration:2000
-                });
+                if(res.data.code != undefined){
+                    this.$message({
+                        message:res.data.code+'：'+res.data.msg,
+                        type:'error',
+                        duration:2000
+                    });
+                }
             }
           })
         })
@@ -330,11 +332,13 @@ export default {
                 this.getList()
                 this.editVisible = false
             }else{
-                this.$message({
-                    message:res.data.code+'：'+res.data.msg,
-                    type:"error",
-                    duration:2000
-                });
+                if(res.data.code != undefined){
+                    this.$message({
+                        message:res.data.code+'：'+res.data.msg,
+                        type:'error',
+                        duration:2000
+                    });
+                }
                 
             }
           }).catch(err => {
@@ -369,11 +373,13 @@ export default {
                 this.getList();
                 this.addVisible = false
             }else{
-                this.$message({
-                    message:res.data.code+'：'+res.data.msg,
-                    type:"error",
-                    duration:2000
-                });
+                if(res.data.code != undefined){
+                    this.$message({
+                        message:res.data.code+'：'+res.data.msg,
+                        type:'error',
+                        duration:2000
+                    });
+                }
                 
             }
           }).catch(err => {
@@ -409,11 +415,13 @@ export default {
                 this.strVisible = false
                 
             }else{
-                this.$message({
-                    message:res.data.code+'：'+res.data.msg,
-                    type:"error",
-                    duration:2000
-                });
+                if(res.data.code != undefined){
+                    this.$message({
+                        message:res.data.code+'：'+res.data.msg,
+                        type:'error',
+                        duration:2000
+                    });
+                }
             }
         }).catch(err => {
             this.strBtnLoading = false

@@ -253,11 +253,13 @@ export default {
                 });
                 this.getList();
             }else{
-                this.$message({
-                    message:res.data.code+'：'+res.data.msg,
-                    type:"error",
-                    duration:2000
-                });
+                if(res.data.code != undefined){
+                    this.$message({
+                        message:res.data.code+'：'+res.data.msg,
+                        type:'error',
+                        duration:2000
+                    });
+                }
             }
           })
         }).catch((err) => {
@@ -306,11 +308,13 @@ export default {
                 
                 this.editVisible = false
             }else{
-                this.$message({
-                    message:res.data.code+'：'+res.data.msg,
-                    type:"error",
-                    duration:2000
-                });
+                if(res.data.code != undefined){
+                    this.$message({
+                        message:res.data.code+'：'+res.data.msg,
+                        type:'error',
+                        duration:2000
+                    });
+                }
             }
           }).catch(err => {
             this.editBtnLoading = false
@@ -342,12 +346,13 @@ export default {
                 this.getList()
                 this.addVisible = false
             }else{
-                
-                this.$message({
-                    message:res.data.code+'：'+res.data.msg,
-                    type:"error",
-                    duration:2000
-                });
+                if(res.data.code != undefined){
+                    this.$message({
+                        message:res.data.code+'：'+res.data.msg,
+                        type:'error',
+                        duration:2000
+                    });
+                }
             }
           }).catch(err => {
             this.addBtnLoading = false
@@ -387,11 +392,13 @@ export default {
           this.totalCount = res.data.data.total
           this.totalClass = res.data.data.data.length
         }else{
-            this.$message({
-                message:res.data.code+'：'+res.data.msg,
-                type:'error',
-                duration:2000
-            });
+            if(res.data.code != undefined){
+                this.$message({
+                    message:res.data.code+'：'+res.data.msg,
+                    type:'error',
+                    duration:2000
+                });
+            }
         }
       }).catch(()=>{
         this.listLoading = false

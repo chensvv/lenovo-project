@@ -523,11 +523,13 @@ export default {
             this.MaxIdC = Math.max.apply(Math, this.clientList.map(function(o) {return o.id}))
             this.MinIdC = Math.min.apply(Math, this.clientList.map(function(o) {return o.id}))
           }else{
-              this.$message({
-                  message:res.data.code+'：'+res.data.msg,
-                  type:'error',
-                  duration:2000
-              });
+              if(res.data.code != undefined){
+                  this.$message({
+                      message:res.data.code+'：'+res.data.msg,
+                      type:'error',
+                      duration:2000
+                  });
+              }
           }
         }).catch(()=>{
           this.ClistLoading = false
@@ -667,11 +669,14 @@ export default {
                 ]
               })
             }else{
-              this.$message({
-                  message:res.data.code+'：'+res.data.msg,
-                  type:'error',
-                  duration:2000
-              });
+              if(res.data.code != undefined){
+                this.$message({
+                    message:res.data.code+'：'+res.data.msg,
+                    type:'error',
+                    duration:2000
+                });
+              }
+              
             }
         })
     },

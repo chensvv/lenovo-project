@@ -73,19 +73,23 @@ export default {
                                     sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
                                     this.reload();
                                 }else{
-                                    this.$message({
-                                        message:res.data.code+'：'+res.data.msg,
-                                        type:"error",
-                                        duration:2000
-                                    });
+                                    if(res.data.code != undefined){
+                                        this.$message({
+                                            message:res.data.code+'：'+res.data.msg,
+                                            type:'error',
+                                            duration:2000
+                                        });
+                                    }
                                 }
                             })
                         }else{
-                            this.$message({
-                                message:res.data.code+'：'+res.data.msg,
-                                type:"error",
-                                duration:2000
-                            });
+                            if(res.data.code != undefined){
+                                this.$message({
+                                    message:res.data.code+'：'+res.data.msg,
+                                    type:'error',
+                                    duration:2000
+                                });
+                            }
                         } 
                         
                     })

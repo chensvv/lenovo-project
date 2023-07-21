@@ -233,11 +233,13 @@ export default {
                 this.pageList()
                 this.addVisible = false
             }else{
-                this.$message({
-                    message:res.data.code+'：'+res.data.msg,
-                    type:"error",
-                    duration:2000
-                });
+                if(res.data.code != undefined){
+                    this.$message({
+                        message:res.data.code+'：'+res.data.msg,
+                        type:'error',
+                        duration:2000
+                    });
+                }
             }
           }).catch(err => {
             this.addBtnLoading = false
@@ -262,11 +264,13 @@ export default {
                 });
                 this.pageList();
             }else{
-                this.$message({
-                    message:res.data.code+'：'+res.data.msg,
-                    type:"error",
-                    duration:2000
-                });
+                if(res.data.code != undefined){
+                    this.$message({
+                        message:res.data.code+'：'+res.data.msg,
+                        type:'error',
+                        duration:2000
+                    });
+                }
             }
         })
     },
@@ -282,11 +286,13 @@ export default {
           this.data = res.data.data
           this.getList()
         }else{
-            this.$message({
-                message:res.data.code+'：'+res.data.msg,
-                type:'error',
-                duration:2000
-            });
+            if(res.data.code != undefined){
+                this.$message({
+                    message:res.data.code+'：'+res.data.msg,
+                    type:'error',
+                    duration:2000
+                });
+            }
         }
         
       }).catch(()=>{
