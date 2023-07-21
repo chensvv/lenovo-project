@@ -452,7 +452,7 @@ methods: {
             name:this.searchItem.name,
             stname:this.searchItem.stname,
             startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
-            endStr:this.searchItem.pickerVal[1],
+            endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
             fieldName: this.column.prop,
             order:this.column.order == 'ascending' ? '0' : ''
         }

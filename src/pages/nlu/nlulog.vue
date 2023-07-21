@@ -155,7 +155,7 @@
                 <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
                 <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
                 <li v-if="currentPage != getpageNum(totalCount) && getpageNum(totalCount) !=0" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
-                <li v-if="currentPage+1 < 3 && currentPage != getpageNum(totalCount)" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
+                <li v-if="currentPage+1 < 3 && currentPage != getpageNum(totalCount) && getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
                 <li><button :disabled="currentPage == getpageNum(totalCount) || getpageNum(totalCount) == 0? true: false" @click="turnToPage(getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
             </ul>
         </div>
