@@ -155,8 +155,7 @@ export default {
     },
     mounted(){
         //读取全局变量
-        console.log( this.$store.getters.get_userinfo)
-        //修改全局变量 修改要用commit 然后commit(key,value) key是名，要和mutations下的set_userinfo一致 value是修改的值
+        // console.log( this.$store.getters.get_userinfo)
         
     },
     methods:{

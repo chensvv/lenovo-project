@@ -609,7 +609,7 @@ export default {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
                 startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
-                endStr:this.searchItem.pickerVal[1],
+                endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
                 appname:this.searchItem.appName,
                 source:this.searchItem.source,
                 fieldName: this.column.prop,

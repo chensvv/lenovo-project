@@ -141,7 +141,7 @@ export default {
         // 基于准备好的dom，初始化echarts实例
         let paramsList = {
           startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
-          endStr:this.searchItem.pickerVal[1],
+          endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
           channel:this.searchItem.channelVal
         }
         paramsList.sign = deleteParams(paramsList)
