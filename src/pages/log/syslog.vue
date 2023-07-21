@@ -220,8 +220,8 @@ export default {
       this.listLoading = true
       let params = {
         userName:this.searchItem.userName,
-        startStr:this.searchItem.pickerVal[0],
-        endStr:this.searchItem.pickerVal[1],
+        startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
+        endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
         pgstr:this.nextPage,
         pcstr:this.pageSize,
         maxId:this.MaxId,

@@ -485,8 +485,8 @@ export default {
             let params = {
                 title:this.searchItem.name,
                 source:this.searchItem.source,
-                startStr:this.searchItem.pickerVal[0],
-                endStr:this.searchItem.pickerVal[1],
+                startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
+                endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
                 fieldName: this.column.prop,

@@ -258,8 +258,8 @@ export default {
         nextPage:pageNum == 1 || pageNum == undefined ? 1 : pageNum,
         pcstr:this.pageSize,
         status:this.searchItem.status,
-        startStr:this.searchItem.pickerVal[0],
-        endStr:this.searchItem.pickerVal[1]
+        startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
+        endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1]
       }
       params.sign = deleteParams(params)
       this.list = []

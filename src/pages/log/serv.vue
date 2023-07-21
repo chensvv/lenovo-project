@@ -179,8 +179,8 @@ export default {
       let params = {
         pgstr:this.currentPage,
         pcstr:this.pageSize,
-        startStr:this.searchItem.pickerVal[0],
-        endStr:this.searchItem.pickerVal[1],
+        startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
+        endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
         uid:this.searchItem.uip
       }
       params.sign = deleteParams(params)

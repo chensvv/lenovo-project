@@ -270,8 +270,8 @@ export default {
         this.fileBtnLoading = true
         if(this.searchItem.pickerVal != [] && this.searchItem.pickerVal.length != 0 || this.searchItem.channel != ''){
             let exprotParams = {
-                startStr:this.searchItem.pickerVal[0],
-                endStr:this.searchItem.pickerVal[1],
+                startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
+                endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
                 channel:this.searchItem.channel
             }
             exprotParams.sign = deleteParams(exprotParams)
@@ -311,8 +311,8 @@ export default {
     getList(pageNum) {
       this.listLoading = true
       let params = {
-        startStr:this.searchItem.pickerVal[0],
-        endStr:this.searchItem.pickerVal[1],
+        startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
+        endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
         channel:this.searchItem.channel,
         userName:this.searchItem.username,
         pgstr:this.nextPage,

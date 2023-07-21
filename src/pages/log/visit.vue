@@ -231,8 +231,8 @@ export default {
         getList() {
             this.listLoading = true
             let params={
-                startStr:this.searchItem.pickerVal[0],
-                endStr:this.searchItem.pickerVal[1],
+                startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
+                endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
                 page:this.searchItem.page,
                 type:this.searchItem.type,
                 pgstr:this.currentPage,

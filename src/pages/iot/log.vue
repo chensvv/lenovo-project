@@ -298,8 +298,8 @@ export default {
             let params = {
                 lenovoid:this.searchItem.lenovoid,
                 logType:this.searchItem.logType,
-                startStr:this.searchItem.pickerVal[0],
-                endStr:this.searchItem.pickerVal[1],
+                startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
+                endStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
                 appId:this.searchItem.appId,
                 bodyName:this.searchItem.bodyName,
                 resultName:this.searchItem.resultName,

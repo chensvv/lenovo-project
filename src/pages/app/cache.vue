@@ -270,7 +270,7 @@ export default {
             let params = {
                 pgstr:this.currentPage,
                 pcstr:this.pageSize,
-                startStr:this.searchItem.pickerVal[0],
+                startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
                 endStr:this.searchItem.pickerVal[1],
                 name:this.searchItem.name,
                 type:this.searchItem.type,

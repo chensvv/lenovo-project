@@ -498,8 +498,8 @@ export default {
     getList(pageNum) {
       this.ClistLoading = true
       let Cparams = {
-          startStr: this.searchItem.pickerVal[0],
-          endStr: this.searchItem.pickerVal[1],
+          startStr: this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
+          endStr: this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[1],
           uid: this.searchItem.uid,
           dtp: this.searchItem.dtp,
           fieldName: this.column.prop,

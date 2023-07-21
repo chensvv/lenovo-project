@@ -117,7 +117,7 @@ export default {
     getChartsData(){
         // 基于准备好的dom，初始化echarts实例
         let paramsList = {
-          startStr:this.searchItem.pickerVal[0],
+          startStr:this.searchItem.pickerVal == null ? '': this.searchItem.pickerVal[0],
           endStr:this.searchItem.pickerVal[1],
           userName:this.searchItem.username
         }
