@@ -127,6 +127,7 @@
                         prop="roleName">
                     </el-table-column>
                 </el-table>
+                <span style="color: #f56c6c">更改角色或权限后用户需重新登录！</span>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="roleHandleClose">取 消</el-button>
@@ -137,6 +138,7 @@
 </template>
 
 <script>
+let Base64 = require('js-base64').Base64
 import {userList, userDel, userUpd, userAdd, userEcho, userRole, userRoleEcho, userRoleSave, userMenu} from '@/config/adminApi'
 import {deleteParams} from '@/utils/deleteParams.js'
 import {getpageNum} from '@/utils/pagination.js'
@@ -234,37 +236,45 @@ export default {
             };
         },
         handleDel(index, row) {
-            let delParams = {
-                id:row.id
-            }
-            delParams.sign = deleteParams(delParams)
-            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning"
-            }).then(() => {
-                userDel(delParams).then(res=>{
-                    if(res.data.code == 200){
-                        this.$message({
-                            message:'删除成功',
-                            type:"success",
-                            duration:2000
-                        });
-                        this.getList();
-                    }else{
-                        if(res.data.code != undefined){
+            if(row.userName == Base64.decode(sessionStorage.getItem('username'))){
+                this.$alert('当前登录的用户不能删除！', '提示', {
+                    confirmButtonText: '确定',
+                    type: "warning"
+                });
+            }else{
+                let delParams = {
+                    id:row.id
+                }
+                delParams.sign = deleteParams(delParams)
+                this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning"
+                }).then(() => {
+                    userDel(delParams).then(res=>{
+                        if(res.data.code == 200){
                             this.$message({
-                                message:res.data.code+'：'+res.data.msg,
-                                type:'error',
+                                message:'删除成功',
+                                type:"success",
                                 duration:2000
                             });
+                            this.getList();
+                        }else{
+                            if(res.data.code != undefined){
+                                this.$message({
+                                    message:res.data.code+'：'+res.data.msg,
+                                    type:'error',
+                                    duration:2000
+                                });
+                            }
                         }
-                    }
-                    
-                })
-            }).catch((err) => {
-                console.log(err);
-            });
+                        
+                    })
+                }).catch((err) => {
+                    console.log(err);
+                });
+            }
+            
         },
         openFun(addList){
             this.$nextTick(() => {
@@ -302,14 +312,23 @@ export default {
                     userUpd(updParams).then(res=>{
                         this.editBtnLoading = false
                         if(res.data.code == 200){
-                            this.$message({
-                                message:'编辑成功',
-                                type:"success",
-                                duration:2000
-                            });
-                            this.getList()
-                            
-                            this.editVisible = false
+                            if(Base64.decode(sessionStorage.getItem('username')) == this.currentItem.userName){
+                                this.$message({
+                                    message:'编辑成功，请重新登录',
+                                    type:"success",
+                                    duration:2000,
+                                    onClose:()=>{
+                                        sessionStorage.clear();
+                                        this.$router.push('/login')
+                                    }
+                                });
+                            }else{
+                                this.$message({
+                                    message:'编辑成功',
+                                    type:"success",
+                                    duration:2000
+                                });
+                            }
                         }else{
                             if(res.data.code != undefined){
                                 this.$message({
@@ -401,11 +420,11 @@ export default {
                 id:this.seleId,
                 ids:this.multipleSelection,
             }
-            let logParams = {
-                userName:sessionStorage.getItem('username')
-            }
+            // let logParams = {
+            //     userName:sessionStorage.getItem('username')
+            // }
             Saveparams.sign = deleteParams(Saveparams)
-            logParams.sign = deleteParams(logParams)
+            // logParams.sign = deleteParams(logParams)
             this.roleBtnLoading = true
             userRoleSave(Saveparams).then(res=>{
                 this.roleBtnLoading = false
@@ -417,22 +436,22 @@ export default {
                     });
                     this.getList()
                     this.roleVisible = false
-                    sessionStorage.removeItem('menuData');
-                    sessionStorage.removeItem('btnpermission')
-                    userMenu(logParams).then((res)=>{
-                        if(res.data.code == 200){
-                            sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
-                            this.reload();
-                        }else{
-                            if(res.data.code != undefined){
-                                this.$message({
-                                    message:res.data.code+'：'+res.data.msg,
-                                    type:'error',
-                                    duration:2000
-                                });
-                            }
-                        }
-                    })
+                    // sessionStorage.removeItem('menuData');
+                    // sessionStorage.removeItem('btnpermission')
+                    // userMenu(logParams).then((res)=>{
+                    //     if(res.data.code == 200){
+                    //         sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                    //         this.reload();
+                    //     }else{
+                    //         if(res.data.code != undefined){
+                    //             this.$message({
+                    //                 message:res.data.code+'：'+res.data.msg,
+                    //                 type:'error',
+                    //                 duration:2000
+                    //             });
+                    //         }
+                    //     }
+                    // })
                 }else{
                     if(res.data.code != undefined){
                         this.$message({

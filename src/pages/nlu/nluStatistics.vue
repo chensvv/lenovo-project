@@ -38,6 +38,7 @@
                     end-placeholder="结束日期"
                     :picker-options="pickerOptions"
                     value-format="yyyy-MM-dd HH:mm:ss"
+                    :default-time="['00:00:00','23:59:59']"
                     :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
                 </el-date-picker>
             </el-form-item>

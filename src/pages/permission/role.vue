@@ -76,6 +76,7 @@
                 <el-input type="text" v-model.trim="currentItem.roleName" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item>
+              <span style="color: #f56c6c">更改或新增权限后用户需重新登录！</span>
                 <el-tree
                     :data="treeData"
                     show-checkbox
@@ -83,9 +84,7 @@
                     :check-strictly="checkStrictlyEdit"
                     :props="defaultProps"
                     ref="tree"
-                    @check-change="getChecked"
-                    @check="getParentKey"
-                    :default-checked-keys="selectedKeys">
+                    @check="hanleCheck">
                 </el-tree>
             </el-form-item>
         </el-form>
@@ -108,9 +107,7 @@
                         show-checkbox
                         node-key="id"
                         :props="defaultProps"
-                        ref="treeAdd"
-                        @check-change="getCheckedAdd"
-                        :default-checked-keys="selectedKeysAdd">
+                        ref="treeAdd">
                     </el-tree>
                 </el-form-item>
                 
@@ -149,8 +146,6 @@ export default {
         roleName:""
       },
       treeData:[],
-      selectedKeys:[],
-      selectedKeysAdd:[],
       defaultProps: {
           children: 'children',
           label: 'ruleName'
@@ -208,7 +203,6 @@ export default {
     },
     handleEdit(index, row) {
       this.editVisible = true
-      this.checkStrictlyEdit = true
       let echoParams = {
         id:row.id,
       }
@@ -232,7 +226,8 @@ export default {
         id:row.id
       }
       delParams.sign = deleteParams(delParams)
-      this.$confirm("此操作将永久删除该角色, 是否继续?", "提示", {
+      this.$confirm(`此操作将永久删除该角色, 是否继续?<br><span style="color: #f56c6c"; font-size:12px;>(更改角色或权限后用户需重新登录！)</span>`, "提示", {
+        dangerouslyUseHTMLString: true,
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -290,11 +285,11 @@ export default {
         roleCode:this.currentItem.roleCode,
         ids:this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys())
       }
-      let logParams = {
-          userName:sessionStorage.getItem('username')
-      }
+      // let logParams = {
+      //     userName:sessionStorage.getItem('username')
+      // }
       updParams.sign = deleteParams(updParams)
-      logParams.sign = deleteParams(logParams)
+      // logParams.sign = deleteParams(logParams)
       this.$refs[currentItem].validate((valid) => {
         if (valid) {
           this.editBtnLoading = true
@@ -308,22 +303,22 @@ export default {
                 });
                 this.getList()
                 this.editVisible = false
-                sessionStorage.removeItem('menuData');
-                sessionStorage.removeItem('btnpermission')
-                userMenu(logParams).then((res)=>{
-                    if(res.data.code == 200){
-                        sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
-                        this.reload();
-                    }else{
-                        if(res.data.code != undefined){
-                            this.$message({
-                                message:res.data.code+'：'+res.data.msg,
-                                type:'error',
-                                duration:2000
-                            });
-                        }
-                    }
-                })
+                // sessionStorage.removeItem('menuData');
+                // sessionStorage.removeItem('btnpermission')
+                // userMenu(logParams).then((res)=>{
+                //     if(res.data.code == 200){
+                //         sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                //         this.reload();
+                //     }else{
+                //         if(res.data.code != undefined){
+                //             this.$message({
+                //                 message:res.data.code+'：'+res.data.msg,
+                //                 type:'error',
+                //                 duration:2000
+                //             });
+                //         }
+                //     }
+                // })
             }else{
                 if(res.data.code != undefined){
                     this.$message({
@@ -382,47 +377,35 @@ export default {
         }
       });
     },
-    getParentKey(data,checkData){
-        // console.log(data,checkData)
-    },
-    getChecked(data,isChecked){
-      if(isChecked){
-        // console.log('选中后：'+this.$refs.tree.getCheckedKeys().concat(this.getAllIds(data)))
-        // console.log('getHalfCheckedKeys:'+this.$refs.tree.getHalfCheckedKeys())
-        this.$refs.tree.setCheckedKeys(this.$refs.tree.getCheckedKeys().concat(this.getAllIds(data)))
-        // this.selectedKeys = 
-        // this.getAllId(data)
-      }else{
-        // console.log('取消选中的所有getkeys：'+this.$refs.tree.getCheckedKeys())
-        // console.log('取消选中的集合：'+this.getAllIds(data))
-        this.$refs.tree.setCheckedKeys(this.removal(this.$refs.tree.getCheckedKeys(),this.getAllIds(data)))
-        // this.selectedKeys = this.removal(this.selectedKeys,this.getAllIds(data).map(String))
-        
-      }
-      
-        // for(let i in data){
-        //   console.log(i)
-        // }
-        // console.log('getCheckedKeys:'+this.$refs.tree.getCheckedKeys())
-        // console.log('getHalfCheckedKeys:'+this.$refs.tree.getHalfCheckedKeys())
-        // console.log('getCheckedKeys:'+ this.$refs.tree.getCheckedKeys())
-        // this.selectedKeys = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys())
-        // console.log(this.selectedKeys)
-    },
-    getCheckedAdd(){
-      // this.selectedKeysAdd = this.$refs.treeAdd.getCheckedKeys()
-    },
-    getAllIds(obj) {
-      let ids = []
-      JSON.stringify(obj, function(key, value){
-          key === 'id' && ids.push(value)
-          return value
-      })
-      return ids
-    },
-    removal(a, b){
-      return a.filter(item => !b.includes(item))
-    },
+    hanleCheck (data, node) {
+    const _this = this
+    // 获取当前节点是否被选中
+    const isChecked = this.$refs.tree.getNode(data).checked
+    // 如果当前节点被选中，则遍历上级节点和下级子节点并选中，如果当前节点取消选中，则遍历下级节点并取消选中
+    if (isChecked) {
+        // 判断是否有上级节点，如果有那么遍历设置上级节点选中
+        data.parentCode && setParentChecked(data.parentCode)
+        // 判断该节点是否有下级节点，如果有那么遍历设置下级节点为选中
+        data.children && setChildreChecked(data.children, true)
+    } else {
+        // 如果节点取消选中，则取消该节点下的子节点选中
+        data.children && setChildreChecked(data.children, false)
+    }
+    function setParentChecked (parentCode) {
+        // 获取该id的父级node
+        const parentNode = _this.$refs.tree.getNode(parentCode)
+        // 如果该id的父级node存在父级id则继续遍历
+        parentNode && parentNode.data && parentNode.data.parentCode && setParentChecked(parentNode.data.parentCode)
+        //  设置该id的节点为选中状态
+        _this.$refs.tree.setChecked(parentCode, true)
+    }
+    function setChildreChecked (node, isChecked) {
+        node.forEach(item => {
+            item.children && setChildreChecked(item.children, isChecked)
+            _this.$refs.tree.setChecked(item.id, isChecked)
+        })
+    }
+},
     turnToPage(pageNum){
         var ts = this;
         var pageNum = parseInt(pageNum);

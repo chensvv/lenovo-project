@@ -194,7 +194,7 @@ export default {
                             
                         }else{
                             this.getImgCode()
-                            this.loginImgCodeErr = res.data.msg+'，请联系管理员'
+                            this.loginImgCodeErr = res.data.msg
                         }
                     }).catch(err=>{
                         this.getImgCode()

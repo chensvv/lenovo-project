@@ -29,9 +29,6 @@
                         <el-form-item label="错误信息:" v-if="props.row.status == 'failed'">
                             <span>{{ props.row.errorMessage }}</span>
                         </el-form-item>
-                        <el-form-item label="请求时间:">
-                            <span>{{ formTimeStart(props.row.startTime) }}</span>
-                        </el-form-item>
                     </el-form>
                 </template>
             </el-table-column>
@@ -99,7 +96,7 @@
                 </template>
           </el-table-column>
           <el-table-column
-              label="最大请求时间"
+              label="请求耗时"
               prop="useTime"
               align="center">
                 <template slot-scope="scope">
@@ -117,8 +114,8 @@
                 </template>
           </el-table-column>
           <el-table-column
-              label="添加时间"
-              prop="createTime"
+              label="请求时间"
+              prop="startTime"
               align="center"
               :formatter="formTime"
               min-width="130">
@@ -192,7 +189,7 @@ export default {
         }
     },
     formTime(row, column){
-      var timer = row.createTime
+      var timer = row.startTime
       var date = new Date(timer)
       return date.getFullYear()+'-'+
         checkTime(date.getMonth()+1)+'-'+

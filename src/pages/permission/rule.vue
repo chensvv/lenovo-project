@@ -90,6 +90,7 @@
                 <el-form-item label="url" prop="url" v-if="urlshow">
                     <el-input type="text" v-model.trim="addList.url" auto-complete="off"></el-input>
                 </el-form-item>
+                <span style="color: #f56c6c; padding-left:120px;">更改或新增权限后用户需重新登录！</span>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="addHandleClose">取 消</el-button>
@@ -107,6 +108,7 @@
                 <el-form-item label="url" prop="url" v-if="urlshow">
                     <el-input type="text" v-model.trim="currentItem.url" auto-complete="off"></el-input>
                 </el-form-item>
+                <span style="color: #f56c6c; padding-left:120px;">更改或新增权限后用户需重新登录！</span>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editHandleClose">取 消</el-button>
@@ -252,11 +254,11 @@ export default {
                 url:this.addList.url,
                 icon:this.addList.icon
             }
-            let logParams = {
-                userName:sessionStorage.getItem('username')
-            }
+            // let logParams = {
+            //     userName:sessionStorage.getItem('username')
+            // }
             addParams.sign = deleteParams(addParams)
-            logParams.sign = deleteParams(logParams)
+            // logParams.sign = deleteParams(logParams)
             this.$refs[addList].validate((valid) => {
                 if (valid) {
                     this.addBtnLoading = true
@@ -270,46 +272,46 @@ export default {
                             });
                             this.getList();
                             this.addVisible = false
-                            sessionStorage.removeItem('menuData');
-                            sessionStorage.removeItem('btnpermission')
-                            userMenu(logParams).then((res)=>{
-                                if(res.data.code == 200){
-                                    sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
-                                    let menuData = res.data.data
-                                    let menuList=[]
-                                    for (let item of menuData) {
-                                        if (item.menutype === 0) {
-                                            menuList.push({
-                                                ruleCode:item.ruleCode
-                                            });
-                                        }
-                                        for (let towMenus of item.children) {
-                                            if (towMenus.menutype === 2) {
-                                                menuList.push({
-                                                    ruleCode:towMenus.ruleCode
-                                                });
-                                            }
-                                            for (let threeMenus of towMenus.children2) {
-                                                if (threeMenus.menutype === 0) {
-                                                    menuList.push({
-                                                        ruleCode:threeMenus.ruleCode
-                                                    });
-                                                }
-                                            }
-                                        }
-                                    }
-                                    sessionStorage.setItem('btnpermission',JSON.stringify(menuList))
-                                    this.reload();
-                                }else{
-                                    if(res.data.code != undefined){
-                                        this.$message({
-                                            message:res.data.code+'：'+res.data.msg,
-                                            type:'error',
-                                            duration:2000
-                                        });
-                                    }
-                                }
-                            })
+                            // sessionStorage.removeItem('menuData');
+                            // sessionStorage.removeItem('btnpermission')
+                            // userMenu(logParams).then((res)=>{
+                            //     if(res.data.code == 200){
+                            //         sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                            //         let menuData = res.data.data
+                            //         let menuList=[]
+                            //         for (let item of menuData) {
+                            //             if (item.menutype === 0) {
+                            //                 menuList.push({
+                            //                     ruleCode:item.ruleCode
+                            //                 });
+                            //             }
+                            //             for (let towMenus of item.children) {
+                            //                 if (towMenus.menutype === 2) {
+                            //                     menuList.push({
+                            //                         ruleCode:towMenus.ruleCode
+                            //                     });
+                            //                 }
+                            //                 for (let threeMenus of towMenus.children2) {
+                            //                     if (threeMenus.menutype === 0) {
+                            //                         menuList.push({
+                            //                             ruleCode:threeMenus.ruleCode
+                            //                         });
+                            //                     }
+                            //                 }
+                            //             }
+                            //         }
+                            //         sessionStorage.setItem('btnpermission',JSON.stringify(menuList))
+                            //         this.reload();
+                            //     }else{
+                            //         if(res.data.code != undefined){
+                            //             this.$message({
+                            //                 message:res.data.code+'：'+res.data.msg,
+                            //                 type:'error',
+                            //                 duration:2000
+                            //             });
+                            //         }
+                            //     }
+                            // })
                         }else{
                             if(res.data.code != undefined){
                                 this.$message({
@@ -356,11 +358,11 @@ export default {
                 url:this.currentItem.url,
                 icon:this.currentItem.icon
             }
-            let logParams = {
-                userName:sessionStorage.getItem('username')
-            }
+            // let logParams = {
+            //     userName:sessionStorage.getItem('username')
+            // }
             updParams.sign = deleteParams(updParams)
-            logParams.sign = deleteParams(logParams)
+            // logParams.sign = deleteParams(logParams)
             this.$refs[currentItem].validate((valid) => {
                 if (valid) {
                     this.editBtnLoading = true
@@ -374,46 +376,46 @@ export default {
                             });
                             this.getList()
                             this.editVisible = false
-                            sessionStorage.removeItem('menuData');
-                            sessionStorage.removeItem('btnpermission')
-                            userMenu(logParams).then((res)=>{
-                                if(res.data.code == 200){
-                                    sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
-                                    let menuData = res.data.data
-                                    let menuList=[]
-                                    for (let item of menuData) {
-                                        if (item.menutype === 0) {
-                                            menuList.push({
-                                                ruleCode:item.ruleCode
-                                            });
-                                        }
-                                        for (let towMenus of item.children) {
-                                            if (towMenus.menutype === 2) {
-                                                menuList.push({
-                                                    ruleCode:towMenus.ruleCode
-                                                });
-                                            }
-                                            for (let threeMenus of towMenus.children2) {
-                                                if (threeMenus.menutype === 0) {
-                                                    menuList.push({
-                                                        ruleCode:threeMenus.ruleCode
-                                                    });
-                                                }
-                                            }
-                                        }
-                                    }
-                                    sessionStorage.setItem('btnpermission',JSON.stringify(menuList))
-                                    this.reload();
-                                }else{
-                                    if(res.data.code != undefined){
-                                        this.$message({
-                                            message:res.data.code+'：'+res.data.msg,
-                                            type:'error',
-                                            duration:2000
-                                        });
-                                    }
-                                }
-                            })
+                            // sessionStorage.removeItem('menuData');
+                            // sessionStorage.removeItem('btnpermission')
+                            // userMenu(logParams).then((res)=>{
+                            //     if(res.data.code == 200){
+                            //         sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                            //         let menuData = res.data.data
+                            //         let menuList=[]
+                            //         for (let item of menuData) {
+                            //             if (item.menutype === 0) {
+                            //                 menuList.push({
+                            //                     ruleCode:item.ruleCode
+                            //                 });
+                            //             }
+                            //             for (let towMenus of item.children) {
+                            //                 if (towMenus.menutype === 2) {
+                            //                     menuList.push({
+                            //                         ruleCode:towMenus.ruleCode
+                            //                     });
+                            //                 }
+                            //                 for (let threeMenus of towMenus.children2) {
+                            //                     if (threeMenus.menutype === 0) {
+                            //                         menuList.push({
+                            //                             ruleCode:threeMenus.ruleCode
+                            //                         });
+                            //                     }
+                            //                 }
+                            //             }
+                            //         }
+                            //         sessionStorage.setItem('btnpermission',JSON.stringify(menuList))
+                            //         this.reload();
+                            //     }else{
+                            //         if(res.data.code != undefined){
+                            //             this.$message({
+                            //                 message:res.data.code+'：'+res.data.msg,
+                            //                 type:'error',
+                            //                 duration:2000
+                            //             });
+                            //         }
+                            //     }
+                            // })
                         }else{
                             if(res.data.code != undefined){
                                 this.$message({
@@ -436,12 +438,13 @@ export default {
             let delParams = {
                 id:row.id
             }
-            let logParams = {
-                userName:sessionStorage.getItem('username')
-            }
+            // let logParams = {
+            //     userName:sessionStorage.getItem('username')
+            // }
             delParams.sign = deleteParams(delParams)
-            logParams.sign = deleteParams(logParams)
-            this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+            // logParams.sign = deleteParams(logParams)
+            this.$confirm(`此操作将永久删除该数据, 是否继续?<br><span style="color: #f56c6c"; font-size:12px;>(更改角色或权限后用户需重新登录！)</span>`, "提示", {
+                dangerouslyUseHTMLString: true,
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 type: "warning"
@@ -454,22 +457,22 @@ export default {
                             duration:2000
                         });
                         this.getList();
-                        sessionStorage.removeItem('menuData');
-                        sessionStorage.removeItem('btnpermission')
-                        userMenu(logParams).then((res)=>{
-                            if(res.data.code == 200){
-                                sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
-                                this.reload();
-                            }else{
-                                if(res.data.code != undefined){
-                                    this.$message({
-                                        message:res.data.code+'：'+res.data.msg,
-                                        type:'error',
-                                        duration:2000
-                                    });
-                                }
-                            }
-                        })
+                        // sessionStorage.removeItem('menuData');
+                        // sessionStorage.removeItem('btnpermission')
+                        // userMenu(logParams).then((res)=>{
+                        //     if(res.data.code == 200){
+                        //         sessionStorage.setItem('menuData',JSON.stringify(res.data.data))
+                        //         this.reload();
+                        //     }else{
+                        //         if(res.data.code != undefined){
+                        //             this.$message({
+                        //                 message:res.data.code+'：'+res.data.msg,
+                        //                 type:'error',
+                        //                 duration:2000
+                        //             });
+                        //         }
+                        //     }
+                        // })
                     }else{
                         if(res.data.code != undefined){
                             this.$message({

@@ -25,21 +25,6 @@
             @sort-change="sortChange"
             element-loading-text="拼命加载中"
             element-loading-spinner="el-icon-loading">
-            <!-- <el-table-column
-                label="lenovoId"
-                prop="lenovoId"
-                align="center">
-                <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.lenovoId" placement="top">
-                        <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
-                        {{ scope.row.lenovoId }}
-                        </div>
-                    </el-tooltip>
-                    <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter" v-if="showTitle">
-                        {{ scope.row.lenovoId }}
-                    </div>
-                </template>
-            </el-table-column> -->
             <el-table-column
                 label="用户名"
                 prop="userName"
