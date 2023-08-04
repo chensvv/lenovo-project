@@ -31,12 +31,15 @@
                   :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
               </el-date-picker>
           </el-form-item>
+          <el-form-item>
+          <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
           </div>
           
-          <div class="form-btn">
+          <!-- <div class="form-btn">
               <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
               <el-button size="mini" @click="resetForm()">重置</el-button>
-          </div>
+          </div> -->
         </el-form>
         <div class="table-box" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading">
             <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>

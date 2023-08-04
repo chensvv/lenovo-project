@@ -82,6 +82,14 @@ export default {
                 callback();
             }
         }
+        let ValidateloginUser = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入账号'));
+            } else {
+                this.loginUserErr = ''
+                callback();
+            }
+        }
         let ValidateloginPsd = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入密码'));
@@ -137,7 +145,7 @@ export default {
             loginLoading:false,
             regLoading:false,
             loginRules:{
-                username:[{ required: true, message: '请输入用户名', trigger: 'change' }],
+                username:[{ required: true, validator: ValidateloginUser, trigger: 'change' }],
                 password:[{ required: true, validator: ValidateloginPsd, trigger: 'change' }],
                 imgCode:[{ required: true, validator: ValidateloginImgCode, trigger: 'change' }]
             },
@@ -191,6 +199,7 @@ export default {
                         }else if(res.data.code == 803){
                             this.getImgCode()
                             this.loginPsdErr = res.data.msg
+                            this.loginUserErr = ' '
                             
                         }else{
                             this.getImgCode()

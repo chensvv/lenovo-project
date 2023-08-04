@@ -2,20 +2,21 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">nlu数据管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" label-width="90px" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" label-width="90px" size="mini" @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="intent" prop="type">
             <el-select v-model="searchItem.type" placeholder="--">
                 <el-option v-for="(item,index) in intentList" :key="index" :label="item" :value="item"></el-option>
             </el-select>
         </el-form-item>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
       <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'stenGen:generator'">生成数据</el-button>
       </div>
     </el-form>
@@ -154,7 +155,7 @@
     </div>
     <el-dialog custom-class="gendialog" :close-on-click-modal="false" :close-on-press-escape="false" title="生成分类" :visible.sync="addVisible" width="70%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
         <div class="main-box">
-            <el-form :model="addList" class="demo-form-inline create-form" label-width="90px" size="mini" :rules="addRules" ref="addList">
+            <el-form :model="addList" class="demo-form-inline create-form" label-width="90px" size="mini" :rules="addRules" ref="addList" @submit.native.prevent>
                 <el-form-item label="intent" prop="intent" class="intent-form">
                     <el-select v-model="addList.intent" placeholder="--" @change="intentChange">
                         <el-option v-for="(item,index) in intentList" :key="index" :label="item" :value="item"></el-option>

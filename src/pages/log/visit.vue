@@ -2,10 +2,9 @@
     <div class="table height-135">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/app/list'}">应用搜索</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="100px" class="demo-form-inline height100 width130" size="mini">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="100px" class="demo-form-inline height100 width130" size="mini" @submit.native.prevent>
             <div class="form-input height100">
                 <el-form-item label="页面唯一标识" prop="page">
                     <el-select v-model.trim="searchItem.page" placeholder="所有页面" clearable>
@@ -31,10 +30,9 @@
                         :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
                     </el-date-picker>
                 </el-form-item>
-            </div>
-            <div class="form-btn">
-                <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
-                <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
+                <el-form-item>
+                    <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+                </el-form-item>
             </div>
         </el-form>
         <div class="table-box">

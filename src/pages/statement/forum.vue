@@ -2,7 +2,7 @@
   <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/forum/list'}">说法配置</el-breadcrumb-item>
+      
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
@@ -20,6 +20,9 @@
             @change="handleChange">
           </el-switch>
         </el-form-item>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
       
       <div class="form-btn">
@@ -28,8 +31,6 @@
           <el-radio label="1" border>开启自动审批</el-radio>
           <el-radio label="2" border>关闭自动审批</el-radio>
         </el-radio-group> -->
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleBatchDel()" v-has="'forum:delbatch'">批量删除</el-button>
       </div>
       

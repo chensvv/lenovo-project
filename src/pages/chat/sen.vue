@@ -2,18 +2,19 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/csc/csc'}">闲聊数据</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini"  @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="敏感词" prop="word">
-            <el-input v-model.trim="searchItem.word" clearable></el-input>
+            <el-input v-model.trim="searchItem.word" clearable @keydown.enter.native="onSubmit"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         </el-form-item>
       </div>
       <div class="form-btn">
-          <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
           <el-button size="mini" @click="handleAdd('addList')" v-has="'sen:add'">添加</el-button>
           <el-button size="mini" @click="handlePub" :loading="PubBtnLoading" v-has="'sen:pub'">发布</el-button>
           <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'sen:excel'">导入数据</el-button>
@@ -100,7 +101,7 @@
     </div>
 
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-          <el-form :label-position="'right'" label-width="80px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+          <el-form :label-position="'right'" label-width="80px" size="small" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
               <el-form-item label="敏感词" prop="word">
                   <el-input type="textarea" v-model.trim="currentItem.word" auto-complete="off"></el-input>
                   <span style="font-size:12px;">编辑时不能带有换行</span>
@@ -113,7 +114,7 @@
           </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="例外" :visible.sync="exceptVisible" width="40%" top="10vh" :before-close="exceptHandleClose" @close="closeFun('exceptItem')">
-          <el-form :label-position="'right'" label-width="80px" size="small" :rules="exceptRules" :model="exceptItem" ref="exceptItem">
+          <el-form :label-position="'right'" label-width="80px" size="small" :rules="exceptRules" :model="exceptItem" ref="exceptItem" @submit.native.prevent>
               <el-form-item label="敏感词" prop="except">
                   <el-input type="textarea" v-model.trim="exceptItem.except" auto-complete="off"></el-input>
                   <span style="font-size:12px;">多个请用逗号隔开</span>
@@ -126,7 +127,7 @@
           </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'right'" label-width="80px" size="small" :rules="addRules" :model="addList" ref="addList">
+            <el-form :label-position="'right'" label-width="80px" size="small" :rules="addRules" :model="addList" ref="addList" @submit.native.prevent>
                 <el-form-item label="敏感词" prop="word">
                     <el-input type="textarea" v-model="addList.word" placeholder="可以一次增加多个，用换行分隔。" auto-complete="off"></el-input>
                 </el-form-item>

@@ -2,11 +2,11 @@
   <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/qa/list'}">规则定义</el-breadcrumb-item>
+      
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" size="mini" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130">
+    <el-form :inline="true" ref="searchItem" size="mini" :model="searchItem" label-width="90px" class="demo-form-inline height50 width130" @submit.native.prevent>
       <div class="form-input height50">
         <el-form-item label="日期" prop="pickerVal" class="date-form">
             <el-date-picker
@@ -22,11 +22,12 @@
                 :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
             </el-date-picker>
         </el-form-item>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
       
       <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'goods:add'">添加</el-button>
       </div>
       

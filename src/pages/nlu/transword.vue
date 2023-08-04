@@ -2,20 +2,21 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">nlu数据管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" label-width="90px" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" label-width="90px" size="mini" @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="表达式" prop="expression">
             <el-select v-model="searchItem.expression" placeholder="--">
                 <el-option v-for="(item,index) in typeList" :key="index" :label="item" :value="item"></el-option>
             </el-select>
         </el-form-item>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
       <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'nlu:transWord:add'">添加</el-button>
         <el-button size="mini" @click="handleLabel()" v-has="'nlu:transWord:genTranWord'" :loading="labelLoading">生成词转换文件</el-button>
       </div>
@@ -96,7 +97,7 @@
     </div>
 
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
         <el-form-item label="表达式" prop="expression">
           <el-input type="text" v-model.trim="currentItem.expression" auto-complete="off"></el-input>
           <!-- <el-select v-model="currentItem.type" placeholder="--">
@@ -113,7 +114,7 @@
       </span>
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
-      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList" @submit.native.prevent>
         <el-form-item label="表达式" prop="expression">
           <el-input type="text" v-model.trim="addList.expression" auto-complete="off"></el-input>
           <!-- <el-select v-model="addList.type" placeholder="--">

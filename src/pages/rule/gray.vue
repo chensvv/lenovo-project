@@ -2,7 +2,6 @@
   <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/qa/list'}">规则定义</el-breadcrumb-item>
       <el-breadcrumb-item :to="{path:'/showmode/conf'}">资源发布</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
@@ -86,7 +85,7 @@
       </div>
     </div>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增灰度" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @close="openFun('addItem')">
-      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addItem" ref="addItem">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addItem" ref="addItem" @submit.native.prevent>
         <el-form-item label="名称" prop="name">
           <el-input type="text" v-model.trim="addItem.name" auto-complete="off"></el-input>
         </el-form-item>
@@ -100,7 +99,7 @@
       </span>
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-      <el-form :label-position="'right'" label-width="100px" :rules="editRules" :model="currentItem" ref="currentItem">
+      <el-form :label-position="'right'" label-width="100px" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
         <el-form-item label="名称" prop="name">
           <el-input type="text" v-model="currentItem.name" readonly auto-complete="off"></el-input>
         </el-form-item>

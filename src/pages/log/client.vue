@@ -2,16 +2,16 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/asr/log/client'}">日志管理</el-breadcrumb-item>
+      
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-form v-if="clientForm" :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+    <el-form v-if="clientForm" :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini"  @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="Uid" prop="uid">
-          <el-input v-model.trim="searchItem.uid" clearable></el-input>
+          <el-input v-model.trim="searchItem.uid" clearable @keydown.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item label="客户端类型" prop="dtp">
-          <el-input v-model.trim="searchItem.dtp" clearable></el-input>
+          <el-input v-model.trim="searchItem.dtp" clearable @keydown.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item label="日期" prop="pickerVal" class="date-form">
             <el-date-picker
@@ -27,18 +27,18 @@
                 :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
             </el-date-picker>
         </el-form-item>
-      </div>
-      <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
     </el-form>
-    <el-form v-if="servForm" :inline="true" ref="searchServ" :model="searchServ" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+    <el-form v-if="servForm" :inline="true" ref="searchServ" :model="searchServ" label-width="90px" class="demo-form-inline height70 width130" size="mini"  @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="Uid" prop="uid">
-          <el-input v-model.trim="searchServ.uid" clearable></el-input>
+          <el-input v-model.trim="searchServ.uid" clearable @keydown.enter.native="onServ"></el-input>
         </el-form-item>
         <el-form-item label="客户端类型" prop="dtp">
-          <el-input v-model.trim="searchServ.dtp" clearable></el-input>
+          <el-input v-model.trim="searchServ.dtp" clearable @keydown.enter.native="onServ"></el-input>
         </el-form-item>
         <el-form-item label="日期" prop="pickerVal" class="date-form">
             <el-date-picker
@@ -54,10 +54,9 @@
                 :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
             </el-date-picker>
         </el-form-item>
-      </div>
-      <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onServ" :loading="servBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetServ('searchServ')">重置</el-button>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onServ" :loading="servBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
     </el-form>
     <el-form v-if="statForm" :inline="true" ref="searchStat" :model="searchStat" label-width="90px" class="demo-form-inline height70 width130" size="mini">
@@ -76,10 +75,9 @@
                 :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
             </el-date-picker>
         </el-form-item>
-      </div>
-      <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onStat" :loading="statLoading">查询</el-button>
-        <el-button size="mini" @click="resetStat('searchStat')">重置</el-button>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onStat" :loading="statLoading">查询</el-button>
+        </el-form-item>
       </div>
     </el-form>
     <div class="table-box">

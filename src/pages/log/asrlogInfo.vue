@@ -2,7 +2,7 @@
   <div class="table height-40">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/asr/log/client'}">日志管理</el-breadcrumb-item>
+      
       <el-breadcrumb-item :to="{ name: 'asrloglist', params:{page:this.$route.params.page}}">识别明细报表</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
@@ -20,6 +20,15 @@
             <el-table-column type="expand">
                 <template slot-scope="props">
                     <el-form label-position="left" :inline="true" class="table-expand">
+                        <el-form-item label="机器id:">
+                            <span>{{ props.row.did }}</span>
+                        </el-form-item>
+                        <el-form-item label="数据长度:">
+                            <span>{{ props.row.data_len }}</span>
+                        </el-form-item>
+                        <el-form-item label="应用code:">
+                            <span>{{ props.row.app }}</span>
+                        </el-form-item>
                         <el-form-item label="lenovokey:">
                             <span>{{ props.row.lenovokey }}</span>
                         </el-form-item>

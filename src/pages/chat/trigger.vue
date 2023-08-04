@@ -2,34 +2,33 @@
   <div class="table height-155">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/csc/csc'}">闲聊数据</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height120 width130" label-width="90px" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height120 width130" label-width="90px" size="mini" @submit.native.prevent>
         <div class="form-input height120">
           <el-form-item label="客户端平台" prop="dtp">
-            <el-input v-model.trim="searchItem.dtp" clearable></el-input>
+            <el-input v-model.trim="searchItem.dtp" clearable @keydown.enter.native="onSubmit"></el-input>
           </el-form-item>
           <el-form-item label="用户ID" prop="uid">
-            <el-input v-model.trim="searchItem.uid" clearable></el-input>
+            <el-input v-model.trim="searchItem.uid" clearable @keydown.enter.native="onSubmit"></el-input>
           </el-form-item>
           <el-form-item label="客户端版本" prop="clientVersion">
-            <el-input v-model.trim="searchItem.clientVersion" clearable></el-input>
+            <el-input v-model.trim="searchItem.clientVersion" clearable @keydown.enter.native="onSubmit"></el-input>
           </el-form-item>
           <el-form-item label="引擎版本" prop="engineVersion">
-            <el-input v-model.trim="searchItem.engineVersion" clearable></el-input>
+            <el-input v-model.trim="searchItem.engineVersion" clearable @keydown.enter.native="onSubmit"></el-input>
           </el-form-item>
           <el-form-item label="开发者" prop="developer">
-            <el-input v-model.trim="searchItem.developer" clearable></el-input>
+            <el-input v-model.trim="searchItem.developer" clearable @keydown.enter.native="onSubmit"></el-input>
           </el-form-item>
           <el-form-item label="唤醒词类型" prop="keywordType">
-            <el-input v-model.trim="searchItem.keywordType" clearable></el-input>
+            <el-input v-model.trim="searchItem.keywordType" clearable @keydown.enter.native="onSubmit"></el-input>
           </el-form-item>
           <el-form-item label="唤醒词" prop="keywordPhrase">
-            <el-autocomplete v-model="searchItem.keywordPhrase" :fetch-suggestions="querySearch" @select="handleSelect" clearable></el-autocomplete>
+            <el-autocomplete v-model="searchItem.keywordPhrase" :fetch-suggestions="querySearch" @select="handleSelect" clearable @keydown.enter.native="onSubmit"></el-autocomplete>
           </el-form-item>
           <el-form-item label="数据来源" prop="origin">
-            <el-input v-model.trim="searchItem.origin" clearable></el-input>
+            <el-input v-model.trim="searchItem.origin" clearable @keydown.enter.native="onSubmit"></el-input>
           </el-form-item>
           <el-form-item label="日期" prop="pickerVal" class="date-form">
               <el-date-picker

@@ -2,18 +2,20 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/app/list'}">应用搜索</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini"  @submit.native.prevent>
             <div class="form-input height70">
                 <el-form-item label="规则" prop="reg">
-                    <el-input v-model.trim="searchItem.reg" clearable></el-input>
+                    <el-input v-model.trim="searchItem.reg" clearable @keydown.enter.native="onSubmit"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 </el-form-item>
             </div>
-            <div class="form-btn">
+            <!-- <div class="form-btn">
                 <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
-            </div>
+            </div> -->
         </el-form>
         <div class="table-box">
             <el-table

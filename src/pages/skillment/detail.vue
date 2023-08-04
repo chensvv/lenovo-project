@@ -2,16 +2,16 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/skill/applist'}">技能管理</el-breadcrumb-item>
+            
             <el-breadcrumb-item :to="{ path: '/skill/applist'}">应用列表</el-breadcrumb-item>
             <el-breadcrumb-item>{{this.$route.meta.title}}（{{skillDetail.appName}} - {{skillDetail.appType}}）</el-breadcrumb-item>
         </el-breadcrumb>
         
         <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
             <div class="form-input height70">
-                <el-form-item label="应用名称" prop="functionName">
-                    <el-input v-model.trim="searchItem.functionName" clearable></el-input>
-                </el-form-item>
+                <div class="d_t">
+                    <span class="d_title">名称：{{skillDetail.appName}}  </span>
+                </div>
             </div>
             <!-- <div class="d_t">
                 <span class="d_title">{{skillDetail.appName}}  
@@ -19,7 +19,6 @@
             </div> -->
             
             <div class="form-btn">
-                <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button size="mini" @click="handleAdd()" v-has="'skill:functionadd'">添加</el-button>
             </div>
             

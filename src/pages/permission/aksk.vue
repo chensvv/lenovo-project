@@ -2,17 +2,16 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/permission/role'}">权限管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini"  @submit.native.prevent>
             <div class="form-input height70">
                 <el-form-item label="用户名" prop="userName">
-                    <el-input v-model.trim="searchItem.userName" clearable></el-input>
+                    <el-input v-model.trim="searchItem.userName" clearable @keydown.enter.native="onSubmit"></el-input>
                 </el-form-item>
-            </div>
-            <div class="form-btn">
-                <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
+                <el-form-item>
+                    <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+                </el-form-item>
             </div>
         </el-form>
         <div class="table-box flex-align">
@@ -50,7 +49,7 @@
                     </el-tooltip>
                 </template>
                 <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudasrCount" placement="top" :class="scope.row.userDailyCloudasrCount == -99 ? 'fontSize30' : ''">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
                         {{ scope.row.userDailyCloudasrCount  == -99 ? '∞' : scope.row.userDailyCloudasrCount}}
                         </div>
@@ -70,7 +69,7 @@
                     </el-tooltip>
                 </template>
                 <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top" :class="scope.row.userDailyCloudasrCount == -99 ? 'fontSize30' : ''">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
                         {{ scope.row.userDailyCloudttsCount == -99 ? '∞' : scope.row.userDailyCloudttsCount}}
                         </div>
@@ -233,7 +232,7 @@
                 <el-descriptions-item label="历史SK">{{infoList.oldSecretKey}}</el-descriptions-item>
                 <el-descriptions-item label="历史AK、SK过期时间">{{infoList.oldTimeOut}}</el-descriptions-item>
             </el-descriptions>
-            <el-form :label-position="'right'" label-width="80px" size="small" :rules="infoRules" :model="infoList" ref="infoList">
+            <el-form :label-position="'right'" label-width="80px" size="small" :rules="infoRules" :model="infoList" ref="infoList" @submit.native.prevent>
                 <el-form-item label="AK">
                     <el-input type="text" v-model="infoList.ak" auto-complete="off" readonly></el-input>
                 </el-form-item>
@@ -252,7 +251,7 @@
             </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
                 <el-form-item label="ASR访问次数" prop="userDailyCloudasrCount">
                     <el-input type="text" v-model.trim="currentItem.userDailyCloudasrCount" auto-complete="off" :class="currentItem.asrChecked == true ? 'text-d': ''" :disabled="currentItem.asrChecked"></el-input>
                     <el-checkbox v-model="currentItem.asrChecked" @change="asrChange">不限制</el-checkbox>

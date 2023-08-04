@@ -2,18 +2,19 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/app/list'}">应用搜索</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" label-width="90px" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" label-width="90px" size="mini" @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="应用名称" prop="appName">
-        <el-input v-model.trim="searchItem.appName" clearable></el-input>
-      </el-form-item>
+          <el-input v-model.trim="searchItem.appName" clearable @keydown.enter.native="onSubmit"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
       <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'app:appadd'">添加</el-button>
         <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'app:excel'">导入Excel文件</el-button>
       </div>
@@ -86,7 +87,7 @@
     </div>
 
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
         <el-form-item label="应用名称" prop="appName">
           <el-input type="text" v-model.trim="currentItem.appName" auto-complete="off"></el-input>
         </el-form-item>
@@ -97,7 +98,7 @@
       </span>
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
-      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList" @submit.native.prevent>
         <el-form-item label="应用名称" prop="appName">
           <el-input type="text" v-model.trim="addList.appName" auto-complete="off"></el-input>
         </el-form-item>
@@ -143,7 +144,11 @@ import {checkTime} from '@/utils/timer.js'
 import {getpageNum} from '@/utils/pagination.js'
 import {deleteParams} from '@/utils/deleteParams.js'
 import {appNameList, appNameAdd, appNameUpd, appNameDel, appNameUpFile, qaFile} from '@/config/api'
+import Bread from '@/components/bread.vue'
 export default {
+  components:{
+    Bread
+  },
   data() {
     return {
       getpageNum:getpageNum,

@@ -2,16 +2,15 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/nlulog/list'}">运营日志分析</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini"  @submit.native.prevent>
             <div class="form-input height70">
                 <el-form-item label="用户ID" prop="userId">
-                    <el-input v-model.trim="searchItem.userId" clearable></el-input>
+                    <el-input v-model.trim="searchItem.userId" clearable @keydown.enter.native="onSubmit"></el-input>
                 </el-form-item>
                 <el-form-item label="文本指令" prop="asrres">
-                    <el-input v-model.trim="searchItem.asrres" clearable></el-input>
+                    <el-input v-model.trim="searchItem.asrres" clearable @keydown.enter.native="onSubmit"></el-input>
                 </el-form-item>
                 <el-form-item label="处理分支" prop="pid">
                     <el-select v-model="searchItem.pid" ref="approachId" :loading="roachLoading" placeholder="--" @change="roachChange">
@@ -63,10 +62,9 @@
                         :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
                     </el-date-picker>
                 </el-form-item>
-            </div>
-            
-            <div class="form-btn">
-                <el-button size="mini" type="primary" @click="onSubmit" :loading="btnLoading">查询</el-button>
+                <el-form-item>
+                    <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+                </el-form-item>
             </div>
             
         </el-form>

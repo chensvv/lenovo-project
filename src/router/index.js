@@ -72,7 +72,7 @@ const router = new Router({
           path: '/app/applist',
           name:'appapplist',
           component: () => import('@/pages/app/appName'),
-          meta: {title: '应用名称管理',needLogin:true}
+          meta: {title: '应用名称',needLogin:true}
         },
         {
           path: '/was/weblist',
@@ -108,7 +108,7 @@ const router = new Router({
           path: '/joke/list',
           name:'jokelist',
           component: () => import('@/pages/chat/joke'),
-          meta: {title: '笑话列表',needLogin:true}
+          meta: {title: '笑话库',needLogin:true}
         },
         {
           path: '/joke/speakList',
@@ -150,7 +150,7 @@ const router = new Router({
           path: '/qa/list',
           name:'qalist',
           component: () => import('@/pages/rule/qa'),
-          meta: {title: '定制问答查看',needLogin:true}
+          meta: {title: '闲聊问答',needLogin:true}
         },
         {
           path: '/qa/channelList',
@@ -234,7 +234,7 @@ const router = new Router({
           path: '/kv/list',
           name:'kvlist',
           component: () => import('@/pages/lasf-kv/kv'),
-          meta: {title: 'KV列表',needLogin:true}
+          meta: {title: '通用参数',needLogin:true}
         },
         {
           path: '/kv/engine/view',
@@ -252,7 +252,7 @@ const router = new Router({
           path: '/skill/applist',
           name:'skill',
           component: () => import('@/pages/skillment/skill'),
-          meta: {title: '应用列表',needLogin:true}
+          meta: {title: '三方APP调用',needLogin:true}
         },
         {
           path: '/lasf-kv/skill/detail',
@@ -300,25 +300,25 @@ const router = new Router({
           path: '/permission/role',
           name:'perrole',
           component: () => import('@/pages/permission/role'),
-          meta: {title: '角色管理',needLogin:true}
+          meta: {title: '用户角色',needLogin:true}
         },
         {
           path: '/permission/auth',
           name:'perauth',
           component: () => import('@/pages/permission/user'),
-          meta: {title: '用户管理',needLogin:true}
+          meta: {title: '系统用户',needLogin:true}
         },
         {
           path: '/userinfo/list',
           name:'webinfo',
           component: () => import('@/pages/permission/aksk'),
-          meta: {title: '官网用户',needLogin:true}
+          meta: {title: '开发者账号',needLogin:true}
         },
         {
           path: '/rule/fetch',
           name:'perrule',
           component: () => import('@/pages/permission/rule'),
-          meta: {title: '权限管理',needLogin:true}
+          meta: {title: '用户权限',needLogin:true}
         },
         {
           path: '/rule/detail',
@@ -342,7 +342,7 @@ const router = new Router({
           path: '/command/list',
           name:'commandlist',
           component: () => import('@/pages/skillment/command'),
-          meta: {title: '相似度命令管理',needLogin:true}
+          meta: {title: '系统命令',needLogin:true}
         },
         {
           path: '/command/norun/list',
@@ -360,7 +360,7 @@ const router = new Router({
           path: '/asr/log/client',
           name:'logclient',
           component: () => import('@/pages/log/client'),
-          meta: {title: '客户端上报日志',needLogin:true}
+          meta: {title: '客户端上报数据分析',needLogin:true}
         },
         {
           path: '/log/client/chart',
@@ -390,7 +390,7 @@ const router = new Router({
           path: '/servlog/loglist',
           name:'servlog',
           component: () => import('@/pages/log/main'),
-          meta: {title: '明细日志',needLogin:true}
+          meta: {title: '服务明细报表',needLogin:true}
         },
         {
           path: '/asr/log/asrf',
@@ -508,7 +508,7 @@ const router = new Router({
           path: '/ttsregular/list',
           name:'ttsregular',
           component: () => import('@/pages/statement/ttsregular'),
-          meta: {title: 'TTS规则配置',needLogin:true}
+          meta: {title: 'TTS规则',needLogin:true}
         },
         {
           path: '/news/list',
@@ -610,13 +610,13 @@ const router = new Router({
           path: '/asrlog/list',
           name:'asrloglist',
           component: () => import('@/pages/log/asrlog'),
-          meta: {title: '识别日志数据',needLogin:true}
+          meta: {title: '语音识别日报表',needLogin:true}
         },
         {
           path: '/asrlog/detail',
           name:'asrlogdetail',
           component: () => import('@/pages/log/asrlogInfo'),
-          meta: {title: '识别明细日志',needLogin:true}
+          meta: {title: '明细',needLogin:true}
         },
         {
           path: '/user/checkpass',

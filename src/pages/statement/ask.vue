@@ -2,7 +2,7 @@
   <div class="table height-85">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/forum/list'}">说法配置</el-breadcrumb-item>
+      
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
@@ -11,11 +11,12 @@
         <el-form-item label="speak" prop="speak">
           <el-input v-model.trim="searchItem.speak" clearable></el-input>
         </el-form-item>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
       
       <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="buildAIML()" :loading="AIMLBtnLoading" v-has="'ask:pub'">生成AIML</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'ask:save'">添加</el-button>
       </div>

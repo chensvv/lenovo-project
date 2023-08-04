@@ -2,20 +2,20 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/qa/list'}">规则定义</el-breadcrumb-item>
+      
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="101px" class="demo-form-inline height70 width130" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="101px" class="demo-form-inline height70 width130" size="mini" @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="问题" prop="speak">
-          <el-input v-model.trim="searchItem.speak" clearable></el-input>
+          <el-input v-model.trim="searchItem.speak" clearable @keydown.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item label="答案" prop="answer">
-          <el-input v-model.trim="searchItem.answer" clearable></el-input>
+          <el-input v-model.trim="searchItem.answer" clearable @keydown.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item label="所属excel文件" prop="excel">
-          <el-input v-model.trim="searchItem.excel" clearable></el-input>
+          <el-input v-model.trim="searchItem.excel" clearable @keydown.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select v-model.trim="searchItem.status" placeholder="--" clearable>
@@ -172,7 +172,7 @@
     </div>
 
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
         <el-form-item label="问题" prop="speak">
           <el-input type="textarea" v-model.trim="currentItem.speak" auto-complete="off"></el-input>
         </el-form-item>
@@ -186,7 +186,7 @@
       </span>
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
-      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList" @submit.native.prevent>
         <el-form-item label="问题" prop="speak">
           <el-input type="text" v-model.trim="addList.speak" auto-complete="off"></el-input>
         </el-form-item>

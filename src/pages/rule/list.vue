@@ -2,11 +2,11 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/qa/list'}">规则定义</el-breadcrumb-item>
+      
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini" @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="渠道" prop="channelVal">
           <el-select v-model="searchItem.channelVal" placeholder="请选择" clearable size="mini">
@@ -32,11 +32,12 @@
                 :default-value="new Date(new Date() - 24*60*60*30*1000)">
             </el-date-picker>
         </el-form-item>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
       
       <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-        <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
         <el-button size="mini" @click="handleImport()" v-has="'showmode:add'">导入喜马拉雅数据</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'showmode:add'">创建资源</el-button>
         <el-button size="mini" @click="handleAddChannel()" v-has="'config:list'">添加渠道类型</el-button>

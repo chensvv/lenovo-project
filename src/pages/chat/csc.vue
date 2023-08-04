@@ -2,25 +2,26 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/csc/csc'}">闲聊数据</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini"  @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="名称" prop="name">
-          <el-input v-model.trim="searchItem.name" clearable></el-input>
+          <el-input v-model.trim="searchItem.name" clearable @keydown.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="tel">
-          <el-input v-model.trim="searchItem.tel" clearable></el-input>
+          <el-input v-model.trim="searchItem.tel" clearable @keydown.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item label="扩展" prop="exts">
-          <el-input v-model.trim="searchItem.exts" clearable></el-input>
+          <el-input v-model.trim="searchItem.exts" clearable @keydown.enter.native="onSubmit"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         </el-form-item>
       </div>
       
       <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'csc:add'">添加</el-button>
       </div>
       
@@ -105,7 +106,7 @@
       </div>
     </div>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
-      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList" @submit.native.prevent>
         <el-form-item label="名称" prop="name">
           <el-input type="text" v-model.trim="addList.name" auto-complete="off"></el-input>
         </el-form-item>

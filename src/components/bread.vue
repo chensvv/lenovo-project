@@ -1,39 +1,33 @@
+<!--面包屑-->
 <template>
-  <!-- 面包屑 -->
-  <div class="bread">
- <el-breadcrumb>
- <el-breadcrumb-item v-for="(item, index) in fromFather" :key='index' :to="{ path: + item.path }">{{item.name}}</el-breadcrumb-item>
-
-</el-breadcrumb>
-</div>
+    <el-breadcrumb separator="/">
+    <el-breadcrumb-item :to="{ path: '/home'}">首页</el-breadcrumb-item>
+        <el-breadcrumb-item v-for="item in lists" :key="item.path">
+            <router-link :to="item.path">{{item.meta.title}}</router-link>
+        </el-breadcrumb-item>
+    </el-breadcrumb>
 </template>
-
+ 
 <script>
-export default {
-   name: 'bread',
-   props: ['fromFather']
-}
-</script>
+    export default {
+        name: "Breadcrumb",
+        data(){
+            return{
+                lists:[]            //定义一个数组 用于接收路由信息
+            }
+        },
+        created() {
+            console.log(this.$route.matched)
+          this.lists = this.$route.matched  //获取路由内的全部信息
+        },
+        //这里必须使用监听，否则无法实时获取路由变动信息。
+        // 监听后路由会实时变动，不然需要手动刷新路径才会改变
+        watch:{
+          $route(to,from)  {
+              this.lists = to.matched
 
-<style lang="less">
-.bread {
-    background-color: #fff;
-    width: 100%;
-    height: 50px;
-    padding: 0 16px;
-    border: 1px #EFEFEF solid;
-    box-sizing: border-box;
-    box-shadow: 1px 2px 4px #BABABA;
-    margin-bottom: 36px;
-    .el-icon-arrow-right:before {
-        color: #000;
+          }
+        },
     }
-    .el-breadcrumb__item {
-        font-size: 20px;
-        line-height: 50px;
-    }
-    .el-breadcrumb__inner {
-        cursor: pointer !important;
-    }
-}
-</style>
+</script>
+ 

@@ -2,16 +2,16 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/asr/log/client'}">日志管理</el-breadcrumb-item>
+      
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini"  @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="应用包名" prop="app">
-          <el-input v-model.trim="searchItem.app" clearable></el-input>
+          <el-input v-model.trim="searchItem.app" clearable @keydown.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item label="描述" prop="desc">
-          <el-input v-model.trim="searchItem.desc" clearable></el-input>
+          <el-input v-model.trim="searchItem.desc" clearable @keydown.enter.native="onSubmit"></el-input>
         </el-form-item>
         <el-form-item label="日期" prop="pickerVal" class="date-form">
             <el-date-picker
@@ -27,9 +27,11 @@
                 :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
             </el-date-picker>
         </el-form-item>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+        </el-form-item>
       </div>
       <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="resetForm('searchItem')">重置</el-button>
       </div>
     </el-form>

@@ -2,19 +2,21 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/skill/applist'}">技能管理</el-breadcrumb-item>
+            
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini" @submit.native.prevent>
             <div class="form-input height70">
                 <el-form-item label="歌手名称" prop="name">
-                    <el-input v-model.trim="searchItem.name" clearable></el-input>
+                    <el-input v-model.trim="searchItem.name" clearable @keydown.enter.native="onSubmit"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 </el-form-item>
             </div>
             
             <div class="form-btn">
-                <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
                 <el-button size="mini" @click="handleAdd()" v-has="'skill:music:addsinger'">添加</el-button>
                 <el-button size="mini" icon="el-icon-upload" @click="importExcel()">导入数据</el-button>
                 <el-button size="mini" @click="handlePub()" :loading="pubBtnLoading" v-has="'skill:music:singerpublish'">发布</el-button>
@@ -128,7 +130,7 @@
         </div>
 
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
                 <el-form-item label="歌手名称" prop="singerName">
                     <el-input type="text" v-model.trim="currentItem.singerName" auto-complete="off"></el-input>
                 </el-form-item>
@@ -154,7 +156,7 @@
             </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'right'" label-width="120px" size="small" :rules="addRules" :model="addList" ref="addList">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="addRules" :model="addList" ref="addList" @submit.native.prevent>
                 <el-form-item label="歌手名称" prop="singerName">
                     <el-input type="text" v-model.trim="addList.singerName" auto-complete="off"></el-input>
                 </el-form-item>

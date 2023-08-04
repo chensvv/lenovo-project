@@ -2,47 +2,53 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/skill/applist'}">技能管理</el-breadcrumb-item>
+            
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         
-        <el-form v-if="commandForm" :inline="true" ref="commandSearchItem" :model="commandSearchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+        <el-form v-if="commandForm" :inline="true" ref="commandSearchItem" :model="commandSearchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini" @submit.native.prevent>
             <div class="form-input height70">
                 <el-form-item label="用户query" prop="command">
-                    <el-input v-model.trim="commandSearchItem.command" clearable></el-input>
+                    <el-input v-model.trim="commandSearchItem.command" clearable @keydown.enter.native="commandOnSubmit"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" type="primary" @click="commandOnSubmit" :loading="commandSeaBtnLoading">查询</el-button>
                 </el-form-item>
             </div>
             
             <div class="form-btn">
-                <el-button size="mini" type="primary" @click="commandOnSubmit" :loading="commandSeaBtnLoading">查询</el-button>
                 <el-button size="mini" @click="commandHandleAdd()" v-has="'command:add'">添加</el-button>
                 <!-- <el-button size="mini" @click="handleSong()" v-has="'command:norun:list'">指令忽略管理</el-button>
                 <el-button size="mini" @click="handleOriginal()" v-has="'command:mainlist'">原始指令管理</el-button> -->
             </div>
             
         </el-form>
-        <el-form v-if="norunForm" :inline="true" ref="norunSearchItem" :model="norunSearchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+        <el-form v-if="norunForm" :inline="true" ref="norunSearchItem" :model="norunSearchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini" @submit.native.prevent>
             <div class="form-input height70">
                 <el-form-item label="用户query" prop="command">
-                    <el-input v-model.trim="norunSearchItem.command" clearable></el-input>
+                    <el-input v-model.trim="norunSearchItem.command" clearable @keydown.enter.native="norunOnSubmit"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" type="primary" @click="norunOnSubmit" :loading="norunSeaBtnLoading">查询</el-button>
                 </el-form-item>
             </div>
             
             <div class="form-btn">
-                <el-button size="mini" type="primary" @click="norunOnSubmit" :loading="norunSeaBtnLoading">查询</el-button>
                 <el-button size="mini" @click="norunHandleAdd()" v-has="'command:norun:add'">添加</el-button>
             </div>
             
         </el-form>
-        <el-form v-if="originaForm" :inline="true" ref="originaSearchItem" :model="originaSearchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini">
+        <el-form v-if="originaForm" :inline="true" ref="originaSearchItem" :model="originaSearchItem" label-width="90px" class="demo-form-inline height70 width130" size="mini" @submit.native.prevent>
             <div class="form-input height70">
                 <el-form-item label="用户query" prop="command">
-                    <el-input v-model.trim="originaSearchItem.command" clearable></el-input>
+                    <el-input v-model.trim="originaSearchItem.command" clearable @keydown.enter.native="originaOnSubmit"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" type="primary" @click="originaOnSubmit" :loading="originaSeaBtnLoading">查询</el-button>
                 </el-form-item>
             </div>
             
             <div class="form-btn">
-                <el-button size="mini" type="primary" @click="originaOnSubmit" :loading="originaSeaBtnLoading">查询</el-button>
                 <el-button size="mini" @click="originaHandleAdd()" v-has="'command:mainadd'">添加</el-button>
             </div>
             
@@ -279,7 +285,7 @@
         </div>
         
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="commandAddVisible" width="40%" top="10vh" :before-close="commandAddHandleClose" @open="commandOpenFun('commandAddList')">
-            <el-form :label-position="'right'" label-width="130px" size="small" :rules="commandAddRules" :model="commandAddList" ref="commandAddList">
+            <el-form :label-position="'right'" label-width="130px" size="small" :rules="commandAddRules" :model="commandAddList" ref="commandAddList" @submit.native.prevent>
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="commandAddList.command" auto-complete="off"></el-input>
                 </el-form-item>
@@ -298,7 +304,7 @@
             </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="norunAddVisible" width="40%" top="10vh" :before-close="norunAddHandleClose" @open="norunOpenFun('norunAddList')">
-            <el-form :label-position="'right'" label-width="130px" size="small" :rules="norunAddRules" :model="norunAddList" ref="norunAddList">
+            <el-form :label-position="'right'" label-width="130px" size="small" :rules="norunAddRules" :model="norunAddList" ref="norunAddList" @submit.native.prevent>
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="norunAddList.command" auto-complete="off"></el-input>
                 </el-form-item>
@@ -309,7 +315,7 @@
             </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="originaAddVisible" width="40%" top="10vh" :before-close="originaAddHandleClose" @open="originaOpenFun('originaAddList')">
-            <el-form :label-position="'right'" label-width="120px" size="small" :rules="originaAddRules" :model="originaAddList" ref="originaAddList">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="originaAddRules" :model="originaAddList" ref="originaAddList" @submit.native.prevent>
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="originaAddList.command" auto-complete="off"></el-input>
                 </el-form-item>
@@ -323,7 +329,7 @@
             </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+            <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
                 <el-form-item label="用户query" prop="command">
                     <el-input type="text" v-model.trim="currentItem.command" auto-complete="off"></el-input>
                 </el-form-item>

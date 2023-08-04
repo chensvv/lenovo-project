@@ -2,7 +2,7 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/skill/applist'}">技能管理</el-breadcrumb-item>
+            
             <el-breadcrumb-item :to="{ path: '/skill/applist'}">应用列表</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ name: 'skilldetail',params:{functionId:this.functionId, appId:this.appId}}">应用详情</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
@@ -96,7 +96,7 @@
         </div>
     </div>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-        <el-form :label-position="'right'" label-width="80px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+        <el-form :label-position="'right'" label-width="80px" size="small" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
             <el-form-item label="说明" prop="version">
                 <el-input type="text" v-model.trim="currentItem.version" auto-complete="off"></el-input>
             </el-form-item>
@@ -110,7 +110,7 @@
         </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="添加答案" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'right'" label-width="0px" size="small" :rules="addRules" :model="addList" ref="addList">
+            <el-form :label-position="'right'" label-width="0px" size="small" :rules="addRules" :model="addList" ref="addList" @submit.native.prevent>
                 <el-form-item prop="version">
                     <el-input type="text" v-model.trim="addList.version" placeholder="在此处添加说明" auto-complete="off"></el-input>
                 </el-form-item>
@@ -125,7 +125,7 @@
             </span>
         </el-dialog>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="发布策略" :visible.sync="strVisible" width="40%" top="10vh" :before-close="strHandleClose">
-            <el-form :label-position="'right'" label-width="80px" size="small" ref="strList">
+            <el-form :label-position="'right'" label-width="80px" size="small" ref="strList" @submit.native.prevent>
                 <el-form-item label="软件版本" class="ver_text1">
                     <el-input type="text" v-model.trim="strList.minVer" placeholder="最小版本" auto-complete="off"></el-input> - 
                     <el-input type="text" v-model.trim="strList.maxVer" placeholder="最大版本" auto-complete="off"></el-input>

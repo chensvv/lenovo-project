@@ -2,11 +2,10 @@
   <div class="table height-105">
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/nlu/word/list'}">nlu数据管理</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
-    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" label-width="90px" size="mini">
+    <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" label-width="90px" size="mini" @submit.native.prevent>
       <div class="form-input height70">
         <el-form-item label="类别" prop="type">
             <el-select v-model="searchItem.type" placeholder="--">
@@ -14,11 +13,13 @@
             </el-select>
         </el-form-item>
         <el-form-item label="名词" prop="word">
-            <el-input v-model.trim="searchItem.word" clearable></el-input>
+            <el-input v-model.trim="searchItem.word" clearable @keydown.enter.native="onSubmit"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         </el-form-item>
       </div>
       <div class="form-btn">
-        <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
         <el-button size="mini" @click="handleAdd()" v-has="'nlu:word:add'">添加</el-button>
         <el-button size="mini" @click="handleLabel()" v-has="'nlu:word:genlabel'" :loading="labelLoading">生成label</el-button>
         <el-button size="mini" icon="el-icon-upload" @click="importExcel()" v-has="'nlu:word:import'">导入文件</el-button>
@@ -100,7 +101,7 @@
     </div>
 
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="编辑" :visible.sync="editVisible" width="40%" top="10vh" :before-close="editHandleClose" @close="closeFun('currentItem')">
-      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem">
+      <el-form :label-position="'right'" label-width="120px" size="small" :rules="editRules" :model="currentItem" ref="currentItem" @submit.native.prevent>
         <el-form-item label="类别" prop="type">
           <!-- <el-input type="text" v-model.trim="currentItem.type" auto-complete="off"></el-input> -->
           <el-select v-model="currentItem.type" placeholder="--">
@@ -117,7 +118,7 @@
       </span>
     </el-dialog>
     <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="新增" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
-      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
+      <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList" @submit.native.prevent>
         <el-form-item label="类型" prop="type">
           <!-- <el-input type="text" v-model.trim="addList.type" auto-complete="off"></el-input> -->
           <el-select v-model="addList.type" placeholder="--">

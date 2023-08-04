@@ -2,14 +2,13 @@
     <div class="table height-135">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/csc/csc'}">IOT领域</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         
-        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height100 width130" size="mini">
+        <el-form :inline="true" ref="searchItem" :model="searchItem" label-width="90px" class="demo-form-inline height100 width130" size="mini" @submit.native.prevent>
             <div class="form-input height100">
                 <el-form-item label="Lenovoid" prop="lenovoid">
-                    <el-input v-model.trim="searchItem.lenovoid" clearable></el-input>
+                    <el-input v-model.trim="searchItem.lenovoid" clearable @keydown.enter.native="onSubmit"></el-input>
                 </el-form-item>
                 <el-form-item label="日志类型" prop="logType">
                     <el-select v-model="searchItem.logType" placeholder="--" clearable>
@@ -21,13 +20,13 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="appId" prop="appId">
-                    <el-input v-model.trim="searchItem.appId" clearable></el-input>
+                    <el-input v-model.trim="searchItem.appId" clearable @keydown.enter.native="onSubmit"></el-input>
                 </el-form-item>
                 <el-form-item label="bodyName" prop="bodyName">
-                    <el-input v-model.trim="searchItem.bodyName" clearable></el-input>
+                    <el-input v-model.trim="searchItem.bodyName" clearable @keydown.enter.native="onSubmit"></el-input>
                 </el-form-item>
                 <el-form-item label="resultName" prop="resultName">
-                    <el-input v-model.trim="searchItem.resultName" clearable></el-input>
+                    <el-input v-model.trim="searchItem.resultName" clearable @keydown.enter.native="onSubmit"></el-input>
                 </el-form-item>
                 <el-form-item label="日期" prop="pickerVal" class="date-form">
                     <el-date-picker
@@ -43,11 +42,11 @@
                         :default-value="new Date(new Date().setMonth(new Date().getMonth() - 1))">
                     </el-date-picker>
                 </el-form-item>
+                <el-form-item>
+                    <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
+                </el-form-item>
             </div>
             
-            <div class="form-btn">
-                <el-button size="mini" type="primary" @click="onSubmit" :loading="seaBtnLoading">查询</el-button>
-            </div>
             
         </el-form>
         <div class="table-box">

@@ -2,7 +2,6 @@
     <div class="table height-105">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/audiokeeper/list'}">服务管理</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
         <el-form :inline="true" ref="searchItem" :model="searchItem" class="demo-form-inline height70 width130" size="mini" style="padding-left:10px;">
@@ -16,7 +15,7 @@
             <div ref="myChart" :style="{width: '100%', height: '100%'}"></div>
         </div>
         <el-dialog :close-on-click-modal="false" :close-on-press-escape="false" title="迁移" :visible.sync="addVisible" width="40%" top="10vh" :before-close="addHandleClose" @open="openFun('addList')">
-            <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList">
+            <el-form :label-position="'right'" label-width="100px" size="small" :rules="addRules" :model="addList" ref="addList" @submit.native.prevent>
                 <el-form-item label="服务地址" prop="serverAddr">
                 <el-input type="text" v-model.trim="addList.serverAddr" auto-complete="off" placeholder="实例：localhost:8080"></el-input>
                 </el-form-item>
