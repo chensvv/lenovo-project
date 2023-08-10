@@ -3,7 +3,7 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             
-            <el-breadcrumb-item :to="{ path: '/skill/applist'}">应用列表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'skill', params:{page:this.spageData.page}}">应用列表</el-breadcrumb-item>
             <el-breadcrumb-item>{{this.$route.meta.title}}（{{skillDetail.appName}} - {{skillDetail.appType}}）</el-breadcrumb-item>
         </el-breadcrumb>
         
@@ -114,7 +114,7 @@
                     <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
                     <li v-if="currentPage == getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
                     <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
-                    <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+                    <li class="active" @click="turnToPage(currentPage)" v-text="currentPage" ref="page"></li>
                     <li v-if="currentPage != getpageNum(totalCount) && getpageNum(totalCount) !=0" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
                     <li v-if="currentPage+1 < 3 && currentPage != getpageNum(totalCount) && getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
                     <li><button :disabled="currentPage == getpageNum(totalCount) || getpageNum(totalCount) == 0? true: false" @click="turnToPage(getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
@@ -155,7 +155,6 @@ export default {
     data() {
         return {
             getpageNum:getpageNum,
-            appId:"",
             list: [],
             perList:[],
             skillDetail:[],
@@ -187,16 +186,22 @@ export default {
             addBtnLoading:false,
             editBtnLoading:false,
             listLoading:true,
-            isshow:true
+            isshow:true,
+            spageData:this.$route.params.spageData==undefined?undefined:(JSON.parse(this.$route.params.spageData) || JSON.parse(sessionStorage.getItem('spageData'))),
         };
     },
     created() {
-        this.appId = this.$route.params.appId
-      let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
-      perArr.map(t=>{
-          this.perList.push(Object.values(t).join())
-      })
-      this.getList();
+        this.getmitData()
+        let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
+        perArr.map(t=>{
+            this.perList.push(Object.values(t).join())
+        })
+        if(this.$route.params.page==undefined){
+            this.getList()
+        }else{
+            this.currentPage = this.$route.params.page
+            this.getList()
+        }
     },
     mounted(){
         if(this.perList.indexOf('skill:functionupdate') == -1 && this.perList.indexOf('skill:functiondelete') == -1 && this.perList.indexOf('skill:speaklist') == -1){
@@ -204,6 +209,14 @@ export default {
         }
     },
     methods: {
+        getmitData(){
+            if(Boolean(sessionStorage.getItem('spageData')) == false) {
+                    sessionStorage.setItem('spageData', this.$route.params.spageData)
+                }
+            if(this.spageData==undefined){
+                this.spageData= JSON.parse(sessionStorage.getItem('spageData'))
+            }
+        },
         onShowNameTipsMouseenter(e) {
             var target = e.target;
             let textLength = target.clientWidth;
@@ -334,7 +347,7 @@ export default {
         },
         addHandleConfirm(addList) {
             let addParams={
-                id:this.appId,
+                id:this.spageData.appId,
                 appName:this.addList.skillName
             }
             addParams.sign = deleteParams(addParams)
@@ -386,7 +399,7 @@ export default {
         getList() {
             this.listLoading = true
             let params = {
-                id:this.appId,
+                id:this.spageData.appId,
                 pgstr:this.currentPage,
                 pcstr:this.pageSize
             }
@@ -412,14 +425,24 @@ export default {
             })
         },
         handleInfo(index, row) {
+            let detailData = {
+                functionId:row.id,
+                appId:row.appId,
+                page:Number(this.$refs.page.innerHTML)
+            }
             this.$router.push({
                 name:'speak',
                 params:{
-                    functionId:row.id,
-                    appId:row.appId
+                    detailData:JSON.stringify(detailData)
                 }
             })
+        },
+    },
+    beforeRouteLeave(to, from, next){
+        if(to.name == 'skill' || to.name != 'speak'){
+            sessionStorage.removeItem('spageData')
         }
+        next()
     }
 };
 </script>

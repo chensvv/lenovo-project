@@ -1504,9 +1504,19 @@ html::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb, div::-webkit-scrol
 .mintextarea .el-textarea__inner{
   min-height: 44px;
 }
-.table-expand .el-form-item__label{
+.table-expand-form .el-form-item__label{
   padding-right: 5px;
 }
-.table-expand .el-form-item__label, .table-expand .el-form-item__content{
-  line-height: normal;
+.table-expand-form .el-form-item__label, .table-expand-form .el-form-item__content{
+  line-height: 30px;
+}
+.el-input__suffix .el-input__suffix-inner .el-icon-circle-close:before {
+  content: "\e79d" !important;
+  font-size: 18px;
+}
+.asrlogtable .el-table__expanded-cell{
+  padding: 0 10px !important;
+}
+.asrlogtable .el-table__expanded-cell .el-form-item{
+  margin-bottom: 0;
 }

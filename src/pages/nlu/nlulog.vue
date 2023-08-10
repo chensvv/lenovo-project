@@ -42,9 +42,9 @@
                     </el-form-item>
                 </el-popover>
                 <el-form-item label="parrot耗时" prop="parrotmin" class="parrotinput">
-                    <el-input v-model.trim="searchItem.parrotmin" clearable>
+                    <el-input v-model.trim="searchItem.parrotmin" clearable @input="minChange">
                     </el-input> - 
-                    <el-input v-model.trim="searchItem.parrotmax" clearable></el-input>
+                    <el-input v-model.trim="searchItem.parrotmax" clearable @input="maxChange"></el-input>
                 </el-form-item>
                 
                 <el-form-item label="日期" prop="pickerVal" class="nludate-form">
@@ -253,6 +253,26 @@ export default {
         }
     },
     methods:{
+        minChange(val) {
+            this.searchItem.parrotmin = this.searchItem.parrotmin.replace(/[^0-9]/g, '')
+            // let value = this.searchItem.parrotmin
+            // //先把⾮数字的都替换掉，除了数字和.
+            // value= value.replace(/[^\d\.]/g, '')
+            // //必须保证第⼀个为数字⽽不是.
+            // value= value.replace(/^\./g, '')
+            // //保证只有出现⼀个.⽽没有多个.
+            // value= value.replace(/\.{2,}/g, '.')
+            // //保证.只出现⼀次，⽽不能出现两次以上
+            // value = value
+            //     .replace('.', '$#$')
+            //     .replace(/\./g, '')
+            //     .replace('$#$', '.')
+
+            // this.searchItem.parrotmin = value
+        },
+        maxChange(val) {
+            this.searchItem.parrotmax = this.searchItem.parrotmax.replace(/[^0-9]/g, '')
+        },
         onShowNameTipsMouseenter(e) {
             var target = e.target;
             let textLength = target.clientWidth;
@@ -364,9 +384,11 @@ export default {
             nlulogDetail(dP).then(res=>{
                 if(res.data.code== 200){
                     this.infoList = res.data.data
-                    this.infoList.forEach(item=>{
-                        item[item.key] = row[item.key];
-                    })
+                    if(this.infoList != null){
+                        this.infoList.forEach(item=>{
+                            item[item.key] = row[item.key];
+                        })
+                    }
                 }else{
                     if(res.data.code != undefined){
                         this.$message({

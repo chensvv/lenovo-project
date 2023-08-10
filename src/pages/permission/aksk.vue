@@ -69,7 +69,7 @@
                     </el-tooltip>
                 </template>
                 <template slot-scope="scope">
-                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top" :class="scope.row.userDailyCloudasrCount == -99 ? 'fontSize30' : ''">
+                    <el-tooltip class="item" effect="dark" v-if="!showTitle" :content="scope.row.userDailyCloudttsCount" placement="top" :class="scope.row.userDailyCloudttsCount == -99 ? 'fontSize30' : ''">
                         <div class="toEllipsis" @mouseover="onShowNameTipsMouseenter">
                         {{ scope.row.userDailyCloudttsCount == -99 ? '∞' : scope.row.userDailyCloudttsCount}}
                         </div>

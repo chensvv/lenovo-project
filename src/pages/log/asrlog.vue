@@ -284,11 +284,14 @@ export default {
         }
     },
     handleInfo(index, row){
+      let pageData = {
+        ixid:row.ixidString,
+        page:Number(this.$refs.page.innerHTML)
+      }
       this.$router.push({
                 name:'asrlogdetail',
                 params:{
-                    ixid:row.ixidString,
-                    page:this.$refs.page.innerHTML
+                  logData:JSON.stringify(pageData)
                 }
             })
     },

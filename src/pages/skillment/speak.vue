@@ -3,8 +3,8 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             
-            <el-breadcrumb-item :to="{ path: '/skill/applist'}">应用列表</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ name: 'skilldetail',params:{functionId:this.functionId, appId:this.appId}}">应用详情</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'skill', params:{page:Number(spage)}}">应用列表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'skilldetail',params:{functionId:this.detailData.functionId, appId:this.detailData.appId,page:this.detailData.page,spageData:this.spageData}}">应用详情</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
     
@@ -15,9 +15,7 @@
         <div class="form-btn">
             <el-button size="mini" @click="release()" :loading="relBtnLoading" v-has="'skill:speakpublish'">发布</el-button>
             <el-button size="mini" @click="handleAdd()" v-has="'skill:speakadd'">添加</el-button>
-            <router-link :to="{ name: 'sersion',params:{functionId:this.functionId, appId:this.appId}}">
-                <el-button size="mini" v-has="'skill:versionlist'">答案列表</el-button>
-            </router-link>
+            <el-button size="mini" @click="handSersion()" v-has="'skill:versionlist'">答案列表</el-button>
         </div>
         
     </el-form>
@@ -139,8 +137,8 @@ export default {
       getpageNum:getpageNum,
       list: [],
       perList:[],
-      appId:"",
-      functionId:"",
+      spage:JSON.parse(sessionStorage.getItem('spageData')).page,
+      spageData:sessionStorage.getItem('spageData'),
       totalClass:'8',
       skillDetail:{
         appName:"",
@@ -174,12 +172,12 @@ export default {
       editBtnLoading:false,
       relBtnLoading:false,
       listLoading:true,
-      isshow:true
+      isshow:true,
+      detailData:this.$route.params.detailData==undefined?undefined:(JSON.parse(this.$route.params.detailData) || JSON.parse(sessionStorage.getItem('detailData'))),
     };
   },
   created() {
-    this.appId = this.$route.params.appId
-    this.functionId = this.$route.params.functionId
+    this.getmitData()
     let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
     perArr.map(t=>{
         this.perList.push(Object.values(t).join())
@@ -192,6 +190,14 @@ export default {
       }
   },
   methods: {
+    getmitData(){
+        if(Boolean(sessionStorage.getItem('detailData')) == false) {
+            sessionStorage.setItem('detailData', this.$route.params.detailData)
+        }
+        if(this.detailData==undefined){
+            this.detailData= JSON.parse(sessionStorage.getItem('detailData'))
+        }
+    },
     onShowNameTipsMouseenter(e) {
         var target = e.target;
         let textLength = target.clientWidth;
@@ -226,7 +232,7 @@ export default {
     },
     handleDel(index, row) {
       let delParams = {
-        functionId:this.functionId,
+        functionId:this.detailData.functionId,
         speakId:row.id
       }
       delParams.sign = deleteParams(delParams)
@@ -319,7 +325,7 @@ export default {
     },
     addHandleConfirm(addList) {
       let addParams = {
-        id:this.functionId,
+        id:this.detailData.functionId,
         speak:this.addList.speak
       }
       addParams.sign = deleteParams(addParams)
@@ -395,8 +401,8 @@ export default {
     getList() {
       this.listLoading = true
       let params = {
-        appId:this.appId,
-        functionId:this.functionId,
+        appId:this.detailData.appId,
+        functionId:this.detailData.functionId,
         pgstr:this.currentPage,
         pcstr:this.pageSize
       }
@@ -411,13 +417,32 @@ export default {
           this.listLoading = false
       });
       let lastParams = {
-          id:this.appId
+          id:this.detailData.appId
       }
       lastParams.sign = deleteParams(lastParams)
       skillInfo(lastParams).then(res => {
           this.skillDetail.appName = res.data.data.appName
       });
+    },
+    handSersion(){
+      let speakData = {
+        functionId:this.detailData.functionId, 
+        appId:this.detailData.appId
+      }
+      this.$router.push({
+          name:'sersion',
+          params:{
+              speakData:JSON.stringify(speakData)
+          }
+      })
     }
+  },
+  beforeRouteLeave(to, from, next){
+      if(to.name == 'skilldetail' || to.name != 'sersion' || to.name == "skill"){
+          sessionStorage.removeItem('detailData')
+          sessionStorage.removeItem('spageData')
+      }
+      next()
   }
 };
 </script>

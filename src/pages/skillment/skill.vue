@@ -106,7 +106,7 @@
                     <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
                     <li v-if="currentPage == getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
                     <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
-                    <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+                    <li class="active" @click="turnToPage(currentPage)" v-text="currentPage" ref="page"></li>
                     <li v-if="currentPage != getpageNum(totalCount) && getpageNum(totalCount) !=0" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
                     <li v-if="currentPage+1 < 3 && currentPage != getpageNum(totalCount) && getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
                     <li><button :disabled="currentPage == getpageNum(totalCount) || getpageNum(totalCount) == 0? true: false" @click="turnToPage(getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
@@ -196,7 +196,12 @@ export default {
         perArr.map(t=>{
             this.perList.push(Object.values(t).join())
         })
-        this.getList();
+        if(this.$route.params.page==undefined){
+            this.getList()
+        }else{
+            this.currentPage = this.$route.params.page
+            this.getList()
+        }
     },
     mounted(){
         if(this.perList.indexOf('skill:appupdate') == -1 && this.perList.indexOf('skill:appdelete') == -1 && this.perList.indexOf('skill:appdetail') == -1){
@@ -416,10 +421,14 @@ export default {
             })
         },
         handleInfo(index, row) {
+            let spageData = {
+                appId:row.id,
+                page:Number(this.$refs.page.innerHTML)
+            }
             this.$router.push({
                 name:'skilldetail',
                 params:{
-                    appId:row.id
+                    spageData:JSON.stringify(spageData)
                 }
             })
         }

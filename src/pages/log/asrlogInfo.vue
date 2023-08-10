@@ -3,7 +3,7 @@
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
       
-      <el-breadcrumb-item :to="{ name: 'asrloglist', params:{page:this.$route.params.page}}">识别明细报表</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ name: 'asrloglist', params:{page:this.asrlogData.page}}">识别明细报表</el-breadcrumb-item>
       <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     
@@ -17,14 +17,14 @@
           v-loading="listLoading"
           element-loading-text="拼命加载中"
           element-loading-spinner="el-icon-loading">
-            <el-table-column type="expand">
+            <el-table-column type="expand" class="table-expand">
                 <template slot-scope="props">
-                    <el-form label-position="left" :inline="true" class="table-expand">
+                    <el-form label-position="left" class="table-expand-form">
                         <el-form-item label="机器id:">
                             <span>{{ props.row.did }}</span>
                         </el-form-item>
                         <el-form-item label="数据长度:">
-                            <span>{{ props.row.data_len }}</span>
+                            <span>{{ props.row.dataLen }}</span>
                         </el-form-item>
                         <el-form-item label="应用code:">
                             <span>{{ props.row.app }}</span>
@@ -33,7 +33,7 @@
                             <span>{{ props.row.lenovokey }}</span>
                         </el-form-item>
                         <el-form-item label="secretkey:">
-                            <span>{{ props.row.lenovokey }}</span>
+                            <span>{{ props.row.secretkey }}</span>
                         </el-form-item>
                         <el-form-item label="错误信息:" v-if="props.row.status == 'failed'">
                             <span>{{ props.row.errorMessage }}</span>
@@ -170,10 +170,12 @@ export default {
       seaBtnLoading:false,
       listLoading:true,
       isLastPage:false,
-      tableHeight:0
+      tableHeight:0,
+      asrlogData:this.$route.params.logData==undefined?undefined:(JSON.parse(this.$route.params.logData) || JSON.parse(sessionStorage.getItem('logData')))
     };
   },
   created() {
+    this.getlogData()
     let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
     perArr.map(t=>{
       this.perList.push(Object.values(t).join())
@@ -186,6 +188,14 @@ export default {
     },0)
   },
   methods: {
+    getlogData(){
+      if(Boolean(sessionStorage.getItem('logData')) == false) {
+            sessionStorage.setItem('logData', this.$route.params.logData)
+          }
+      if(this.asrlogData==undefined){
+      this.asrlogData= JSON.parse(sessionStorage.getItem('logData'))
+      }
+    },
     onShowNameTipsMouseenter(e) {
         var target = e.target;
         let textLength = target.clientWidth;
@@ -265,7 +275,7 @@ export default {
     getList() {
       this.listLoading = true
       let params = {
-        ixidString:this.$route.params.ixid
+        ixidString:this.asrlogData.ixid
       }
       params.sign = deleteParams(params)
       this.list = []
@@ -289,6 +299,11 @@ export default {
         this.listLoading = false
       })
     }
+  },
+  beforeRouteLeave(to, from, next){
+    // console.log('leave')
+    sessionStorage.removeItem('logData')
+    next()
   }
 };
 </script>

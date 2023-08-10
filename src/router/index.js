@@ -255,22 +255,22 @@ const router = new Router({
           meta: {title: '三方APP调用',needLogin:true}
         },
         {
-          path: '/lasf-kv/skill/detail',
+          path: '/skill/detail',
           name:'skilldetail',
           component: () => import('@/pages/skillment/detail'),
           meta: {title: '应用详情',needLogin:true}
         },
         {
-          path: '/lasf-kv/skill/detail/speak',
+          path: '/skill/detail/speak',
           name:'speak',
           component: () => import('@/pages/skillment/speak'),
-          meta: {title: '技能说法列表',needLogin:true}
+          meta: {title: '说法列表',needLogin:true}
         },
         {
-          path: '/lasf-kv/skill/detail/sersion',
+          path: '/skill/detail/sersion',
           name:'sersion',
           component: () => import('@/pages/skillment/sersion'),
-          meta: {title: '技能答案列表',needLogin:true}
+          meta: {title: '答案列表',needLogin:true}
         },
         {
           path: '/skill/videolist',

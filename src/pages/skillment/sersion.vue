@@ -3,8 +3,8 @@
         <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/'}">首页</el-breadcrumb-item>
             
-            <el-breadcrumb-item :to="{ path: '/skill/applist'}">应用列表</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ name: 'skilldetail',params:{functionId:this.functionId, appId:this.appId}}">应用详情</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'skill', params:{page:Number(spage)}}">应用列表</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ name: 'skilldetail',params:{functionId:this.detailData.functionId, appId:this.detailData.appId,page:this.detailData.page,spageData:this.spageData}}">应用详情</el-breadcrumb-item>
             <el-breadcrumb-item >{{this.$route.meta.title}}</el-breadcrumb-item>
         </el-breadcrumb>
     
@@ -14,9 +14,7 @@
         </div>
         <div class="form-btn">
             <el-button size="mini" @click="handleAdd()" v-has="'skill:versionadd'">添加</el-button>
-            <router-link :to="{ name: 'speak',params:{functionId:this.functionId, appId:this.appId}}">
-                <el-button size="mini">说法列表</el-button>
-            </router-link>
+                <el-button size="mini" @click="handleSpeak()" v-has="'skill:speaklist'">说法列表</el-button>
         </div>
         
     </el-form>
@@ -88,7 +86,7 @@
                 <li><button :disabled="currentPage==1? true : false" @click="turnToPage(1)"><i class="el-icon-d-arrow-left"></i></button></li>
                 <li v-if="currentPage == getpageNum(totalCount) && currentPage !=1 && currentPage - 2 > 0" class="unum" @click="turnToPage(currentPage-2)" v-text="currentPage-2"></li>
                 <li v-if="currentPage-1>0"  class="unum" @click="turnToPage(currentPage-1)" v-text="currentPage-1"></li>
-                <li class="active" @click="turnToPage(currentPage)" v-text="currentPage"></li>
+                <li class="active" @click="turnToPage(currentPage)" v-text="currentPage" ref="page"></li>
                 <li v-if="currentPage != getpageNum(totalCount) && getpageNum(totalCount) !=0" class="unum" @click="turnToPage(currentPage+1)" v-text="currentPage+1"></li>
                 <li v-if="currentPage+1 < 3 && currentPage != getpageNum(totalCount) && getpageNum(totalCount) >=3" class="unum" @click="turnToPage(currentPage+2)" v-text="currentPage+2"></li>
                 <li><button :disabled="currentPage == getpageNum(totalCount) || getpageNum(totalCount) == 0? true: false" @click="turnToPage(getpageNum(totalCount))"><i class="el-icon-d-arrow-right"></i></button></li>
@@ -155,9 +153,10 @@ export default {
       getpageNum:getpageNum,
       list: [],
       perList:[],
-      appId:"",
-      functionId:"",
       totalClass:"8",
+      spage:JSON.parse(sessionStorage.getItem('spageData')).page,
+      spageData:sessionStorage.getItem('spageData'),
+      detailData:JSON.parse(sessionStorage.getItem('detailData')),
       skillDetail:{
         appName:"",
         functionName:""
@@ -198,12 +197,12 @@ export default {
       relBtnLoading:false,
       strBtnLoading:false,
       listLoading:true,
-      isshow:true
+      isshow:true,
+      speakData:this.$route.params.speakData==undefined?undefined:(JSON.parse(this.$route.params.speakData) || JSON.parse(sessionStorage.getItem('speakData'))),
     };
   },
   created() {
-      this.appId = this.$route.params.appId
-      this.functionId = this.$route.params.functionId
+      this.getmitData()
       let perArr = JSON.parse(sessionStorage.getItem('btnpermission'))
       perArr.map(t=>{
           this.perList.push(Object.values(t).join())
@@ -216,6 +215,14 @@ export default {
         }
     },
   methods: {
+    getmitData(){
+        if(Boolean(sessionStorage.getItem('speakData')) == false) {
+            sessionStorage.setItem('speakData', this.$route.params.speakData)
+        }
+        if(this.speakData==undefined){
+            this.speakData= JSON.parse(sessionStorage.getItem('speakData'))
+        }
+    },
     onShowNameTipsMouseenter(e) {
         var target = e.target;
         let textLength = target.clientWidth;
@@ -356,7 +363,7 @@ export default {
       let addParams = {
         versionAnswer:this.addList.answer,
         versionIllustration:this.addList.version,
-        functionId:this.functionId
+        functionId:this.speakData.functionId
       }
       addParams.sign = deleteParams(addParams)
       this.$refs[addList].validate((valid) => {
@@ -445,8 +452,8 @@ export default {
     getList() {
       this.listLoading = true
       let params = {
-        functionId:this.functionId,
-        appId:this.appId,
+        functionId:this.speakData.functionId,
+        appId:this.speakData.appId,
         pgstr:this.currentPage,
         pcstr:this.pageSize
       }
@@ -461,13 +468,28 @@ export default {
           this.listLoading = false
       });
       let lastParams = {
-          id:this.appId
+          id:this.speakData.appId
       }
       lastParams.sign = deleteParams(lastParams)
       skillInfo(lastParams).then(res => {
           this.skillDetail.appName = res.data.data.appName
       });
+    },
+    handleSpeak(){
+      this.$router.push({
+          name:'speak',
+          params:{
+              detailData:JSON.stringify(this.detailData)
+          }
+      })
     }
+  },
+  beforeRouteLeave(to, from, next){
+      if(to.name == 'skilldetail' || to.name != 'speak' || to.name == "skill"){
+          sessionStorage.removeItem('detailData')
+          sessionStorage.removeItem('spageData')
+      }
+      next()
   }
 };
 </script>
